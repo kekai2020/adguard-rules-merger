@@ -1,0 +1,65 @@
+# AdGuard Home 规则订阅源配置文件
+# 每行一个 URL，以 # 开头的行为注释
+# 格式支持: AdGuard, Hosts, 域名列表
+
+# ========== AdGuard 官方规则 ==========
+# AdGuard DNS filter - 主要广告拦截规则
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+
+# AdAway Default Blocklist
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
+
+# 1Hosts (Lite) - 轻量级拦截
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_24.txt
+
+# OISD Blocklist Small
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_5.txt
+
+# ========== 中文规则 ==========
+# CHN: AdRules DNS List - 中文广告规则
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_29.txt
+
+# CHN: anti-AD - 中文反广告规则
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_21.txt
+
+# GitHub520 - GitHub 加速
+https://raw.hellogithub.com/hosts
+
+# 乘风广告过滤规则
+https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt
+
+# 乘风视频广告过滤规则
+https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/mv.txt
+
+# ========== 安全规则 ==========
+# Phishing URL Blocklist (PhishTank and OpenPhish)
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt
+
+# Malicious URL Blocklist (URLHaus)
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt
+
+# HaGeZi's Threat Intelligence Feeds
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt
+
+# NoCoin Filter List - 加密货币挖矿拦截
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_8.txt
+
+# Phishing Army
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt
+
+# Scam Blocklist by DurableNapkin
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_10.txt
+
+# ShadowWhisperer's Malware List
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt
+
+# Stalkerware Indicators List
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_31.txt
+
+# HaGeZi's Ultimate Blocklist
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_49.txt
+
+# ========== 白名单规则 (可选) ==========
+# 如需白名单，请在下方添加
+# https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt
+# https://raw.githubusercontent.com/Goooler/1024_hosts/refs/heads/master/whitelist
