@@ -2,8 +2,8 @@ name: Update AdGuard Rules
 
 on:
   schedule:
-    # 每小时运行一次
-    - cron: '0 * * * *'
+    # 每6小时运行一次（避免过于频繁）
+    - cron: '0 */6 * * *'
   workflow_dispatch:
   push:
     paths:
@@ -13,15 +13,20 @@ on:
 jobs:
   update-rules:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # 设置超时时间
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 1  # 只获取最新提交，加速检出
       
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+        cache: 'pip'  # 启用pip缓存
         
     - name: Install dependencies
       run: |
@@ -29,18 +34,41 @@ jobs:
         pip install requests
         
     - name: Run merger
+      timeout-minutes: 25  # 合并操作超时
       run: python merger.py
       
+    - name: Check output
+      id: check_output
+      run: |
+        if [ -f "output/merged_rules.txt" ]; then
+          echo "has_output=true" >> $GITHUB_OUTPUT
+          echo "line_count=$(wc -l < output/merged_rules.txt)" >> $GITHUB_OUTPUT
+        else
+          echo "has_output=false" >> $GITHUB_OUTPUT
+        fi
+      
     - name: Commit and push changes
+      if: steps.check_output.outputs.has_output == 'true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add output/
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update rules: $(date +'%Y-%m-%d %H:%M:%S')" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update rules: $(date +'%Y-%m-%d %H:%M:%S') [$(echo ${{ steps.check_output.outputs.line_count }} | tr -d ' ') lines]" && git push)
       
     - name: Upload artifacts
+      if: steps.check_output.outputs.has_output == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: merged-rules
         path: output/
         retention-days: 7
+        
+    - name: Report status
+      if: always()
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "✅ 规则更新成功"
+          echo "📊 输出行数: ${{ steps.check_output.outputs.line_count }}"
+        else
+          echo "❌ 规则更新失败"
+        fi
