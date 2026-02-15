@@ -1,0 +1,44 @@
+2026-02-15 12:06:23,325 - INFO - 正在读取本地文件: /tmp/tmp1yuy_e_0.txt
+2026-02-15 12:06:23,325 - INFO - 成功读取: /tmp/tmp1yuy_e_0.txt (21 字符)
+2026-02-15 12:06:23,326 - INFO - 正在读取本地文件: /tmp/tmpsb44efk3.txt
+2026-02-15 12:06:23,326 - INFO - 成功读取: /tmp/tmpsb44efk3.txt (21 字符)
+2026-02-15 12:06:23,327 - INFO - 正在读取本地文件: /tmp/tmp7j92pc1o.txt
+2026-02-15 12:06:23,327 - INFO - 成功读取: /tmp/tmp7j92pc1o.txt (22 字符)
+2026-02-15 12:06:23,328 - INFO - 从 /tmp/tmp_ophtyb3.txt 加载了 2 个订阅源
+2026-02-15 12:06:23,328 - ERROR - 订阅源文件不存在: /nonexistent/file.txt
+2026-02-15 12:06:23,329 - INFO - 正在读取本地文件: /tmp/tmplexe1ngs.txt
+2026-02-15 12:06:23,329 - INFO - 成功读取: /tmp/tmplexe1ngs.txt (35 字符)
+2026-02-15 12:06:23,329 - INFO - 规则文件已生成: /tmp/tmpw0rv_91s/merged_rules.txt
+2026-02-15 12:07:05,648 - INFO - 正在读取本地文件: /tmp/tmp_hvfjxca.txt
+2026-02-15 12:07:05,648 - INFO - 成功读取: /tmp/tmp_hvfjxca.txt (21 字符)
+2026-02-15 12:07:05,649 - INFO - 正在读取本地文件: /tmp/tmplqgcya70.txt
+2026-02-15 12:07:05,649 - INFO - 成功读取: /tmp/tmplqgcya70.txt (21 字符)
+2026-02-15 12:07:05,649 - INFO - 正在读取本地文件: /tmp/tmp3iusrk_j.txt
+2026-02-15 12:07:05,650 - INFO - 成功读取: /tmp/tmp3iusrk_j.txt (22 字符)
+2026-02-15 12:07:05,651 - INFO - 从 /tmp/tmphf5df1he.txt 加载了 2 个订阅源
+2026-02-15 12:07:05,651 - ERROR - 订阅源文件不存在: /nonexistent/file.txt
+2026-02-15 12:07:05,652 - INFO - 正在读取本地文件: /tmp/tmp7ydrzg8t.txt
+2026-02-15 12:07:05,652 - INFO - 成功读取: /tmp/tmp7ydrzg8t.txt (35 字符)
+2026-02-15 12:07:05,652 - INFO - 规则文件已生成: /tmp/tmpjdysovx3/merged_rules.txt
+2026-02-15 12:08:32,724 - INFO - 正在读取本地文件: /tmp/tmp0yhd9ek1.txt
+2026-02-15 12:08:32,724 - INFO - 成功读取: /tmp/tmp0yhd9ek1.txt (21 字符)
+2026-02-15 12:08:32,725 - INFO - 正在读取本地文件: /tmp/tmp1qyc4k34.txt
+2026-02-15 12:08:32,725 - INFO - 成功读取: /tmp/tmp1qyc4k34.txt (21 字符)
+2026-02-15 12:08:32,726 - INFO - 正在读取本地文件: /tmp/tmp0zrveys2.txt
+2026-02-15 12:08:32,726 - INFO - 成功读取: /tmp/tmp0zrveys2.txt (22 字符)
+2026-02-15 12:08:32,727 - INFO - 从 /tmp/tmpg7kepqis.txt 加载了 2 个订阅源
+2026-02-15 12:08:32,727 - ERROR - 订阅源文件不存在: /nonexistent/file.txt
+2026-02-15 12:08:32,728 - INFO - 正在读取本地文件: /tmp/tmpnigst6g1.txt
+2026-02-15 12:08:32,728 - INFO - 成功读取: /tmp/tmpnigst6g1.txt (35 字符)
+2026-02-15 12:08:32,728 - INFO - 规则文件已生成: /tmp/tmpg3og32sm/merged_rules.txt
+2026-02-15 12:09:20,559 - INFO - 正在读取本地文件: /tmp/tmp31vyfkkv.txt
+2026-02-15 12:09:20,560 - INFO - 成功读取: /tmp/tmp31vyfkkv.txt (21 字符)
+2026-02-15 12:09:20,560 - INFO - 正在读取本地文件: /tmp/tmpmrtpfjr2.txt
+2026-02-15 12:09:20,560 - INFO - 成功读取: /tmp/tmpmrtpfjr2.txt (21 字符)
+2026-02-15 12:09:20,561 - INFO - 正在读取本地文件: /tmp/tmpxdqfd4m9.txt
+2026-02-15 12:09:20,561 - INFO - 成功读取: /tmp/tmpxdqfd4m9.txt (22 字符)
+2026-02-15 12:09:20,561 - INFO - 从 /tmp/tmpu6hjroo5.txt 加载了 2 个订阅源
+2026-02-15 12:09:20,562 - ERROR - 订阅源文件不存在: /nonexistent/file.txt
+2026-02-15 12:09:20,562 - INFO - 正在读取本地文件: /tmp/tmp7qxb4it7.txt
+2026-02-15 12:09:20,562 - INFO - 成功读取: /tmp/tmp7qxb4it7.txt (35 字符)
+2026-02-15 12:09:20,563 - INFO - 规则文件已生成: /tmp/tmpi7x9duze/merged_rules.txt

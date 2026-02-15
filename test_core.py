@@ -1,232 +1,231 @@
 #!/usr/bin/env python3
 """
-核心功能单元测试脚本
-测试 merger.py 的核心功能
+AdGuard Rules Merger - 核心功能单元测试
 """
 
-import sys
 import os
-
-# 添加项目目录到路径
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from merger import RuleType, RuleCategory, Rule, RuleNormalizer, RuleMerger
-
-
-def test_normalization():
-    """测试规则标准化"""
-    print("\n📋 测试: 规则标准化")
-    
-    test_cases = [
-        ("example.com", "example.com", RuleType.DOMAIN),
-        ("||example.com^", "example.com", RuleType.WILDCARD),
-        ("|example.com|", "example.com", RuleType.WILDCARD),
-        ("*.example.com", "example.com", RuleType.WILDCARD),
-        ("# 注释", "# 注释", RuleType.COMMENT),
-        ("! 注释", "! 注释", RuleType.COMMENT),
-        ("", "", RuleType.EMPTY),
-        ("   ", "", RuleType.EMPTY),
-        ("0.0.0.0 example.com", "example.com", RuleType.HOSTS),
-        ("/regex pattern/", "/regex pattern/", RuleType.REGEX),
-        ("example.com$important", "example.com$important", RuleType.WILDCARD),
-    ]
-    
-    passed = 0
-    failed = 0
-    
-    for input_rule, expected_norm, expected_type in test_cases:
-        result_norm, result_type = RuleNormalizer.normalize(input_rule)
-        if result_norm == expected_norm and result_type == expected_type:
-            passed += 1
-        else:
-            print(f"   ❌ '{input_rule[:30]}'")
-            print(f"      期望: '{expected_norm}' ({expected_type.value})")
-            print(f"      实际: '{result_norm}' ({result_type.value})")
-            failed += 1
-    
-    print(f"   结果: {passed} 通过, {failed} 失败")
-    return failed == 0
+import sys
+import tempfile
+import unittest
+from merger import RuleNormalizer, RuleMerger, RuleType, RuleCategory, load_sources
 
 
-def test_whitelist_detection():
-    """测试白名单检测"""
-    print("\n📋 测试: 白名单检测")
-    
-    test_cases = [
-        ("@@example.com", True),
-        ("example.com", False),
-        ("@@||example.com^", True),
-        ("||example.com^", False),
-        ("  @@example.com  ", True),
-    ]
-    
-    passed = 0
-    failed = 0
-    
-    for rule_text, expected in test_cases:
-        result = RuleNormalizer.is_whitelist(rule_text)
-        if result == expected:
-            passed += 1
-        else:
-            print(f"   ❌ '{rule_text.strip()}'")
-            failed += 1
-    
-    print(f"   结果: {passed} 通过, {failed} 失败")
-    return failed == 0
+class TestRuleNormalizer(unittest.TestCase):
+    """测试规则标准化器"""
+
+    def test_normalize_empty(self):
+        """测试空行处理"""
+        result, rule_type = RuleNormalizer.normalize("")
+        self.assertEqual(result, "")
+        self.assertEqual(rule_type, RuleType.EMPTY)
+
+    def test_normalize_comment(self):
+        """测试注释行处理"""
+        test_cases = [
+            "# This is a comment",
+            "! AdGuard comment",
+        ]
+        for case in test_cases:
+            result, rule_type = RuleNormalizer.normalize(case)
+            self.assertEqual(rule_type, RuleType.COMMENT, f"Failed for: {case}")
+
+    def test_normalize_domain(self):
+        """测试普通域名处理"""
+        test_cases = [
+            ("example.com", "example.com"),
+            ("sub.example.com", "sub.example.com"),
+            ("EXAMPLE.COM", "example.com"),
+        ]
+        for input_val, expected in test_cases:
+            result, rule_type = RuleNormalizer.normalize(input_val)
+            self.assertEqual(rule_type, RuleType.DOMAIN)
+            self.assertEqual(result, expected)
+
+    def test_normalize_wildcard(self):
+        """测试通配符规则处理"""
+        test_cases = [
+            ("||example.com^", "example.com"),
+            ("||sub.example.com^", "sub.example.com"),
+            ("*.example.com", "example.com"),
+        ]
+        for input_val, expected in test_cases:
+            result, rule_type = RuleNormalizer.normalize(input_val)
+            self.assertEqual(rule_type, RuleType.WILDCARD)
+            self.assertEqual(result, expected)
+
+    def test_normalize_adguard_modifier(self):
+        """测试AdGuard修饰符规则"""
+        result, rule_type = RuleNormalizer.normalize("||example.com$important")
+        self.assertEqual(rule_type, RuleType.WILDCARD)
+        self.assertEqual(result, "example.com$important")
+
+    def test_normalize_hosts(self):
+        """测试Hosts格式"""
+        result, rule_type = RuleNormalizer.normalize("127.0.0.1 example.com")
+        self.assertEqual(rule_type, RuleType.HOSTS)
+        self.assertEqual(result, "example.com")
+
+    def test_normalize_regex(self):
+        """测试正则表达式规则"""
+        result, rule_type = RuleNormalizer.normalize("/ads?\\d+\\.example\\.com/")
+        self.assertEqual(rule_type, RuleType.REGEX)
+
+    def test_is_whitelist(self):
+        """测试白名单检测"""
+        self.assertTrue(RuleNormalizer.is_whitelist("@@example.com"))
+        self.assertTrue(RuleNormalizer.is_whitelist("@@||example.com$important"))
+        self.assertFalse(RuleNormalizer.is_whitelist("example.com"))
+
+    def test_detect_category(self):
+        """测试分类检测"""
+        self.assertEqual(
+            RuleNormalizer.detect_category("test", "https://phishing.com/list.txt"),
+            RuleCategory.PHISHING
+        )
+        self.assertEqual(
+            RuleNormalizer.detect_category("test", "https://malware.com/list.txt"),
+            RuleCategory.MALWARE
+        )
+        self.assertEqual(
+            RuleNormalizer.detect_category("ad-banner.example.com", ""),
+            RuleCategory.ADS
+        )
+        self.assertEqual(
+            RuleNormalizer.detect_category("tracker.example.com", ""),
+            RuleCategory.PRIVACY
+        )
 
 
-def test_category_detection():
-    """测试分类检测"""
-    print("\n📋 测试: 分类检测")
-    
-    test_cases = [
-        ("ad.example.com", "", RuleCategory.ADS),
-        ("tracker.example.com", "", RuleCategory.PRIVACY),
-        ("malware.example.com", "", RuleCategory.MALWARE),
-        ("phishing.example.com", "", RuleCategory.PHISHING),
-        ("example.com", "https://phishing.com/list.txt", RuleCategory.PHISHING),
-        ("example.com", "", RuleCategory.GENERAL),
-    ]
-    
-    passed = 0
-    failed = 0
-    
-    for rule_text, source_url, expected in test_cases:
-        result = RuleNormalizer.detect_category(rule_text, source_url)
-        if result == expected:
-            passed += 1
-        else:
-            print(f"   ❌ '{rule_text}' -> {result.value} (期望: {expected.value})")
-            failed += 1
-    
-    print(f"   结果: {passed} 通过, {failed} 失败")
-    return failed == 0
+class TestRuleMerger(unittest.TestCase):
+    """测试规则合并器"""
+
+    def setUp(self):
+        """测试前准备"""
+        self.merger = RuleMerger(timeout=10)
+
+    def test_add_rule(self):
+        """测试添加规则"""
+        from merger import Rule
+        
+        rule = Rule(
+            raw="example.com",
+            normalized="example.com",
+            rule_type=RuleType.DOMAIN,
+            source="test.txt",
+            is_whitelist=False
+        )
+        
+        self.assertTrue(self.merger.add_rule(rule))
+        self.assertFalse(self.merger.add_rule(rule))  # 重复添加
+
+    def test_is_duplicate(self):
+        """测试重复检测"""
+        from merger import Rule
+        
+        rule1 = Rule(
+            raw="example.com",
+            normalized="example.com",
+            rule_type=RuleType.DOMAIN,
+            source="test1.txt",
+            is_whitelist=False
+        )
+        
+        rule2 = Rule(
+            raw="*.example.com",
+            normalized="*.example.com",
+            rule_type=RuleType.WILDCARD,
+            source="test2.txt",
+            is_whitelist=False
+        )
+        
+        self.merger.add_rule(rule1)
+        self.assertTrue(self.merger.is_duplicate_fast(rule2))
+
+    def test_merge_files(self):
+        """测试合并多个文件"""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+            f.write("example.com\ntest.com\n")
+            temp_path1 = f.name
+
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+            f.write("example.com\nother.com\n")
+            temp_path2 = f.name
+
+        try:
+            stats = self.merger.merge_files([temp_path1, temp_path2])
+            
+            self.assertEqual(stats['total_files'], 2)
+            self.assertEqual(stats['successful_files'], 2)
+        finally:
+            os.unlink(temp_path1)
+            os.unlink(temp_path2)
 
 
-def test_duplicate_detection():
-    """测试去重检测"""
-    print("\n📋 测试: 去重检测")
-    
-    merger = RuleMerger(timeout=10)
-    merger.rules = {}
-    merger.duplicates = []
-    
-    rule1 = Rule(
-        raw="||example.com^",
-        normalized="example.com",
-        rule_type=RuleType.WILDCARD,
-        category=RuleCategory.ADS,
-        source="test1.txt",
-        line_num=1,
-        is_whitelist=False
-    )
-    
-    rule2 = Rule(
-        raw="*.example.com",
-        normalized="example.com",
-        rule_type=RuleType.WILDCARD,
-        category=RuleCategory.ADS,
-        source="test2.txt",
-        line_num=2,
-        is_whitelist=False
-    )
-    
-    # 测试添加规则
-    result1 = merger.add_rule(rule1)
-    result2 = merger.add_rule(rule2)
-    
-    passed = 0
-    if result1 == True:
-        passed += 1
-    else:
-        print("   ❌ 第一条规则应该被添加")
-    
-    if result2 == False:
-        passed += 1
-    else:
-        print("   ❌ 第二条规则应该被检测为重复")
-    
-    if len(merger.duplicates) == 1:
-        passed += 1
-    else:
-        print(f"   ❌ 应该有 1 个重复，实际有 {len(merger.duplicates)}")
-    
-    print(f"   结果: {passed}/3 通过")
-    return passed == 3
+class TestLoadSources(unittest.TestCase):
+    """测试加载订阅源列表"""
+
+    def test_load_sources(self):
+        """测试从文件加载订阅源"""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+            f.write("# Comment\n")
+            f.write("https://example1.com/list.txt\n")
+            f.write("\n")
+            f.write("https://example2.com/list.txt\n")
+            temp_path = f.name
+
+        try:
+            sources = load_sources(temp_path)
+            self.assertEqual(len(sources), 2)
+            self.assertIn("https://example1.com/list.txt", sources)
+            self.assertIn("https://example2.com/list.txt", sources)
+        finally:
+            os.unlink(temp_path)
+
+    def test_load_sources_not_exist(self):
+        """测试文件不存在的情况"""
+        sources = load_sources("/nonexistent/file.txt")
+        self.assertEqual(sources, [])
 
 
-def test_conflict_detection():
-    """测试冲突检测"""
-    print("\n📋 测试: 冲突检测")
-    
-    merger = RuleMerger(timeout=10)
-    merger.rules = {}
-    merger.conflicts = []
-    
-    blacklist_rule = Rule(
-        raw="||example.com^",
-        normalized="example.com",
-        rule_type=RuleType.WILDCARD,
-        category=RuleCategory.ADS,
-        source="blacklist.txt",
-        line_num=1,
-        is_whitelist=False
-    )
-    
-    whitelist_rule = Rule(
-        raw="@@sub.example.com",
-        normalized="sub.example.com",
-        rule_type=RuleType.DOMAIN,
-        category=RuleCategory.ADS,
-        source="whitelist.txt",
-        line_num=1,
-        is_whitelist=True
-    )
-    
-    # 测试 is_conflict
-    is_conflict = merger.is_conflict(blacklist_rule, whitelist_rule)
-    
-    passed = 0
-    if is_conflict == True:
-        passed += 1
-        print("   ✅ 正确检测到冲突")
-    else:
-        print("   ❌ 应该检测到冲突")
-    
-    print(f"   结果: {passed}/1 通过")
-    return passed == 1
+class TestIntegration(unittest.TestCase):
+    """集成测试"""
+
+    def test_full_workflow(self):
+        """测试完整工作流程"""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+            f.write("# Source 1\n")
+            f.write("example.com\n")
+            f.write("||test.com^\n")
+            temp_path = f.name
+
+        with tempfile.TemporaryDirectory() as output_dir:
+            merger = RuleMerger(timeout=10)
+            
+            stats = merger.merge_files([temp_path])
+            
+            self.assertEqual(stats['total_rules'], 2)
+            
+            rules_file = merger.generate_output(output_dir)
+            self.assertTrue(os.path.exists(rules_file))
+
+        os.unlink(temp_path)
 
 
-def main():
+def run_tests():
     """运行所有测试"""
-    print("=" * 60)
-    print("核心功能单元测试")
-    print("=" * 60)
+    loader = unittest.TestLoader()
+    suite = unittest.TestSuite()
     
-    results = []
+    suite.addTests(loader.loadTestsFromTestCase(TestRuleNormalizer))
+    suite.addTests(loader.loadTestsFromTestCase(TestRuleMerger))
+    suite.addTests(loader.loadTestsFromTestCase(TestLoadSources))
+    suite.addTests(loader.loadTestsFromTestCase(TestIntegration))
     
-    results.append(("规则标准化", test_normalization()))
-    results.append(("白名单检测", test_whitelist_detection()))
-    results.append(("分类检测", test_category_detection()))
-    results.append(("去重检测", test_duplicate_detection()))
-    results.append(("冲突检测", test_conflict_detection()))
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(suite)
     
-    print("\n" + "=" * 60)
-    print("测试总结")
-    print("=" * 60)
-    
-    passed = sum(1 for _, r in results if r)
-    total = len(results)
-    
-    for name, result in results:
-        status = "✅ 通过" if result else "❌ 失败"
-        print(f"   {status}: {name}")
-    
-    print(f"\n总计: {passed}/{total} 测试通过")
-    
-    return passed == total
+    return 0 if result.wasSuccessful() else 1
 
 
 if __name__ == "__main__":
-    success = main()
-    sys.exit(0 if success else 1)
+    sys.exit(run_tests())
