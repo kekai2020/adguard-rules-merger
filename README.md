@@ -220,4 +220,3 @@ adguard-rules-merger/
 <p align="center">
   Made with ❤️ by <a href="https://github.com/kekai2020">kekai2020</a>
 </p>
-
