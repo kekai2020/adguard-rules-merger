@@ -35,7 +35,7 @@ jobs:
         
     - name: Run merger
       timeout-minutes: 25  # 合并操作超时
-      run: python merger.py
+      run: python merger.py -s sources.txt -o output --timeout ${{ env.TIMEOUT }} --workers 8 --verbose
       
     - name: Check output
       id: check_output
