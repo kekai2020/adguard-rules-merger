@@ -1,204 +1,46 @@
 name: Update AdGuard Rules
 
-
 on:
-  # 每小时自动运行
   schedule:
+    # 每小时运行一次
     - cron: '0 * * * *'
-  
-  # 手动触发
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: false
-        default: 'info'
-        type: choice
-        options:
-          - info
-          - debug
-          - warning
-      timeout:
-        description: 'Request timeout (seconds)'
-        required: false
-        default: '30'
-        type: string
-
-  # 推送时触发 (用于测试)
   push:
-    branches:
-      - main
     paths:
       - 'sources.txt'
       - 'merger.py'
-      - '.github/workflows/update-rules.yml'
-
-env:
-  PYTHON_VERSION: '3.11'
-  TIMEOUT: ${{ github.event.inputs.timeout || '30' }}
 
 jobs:
   update-rules:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      actions: read
     
     steps:
-      # 检出代码
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      # 设置 Python 环境
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
-
-      # 安装依赖
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-
-      # 运行合并脚本
-      - name: Run merger script
-        id: merger
-        run: |
-          python merger.py --timeout ${{ env.TIMEOUT }} --verbose
-        continue-on-error: true
-
-      # 检查是否有更新
-      - name: Check for changes
-        id: check_changes
-        run: |
-          if [ -n "$(git status --porcelain output/)" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in output/"
-          else
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No changes detected"
-          fi
-
-      # 配置 Git
-      - name: Configure Git
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
-      # 提交更改
-      - name: Commit changes
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: |
-          git add output/
-          git add merger.log || true
-          git commit -m "🔄 Auto-update rules - $(date +'%Y-%m-%d %H:%M:%S')"
-
-      # 推送更改
-      - name: Push changes
-        if: steps.check_changes.outputs.has_changes == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-
-      # 创建 Release (每天一次)
-      - name: Create Release
-        if: github.event.schedule == '0 0 * * *' && steps.check_changes.outputs.has_changes == 'true'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ github.run_number }}
-          release_name: Rules Update ${{ github.run_number }}
-          body: |
-            ## 自动生成的规则更新
-            
-            - **更新时间**: ${{ github.event.head_commit.timestamp }}
-            - **工作流运行**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            
-            ### 使用方式
-            
-            在 AdGuard Home 中添加以下 URL:
-            ```
-            https://github.com/${{ github.repository }}/releases/download/v${{ github.run_number }}/merged_rules.txt
-            ```
-            
-            或者直接使用 raw 链接:
-            ```
-            https://raw.githubusercontent.com/${{ github.repository }}/main/output/merged_rules.txt
-            ```
-          draft: false
-          prerelease: false
-
-      # 上传产物
-      - name: Upload artifacts
-        if: steps.check_changes.outputs.has_changes == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: merged-rules
-          path: |
-            output/merged_rules.txt
-            output/merge_report.md
-          retention-days: 30
-
-      # 发送通知 (Slack)
-      - name: Notify Slack
-        if: failure() && env.SLACK_WEBHOOK_URL != ''
-        uses: 8398a7/action-slack@v3
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,author,action,eventName,ref,workflow
-          text: 'AdGuard Rules Update Failed!'
-
-      # 发送通知 (邮件)
-      - name: Send Email Notification
-        if: failure() && env.EMAIL_PASSWORD != ''
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: 'AdGuard Rules Update Failed'
-          to: ${{ secrets.EMAIL_TO }}
-          from: ${{ secrets.EMAIL_FROM }}
-          body: |
-            The AdGuard Rules update workflow has failed.
-            
-            Repository: ${{ github.repository }}
-            Workflow: ${{ github.workflow }}
-            Run ID: ${{ github.run_id }}
-            
-            Please check the logs for more details.
-
-  # 更新 README 徽章
-  update-badges:
-    needs: update-rules
-    runs-on: ubuntu-latest
-    if: always()
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Update last updated badge
-        run: |
-          LAST_UPDATE=$(date +'%Y-%m-%d %H:%M:%S UTC')
-          sed -i "s/Last Updated: .*/Last Updated: $LAST_UPDATE/" README.md || true
-
-      - name: Commit badge update
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add README.md
-          git diff --cached --quiet || git commit -m "📝 Update last updated badge"
-          git push || true
-
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+        
+    - name: Run merger
+      run: python merger.py
+      
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add output/
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update rules: $(date +'%Y-%m-%d %H:%M:%S')" && git push)
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: merged-rules
+        path: output/
+        retention-days: 7
