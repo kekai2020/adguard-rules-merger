@@ -1,0 +1,115 @@
+# GitHub Actions Workflow for Daily Release
+# Creates a daily release with merged rules
+
+name: Daily Release
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Create output directory
+      run: mkdir -p output
+
+    - name: Generate merged rules
+      run: |
+        python3 << 'EOF'
+        from merger import RuleEngine
+        from config_loader import load_sources_config
+        from datetime import datetime
+        
+        engine = RuleEngine(timeout=60)
+        
+        try:
+            sources = load_sources_config('config/sources.yaml')
+        except:
+            sources = [
+                'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt',
+                'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt'
+            ]
+        
+        print(f"Merging {len(sources)} sources...")
+        rules = engine.merge(sources)
+        
+        output_file = 'output/merged_rules.txt'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(f"! Merged AdGuard Filter Rules\n")
+            f.write(f"! Generated: {datetime.utcnow().isoformat()}Z\n")
+            f.write(f"! Sources: {len(sources)}\n")
+            f.write(f"! Total rules: {len(rules)}\n\n")
+            
+            for rule in rules:
+                f.write(f"{rule}\n")
+        
+        print(f"Written {len(rules)} rules to {output_file}")
+        
+        # Write stats
+        block = sum(1 for r in rules if r.type == 'block')
+        allow = sum(1 for r in rules if r.type == 'allow')
+        
+        with open('output/stats.txt', 'w') as f:
+            f.write(f"Total: {len(rules)}\nBlock: {block}\nAllow: {allow}\n")
+        EOF
+      timeout-minutes: 10
+
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ steps.date.outputs.date }}
+        name: Filter Rules ${{ steps.date.outputs.date }}
+        body: |
+          ## Daily Filter Rules Update
+          
+          **Date:** ${{ steps.date.outputs.date }}
+          **Workflow Run:** ${{ github.run_id }}
+          
+          ### Files
+          - `merged_rules.txt` - Merged filter rules
+          
+          ### Usage
+          Add this URL to your AdGuard Home:
+          ```
+          https://github.com/${{ github.repository }}/releases/download/v${{ steps.date.outputs.date }}/merged_rules.txt
+          ```
+        files: |
+          output/merged_rules.txt
+          output/stats.txt
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update latest tag
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        # Create or update the 'latest' tag
+        git tag -fa latest -m "Latest release ${{ steps.date.outputs.date }}"
+        git push origin latest --force
