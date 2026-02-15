@@ -1,0 +1,234 @@
+# GitHub Actions Workflow for Automatic Rule Merging
+# This workflow runs hourly to merge filter rules and commits the results
+
+name: Merge Rules
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: 'Custom sources to merge (comma-separated URLs)'
+        required: false
+        default: ''
+      output_file:
+        description: 'Output file name'
+        required: false
+        default: 'merged_rules.txt'
+
+  # Trigger on push to main that affects sources or core code
+  push:
+    branches: [ main ]
+    paths:
+      - 'config/sources.yaml'
+      - 'merger/core.py'
+      - 'merger/parser.py'
+      - 'merger/models.py'
+      - '.github/workflows/merge.yml'
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Create output directory
+      run: mkdir -p output
+
+    - name: Merge filter rules
+      id: merge
+      run: |
+        python3 << 'EOF'
+        import sys
+        import os
+        from merger import RuleEngine
+        from config_loader import load_sources_config
+        from datetime import datetime
+        
+        # Initialize engine
+        engine = RuleEngine(timeout=60, max_workers=10)
+        
+        # Load sources from config or use custom sources
+        custom_sources = '${{ github.event.inputs.sources }}'
+        
+        if custom_sources:
+            sources = [s.strip() for s in custom_sources.split(',') if s.strip()]
+            print(f"Using custom sources: {len(sources)}")
+        else:
+            try:
+                sources = load_sources_config('config/sources.yaml')
+                print(f"Loaded {len(sources)} sources from config")
+            except Exception as e:
+                print(f"Failed to load config: {e}")
+                # Fallback to default sources
+                sources = [
+                    'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt',
+                    'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt'
+                ]
+                print(f"Using fallback sources: {len(sources)}")
+        
+        if not sources:
+            print("No sources configured!")
+            sys.exit(1)
+        
+        print(f"Starting merge of {len(sources)} sources...")
+        
+        # Merge rules
+        try:
+            rules = engine.merge(sources)
+            print(f"Successfully merged {len(rules)} rules")
+        except Exception as e:
+            print(f"Merge failed: {e}")
+            sys.exit(1)
+        
+        # Write merged rules
+        output_file = '${{ github.event.inputs.output_file }}' or 'output/merged_rules.txt'
+        if not output_file.startswith('output/'):
+            output_file = f'output/{output_file}'
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            # Write header
+            f.write(f"! Merged AdGuard Filter Rules\n")
+            f.write(f"! Generated: {datetime.utcnow().isoformat()}Z\n")
+            f.write(f"! Sources: {len(sources)}\n")
+            f.write(f"! Total rules: {len(rules)}\n")
+            f.write("!\n")
+            
+            # Write rules
+            for rule in rules:
+                f.write(f"{rule}\n")
+        
+        print(f"Output written to: {output_file}")
+        
+        # Generate stats
+        block_count = sum(1 for r in rules if r.type == 'block')
+        allow_count = sum(1 for r in rules if r.type == 'allow')
+        comment_count = sum(1 for r in rules if r.type == 'comment')
+        
+        # Set outputs for later steps
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"total_rules={len(rules)}\n")
+            f.write(f"block_rules={block_count}\n")
+            f.write(f"allow_rules={allow_count}\n")
+            f.write(f"comment_rules={comment_count}\n")
+            f.write(f"output_file={output_file}\n")
+        
+        print("✅ Merge completed successfully!")
+        EOF
+      timeout-minutes: 10
+
+    - name: Generate statistics report
+      run: |
+        python3 << 'EOF'
+        from datetime import datetime
+        import os
+        
+        stats_file = 'output/statistics.md'
+        
+        with open(stats_file, 'w') as f:
+            f.write("# AdGuard Rules Merger Statistics\n\n")
+            f.write(f"**Last Updated:** {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n\n")
+            f.write("## Merge Results\n\n")
+            f.write(f"- **Total Rules:** ${{ steps.merge.outputs.total_rules }}\n")
+            f.write(f"- **Block Rules:** ${{ steps.merge.outputs.block_rules }}\n")
+            f.write(f"- **Allow Rules:** ${{ steps.merge.outputs.allow_rules }}\n")
+            f.write(f"- **Comments:** ${{ steps.merge.outputs.comment_rules }}\n\n")
+            f.write("## Sources\n\n")
+            f.write("See [config/sources.yaml](config/sources.yaml) for the full list of sources.\n")
+        
+        print(f"Statistics written to: {stats_file}")
+        EOF
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        git add output/
+        
+        # Check if there are changes to commit
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        
+        git commit -m "chore: update merged rules [$(date -u +%Y-%m-%d_%H:%M:%S)]
+        
+        - Total rules: ${{ steps.merge.outputs.total_rules }}
+        - Block rules: ${{ steps.merge.outputs.block_rules }}
+        - Allow rules: ${{ steps.merge.outputs.allow_rules }}
+        - Comment rules: ${{ steps.merge.outputs.comment_rules }}
+        
+        Auto-generated by GitHub Actions"
+        
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: merged-rules
+        path: output/
+        retention-days: 30
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: merge
+    if: github.event.schedule == '0 0 * * *'  # Only on daily schedule
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: merged-rules
+        path: output/
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: rules-${{ github.run_id }}
+        name: Filter Rules Update ${{ github.run_id }}
+        body: |
+          Automated filter rules update
+          
+          Generated: ${{ github.event.head_commit.timestamp }}
+          
+          ## Files
+          - `merged_rules.txt` - Merged and deduplicated filter rules
+          - `statistics.md` - Merge statistics
+        files: |
+          output/merged_rules.txt
+          output/statistics.md
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
