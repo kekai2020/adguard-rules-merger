@@ -1,0 +1,38 @@
+# AdGuard Filter Sources Configuration
+# This file contains the list of filter sources to merge
+
+sources:
+  # AdGuard Base Filter
+  - name: "AdGuard Base"
+    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt"
+    enabled: true
+    
+  # AdGuard Tracking Protection
+  - name: "AdGuard Tracking Protection"
+    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt"
+    enabled: true
+    
+  # AdGuard Social Media
+  - name: "AdGuard Social Media"
+    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_4_Social/filter.txt"
+    enabled: true
+    
+  # AdGuard Annoyances
+  - name: "AdGuard Annoyances"
+    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt"
+    enabled: true
+    
+  # AdGuard DNS Filter
+  - name: "AdGuard DNS"
+    url: "https://v.firebog.net/hosts/AdguardDNS.txt"
+    enabled: true
+
+# Test sources (smaller files for testing)
+test_sources:
+  - name: "Test Source 1"
+    url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts"
+    enabled: true
+    
+  - name: "Test Source 2"
+    url: "https://someonewhocares.org/hosts/zero/hosts"
+    enabled: true

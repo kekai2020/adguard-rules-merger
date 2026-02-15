@@ -1,0 +1,6 @@
+||ads1.com^
+||ads2.com^
+||*.tracker.com^
+@@||whitelist.com^
+! This is a comment line
+||malware.com^
