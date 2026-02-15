@@ -9,17 +9,13 @@ AdGuard Home 规则合并去重工具
 import re
 import os
 import sys
-import json
-import hashlib
 import logging
 import requests
-from urllib.parse import urlparse
 from datetime import datetime
 from collections import defaultdict
-from typing import Set, Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass, field
 from enum import Enum
-import fnmatch
 
 # 配置日志
 logging.basicConfig(
@@ -239,8 +235,22 @@ class RuleMerger:
     def fetch_source(self, url: str) -> Tuple[str, bool]:
         """
         获取规则源内容
+        支持 HTTP/HTTPS URL 和本地文件路径 (file://)
         返回: (内容, 是否成功)
         """
+        # 支持本地文件
+        if url.startswith('file://'):
+            local_path = url[7:]
+            try:
+                logger.info(f"正在读取本地文件: {local_path}")
+                with open(local_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                logger.info(f"成功读取: {local_path} ({len(content)} 字符)")
+                return content, True
+            except Exception as e:
+                logger.error(f"读取本地文件失败: {local_path} - {str(e)}")
+                return "", False
+
         try:
             logger.info(f"正在获取: {url}")
             response = self.session.get(url, timeout=self.timeout, allow_redirects=True)
@@ -420,10 +430,10 @@ class RuleMerger:
 
         return stats
 
-    def generate_output(self, output_dir: str = "output") -> Tuple[str, str]:
+    def generate_output(self, output_dir: str = "output") -> str:
         """
         生成合并后的规则文件
-        返回: (规则文件路径, 报告文件路径)
+        返回: 规则文件路径
         """
         os.makedirs(output_dir, exist_ok=True)
 
@@ -435,7 +445,7 @@ class RuleMerger:
             f.write("! AdGuard Home 合并规则\n")
             f.write(f"! 生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write(f"! 规则总数: {len(self.rules)}\n")
-            f.write(f"! 工具版本: 1.0.0\n")
+            f.write("! 工具版本: 1.0.0\n")
             f.write("! ==========================================\n\n")
 
             # 按分类分组写入
