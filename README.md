@@ -1,8 +1,8 @@
 # AdGuard Rules Merger
 
-[![Tests](https://github.com/yourusername/adguard-rules-merger/actions/workflows/test.yml/badge.svg)](https://github.com/yourusername/adguard-rules-merger/actions/workflows/test.yml)
-[![Merge Rules](https://github.com/yourusername/adguard-rules-merger/actions/workflows/merge.yml/badge.svg)](https://github.com/yourusername/adguard-rules-merger/actions/workflows/merge.yml)
-[![Daily Release](https://github.com/yourusername/adguard-rules-merger/actions/workflows/release.yml/badge.svg)](https://github.com/yourusername/adguard-rules-merger/releases)
+[![Tests](https://github.com/kekai2020/adguard-rules-merger/actions/workflows/test.yml/badge.svg)](https://github.com/kekai2020/adguard-rules-merger/actions/workflows/test.yml)
+[![Merge Rules](https://github.com/kekai2020/adguard-rules-merger/actions/workflows/merge.yml/badge.svg)](https://github.com/kekai2020/adguard-rules-merger/actions/workflows/merge.yml)
+[![Daily Release](https://github.com/kekai2020/adguard-rules-merger/actions/workflows/release.yml/badge.svg)](https://github.com/kekai2020/adguard-rules-merger/releases)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -27,7 +27,7 @@ A powerful Python tool for merging, deduplicating, and managing AdGuard filter r
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/adguard-rules-merger.git
+git clone https://github.com/kekai2020/adguard-rules-merger.git
 cd adguard-rules-merger
 
 # Install dependencies
