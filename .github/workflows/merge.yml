@@ -19,6 +19,10 @@ on:
         description: 'Output file name'
         required: false
         default: 'merged_rules.txt'
+      detect_conflicts:
+        description: 'Detect block/allow conflicts'
+        required: false
+        default: 'true'
 
   # Trigger on push to main that affects sources or core code
   push:
@@ -66,11 +70,11 @@ jobs:
         python3 << 'EOF'
         import sys
         import os
-        from merger import RuleEngine
+        from merger import RuleEngine, MergeReporter
         from config_loader import load_sources_config
         from datetime import datetime
         
-        # Initialize engine
+        # Initialize engine with optimized settings
         engine = RuleEngine(timeout=60, max_workers=10)
         
         # Load sources from config or use custom sources
@@ -98,10 +102,18 @@ jobs:
         
         print(f"Starting merge of {len(sources)} sources...")
         
-        # Merge rules
+        # Merge rules with stats and optional conflict detection
+        detect_conflicts = '${{ github.event.inputs.detect_conflicts }}'.lower() == 'true'
         try:
-            rules = engine.merge(sources)
+            result = engine.merge(sources, return_stats=True, detect_conflicts=detect_conflicts, concurrent_parse=True)
+            rules = result['rules']
+            stats = result['stats']
             print(f"Successfully merged {len(rules)} rules")
+            print(f"Deduplication rate: {stats['dedup_rate']:.1f}%")
+            print(f"Processing time: {stats['elapsed_time']:.2f}s")
+            
+            if detect_conflicts and 'conflict_count' in stats:
+                print(f"Conflicts detected: {stats['conflict_count']}")
         except Exception as e:
             print(f"Merge failed: {e}")
             sys.exit(1)
@@ -115,8 +127,9 @@ jobs:
             # Write header
             f.write(f"! Merged AdGuard Filter Rules\n")
             f.write(f"! Generated: {datetime.utcnow().isoformat()}Z\n")
-            f.write(f"! Sources: {len(sources)}\n")
+            f.write(f"! Sources: {stats['sources_processed']}/{stats['sources_total']}\n")
             f.write(f"! Total rules: {len(rules)}\n")
+            f.write(f"! Deduplication rate: {stats['dedup_rate']:.1f}%\n")
             f.write("!\n")
             
             # Write rules
@@ -125,18 +138,23 @@ jobs:
         
         print(f"Output written to: {output_file}")
         
-        # Generate stats
-        block_count = sum(1 for r in rules if r.type == 'block')
-        allow_count = sum(1 for r in rules if r.type == 'allow')
-        comment_count = sum(1 for r in rules if r.type == 'comment')
+        # Generate detailed report using MergeReporter
+        reporter = MergeReporter(rules, stats)
+        report_file = 'output/detailed_report.md'
+        reporter.save_report(report_file, format='markdown')
+        print(f"Detailed report saved to: {report_file}")
         
         # Set outputs for later steps
         with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"total_rules={len(rules)}\n")
-            f.write(f"block_rules={block_count}\n")
-            f.write(f"allow_rules={allow_count}\n")
-            f.write(f"comment_rules={comment_count}\n")
+            f.write(f"block_rules={stats['block_count']}\n")
+            f.write(f"allow_rules={stats['allow_count']}\n")
+            f.write(f"comment_rules={stats['comment_count']}\n")
+            f.write(f"dedup_rate={stats['dedup_rate']:.1f}\n")
+            f.write(f"elapsed_time={stats['elapsed_time']:.2f}\n")
             f.write(f"output_file={output_file}\n")
+            if 'conflict_count' in stats:
+                f.write(f"conflict_count={stats['conflict_count']}\n")
         
         print("✅ Merge completed successfully!")
         EOF
@@ -157,9 +175,16 @@ jobs:
             f.write(f"- **Total Rules:** ${{ steps.merge.outputs.total_rules }}\n")
             f.write(f"- **Block Rules:** ${{ steps.merge.outputs.block_rules }}\n")
             f.write(f"- **Allow Rules:** ${{ steps.merge.outputs.allow_rules }}\n")
-            f.write(f"- **Comments:** ${{ steps.merge.outputs.comment_rules }}\n\n")
-            f.write("## Sources\n\n")
+            f.write(f"- **Comments:** ${{ steps.merge.outputs.comment_rules }}\n")
+            f.write(f"- **Deduplication Rate:** ${{ steps.merge.outputs.dedup_rate }}%\n")
+            f.write(f"- **Processing Time:** ${{ steps.merge.outputs.elapsed_time }}s\n")
+            conflict_count = os.environ.get('GITHUB_OUTPUT', '')
+            if 'conflict_count' in conflict_count:
+                f.write(f"- **Conflicts Detected:** ${{ steps.merge.outputs.conflict_count }}\n")
+            f.write("\n## Sources\n\n")
             f.write("See [config/sources.yaml](config/sources.yaml) for the full list of sources.\n")
+            f.write("\n## Detailed Report\n\n")
+            f.write("See [detailed_report.md](detailed_report.md) for full statistics.\n")
         
         print(f"Statistics written to: {stats_file}")
         EOF
@@ -183,6 +208,8 @@ jobs:
         - Block rules: ${{ steps.merge.outputs.block_rules }}
         - Allow rules: ${{ steps.merge.outputs.allow_rules }}
         - Comment rules: ${{ steps.merge.outputs.comment_rules }}
+        - Deduplication rate: ${{ steps.merge.outputs.dedup_rate }}%
+        - Processing time: ${{ steps.merge.outputs.elapsed_time }}s
         
         Auto-generated by GitHub Actions"
         
@@ -222,12 +249,19 @@ jobs:
           
           Generated: ${{ github.event.head_commit.timestamp }}
           
+          ## Statistics
+          - Total Rules: ${{ needs.merge.outputs.total_rules }}
+          - Deduplication Rate: ${{ needs.merge.outputs.dedup_rate }}%
+          - Processing Time: ${{ needs.merge.outputs.elapsed_time }}s
+          
           ## Files
           - `merged_rules.txt` - Merged and deduplicated filter rules
           - `statistics.md` - Merge statistics
+          - `detailed_report.md` - Detailed report with source distribution
         files: |
           output/merged_rules.txt
           output/statistics.md
+          output/detailed_report.md
         draft: false
         prerelease: false
       env:
