@@ -61,6 +61,36 @@ jobs:
       run: |
         python test_concurrent.py
 
+    - name: Test new features
+      run: |
+        python3 -c "
+        from merger import RuleEngine, Rule, MergeReporter
+        
+        # Test new API with return_stats
+        engine = RuleEngine()
+        result = engine.merge([], return_stats=True)
+        assert 'rules' in result
+        assert 'stats' in result
+        print('✅ New merge API with return_stats works')
+        
+        # Test conflict detection
+        conflict_rules = [
+            Rule('||ads.com^', 'ads.com', 'block', False, 's1'),
+            Rule('@@||ads.com^', 'ads.com', 'allow', False, 's2'),
+        ]
+        conflicts = engine.detect_conflicts(conflict_rules)
+        assert len(conflicts) == 1
+        print('✅ Conflict detection works')
+        
+        # Test MergeReporter
+        reporter = MergeReporter(conflict_rules)
+        md_report = reporter.generate_markdown_report()
+        assert len(md_report) > 0
+        print('✅ MergeReporter works')
+        
+        print('\\n🎉 All new feature tests passed!')
+        "
+
     - name: Generate coverage report
       run: |
         pytest tests/ --cov=merger --cov-report=xml --cov-report=term
@@ -92,26 +122,61 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Test real source fetching
+    - name: Test real source fetching with new API
       run: |
         python3 -c "
         from merger import RuleEngine
         
-        # Test with a small real source
+        # Test with a small real source using new API
         engine = RuleEngine(timeout=30)
         sources = [
             'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt'
         ]
         
-        print('Fetching real filter source...')
-        rules = engine.merge(sources)
+        print('Fetching real filter source with new API...')
+        result = engine.merge(sources, return_stats=True, concurrent_parse=True)
+        rules = result['rules']
+        stats = result['stats']
+        
         print(f'Successfully fetched and merged {len(rules)} rules')
+        print(f'Deduplication rate: {stats[\"dedup_rate\"]:.1f}%')
+        print(f'Processing time: {stats[\"elapsed_time\"]:.2f}s')
         
         # Verify we got some rules
         assert len(rules) > 0, 'Should have fetched some rules'
-        print('✅ Integration test passed!')
+        print('✅ Integration test with new API passed!')
         "
       timeout-minutes: 5
+
+    - name: Test extended parser formats
+      run: |
+        python3 -c "
+        from merger import RuleParser
+        
+        parser = RuleParser()
+        
+        # Test AdGuard format
+        r1 = parser.parse_line('||ads.com^', 'test')
+        assert r1 and r1.type == 'block'
+        print('✅ AdGuard format parsing works')
+        
+        # Test Hosts format
+        r2 = parser.parse_line('0.0.0.0 tracker.com', 'test')
+        assert r2 and r2.type == 'block' and r2.domain == 'tracker.com'
+        print('✅ Hosts format parsing works')
+        
+        # Test plain domain format
+        r3 = parser.parse_line('example.com', 'test')
+        assert r3 and r3.type == 'block' and r3.domain == 'example.com'
+        print('✅ Plain domain format parsing works')
+        
+        # Test HTML filter skipping
+        r4 = parser.parse_line('##.ad-banner', 'test')
+        assert r4 is None
+        print('✅ HTML filter rules are correctly skipped')
+        
+        print('\\n🎉 All extended parser tests passed!')
+        "
 
     - name: Test merge script
       run: |
