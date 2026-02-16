@@ -54,6 +54,10 @@ sources:
   - name: "HaGeZi's Threat Intelligence Feeds"
     url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt"
     enabled: true
+    
+  - name: "HaGeZi's Ultimate Blocklist"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_49.txt"
+    enabled: true
   
   # 钓鱼军团列表
   - name: "Phishing Army"
