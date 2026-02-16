@@ -34,43 +34,76 @@ jobs:
       run: mkdir -p output
 
     - name: Generate merged rules
+      id: generate
       run: |
         python3 << 'EOF'
-        from merger import RuleEngine
+        from merger import RuleEngine, MergeReporter
         from config_loader import load_sources_config
         from datetime import datetime
+        import os
         
-        engine = RuleEngine(timeout=60)
+        engine = RuleEngine(timeout=60, max_workers=10)
         
         try:
             sources = load_sources_config('config/sources.yaml')
-        except:
+            print(f"Loaded {len(sources)} sources from config")
+        except Exception as e:
+            print(f"Failed to load config: {e}")
             sources = [
                 'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt',
                 'https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt'
             ]
+            print(f"Using fallback sources: {len(sources)}")
         
         print(f"Merging {len(sources)} sources...")
-        rules = engine.merge(sources)
+        
+        # Use new API with stats and conflict detection
+        result = engine.merge(sources, return_stats=True, detect_conflicts=True, concurrent_parse=True)
+        rules = result['rules']
+        stats = result['stats']
+        
+        print(f"Merged {stats['total_before']} -> {len(rules)} rules")
+        print(f"Deduplication rate: {stats['dedup_rate']:.1f}%")
+        print(f"Processing time: {stats['elapsed_time']:.2f}s")
+        print(f"Conflicts detected: {stats.get('conflict_count', 0)}")
         
         output_file = 'output/merged_rules.txt'
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(f"! Merged AdGuard Filter Rules\n")
             f.write(f"! Generated: {datetime.utcnow().isoformat()}Z\n")
-            f.write(f"! Sources: {len(sources)}\n")
-            f.write(f"! Total rules: {len(rules)}\n\n")
+            f.write(f"! Sources: {stats['sources_processed']}/{stats['sources_total']}\n")
+            f.write(f"! Total rules: {len(rules)}\n")
+            f.write(f"! Deduplication rate: {stats['dedup_rate']:.1f}%\n")
+            f.write(f"! Processing time: {stats['elapsed_time']:.2f}s\n")
+            if stats.get('conflict_count', 0) > 0:
+                f.write(f"! Conflicts detected: {stats['conflict_count']}\n")
+            f.write("\n")
             
             for rule in rules:
                 f.write(f"{rule}\n")
         
         print(f"Written {len(rules)} rules to {output_file}")
         
-        # Write stats
-        block = sum(1 for r in rules if r.type == 'block')
-        allow = sum(1 for r in rules if r.type == 'allow')
+        # Generate detailed report
+        reporter = MergeReporter(rules, stats)
+        reporter.save_report('output/detailed_report.md', format='markdown')
+        print("Generated detailed_report.md")
         
+        # Generate text stats
         with open('output/stats.txt', 'w') as f:
-            f.write(f"Total: {len(rules)}\nBlock: {block}\nAllow: {allow}\n")
+            f.write(f"Total: {len(rules)}\n")
+            f.write(f"Block: {stats['block_count']}\n")
+            f.write(f"Allow: {stats['allow_count']}\n")
+            f.write(f"Comment: {stats['comment_count']}\n")
+            f.write(f"Deduplication: {stats['dedup_rate']:.1f}%\n")
+            f.write(f"Time: {stats['elapsed_time']:.2f}s\n")
+        
+        # Set outputs
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"total_rules={len(rules)}\n")
+            f.write(f"dedup_rate={stats['dedup_rate']:.1f}\n")
+            f.write(f"elapsed_time={stats['elapsed_time']:.2f}\n")
+            f.write(f"conflict_count={stats.get('conflict_count', 0)}\n")
         EOF
       timeout-minutes: 10
 
@@ -89,8 +122,20 @@ jobs:
           **Date:** ${{ steps.date.outputs.date }}
           **Workflow Run:** ${{ github.run_id }}
           
+          ### Statistics
+          - **Total Rules:** ${{ steps.generate.outputs.total_rules }}
+          - **Deduplication Rate:** ${{ steps.generate.outputs.dedup_rate }}%
+          - **Processing Time:** ${{ steps.generate.outputs.elapsed_time }}s
+          - **Conflicts Detected:** ${{ steps.generate.outputs.conflict_count }}
+          
+          ### What's New
+          - Optimized deduplication using Trie tree algorithm
+          - Automatic conflict detection between block/allow rules
+          - Support for multiple input formats (AdGuard, Hosts, plain domains)
+          
           ### Files
           - `merged_rules.txt` - Merged filter rules
+          - `detailed_report.md` - Detailed statistics report
           
           ### Usage
           Add this URL to your AdGuard Home:
@@ -99,6 +144,7 @@ jobs:
           ```
         files: |
           output/merged_rules.txt
+          output/detailed_report.md
           output/stats.txt
         draft: false
         prerelease: false
