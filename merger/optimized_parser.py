@@ -8,39 +8,44 @@ from .models import Rule
 
 class OptimizedRuleParser:
     """High-performance parser for AdGuard filter rules."""
-    
+
     # Pre-compiled regex patterns for performance
     BLOCK_PATTERN: Pattern = re.compile(r'^\|\|([^/^\s]+)\^')
     ALLOW_PATTERN: Pattern = re.compile(r'^@@\|\|([^/^\s]+)\^')
     COMMENT_PATTERN: Pattern = re.compile(r'^!')
     WILDCARD_PATTERN: Pattern = re.compile(r'^\*\.')
-    
+
     def __init__(self):
         """Initialize the parser."""
         pass
-    
+
     def parse_line(self, line: str, source: str = "unknown") -> Optional[Rule]:
         """
         Parse a single line from an AdGuard filter list.
-        
+
         Args:
             line: Raw line from the filter list
             source: Identifier for the source of this rule
-            
+
         Returns:
             Rule object if the line is a valid rule, None otherwise
         """
-        if not line or not line.strip():
+        # Fast path: skip empty lines
+        if not line:
             return None
-        
+
         original_line = line.strip()
-        
-        # Skip empty lines
         if not original_line:
             return None
-        
+
+        # Cache pattern methods for faster lookup
+        comment_match = self.COMMENT_PATTERN.match
+        allow_match = self.ALLOW_PATTERN.match
+        block_match = self.BLOCK_PATTERN.match
+        wildcard_match = self.WILDCARD_PATTERN.match
+
         # Check for comments
-        if self.COMMENT_PATTERN.match(original_line):
+        if comment_match(original_line):
             return Rule(
                 raw=original_line,
                 domain="",
@@ -48,93 +53,84 @@ class OptimizedRuleParser:
                 wildcard=False,
                 source=source
             )
-        
+
         # Check for allow rules (whitelist)
-        allow_match = self.ALLOW_PATTERN.match(original_line)
-        if allow_match:
-            domain = allow_match.group(1)
+        allow_m = allow_match(original_line)
+        if allow_m:
+            domain = allow_m.group(1)
             return Rule(
                 raw=original_line,
                 domain=domain,
                 type="allow",
-                wildcard=self.WILDCARD_PATTERN.match(domain) is not None,
+                wildcard=wildcard_match(domain) is not None,
                 source=source
             )
-        
+
         # Check for block rules (blacklist)
-        block_match = self.BLOCK_PATTERN.match(original_line)
-        if block_match:
-            domain = block_match.group(1)
+        block_m = block_match(original_line)
+        if block_m:
+            domain = block_m.group(1)
             return Rule(
                 raw=original_line,
                 domain=domain,
                 type="block",
-                wildcard=self.WILDCARD_PATTERN.match(domain) is not None,
+                wildcard=wildcard_match(domain) is not None,
                 source=source
             )
-        
+
         # Line doesn't match any known pattern, treat as invalid/unsupported
         return None
-    
-    def parse_lines(self, lines: list[str], source: str = "unknown") -> list[Rule]:
+
+    def parse_lines(self, lines: List[str], source: str = "unknown") -> List[Rule]:
         """
         Parse multiple lines from an AdGuard filter list.
-        
+
+        Uses list comprehension for better performance.
+
         Args:
             lines: List of raw lines from the filter list
             source: Identifier for the source of these rules
-            
+
+        Returns:
+            List of valid Rule objects
+        """
+        # Use list comprehension with walrus operator for better performance
+        return [rule for line in lines if (rule := self.parse_line(line, source)) is not None]
+
+    def parse_lines_optimized(self, lines: List[str], source: str = "unknown") -> List[Rule]:
+        """
+        Optimized version for very large datasets using batch processing.
+
+        Args:
+            lines: List of raw lines from the filter list
+            source: Identifier for the source of these rules
+
         Returns:
             List of valid Rule objects
         """
         if not lines:
             return []
-        
-        # Pre-allocate list for better performance
-        rules = []
-        rules_append = rules.append  # Local reference for faster access
-        
-        # Process lines in batches for better memory efficiency
-        for line in lines:
-            rule = self.parse_line(line, source)
-            if rule is not None:
-                rules_append(rule)
-        
-        return rules
-    
-    def parse_lines_optimized(self, lines: list[str], source: str = "unknown") -> list[Rule]:
-        """
-        Optimized version for very large datasets.
-        
-        Args:
-            lines: List of raw lines from the filter list
-            source: Identifier for the source of these rules
-            
-        Returns:
-            List of valid Rule objects
-        """
-        if not lines:
-            return []
-        
-        rules = []
+
+        rules: List[Rule] = []
         rules_append = rules.append
-        
+
         # Local references for faster access
-        comment_pattern = self.COMMENT_PATTERN
-        allow_pattern = self.ALLOW_PATTERN
-        block_pattern = self.BLOCK_PATTERN
-        wildcard_pattern = self.WILDCARD_PATTERN
-        
+        comment_match = self.COMMENT_PATTERN.match
+        allow_match = self.ALLOW_PATTERN.match
+        block_match = self.BLOCK_PATTERN.match
+        wildcard_match = self.WILDCARD_PATTERN.match
+
         for line in lines:
-            if not line or not line.strip():
+            # Fast path: skip empty lines
+            if not line:
                 continue
-            
+
             original_line = line.strip()
             if not original_line:
                 continue
-            
-            # Check for comments
-            if comment_pattern.match(original_line):
+
+            # Check for comments first (most common in filter lists)
+            if comment_match(original_line):
                 rules_append(Rule(
                     raw=original_line,
                     domain="",
@@ -143,45 +139,49 @@ class OptimizedRuleParser:
                     source=source
                 ))
                 continue
-            
+
             # Check for allow rules (whitelist)
-            allow_match = allow_pattern.match(original_line)
-            if allow_match:
-                domain = allow_match.group(1)
+            allow_m = allow_match(original_line)
+            if allow_m:
+                domain = allow_m.group(1)
                 rules_append(Rule(
                     raw=original_line,
                     domain=domain,
                     type="allow",
-                    wildcard=wildcard_pattern.match(domain) is not None,
+                    wildcard=wildcard_match(domain) is not None,
                     source=source
                 ))
                 continue
-            
+
             # Check for block rules (blacklist)
-            block_match = block_pattern.match(original_line)
-            if block_match:
-                domain = block_match.group(1)
+            block_m = block_match(original_line)
+            if block_m:
+                domain = block_m.group(1)
                 rules_append(Rule(
                     raw=original_line,
                     domain=domain,
                     type="block",
-                    wildcard=wildcard_pattern.match(domain) is not None,
+                    wildcard=wildcard_match(domain) is not None,
                     source=source
                 ))
                 continue
-        
+
         return rules
-    
-    def parse_text(self, text: str, source: str = "unknown") -> list[Rule]:
+
+    def parse_text(self, text: str, source: str = "unknown") -> List[Rule]:
         """
         Parse text content from an AdGuard filter list.
-        
+
+        Uses splitlines() which is faster than split('\n') and handles
+        different line endings.
+
         Args:
             text: Full text content of the filter list
             source: Identifier for the source of these rules
-            
+
         Returns:
             List of valid Rule objects
         """
-        lines = text.split('\n')
+        # splitlines() is faster and handles \r\n, \r, \n
+        lines = text.splitlines()
         return self.parse_lines_optimized(lines, source)
