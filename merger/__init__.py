@@ -3,6 +3,7 @@
 from .core import RuleEngine
 from .models import Rule
 from .parser import RuleParser
+from .reporter import MergeReporter
 
 __version__ = "0.1.0"
-__all__ = ["RuleEngine", "Rule", "RuleParser"]
+__all__ = ["RuleEngine", "Rule", "RuleParser", "MergeReporter"]

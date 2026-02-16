@@ -1,11 +1,11 @@
 """Data models for AdGuard rules."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 import re
 
 
-@dataclass
+@dataclass(slots=True)
 class Rule:
     """Represents a single AdGuard filter rule."""
     
@@ -14,19 +14,21 @@ class Rule:
     type: str  # Type: 'block', 'allow', 'comment'
     wildcard: bool  # Whether rule contains wildcards
     source: str  # Source identifier
+    _normalized_domain: str = field(init=False, repr=False, compare=False)
     
     def __post_init__(self):
         """Validate and normalize the rule after creation."""
-        # Normalize domain by removing wildcard prefix for comparison
-        if self.domain.startswith('*.'):
-            self._normalized_domain = self.domain[2:]
+        # Normalize domain by removing wildcard prefix and converting to lowercase
+        normalized = self.domain.lower()
+        if normalized.startswith('*.'):
+            object.__setattr__(self, '_normalized_domain', normalized[2:])
         else:
-            self._normalized_domain = self.domain
+            object.__setattr__(self, '_normalized_domain', normalized)
     
     @property
     def normalized_domain(self) -> str:
         """Get normalized domain for comparison (without wildcard prefix)."""
-        return getattr(self, '_normalized_domain', self.domain)
+        return self._normalized_domain
     
     def is_equivalent_to(self, other: 'Rule') -> bool:
         """

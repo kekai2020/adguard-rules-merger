@@ -3,15 +3,13 @@
 
 import time
 from merger.parser import RuleParser
-from merger.optimized_parser import OptimizedRuleParser
 
 
 def test_parsing_performance():
-    """Test parsing performance with different scales and parsers."""
+    """Test parsing performance with different scales and methods."""
     parser = RuleParser()
-    optimized_parser = OptimizedRuleParser()
     
-    # Test multiple scales with both parsers
+    # Test multiple scales with both methods
     test_scales = [1000, 10000, 50000]  # Reduced max scale for reasonable testing
     all_passed = True
     
@@ -30,26 +28,26 @@ def test_parsing_performance():
         
         print(f"\nTesting parsing performance with {len(test_lines)} lines...")
         
-        # Test original parser
+        # Test standard method (list comprehension)
         start_time = time.time()
         rules = parser.parse_lines(test_lines, "performance_test")
         end_time = time.time()
         
         parsing_time = end_time - start_time
         rate = len(test_lines) / parsing_time
-        print(f"Original parser: {len(rules)} rules in {parsing_time:.3f}s ({rate:.0f} lines/sec)")
+        print(f"Standard method: {len(rules)} rules in {parsing_time:.3f}s ({rate:.0f} lines/sec)")
         
-        # Test optimized parser
+        # Test optimized method (batch processing)
         start_time = time.time()
-        optimized_rules = optimized_parser.parse_lines_optimized(test_lines, "performance_test")
+        optimized_rules = parser.parse_lines_optimized(test_lines, "performance_test")
         end_time = time.time()
         
         optimized_time = end_time - start_time
         optimized_rate = len(test_lines) / optimized_time
-        print(f"Optimized parser: {len(optimized_rules)} rules in {optimized_time:.3f}s ({optimized_rate:.0f} lines/sec)")
+        print(f"Optimized method: {len(optimized_rules)} rules in {optimized_time:.3f}s ({optimized_rate:.0f} lines/sec)")
         
-        # Verify both parsers produce the same results
-        assert len(rules) == len(optimized_rules), "Parsers should produce same number of rules"
+        # Verify both methods produce the same results
+        assert len(rules) == len(optimized_rules), "Methods should produce same number of rules"
         
         # Performance improvement
         improvement = (parsing_time - optimized_time) / parsing_time * 100
@@ -66,7 +64,7 @@ def test_parsing_performance():
             requirement = 10.0  # 50000 rules should complete in < 10 seconds
             requirement_desc = "10 seconds"
         
-        # Use the faster (optimized) parser for pass/fail determination
+        # Use the faster (optimized) method for pass/fail determination
         if optimized_time < requirement:
             print(f"✅ Performance test PASSED - completed in less than {requirement_desc}")
         else:

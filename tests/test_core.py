@@ -317,7 +317,39 @@ class TestRuleEngine:
         assert result == []
     
     def test_merge_single_source(self):
-        """Test merge with a single source (using mock data)."""
-        # This test would require mocking the HTTP requests
-        # For now, we'll test the basic functionality
-        pass
+        """Test merge with a single source using local file."""
+        import tempfile
+        import os
+        
+        # Create a temporary file with test rules
+        test_content = """||ads1.com^
+||ads2.com^
+@@||whitelist.com^
+||*.tracker.com^
+! This is a comment
+||malware.com^"""
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+            f.write(test_content)
+            temp_path = f.name
+        
+        try:
+            # Test merge with single local file source
+            result = self.engine.merge([temp_path])
+            
+            # Should have parsed 6 rules (5 valid rules + 1 comment)
+            assert len(result) == 6, f"Expected 6 rules, got {len(result)}"
+            
+            # Check rule types
+            types = [rule.type for rule in result]
+            assert 'block' in types
+            assert 'allow' in types
+            assert 'comment' in types
+            
+            # Check domains
+            domains = [rule.domain for rule in result if rule.type == 'block']
+            assert 'ads1.com' in domains
+            assert 'ads2.com' in domains
+            
+        finally:
+            os.unlink(temp_path)
