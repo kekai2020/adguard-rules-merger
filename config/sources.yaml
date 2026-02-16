@@ -2,29 +2,83 @@
 # This file contains the list of filter sources to merge
 
 sources:
-  # AdGuard Base Filter
-  - name: "AdGuard Base"
-    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt"
+  # ==================== 基础拦截 ====================
+  # AdGuard 官方 DNS 过滤器
+  - name: "AdGuard DNS filter"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
     enabled: true
     
-  # AdGuard Tracking Protection
-  - name: "AdGuard Tracking Protection"
-    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt"
+  # 中文广告过滤（乘风广告）
+  - name: "乘风广告过滤规则"
+    url: "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt"
     enabled: true
     
-  # AdGuard Social Media
-  - name: "AdGuard Social Media"
-    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_4_Social/filter.txt"
+  # 中文视频广告过滤（乘风视频）
+  - name: "乘风视频广告过滤规则"
+    url: "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/mv.txt"
     enabled: true
     
-  # AdGuard Annoyances
-  - name: "AdGuard Annoyances"
-    url: "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt"
+  # 中文 DNS 规则 (AdRules)
+  - name: "CHN: AdRules DNS List"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_29.txt"
     enabled: true
     
-  # AdGuard DNS Filter
-  - name: "AdGuard DNS"
-    url: "https://v.firebog.net/hosts/AdguardDNS.txt"
+  # 中文反广告规则 (anti-AD)
+  - name: "CHN: anti-AD"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_21.txt"
+    enabled: true
+    
+  # ==================== 综合保护 ====================
+  # 轻量级综合拦截
+  - name: "1Hosts (Lite)"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_24.txt"
+    enabled: true
+    
+  # OISD 小型拦截列表
+  - name: "OISD Blocklist Small"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_5.txt"
+    enabled: true
+    
+  # ==================== 安全威胁 ====================
+  # 钓鱼网站拦截 (PhishTank + OpenPhish)
+  - name: "Phishing URL Blocklist"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"
+    enabled: true
+    
+  # 恶意 URL 拦截 (URLHaus)
+  - name: "Malicious URL Blocklist"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
+    enabled: true
+    
+  # HaGeZi 威胁情报
+  - name: "HaGeZi's Threat Intelligence Feeds"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt"
+    enabled: true
+  
+  # 钓鱼军团列表
+  - name: "Phishing Army"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt"
+    enabled: true
+    
+  # 诈骗网站拦截
+  - name: "Scam Blocklist by DurableNapkin"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_10.txt"
+    enabled: true
+    
+  # 恶意软件列表
+  - name: "ShadowWhisperer's Malware List"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt"
+    enabled: true
+    
+  # 跟踪软件指示器
+  - name: "Stalkerware Indicators List"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_31.txt"
+    enabled: true
+    
+  # ==================== 专项拦截 ====================
+  # 加密货币挖矿拦截
+  - name: "NoCoin Filter List"
+    url: "https://adguardteam.github.io/HostlistsRegistry/assets/filter_8.txt"
     enabled: true
 
 # Test sources (smaller files for testing)
