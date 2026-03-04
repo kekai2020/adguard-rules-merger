@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-04 15:39:49 UTC
+**Generated:** 2026-03-04 16:42:49 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 1673955
-- **Total Rules (after dedup):** 1070134
+- **Total Rules (before dedup):** 1673976
+- **Total Rules (after dedup):** 1070155
 - **Deduplication Rate:** 36.1%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 6.904 seconds
+- **Processing Time:** 7.340 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 1069787
+- **Block Rules:** 1069808
 - **Allow Rules:** 221
 - **Comments:** 126
 
@@ -21,15 +21,15 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 477995 |
-| https://adguardteam.github.io/HostlistsRegistry... | 143426 |
-| https://adguardteam.github.io/HostlistsRegistry... | 139615 |
-| https://adguardteam.github.io/HostlistsRegistry... | 90986 |
-| https://adguardteam.github.io/HostlistsRegistry... | 70469 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60164 |
-| https://adguardteam.github.io/HostlistsRegistry... | 32585 |
+| https://adguardteam.github.io/HostlistsRegistry... | 143428 |
+| https://adguardteam.github.io/HostlistsRegistry... | 141832 |
+| https://adguardteam.github.io/HostlistsRegistry... | 98595 |
+| https://adguardteam.github.io/HostlistsRegistry... | 83353 |
+| https://adguardteam.github.io/HostlistsRegistry... | 42372 |
 | https://adguardteam.github.io/HostlistsRegistry... | 23730 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14268 |
-| https://adguardteam.github.io/HostlistsRegistry... | 8697 |
+| https://adguardteam.github.io/HostlistsRegistry... | 23660 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14942 |
+| https://adguardteam.github.io/HostlistsRegistry... | 12049 |
 
 ## Top Domains
 
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 1069787 (100.0%) ███████████████████
+- **Block:** 1069808 (100.0%) ███████████████████
 - **Allow:** 221 (0.0%) 
 - **Comment:** 126 (0.0%) 
