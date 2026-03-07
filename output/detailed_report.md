@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-07 21:20:24 UTC
+**Generated:** 2026-03-07 22:22:27 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 1645751
-- **Total Rules (after dedup):** 1041929
+- **Total Rules (before dedup):** 1645770
+- **Total Rules (after dedup):** 1041948
 - **Deduplication Rate:** 36.7%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 6.830 seconds
+- **Processing Time:** 6.922 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 1041582
+- **Block Rules:** 1041601
 - **Allow Rules:** 221
 - **Comments:** 126
 
@@ -21,26 +21,26 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 451674 |
-| https://adguardteam.github.io/HostlistsRegistry... | 143103 |
+| https://adguardteam.github.io/HostlistsRegistry... | 143101 |
 | https://adguardteam.github.io/HostlistsRegistry... | 139459 |
-| https://adguardteam.github.io/HostlistsRegistry... | 103601 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60564 |
-| https://adguardteam.github.io/HostlistsRegistry... | 49272 |
-| https://adguardteam.github.io/HostlistsRegistry... | 32611 |
+| https://adguardteam.github.io/HostlistsRegistry... | 68052 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60583 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47841 |
+| https://adguardteam.github.io/HostlistsRegistry... | 42373 |
+| https://adguardteam.github.io/HostlistsRegistry... | 42362 |
 | https://adguardteam.github.io/HostlistsRegistry... | 23799 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15144 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14303 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14305 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
+| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `awin1.com` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `proto2ad.durasite.net` | 2 |
 | `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
 | `torimochi.line-apps.com` | 2 |
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 1041582 (100.0%) ███████████████████
+- **Block:** 1041601 (100.0%) ███████████████████
 - **Allow:** 221 (0.0%) 
 - **Comment:** 126 (0.0%) 
