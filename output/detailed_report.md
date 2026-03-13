@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-13 20:33:55 UTC
+**Generated:** 2026-03-13 21:32:34 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1179327
 - **Deduplication Rate:** 35.2%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.843 seconds
+- **Processing Time:** 7.574 seconds
 
 ### Rule Breakdown
 
@@ -22,13 +22,13 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 561473 |
 | https://adguardteam.github.io/HostlistsRegistry... | 160541 |
-| https://adguardteam.github.io/HostlistsRegistry... | 144866 |
-| https://adguardteam.github.io/HostlistsRegistry... | 69582 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63721 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50655 |
-| https://adguardteam.github.io/HostlistsRegistry... | 47203 |
-| https://adguardteam.github.io/HostlistsRegistry... | 34042 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24155 |
+| https://adguardteam.github.io/HostlistsRegistry... | 144864 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63723 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60383 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57379 |
+| https://adguardteam.github.io/HostlistsRegistry... | 50593 |
+| https://adguardteam.github.io/HostlistsRegistry... | 33065 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24158 |
 | https://adguardteam.github.io/HostlistsRegistry... | 14350 |
 
 ## Top Domains
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `awin1.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
 | `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
-| `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
 | `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
+| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
