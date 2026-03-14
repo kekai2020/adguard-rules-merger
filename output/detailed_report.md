@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-14 06:43:42 UTC
+**Generated:** 2026-03-14 07:34:23 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1179327
 - **Deduplication Rate:** 35.2%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.534 seconds
+- **Processing Time:** 7.847 seconds
 
 ### Rule Breakdown
 
@@ -22,29 +22,29 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 561473 |
 | https://adguardteam.github.io/HostlistsRegistry... | 160541 |
-| https://adguardteam.github.io/HostlistsRegistry... | 144866 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63721 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60383 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55874 |
-| https://adguardteam.github.io/HostlistsRegistry... | 42784 |
-| https://adguardteam.github.io/HostlistsRegistry... | 42379 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24158 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14350 |
+| https://adguardteam.github.io/HostlistsRegistry... | 144863 |
+| https://adguardteam.github.io/HostlistsRegistry... | 105176 |
+| https://adguardteam.github.io/HostlistsRegistry... | 70083 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47203 |
+| https://adguardteam.github.io/HostlistsRegistry... | 34989 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24156 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14247 |
+| https://adguardteam.github.io/HostlistsRegistry... | 7991 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
+| `awin1.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `sedge.nfl.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
+| `logentries.com` | 2 |
 
 ## Rule Types Distribution
 
