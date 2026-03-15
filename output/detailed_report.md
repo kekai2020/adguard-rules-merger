@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-15 10:28:36 UTC
+**Generated:** 2026-03-15 11:25:12 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1168346
 - **Deduplication Rate:** 35.1%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.488 seconds
+- **Processing Time:** 7.920 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 557864 |
-| https://adguardteam.github.io/HostlistsRegistry... | 179119 |
 | https://adguardteam.github.io/HostlistsRegistry... | 153721 |
-| https://adguardteam.github.io/HostlistsRegistry... | 144877 |
-| https://adguardteam.github.io/HostlistsRegistry... | 42750 |
-| https://adguardteam.github.io/HostlistsRegistry... | 33584 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24050 |
-| https://adguardteam.github.io/HostlistsRegistry... | 11628 |
-| https://adguardteam.github.io/HostlistsRegistry... | 8035 |
-| https://adguardteam.github.io/HostlistsRegistry... | 6432 |
+| https://adguardteam.github.io/HostlistsRegistry... | 144879 |
+| https://adguardteam.github.io/HostlistsRegistry... | 90087 |
+| https://adguardteam.github.io/HostlistsRegistry... | 64051 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60905 |
+| https://adguardteam.github.io/HostlistsRegistry... | 33139 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24019 |
+| https://adguardteam.github.io/HostlistsRegistry... | 16574 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14340 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `ad.10010.com` | 2 |
-| `ad.ourgame.com` | 2 |
-| `awin1.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
 | `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
-| `omniture.walmart.com` | 2 |
+| `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
+| `sax.sina.com.cn` | 2 |
+| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
