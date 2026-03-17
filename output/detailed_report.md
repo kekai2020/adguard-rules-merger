@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-17 14:56:03 UTC
+**Generated:** 2026-03-17 16:05:34 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1152973
 - **Deduplication Rate:** 35.3%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.158 seconds
+- **Processing Time:** 7.238 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 537976 |
-| https://adguardteam.github.io/HostlistsRegistry... | 212939 |
-| https://adguardteam.github.io/HostlistsRegistry... | 140491 |
-| https://adguardteam.github.io/HostlistsRegistry... | 91825 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50635 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46095 |
-| https://adguardteam.github.io/HostlistsRegistry... | 25405 |
+| https://adguardteam.github.io/HostlistsRegistry... | 156129 |
+| https://adguardteam.github.io/HostlistsRegistry... | 145084 |
+| https://adguardteam.github.io/HostlistsRegistry... | 69584 |
+| https://adguardteam.github.io/HostlistsRegistry... | 64228 |
+| https://adguardteam.github.io/HostlistsRegistry... | 50469 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47427 |
+| https://adguardteam.github.io/HostlistsRegistry... | 34649 |
 | https://adguardteam.github.io/HostlistsRegistry... | 24173 |
-| https://adguardteam.github.io/HostlistsRegistry... | 12078 |
-| https://adguardteam.github.io/HostlistsRegistry... | 6508 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14365 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
-| `omsc.kpn.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `sedge.nfl.com` | 2 |
+| `afi-b.com` | 2 |
+| `awin1.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
+| `data.orders.costco.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
+| `logentries.com` | 2 |
 
 ## Rule Types Distribution
 
