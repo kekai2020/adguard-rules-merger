@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-18 20:37:31 UTC
+**Generated:** 2026-03-18 21:33:08 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1156821
 - **Deduplication Rate:** 35.3%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.754 seconds
+- **Processing Time:** 7.339 seconds
 
 ### Rule Breakdown
 
@@ -22,29 +22,29 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 542302 |
 | https://adguardteam.github.io/HostlistsRegistry... | 154082 |
-| https://adguardteam.github.io/HostlistsRegistry... | 145803 |
-| https://adguardteam.github.io/HostlistsRegistry... | 105594 |
+| https://adguardteam.github.io/HostlistsRegistry... | 145801 |
 | https://adguardteam.github.io/HostlistsRegistry... | 64330 |
-| https://adguardteam.github.io/HostlistsRegistry... | 47849 |
-| https://adguardteam.github.io/HostlistsRegistry... | 34254 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24075 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15387 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14365 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60917 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58026 |
+| https://adguardteam.github.io/HostlistsRegistry... | 50650 |
+| https://adguardteam.github.io/HostlistsRegistry... | 33297 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24077 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14367 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `afi-b.com` | 2 |
-| `awin1.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
-| `data.orders.costco.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
-| `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
+| `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
+| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
