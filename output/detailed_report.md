@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-19 20:36:59 UTC
+**Generated:** 2026-03-19 21:34:50 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1178088
 - **Deduplication Rate:** 35.1%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.763 seconds
+- **Processing Time:** 7.385 seconds
 
 ### Rule Breakdown
 
@@ -22,29 +22,29 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 562088 |
 | https://adguardteam.github.io/HostlistsRegistry... | 155196 |
-| https://adguardteam.github.io/HostlistsRegistry... | 145886 |
-| https://adguardteam.github.io/HostlistsRegistry... | 64300 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60987 |
-| https://adguardteam.github.io/HostlistsRegistry... | 58057 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50763 |
-| https://adguardteam.github.io/HostlistsRegistry... | 33315 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24104 |
+| https://adguardteam.github.io/HostlistsRegistry... | 145884 |
+| https://adguardteam.github.io/HostlistsRegistry... | 106045 |
+| https://adguardteam.github.io/HostlistsRegistry... | 64302 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47842 |
+| https://adguardteam.github.io/HostlistsRegistry... | 34261 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24101 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15168 |
 | https://adguardteam.github.io/HostlistsRegistry... | 14366 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
+| `awin1.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `sedge.nfl.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
+| `logentries.com` | 2 |
 
 ## Rule Types Distribution
 
