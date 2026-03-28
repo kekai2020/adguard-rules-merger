@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-28 17:28:30 UTC
+**Generated:** 2026-03-28 18:39:40 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2001326
-- **Total Rules (after dedup):** 1361534
+- **Total Rules (before dedup):** 2001404
+- **Total Rules (after dedup):** 1361514
 - **Deduplication Rate:** 32.0%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 8.011 seconds
+- **Processing Time:** 8.158 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 1361187
+- **Block Rules:** 1361167
 - **Allow Rules:** 221
 - **Comments:** 126
 
@@ -20,16 +20,16 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 743751 |
-| https://adguardteam.github.io/HostlistsRegistry... | 155721 |
-| https://adguardteam.github.io/HostlistsRegistry... | 146735 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63984 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60002 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55942 |
-| https://adguardteam.github.io/HostlistsRegistry... | 52153 |
+| https://adguardteam.github.io/HostlistsRegistry... | 743812 |
+| https://adguardteam.github.io/HostlistsRegistry... | 155678 |
+| https://adguardteam.github.io/HostlistsRegistry... | 146773 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63962 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60024 |
+| https://adguardteam.github.io/HostlistsRegistry... | 55862 |
+| https://adguardteam.github.io/HostlistsRegistry... | 52106 |
 | https://adguardteam.github.io/HostlistsRegistry... | 34968 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24118 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14403 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24123 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14407 |
 
 ## Top Domains
 
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 1361187 (100.0%) ███████████████████
+- **Block:** 1361167 (100.0%) ███████████████████
 - **Allow:** 221 (0.0%) 
 - **Comment:** 126 (0.0%) 
