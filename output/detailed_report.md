@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-03-30 19:58:17 UTC
+**Generated:** 2026-03-30 20:53:02 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1356080
 - **Deduplication Rate:** 32.0%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 8.339 seconds
+- **Processing Time:** 8.162 seconds
 
 ### Rule Breakdown
 
@@ -22,14 +22,14 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 737901 |
 | https://adguardteam.github.io/HostlistsRegistry... | 153322 |
-| https://adguardteam.github.io/HostlistsRegistry... | 146637 |
-| https://adguardteam.github.io/HostlistsRegistry... | 68789 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65824 |
-| https://adguardteam.github.io/HostlistsRegistry... | 52806 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46461 |
-| https://adguardteam.github.io/HostlistsRegistry... | 34992 |
+| https://adguardteam.github.io/HostlistsRegistry... | 146641 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65822 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60106 |
+| https://adguardteam.github.io/HostlistsRegistry... | 55144 |
+| https://adguardteam.github.io/HostlistsRegistry... | 45150 |
+| https://adguardteam.github.io/HostlistsRegistry... | 42648 |
 | https://adguardteam.github.io/HostlistsRegistry... | 23944 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15261 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15259 |
 
 ## Top Domains
 
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `awin1.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
 | `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
-| `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
 | `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
+| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
