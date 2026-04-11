@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-04-11 08:41:25 UTC
+**Generated:** 2026-04-11 09:39:24 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1433197
 - **Deduplication Rate:** 31.6%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 8.841 seconds
+- **Processing Time:** 8.929 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 798775 |
+| https://adguardteam.github.io/HostlistsRegistry... | 183309 |
 | https://adguardteam.github.io/HostlistsRegistry... | 166080 |
-| https://adguardteam.github.io/HostlistsRegistry... | 147502 |
-| https://adguardteam.github.io/HostlistsRegistry... | 66336 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56676 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55743 |
-| https://adguardteam.github.io/HostlistsRegistry... | 48312 |
-| https://adguardteam.github.io/HostlistsRegistry... | 42769 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24830 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14458 |
+| https://adguardteam.github.io/HostlistsRegistry... | 147499 |
+| https://adguardteam.github.io/HostlistsRegistry... | 42811 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35019 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24799 |
+| https://adguardteam.github.io/HostlistsRegistry... | 11655 |
+| https://adguardteam.github.io/HostlistsRegistry... | 9353 |
+| https://adguardteam.github.io/HostlistsRegistry... | 8008 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
-| `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
+| `ad.10010.com` | 2 |
+| `ad.ourgame.com` | 2 |
+| `awin1.com` | 2 |
+| `belgium.wolterskluwer.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omniture.walmart.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
