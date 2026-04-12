@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-04-12 08:46:43 UTC
+**Generated:** 2026-04-12 09:44:35 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2106207
+- **Total Rules (before dedup):** 2107096
 - **Total Rules (after dedup):** 1444187
-- **Deduplication Rate:** 31.4%
+- **Deduplication Rate:** 31.5%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 8.638 seconds
+- **Processing Time:** 8.367 seconds
 
 ### Rule Breakdown
 
@@ -20,15 +20,15 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 812664 |
-| https://adguardteam.github.io/HostlistsRegistry... | 163005 |
-| https://adguardteam.github.io/HostlistsRegistry... | 147194 |
-| https://adguardteam.github.io/HostlistsRegistry... | 66423 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65628 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56262 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46807 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35056 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24768 |
+| https://adguardteam.github.io/HostlistsRegistry... | 811958 |
+| https://adguardteam.github.io/HostlistsRegistry... | 162959 |
+| https://adguardteam.github.io/HostlistsRegistry... | 147191 |
+| https://adguardteam.github.io/HostlistsRegistry... | 66418 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57811 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56742 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56169 |
+| https://adguardteam.github.io/HostlistsRegistry... | 33745 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24770 |
 | https://adguardteam.github.io/HostlistsRegistry... | 14457 |
 
 ## Top Domains
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `awin1.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
 | `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
-| `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
 | `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
+| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
