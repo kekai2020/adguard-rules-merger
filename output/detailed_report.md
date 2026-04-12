@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-04-12 15:35:49 UTC
+**Generated:** 2026-04-12 16:38:20 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2119756
-- **Total Rules (after dedup):** 1449774
+- **Total Rules (before dedup):** 2119773
+- **Total Rules (after dedup):** 1449791
 - **Deduplication Rate:** 31.6%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 8.628 seconds
+- **Processing Time:** 8.346 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 1449426
+- **Block Rules:** 1449443
 - **Allow Rules:** 222
 - **Comments:** 126
 
@@ -22,32 +22,32 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 810575 |
 | https://adguardteam.github.io/HostlistsRegistry... | 169772 |
-| https://adguardteam.github.io/HostlistsRegistry... | 165424 |
-| https://adguardteam.github.io/HostlistsRegistry... | 147213 |
-| https://adguardteam.github.io/HostlistsRegistry... | 45019 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35388 |
-| https://adguardteam.github.io/HostlistsRegistry... | 24722 |
-| https://adguardteam.github.io/HostlistsRegistry... | 21044 |
+| https://adguardteam.github.io/HostlistsRegistry... | 147214 |
+| https://adguardteam.github.io/HostlistsRegistry... | 105710 |
+| https://adguardteam.github.io/HostlistsRegistry... | 66462 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47617 |
+| https://adguardteam.github.io/HostlistsRegistry... | 34464 |
+| https://adguardteam.github.io/HostlistsRegistry... | 24729 |
+| https://adguardteam.github.io/HostlistsRegistry... | 16698 |
 | https://adguardteam.github.io/HostlistsRegistry... | 14455 |
-| https://adguardteam.github.io/HostlistsRegistry... | 9722 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
+| `afi-b.com` | 2 |
 | `awin1.com` | 2 |
-| `logentries.com` | 2 |
-| `omsc.kpn.com` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `sedge.nfl.com` | 2 |
-| `omniture.walmart.com` | 2 |
-| `tms.capitalone.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
+| `logentries.com` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 1449426 (100.0%) ███████████████████
+- **Block:** 1449443 (100.0%) ███████████████████
 - **Allow:** 222 (0.0%) 
 - **Comment:** 126 (0.0%) 
