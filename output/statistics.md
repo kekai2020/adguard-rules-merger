@@ -1,6 +1,6 @@
 # AdGuard Rules Merger Statistics
 
-**Last Updated:** 2026-04-23 15:52:48 UTC
+**Last Updated:** 2026-04-23 17:19:51 UTC
 
 ## Merge Results
 
