@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-04-29 21:04:24 UTC
+**Generated:** 2026-04-29 22:56:40 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2156459
-- **Total Rules (after dedup):** 1495133
+- **Total Rules (before dedup):** 2156482
+- **Total Rules (after dedup):** 1495151
 - **Deduplication Rate:** 30.7%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 8.553 seconds
+- **Processing Time:** 8.901 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 1494785
+- **Block Rules:** 1494803
 - **Allow Rules:** 222
 - **Comments:** 126
 
@@ -22,13 +22,13 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 871276 |
 | https://adguardteam.github.io/HostlistsRegistry... | 164286 |
-| https://adguardteam.github.io/HostlistsRegistry... | 133762 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65523 |
-| https://adguardteam.github.io/HostlistsRegistry... | 57522 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55976 |
-| https://adguardteam.github.io/HostlistsRegistry... | 54700 |
+| https://adguardteam.github.io/HostlistsRegistry... | 133763 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65535 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63888 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57481 |
+| https://adguardteam.github.io/HostlistsRegistry... | 46788 |
 | https://adguardteam.github.io/HostlistsRegistry... | 35288 |
-| https://adguardteam.github.io/HostlistsRegistry... | 26246 |
+| https://adguardteam.github.io/HostlistsRegistry... | 26244 |
 | https://adguardteam.github.io/HostlistsRegistry... | 14634 |
 
 ## Top Domains
@@ -37,17 +37,17 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
+| `awin1.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `sedge.nfl.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
+| `logentries.com` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 1494785 (100.0%) ███████████████████
+- **Block:** 1494803 (100.0%) ███████████████████
 - **Allow:** 222 (0.0%) 
 - **Comment:** 126 (0.0%) 
