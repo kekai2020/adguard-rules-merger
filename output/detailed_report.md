@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-05-03 14:48:39 UTC
+**Generated:** 2026-05-03 15:46:51 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1340564
 - **Deduplication Rate:** 33.5%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 7.979 seconds
+- **Processing Time:** 8.101 seconds
 
 ### Rule Breakdown
 
@@ -22,14 +22,14 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 706555 |
 | https://adguardteam.github.io/HostlistsRegistry... | 172384 |
-| https://adguardteam.github.io/HostlistsRegistry... | 133512 |
-| https://adguardteam.github.io/HostlistsRegistry... | 72685 |
-| https://adguardteam.github.io/HostlistsRegistry... | 57982 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55707 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55014 |
-| https://adguardteam.github.io/HostlistsRegistry... | 34125 |
-| https://adguardteam.github.io/HostlistsRegistry... | 27972 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14275 |
+| https://adguardteam.github.io/HostlistsRegistry... | 133515 |
+| https://adguardteam.github.io/HostlistsRegistry... | 72682 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63973 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57909 |
+| https://adguardteam.github.io/HostlistsRegistry... | 45578 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35295 |
+| https://adguardteam.github.io/HostlistsRegistry... | 27973 |
+| https://adguardteam.github.io/HostlistsRegistry... | 14278 |
 
 ## Top Domains
 
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
+| `awin1.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `sedge.nfl.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
+| `logentries.com` | 2 |
 
 ## Rule Types Distribution
 
