@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-05-10 19:02:32 UTC
+**Generated:** 2026-05-10 20:45:13 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2523616
+- **Total Rules (before dedup):** 2524057
 - **Total Rules (after dedup):** 1864594
 - **Deduplication Rate:** 26.1%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 11.456 seconds
+- **Processing Time:** 10.196 seconds
 
 ### Rule Breakdown
 
@@ -20,22 +20,21 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1238095 |
-| https://adguardteam.github.io/HostlistsRegistry... | 164778 |
-| https://adguardteam.github.io/HostlistsRegistry... | 132219 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65878 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56812 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56263 |
-| https://adguardteam.github.io/HostlistsRegistry... | 54156 |
-| https://adguardteam.github.io/HostlistsRegistry... | 34244 |
-| https://adguardteam.github.io/HostlistsRegistry... | 28140 |
-| https://adguardteam.github.io/HostlistsRegistry... | 16904 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1238135 |
+| https://adguardteam.github.io/HostlistsRegistry... | 164782 |
+| https://adguardteam.github.io/HostlistsRegistry... | 132222 |
+| https://adguardteam.github.io/HostlistsRegistry... | 92687 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65766 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54224 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36243 |
+| https://adguardteam.github.io/HostlistsRegistry... | 28110 |
+| https://adguardteam.github.io/HostlistsRegistry... | 18481 |
+| https://adguardteam.github.io/HostlistsRegistry... | 16900 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `analytics.amplitude.com` | 2 |
 | `api.ads.tvb.com` | 2 |
@@ -43,6 +42,7 @@
 | `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
 | `sax.sina.com.cn` | 2 |
 | `sedge.nfl.com` | 2 |
 
