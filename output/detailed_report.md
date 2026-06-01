@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-06-01 12:37:18 UTC
+**Generated:** 2026-06-01 18:38:24 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2510698
-- **Total Rules (after dedup):** 1829278
+- **Total Rules (before dedup):** 2516199
+- **Total Rules (after dedup):** 1834071
 - **Deduplication Rate:** 27.1%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 10.688 seconds
+- **Processing Time:** 10.029 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 1828925
+- **Block Rules:** 1833718
 - **Allow Rules:** 227
 - **Comments:** 126
 
@@ -20,16 +20,16 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1196450 |
-| https://adguardteam.github.io/HostlistsRegistry... | 166277 |
-| https://adguardteam.github.io/HostlistsRegistry... | 131136 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65031 |
-| https://adguardteam.github.io/HostlistsRegistry... | 58949 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1201381 |
+| https://adguardteam.github.io/HostlistsRegistry... | 168516 |
+| https://adguardteam.github.io/HostlistsRegistry... | 130987 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65159 |
 | https://adguardteam.github.io/HostlistsRegistry... | 57918 |
-| https://adguardteam.github.io/HostlistsRegistry... | 53319 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35590 |
-| https://adguardteam.github.io/HostlistsRegistry... | 30138 |
-| https://adguardteam.github.io/HostlistsRegistry... | 16984 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56324 |
+| https://adguardteam.github.io/HostlistsRegistry... | 53521 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35600 |
+| https://adguardteam.github.io/HostlistsRegistry... | 30133 |
+| https://adguardteam.github.io/HostlistsRegistry... | 17023 |
 
 ## Top Domains
 
@@ -43,11 +43,11 @@
 | `data.notify.macys.com` | 2 |
 | `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
-| `om-ssl.consorsbank.de` | 2 |
 | `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 1828925 (100.0%) ███████████████████
+- **Block:** 1833718 (100.0%) ███████████████████
 - **Allow:** 227 (0.0%) 
 - **Comment:** 126 (0.0%) 
