@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-06-13 07:46:35 UTC
+**Generated:** 2026-06-13 10:29:15 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 1709948
 - **Deduplication Rate:** 28.4%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 10.155 seconds
+- **Processing Time:** 10.289 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1113749 |
-| https://adguardteam.github.io/HostlistsRegistry... | 177002 |
 | https://adguardteam.github.io/HostlistsRegistry... | 137507 |
 | https://adguardteam.github.io/HostlistsRegistry... | 129760 |
-| https://adguardteam.github.io/HostlistsRegistry... | 38671 |
-| https://adguardteam.github.io/HostlistsRegistry... | 34731 |
-| https://adguardteam.github.io/HostlistsRegistry... | 31559 |
+| https://adguardteam.github.io/HostlistsRegistry... | 69536 |
+| https://adguardteam.github.io/HostlistsRegistry... | 59201 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57096 |
+| https://adguardteam.github.io/HostlistsRegistry... | 49909 |
+| https://adguardteam.github.io/HostlistsRegistry... | 34653 |
+| https://adguardteam.github.io/HostlistsRegistry... | 31572 |
 | https://adguardteam.github.io/HostlistsRegistry... | 16497 |
-| https://adguardteam.github.io/HostlistsRegistry... | 13793 |
-| https://adguardteam.github.io/HostlistsRegistry... | 11201 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `ad.10010.com` | 2 |
-| `ad.ourgame.com` | 2 |
-| `awin1.com` | 2 |
-| `belgium.wolterskluwer.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
 | `data.notify.macys.com` | 2 |
-| `data.orders.costco.ca` | 2 |
 | `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
+| `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
