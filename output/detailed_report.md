@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-06-19 11:22:39 UTC
+**Generated:** 2026-06-19 15:13:54 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2804003
-- **Total Rules (after dedup):** 2105312
-- **Deduplication Rate:** 24.9%
+- **Total Rules (before dedup):** 2809457
+- **Total Rules (after dedup):** 2111471
+- **Deduplication Rate:** 24.8%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 11.674 seconds
+- **Processing Time:** 12.168 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2104958
+- **Block Rules:** 2111117
 - **Allow Rules:** 228
 - **Comments:** 126
 
@@ -20,16 +20,16 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1499271 |
-| https://adguardteam.github.io/HostlistsRegistry... | 149106 |
-| https://adguardteam.github.io/HostlistsRegistry... | 127195 |
-| https://adguardteam.github.io/HostlistsRegistry... | 62146 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60491 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56871 |
-| https://adguardteam.github.io/HostlistsRegistry... | 48786 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35855 |
-| https://adguardteam.github.io/HostlistsRegistry... | 32100 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15877 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1507032 |
+| https://adguardteam.github.io/HostlistsRegistry... | 148748 |
+| https://adguardteam.github.io/HostlistsRegistry... | 127227 |
+| https://adguardteam.github.io/HostlistsRegistry... | 62021 |
+| https://adguardteam.github.io/HostlistsRegistry... | 55747 |
+| https://adguardteam.github.io/HostlistsRegistry... | 53333 |
+| https://adguardteam.github.io/HostlistsRegistry... | 48791 |
+| https://adguardteam.github.io/HostlistsRegistry... | 43019 |
+| https://adguardteam.github.io/HostlistsRegistry... | 32024 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15871 |
 
 ## Top Domains
 
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 2104958 (100.0%) ███████████████████
+- **Block:** 2111117 (100.0%) ███████████████████
 - **Allow:** 228 (0.0%) 
 - **Comment:** 126 (0.0%) 
