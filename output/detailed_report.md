@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-06-20 05:14:05 UTC
+**Generated:** 2026-06-20 08:54:56 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2805694
-- **Total Rules (after dedup):** 2111543
-- **Deduplication Rate:** 24.7%
+- **Total Rules (before dedup):** 2809377
+- **Total Rules (after dedup):** 2113456
+- **Deduplication Rate:** 24.8%
 - **Sources Processed:** 16 / 16
-- **Processing Time:** 11.648 seconds
+- **Processing Time:** 11.441 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2111189
+- **Block Rules:** 2113102
 - **Allow Rules:** 228
 - **Comments:** 126
 
@@ -20,34 +20,34 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1510859 |
-| https://adguardteam.github.io/HostlistsRegistry... | 144691 |
-| https://adguardteam.github.io/HostlistsRegistry... | 127223 |
-| https://adguardteam.github.io/HostlistsRegistry... | 62087 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60621 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55803 |
-| https://adguardteam.github.io/HostlistsRegistry... | 48801 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35855 |
-| https://adguardteam.github.io/HostlistsRegistry... | 32135 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15827 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1511454 |
+| https://adguardteam.github.io/HostlistsRegistry... | 145647 |
+| https://adguardteam.github.io/HostlistsRegistry... | 127519 |
+| https://adguardteam.github.io/HostlistsRegistry... | 120356 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60814 |
+| https://adguardteam.github.io/HostlistsRegistry... | 38641 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35088 |
+| https://adguardteam.github.io/HostlistsRegistry... | 32115 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15840 |
+| https://adguardteam.github.io/HostlistsRegistry... | 12499 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
+| `ad.10010.com` | 2 |
+| `ad.ourgame.com` | 2 |
+| `awin1.com` | 2 |
+| `belgium.wolterskluwer.com` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.notify.macys.com` | 2 |
+| `data.orders.costco.ca` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
-| `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 2111189 (100.0%) ███████████████████
+- **Block:** 2113102 (100.0%) ███████████████████
 - **Allow:** 228 (0.0%) 
 - **Comment:** 126 (0.0%) 
