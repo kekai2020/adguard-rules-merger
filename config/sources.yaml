@@ -11,12 +11,12 @@ sources:
   # 中文广告过滤（乘风广告）
   - name: "乘风广告过滤规则"
     url: "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt"
-    enabled: true
+    enabled: false
     
   # 中文视频广告过滤（乘风视频）
   - name: "乘风视频广告过滤规则"
     url: "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/mv.txt"
-    enabled: true
+    enabled: false
     
   # 中文 DNS 规则 (AdRules)
   - name: "CHN: AdRules DNS List"
