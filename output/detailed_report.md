@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-07-03 15:11:34 UTC
+**Generated:** 2026-07-03 17:25:54 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2057071
 - **Deduplication Rate:** 24.7%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 11.100 seconds
+- **Processing Time:** 11.252 seconds
 
 ### Rule Breakdown
 
@@ -23,28 +23,28 @@
 | https://adguardteam.github.io/HostlistsRegistry... | 1461391 |
 | https://adguardteam.github.io/HostlistsRegistry... | 141969 |
 | https://adguardteam.github.io/HostlistsRegistry... | 129115 |
-| https://adguardteam.github.io/HostlistsRegistry... | 95345 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63237 |
-| https://adguardteam.github.io/HostlistsRegistry... | 48704 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36791 |
-| https://adguardteam.github.io/HostlistsRegistry... | 31865 |
-| https://adguardteam.github.io/HostlistsRegistry... | 17516 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15453 |
+| https://adguardteam.github.io/HostlistsRegistry... | 70542 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57658 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54537 |
+| https://adguardteam.github.io/HostlistsRegistry... | 49917 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36188 |
+| https://adguardteam.github.io/HostlistsRegistry... | 31894 |
+| https://adguardteam.github.io/HostlistsRegistry... | 13532 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.notify.macys.com` | 2 |
-| `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
-| `omsc.kpn.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
-| `sax.sina.com.cn` | 2 |
+| `afi-b.com` | 2 |
+| `awin1.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
+| `data.orders.costco.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
