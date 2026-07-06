@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-07-06 00:05:19 UTC
+**Generated:** 2026-07-06 05:10:45 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2764940
-- **Total Rules (after dedup):** 2069693
-- **Deduplication Rate:** 25.1%
+- **Total Rules (before dedup):** 2765006
+- **Total Rules (after dedup):** 2069606
+- **Deduplication Rate:** 25.2%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 11.228 seconds
+- **Processing Time:** 12.052 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2069395
+- **Block Rules:** 2069308
 - **Allow Rules:** 227
 - **Comments:** 71
 
@@ -20,15 +20,15 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1450268 |
-| https://adguardteam.github.io/HostlistsRegistry... | 162065 |
-| https://adguardteam.github.io/HostlistsRegistry... | 128942 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63348 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63106 |
-| https://adguardteam.github.io/HostlistsRegistry... | 48846 |
-| https://adguardteam.github.io/HostlistsRegistry... | 47985 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1450277 |
+| https://adguardteam.github.io/HostlistsRegistry... | 162062 |
+| https://adguardteam.github.io/HostlistsRegistry... | 128885 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63425 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63107 |
+| https://adguardteam.github.io/HostlistsRegistry... | 48850 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47964 |
 | https://adguardteam.github.io/HostlistsRegistry... | 43132 |
-| https://adguardteam.github.io/HostlistsRegistry... | 30852 |
+| https://adguardteam.github.io/HostlistsRegistry... | 30865 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15433 |
 
 ## Top Domains
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 2069395 (100.0%) ███████████████████
+- **Block:** 2069308 (100.0%) ███████████████████
 - **Allow:** 227 (0.0%) 
 - **Comment:** 71 (0.0%) 
