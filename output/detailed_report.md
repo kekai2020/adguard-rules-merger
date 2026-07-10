@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-07-10 16:25:19 UTC
+**Generated:** 2026-07-10 18:23:39 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 2844813
-- **Total Rules (after dedup):** 2169981
+- **Total Rules (before dedup):** 2845254
+- **Total Rules (after dedup):** 2170599
 - **Deduplication Rate:** 23.7%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 12.129 seconds
+- **Processing Time:** 11.637 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2169683
+- **Block Rules:** 2170301
 - **Allow Rules:** 227
 - **Comments:** 71
 
@@ -20,22 +20,21 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1564839 |
-| https://adguardteam.github.io/HostlistsRegistry... | 147981 |
-| https://adguardteam.github.io/HostlistsRegistry... | 128615 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63794 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63623 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55653 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1564928 |
+| https://adguardteam.github.io/HostlistsRegistry... | 147982 |
+| https://adguardteam.github.io/HostlistsRegistry... | 129128 |
+| https://adguardteam.github.io/HostlistsRegistry... | 99519 |
+| https://adguardteam.github.io/HostlistsRegistry... | 63809 |
 | https://adguardteam.github.io/HostlistsRegistry... | 48603 |
 | https://adguardteam.github.io/HostlistsRegistry... | 35060 |
 | https://adguardteam.github.io/HostlistsRegistry... | 31437 |
+| https://adguardteam.github.io/HostlistsRegistry... | 19757 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15508 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `analytics.amplitude.com` | 2 |
 | `api.ads.tvb.com` | 2 |
@@ -44,10 +43,11 @@
 | `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
 | `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 2169683 (100.0%) ███████████████████
+- **Block:** 2170301 (100.0%) ███████████████████
 - **Allow:** 227 (0.0%) 
 - **Comment:** 71 (0.0%) 
