@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-07-13 22:56:27 UTC
+**Generated:** 2026-07-13 23:54:40 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2276398
 - **Deduplication Rate:** 23.0%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 11.963 seconds
+- **Processing Time:** 10.413 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1667983 |
-| https://adguardteam.github.io/HostlistsRegistry... | 150189 |
-| https://adguardteam.github.io/HostlistsRegistry... | 129431 |
-| https://adguardteam.github.io/HostlistsRegistry... | 64024 |
-| https://adguardteam.github.io/HostlistsRegistry... | 62254 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56321 |
-| https://adguardteam.github.io/HostlistsRegistry... | 48748 |
+| https://adguardteam.github.io/HostlistsRegistry... | 163118 |
+| https://adguardteam.github.io/HostlistsRegistry... | 118651 |
+| https://adguardteam.github.io/HostlistsRegistry... | 104947 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56301 |
+| https://adguardteam.github.io/HostlistsRegistry... | 46136 |
 | https://adguardteam.github.io/HostlistsRegistry... | 36268 |
-| https://adguardteam.github.io/HostlistsRegistry... | 31455 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15521 |
+| https://adguardteam.github.io/HostlistsRegistry... | 31483 |
+| https://adguardteam.github.io/HostlistsRegistry... | 23946 |
+| https://adguardteam.github.io/HostlistsRegistry... | 13369 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.notify.macys.com` | 2 |
-| `data.orders.costco.com` | 2 |
+| `awin1.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
+| `data.notify.macys.com` | 2 |
+| `data.orders.costco.ca` | 2 |
+| `data.orders.costco.com` | 2 |
+| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
