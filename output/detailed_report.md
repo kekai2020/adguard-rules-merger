@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-07-24 21:03:03 UTC
+**Generated:** 2026-07-24 23:01:16 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3215753
-- **Total Rules (after dedup):** 2505345
+- **Total Rules (before dedup):** 3215935
+- **Total Rules (after dedup):** 2505412
 - **Deduplication Rate:** 22.1%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.032 seconds
+- **Processing Time:** 13.015 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2505047
+- **Block Rules:** 2505114
 - **Allow Rules:** 227
 - **Comments:** 71
 
@@ -20,22 +20,21 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1870242 |
-| https://adguardteam.github.io/HostlistsRegistry... | 165264 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137668 |
-| https://adguardteam.github.io/HostlistsRegistry... | 66122 |
-| https://adguardteam.github.io/HostlistsRegistry... | 64552 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56107 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1870189 |
+| https://adguardteam.github.io/HostlistsRegistry... | 165237 |
+| https://adguardteam.github.io/HostlistsRegistry... | 137789 |
+| https://adguardteam.github.io/HostlistsRegistry... | 102987 |
+| https://adguardteam.github.io/HostlistsRegistry... | 64542 |
 | https://adguardteam.github.io/HostlistsRegistry... | 49669 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35330 |
-| https://adguardteam.github.io/HostlistsRegistry... | 32166 |
+| https://adguardteam.github.io/HostlistsRegistry... | 37063 |
+| https://adguardteam.github.io/HostlistsRegistry... | 32126 |
+| https://adguardteam.github.io/HostlistsRegistry... | 17570 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15598 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `analytics.amplitude.com` | 2 |
 | `api.ads.tvb.com` | 2 |
@@ -44,10 +43,11 @@
 | `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
 | `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 2505047 (100.0%) ███████████████████
+- **Block:** 2505114 (100.0%) ███████████████████
 - **Allow:** 227 (0.0%) 
 - **Comment:** 71 (0.0%) 
