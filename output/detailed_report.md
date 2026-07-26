@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-07-25 22:56:25 UTC
+**Generated:** 2026-07-26 00:01:36 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3240376
+- **Total Rules (before dedup):** 3240345
 - **Total Rules (after dedup):** 2528520
 - **Deduplication Rate:** 22.0%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 12.806 seconds
+- **Processing Time:** 13.046 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1893273 |
-| https://adguardteam.github.io/HostlistsRegistry... | 165269 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137877 |
-| https://adguardteam.github.io/HostlistsRegistry... | 64527 |
-| https://adguardteam.github.io/HostlistsRegistry... | 59394 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56343 |
-| https://adguardteam.github.io/HostlistsRegistry... | 55084 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36494 |
-| https://adguardteam.github.io/HostlistsRegistry... | 32217 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15600 |
+| https://adguardteam.github.io/HostlistsRegistry... | 293230 |
+| https://adguardteam.github.io/HostlistsRegistry... | 124690 |
+| https://adguardteam.github.io/HostlistsRegistry... | 64838 |
+| https://adguardteam.github.io/HostlistsRegistry... | 41433 |
+| https://adguardteam.github.io/HostlistsRegistry... | 32219 |
+| https://adguardteam.github.io/HostlistsRegistry... | 29742 |
+| https://adguardteam.github.io/HostlistsRegistry... | 27372 |
+| https://adguardteam.github.io/HostlistsRegistry... | 10281 |
+| https://adguardteam.github.io/HostlistsRegistry... | 6158 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
+| `app.appsflyer.com` | 2 |
+| `autocomplete.clearbit.com` | 2 |
+| `sax.sina.com.cn` | 2 |
 | `proto2ad.durasite.net` | 2 |
-| `afi-b.com` | 2 |
-| `awin1.com` | 2 |
-| `om-ssl.consorsbank.de` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
-| `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
+| `str.hit.gemius.pl` | 2 |
 | `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
+| `settings-win.data.microsoft.com` | 2 |
+| `sedge.nfl.com` | 2 |
+| `ads.privacy.qq.com` | 2 |
+| `belgium.wolterskluwer.com` | 2 |
 
 ## Rule Types Distribution
 
