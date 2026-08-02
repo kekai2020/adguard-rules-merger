@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-02 17:10:53 UTC
+**Generated:** 2026-08-02 19:09:08 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2582059
 - **Deduplication Rate:** 21.2%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 12.972 seconds
+- **Processing Time:** 13.105 seconds
 
 ### Rule Breakdown
 
@@ -21,27 +21,27 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1972775 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138865 |
+| https://adguardteam.github.io/HostlistsRegistry... | 138864 |
 | https://adguardteam.github.io/HostlistsRegistry... | 137229 |
-| https://adguardteam.github.io/HostlistsRegistry... | 101291 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65289 |
+| https://adguardteam.github.io/HostlistsRegistry... | 72728 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60877 |
+| https://adguardteam.github.io/HostlistsRegistry... | 55838 |
 | https://adguardteam.github.io/HostlistsRegistry... | 55085 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36054 |
-| https://adguardteam.github.io/HostlistsRegistry... | 33054 |
-| https://adguardteam.github.io/HostlistsRegistry... | 16194 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15645 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36677 |
+| https://adguardteam.github.io/HostlistsRegistry... | 33052 |
+| https://adguardteam.github.io/HostlistsRegistry... | 8570 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
+| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `awin1.com` | 2 |
 | `om-ssl.consorsbank.de` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `proto2ad.durasite.net` | 2 |
 | `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
 | `torimochi.line-apps.com` | 2 |
