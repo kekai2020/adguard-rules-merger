@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-02 10:41:25 UTC
+**Generated:** 2026-08-02 12:04:07 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2582160
 - **Deduplication Rate:** 21.2%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.306 seconds
+- **Processing Time:** 12.949 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1972780 |
-| https://adguardteam.github.io/HostlistsRegistry... | 179765 |
-| https://adguardteam.github.io/HostlistsRegistry... | 128551 |
-| https://adguardteam.github.io/HostlistsRegistry... | 125965 |
+| https://adguardteam.github.io/HostlistsRegistry... | 138892 |
+| https://adguardteam.github.io/HostlistsRegistry... | 137230 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65243 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65195 |
+| https://adguardteam.github.io/HostlistsRegistry... | 50764 |
 | https://adguardteam.github.io/HostlistsRegistry... | 49189 |
 | https://adguardteam.github.io/HostlistsRegistry... | 43305 |
 | https://adguardteam.github.io/HostlistsRegistry... | 33002 |
-| https://adguardteam.github.io/HostlistsRegistry... | 22994 |
-| https://adguardteam.github.io/HostlistsRegistry... | 9513 |
-| https://adguardteam.github.io/HostlistsRegistry... | 8727 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15645 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `ad.10010.com` | 2 |
-| `ad.ourgame.com` | 2 |
-| `awin1.com` | 2 |
-| `belgium.wolterskluwer.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
 | `data.notify.macys.com` | 2 |
-| `data.orders.costco.ca` | 2 |
 | `data.orders.costco.com` | 2 |
+| `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
