@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-07 20:40:45 UTC
+**Generated:** 2026-08-07 21:39:14 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2599583
 - **Deduplication Rate:** 21.3%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.341 seconds
+- **Processing Time:** 13.081 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1988275 |
-| https://adguardteam.github.io/HostlistsRegistry... | 163412 |
+| https://adguardteam.github.io/HostlistsRegistry... | 155685 |
 | https://adguardteam.github.io/HostlistsRegistry... | 138770 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137856 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46864 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36100 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35074 |
-| https://adguardteam.github.io/HostlistsRegistry... | 23951 |
+| https://adguardteam.github.io/HostlistsRegistry... | 102063 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65670 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54846 |
+| https://adguardteam.github.io/HostlistsRegistry... | 37263 |
+| https://adguardteam.github.io/HostlistsRegistry... | 17333 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15686 |
-| https://adguardteam.github.io/HostlistsRegistry... | 6615 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15181 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
+| `afi-b.com` | 2 |
 | `awin1.com` | 2 |
-| `logentries.com` | 2 |
-| `omsc.kpn.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
-| `data.notify.macys.com` | 2 |
-| `data.orders.costco.ca` | 2 |
 | `data.orders.costco.com` | 2 |
-| `sedge.nfl.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
