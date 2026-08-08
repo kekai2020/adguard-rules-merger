@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-08 18:36:58 UTC
+**Generated:** 2026-08-08 19:29:44 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3320893
+- **Total Rules (before dedup):** 3320974
 - **Total Rules (after dedup):** 2617400
 - **Deduplication Rate:** 21.2%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.528 seconds
+- **Processing Time:** 13.740 seconds
 
 ### Rule Breakdown
 
@@ -21,14 +21,14 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 2005768 |
+| https://adguardteam.github.io/HostlistsRegistry... | 156136 |
 | https://adguardteam.github.io/HostlistsRegistry... | 138674 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138144 |
 | https://adguardteam.github.io/HostlistsRegistry... | 65793 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65154 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50901 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50071 |
+| https://adguardteam.github.io/HostlistsRegistry... | 61115 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54868 |
+| https://adguardteam.github.io/HostlistsRegistry... | 50070 |
 | https://adguardteam.github.io/HostlistsRegistry... | 43478 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35358 |
+| https://adguardteam.github.io/HostlistsRegistry... | 17439 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15694 |
 
 ## Top Domains
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.notify.macys.com` | 2 |
+| `awin1.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
