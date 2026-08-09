@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-09 01:38:19 UTC
+**Generated:** 2026-08-09 03:42:36 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3321098
-- **Total Rules (after dedup):** 2617480
+- **Total Rules (before dedup):** 3321133
+- **Total Rules (after dedup):** 2617510
 - **Deduplication Rate:** 21.2%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 12.980 seconds
+- **Processing Time:** 13.406 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2617181
+- **Block Rules:** 2617211
 - **Allow Rules:** 228
 - **Comments:** 71
 
@@ -22,20 +22,19 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 2005843 |
 | https://adguardteam.github.io/HostlistsRegistry... | 138683 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138188 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65823 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65083 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56738 |
+| https://adguardteam.github.io/HostlistsRegistry... | 138118 |
+| https://adguardteam.github.io/HostlistsRegistry... | 104116 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65857 |
 | https://adguardteam.github.io/HostlistsRegistry... | 50906 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36850 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35389 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15699 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35638 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35345 |
+| https://adguardteam.github.io/HostlistsRegistry... | 19060 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15695 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `analytics.amplitude.com` | 2 |
 | `api.ads.tvb.com` | 2 |
@@ -44,10 +43,11 @@
 | `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
 | `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 2617181 (100.0%) ███████████████████
+- **Block:** 2617211 (100.0%) ███████████████████
 - **Allow:** 228 (0.0%) 
 - **Comment:** 71 (0.0%) 
