@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-09 14:34:39 UTC
+**Generated:** 2026-08-09 15:31:13 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2647497
 - **Deduplication Rate:** 20.8%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.348 seconds
+- **Processing Time:** 11.143 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 2044106 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138055 |
-| https://adguardteam.github.io/HostlistsRegistry... | 130415 |
-| https://adguardteam.github.io/HostlistsRegistry... | 95367 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65046 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56799 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36850 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35484 |
-| https://adguardteam.github.io/HostlistsRegistry... | 21436 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15694 |
+| https://adguardteam.github.io/HostlistsRegistry... | 144854 |
+| https://adguardteam.github.io/HostlistsRegistry... | 125882 |
+| https://adguardteam.github.io/HostlistsRegistry... | 95884 |
+| https://adguardteam.github.io/HostlistsRegistry... | 65879 |
+| https://adguardteam.github.io/HostlistsRegistry... | 61572 |
+| https://adguardteam.github.io/HostlistsRegistry... | 43502 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35401 |
+| https://adguardteam.github.io/HostlistsRegistry... | 13428 |
+| https://adguardteam.github.io/HostlistsRegistry... | 8728 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.notify.macys.com` | 2 |
+| `awin1.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `proto2ad.durasite.net` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
