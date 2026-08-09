@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-09 20:31:48 UTC
+**Generated:** 2026-08-09 21:32:14 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3342942
+- **Total Rules (before dedup):** 3342941
 - **Total Rules (after dedup):** 2647760
 - **Deduplication Rate:** 20.8%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.467 seconds
+- **Processing Time:** 11.617 seconds
 
 ### Rule Breakdown
 
@@ -21,27 +21,27 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 2044349 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138002 |
-| https://adguardteam.github.io/HostlistsRegistry... | 130416 |
-| https://adguardteam.github.io/HostlistsRegistry... | 95883 |
-| https://adguardteam.github.io/HostlistsRegistry... | 65802 |
-| https://adguardteam.github.io/HostlistsRegistry... | 54822 |
-| https://adguardteam.github.io/HostlistsRegistry... | 43478 |
+| https://adguardteam.github.io/HostlistsRegistry... | 139933 |
+| https://adguardteam.github.io/HostlistsRegistry... | 138073 |
+| https://adguardteam.github.io/HostlistsRegistry... | 61121 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58547 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56976 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54754 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36851 |
 | https://adguardteam.github.io/HostlistsRegistry... | 35456 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15692 |
-| https://adguardteam.github.io/HostlistsRegistry... | 15587 |
+| https://adguardteam.github.io/HostlistsRegistry... | 13427 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
+| `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
 | `awin1.com` | 2 |
 | `om-ssl.consorsbank.de` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `proto2ad.durasite.net` | 2 |
 | `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
 | `torimochi.line-apps.com` | 2 |
