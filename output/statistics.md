@@ -1,15 +1,15 @@
 # AdGuard Rules Merger Statistics
 
-**Last Updated:** 2026-08-12 16:05:13 UTC
+**Last Updated:** 2026-08-12 17:01:41 UTC
 
 ## Merge Results
 
-- **Total Rules:** 2642721
-- **Block Rules:** 2642421
+- **Total Rules:** 2642740
+- **Block Rules:** 2642440
 - **Allow Rules:** 229
 - **Comments:** 71
 - **Deduplication Rate:** 20.4%
-- **Processing Time:** 13.48s
+- **Processing Time:** 14.28s
 
 ## Sources
 
