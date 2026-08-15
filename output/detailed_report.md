@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-15 20:22:42 UTC
+**Generated:** 2026-08-15 21:21:50 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2475136
 - **Deduplication Rate:** 21.1%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 12.699 seconds
+- **Processing Time:** 12.605 seconds
 
 ### Rule Breakdown
 
@@ -21,14 +21,14 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1876578 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137662 |
+| https://adguardteam.github.io/HostlistsRegistry... | 137665 |
 | https://adguardteam.github.io/HostlistsRegistry... | 132070 |
-| https://adguardteam.github.io/HostlistsRegistry... | 63313 |
-| https://adguardteam.github.io/HostlistsRegistry... | 62734 |
+| https://adguardteam.github.io/HostlistsRegistry... | 62731 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58341 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54090 |
 | https://adguardteam.github.io/HostlistsRegistry... | 50398 |
-| https://adguardteam.github.io/HostlistsRegistry... | 49118 |
-| https://adguardteam.github.io/HostlistsRegistry... | 43597 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35974 |
+| https://adguardteam.github.io/HostlistsRegistry... | 43573 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35986 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15777 |
 
 ## Top Domains
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.notify.macys.com` | 2 |
+| `awin1.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
