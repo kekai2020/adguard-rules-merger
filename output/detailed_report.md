@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-15 18:28:09 UTC
+**Generated:** 2026-08-15 19:22:41 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3135278
+- **Total Rules (before dedup):** 3135581
 - **Total Rules (after dedup):** 2475122
 - **Deduplication Rate:** 21.1%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.562 seconds
+- **Processing Time:** 13.579 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1876578 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137665 |
+| https://adguardteam.github.io/HostlistsRegistry... | 155996 |
+| https://adguardteam.github.io/HostlistsRegistry... | 137662 |
 | https://adguardteam.github.io/HostlistsRegistry... | 132070 |
-| https://adguardteam.github.io/HostlistsRegistry... | 62717 |
-| https://adguardteam.github.io/HostlistsRegistry... | 58341 |
-| https://adguardteam.github.io/HostlistsRegistry... | 54090 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50398 |
-| https://adguardteam.github.io/HostlistsRegistry... | 43597 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35974 |
+| https://adguardteam.github.io/HostlistsRegistry... | 47808 |
+| https://adguardteam.github.io/HostlistsRegistry... | 37454 |
+| https://adguardteam.github.io/HostlistsRegistry... | 35981 |
+| https://adguardteam.github.io/HostlistsRegistry... | 23965 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15777 |
+| https://adguardteam.github.io/HostlistsRegistry... | 5733 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `afi-b.com` | 2 |
 | `awin1.com` | 2 |
-| `om-ssl.consorsbank.de` | 2 |
+| `logentries.com` | 2 |
+| `omsc.kpn.com` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
+| `data.notify.macys.com` | 2 |
+| `data.orders.costco.ca` | 2 |
 | `data.orders.costco.com` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
-| `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
+| `data.promo.timhortons.ca` | 2 |
 
 ## Rule Types Distribution
 
