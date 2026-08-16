@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-16 16:24:27 UTC
+**Generated:** 2026-08-16 17:19:39 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2489444
 - **Deduplication Rate:** 21.0%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 12.706 seconds
+- **Processing Time:** 12.792 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1889774 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137696 |
+| https://adguardteam.github.io/HostlistsRegistry... | 137701 |
 | https://adguardteam.github.io/HostlistsRegistry... | 132949 |
-| https://adguardteam.github.io/HostlistsRegistry... | 121912 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50590 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46280 |
-| https://adguardteam.github.io/HostlistsRegistry... | 43597 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36072 |
-| https://adguardteam.github.io/HostlistsRegistry... | 14520 |
-| https://adguardteam.github.io/HostlistsRegistry... | 8237 |
+| https://adguardteam.github.io/HostlistsRegistry... | 70254 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58722 |
+| https://adguardteam.github.io/HostlistsRegistry... | 57114 |
+| https://adguardteam.github.io/HostlistsRegistry... | 54108 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36674 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36084 |
+| https://adguardteam.github.io/HostlistsRegistry... | 8235 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `ad.10010.com` | 2 |
-| `ad.ourgame.com` | 2 |
+| `afi-b.com` | 2 |
 | `awin1.com` | 2 |
-| `belgium.wolterskluwer.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
-| `data.notify.macys.com` | 2 |
-| `data.orders.costco.ca` | 2 |
 | `data.orders.costco.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omsc.kpn.com` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
