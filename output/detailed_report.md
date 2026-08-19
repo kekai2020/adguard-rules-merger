@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-19 02:57:11 UTC
+**Generated:** 2026-08-19 03:46:32 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2555512
 - **Deduplication Rate:** 21.3%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 11.373 seconds
+- **Processing Time:** 13.623 seconds
 
 ### Rule Breakdown
 
@@ -21,30 +21,30 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1932449 |
-| https://adguardteam.github.io/HostlistsRegistry... | 176763 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138444 |
+| https://adguardteam.github.io/HostlistsRegistry... | 138372 |
 | https://adguardteam.github.io/HostlistsRegistry... | 135322 |
-| https://adguardteam.github.io/HostlistsRegistry... | 50985 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36295 |
-| https://adguardteam.github.io/HostlistsRegistry... | 35547 |
-| https://adguardteam.github.io/HostlistsRegistry... | 21358 |
+| https://adguardteam.github.io/HostlistsRegistry... | 81352 |
+| https://adguardteam.github.io/HostlistsRegistry... | 62672 |
+| https://adguardteam.github.io/HostlistsRegistry... | 52351 |
+| https://adguardteam.github.io/HostlistsRegistry... | 49530 |
+| https://adguardteam.github.io/HostlistsRegistry... | 43616 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36287 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15848 |
-| https://adguardteam.github.io/HostlistsRegistry... | 5494 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `awin1.com` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
+| `data.notify.macys.com` | 2 |
+| `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
-| `data.notify.macys.com` | 2 |
-| `data.orders.costco.ca` | 2 |
-| `data.orders.costco.com` | 2 |
-| `data.promo.timhortons.ca` | 2 |
+| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
