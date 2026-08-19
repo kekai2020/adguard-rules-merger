@@ -1,6 +1,6 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-19 07:38:15 UTC
+**Generated:** 2026-08-19 08:37:01 UTC
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **Total Rules (after dedup):** 2555813
 - **Deduplication Rate:** 21.3%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.566 seconds
+- **Processing Time:** 13.805 seconds
 
 ### Rule Breakdown
 
@@ -24,9 +24,9 @@
 | https://adguardteam.github.io/HostlistsRegistry... | 138607 |
 | https://adguardteam.github.io/HostlistsRegistry... | 135325 |
 | https://adguardteam.github.io/HostlistsRegistry... | 81410 |
-| https://adguardteam.github.io/HostlistsRegistry... | 62672 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58568 |
+| https://adguardteam.github.io/HostlistsRegistry... | 53634 |
 | https://adguardteam.github.io/HostlistsRegistry... | 52338 |
-| https://adguardteam.github.io/HostlistsRegistry... | 49530 |
 | https://adguardteam.github.io/HostlistsRegistry... | 43595 |
 | https://adguardteam.github.io/HostlistsRegistry... | 36299 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15851 |
@@ -37,14 +37,14 @@
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `analytics.amplitude.com` | 2 |
-| `api.ads.tvb.com` | 2 |
-| `click.cptrack.de` | 2 |
-| `data.notify.macys.com` | 2 |
+| `awin1.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
 | `data.orders.costco.com` | 2 |
-| `logentries.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `sax.sina.com.cn` | 2 |
+| `torimochi.line-apps.com` | 2 |
 
 ## Rule Types Distribution
 
