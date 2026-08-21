@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-21 11:27:56 UTC
+**Generated:** 2026-08-21 12:44:20 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3291582
-- **Total Rules (after dedup):** 2592891
+- **Total Rules (before dedup):** 3291401
+- **Total Rules (after dedup):** 2592808
 - **Deduplication Rate:** 21.2%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 13.375 seconds
+- **Processing Time:** 13.320 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2592590
+- **Block Rules:** 2592507
 - **Allow Rules:** 230
 - **Comments:** 71
 
@@ -20,34 +20,34 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 1968876 |
-| https://adguardteam.github.io/HostlistsRegistry... | 138428 |
-| https://adguardteam.github.io/HostlistsRegistry... | 136552 |
-| https://adguardteam.github.io/HostlistsRegistry... | 101685 |
-| https://adguardteam.github.io/HostlistsRegistry... | 99407 |
-| https://adguardteam.github.io/HostlistsRegistry... | 44637 |
-| https://adguardteam.github.io/HostlistsRegistry... | 37521 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36504 |
-| https://adguardteam.github.io/HostlistsRegistry... | 18430 |
-| https://adguardteam.github.io/HostlistsRegistry... | 5493 |
+| https://adguardteam.github.io/HostlistsRegistry... | 1968982 |
+| https://adguardteam.github.io/HostlistsRegistry... | 138175 |
+| https://adguardteam.github.io/HostlistsRegistry... | 136544 |
+| https://adguardteam.github.io/HostlistsRegistry... | 81395 |
+| https://adguardteam.github.io/HostlistsRegistry... | 62944 |
+| https://adguardteam.github.io/HostlistsRegistry... | 51821 |
+| https://adguardteam.github.io/HostlistsRegistry... | 49209 |
+| https://adguardteam.github.io/HostlistsRegistry... | 43666 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36505 |
+| https://adguardteam.github.io/HostlistsRegistry... | 15872 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `afi-b.com` | 2 |
-| `awin1.com` | 2 |
-| `om-ssl.consorsbank.de` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
-| `data.orders.costco.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
-| `marketing.net.idealo-partner.com` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
+| `data.notify.macys.com` | 2 |
+| `data.orders.costco.com` | 2 |
+| `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `torimochi.line-apps.com` | 2 |
+| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 2592590 (100.0%) ███████████████████
+- **Block:** 2592507 (100.0%) ███████████████████
 - **Allow:** 230 (0.0%) 
 - **Comment:** 71 (0.0%) 
