@@ -1,14 +1,14 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-08-25 14:56:00 UTC
+**Generated:** 2026-08-25 15:42:45 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3274604
+- **Total Rules (before dedup):** 3274645
 - **Total Rules (after dedup):** 2599683
 - **Deduplication Rate:** 20.6%
 - **Sources Processed:** 14 / 14
-- **Processing Time:** 11.684 seconds
+- **Processing Time:** 13.518 seconds
 
 ### Rule Breakdown
 
@@ -21,14 +21,14 @@
 | Source | Rule Count |
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1976563 |
-| https://adguardteam.github.io/HostlistsRegistry... | 137506 |
+| https://adguardteam.github.io/HostlistsRegistry... | 137509 |
 | https://adguardteam.github.io/HostlistsRegistry... | 135726 |
-| https://adguardteam.github.io/HostlistsRegistry... | 123632 |
-| https://adguardteam.github.io/HostlistsRegistry... | 58588 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46914 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36927 |
-| https://adguardteam.github.io/HostlistsRegistry... | 36707 |
-| https://adguardteam.github.io/HostlistsRegistry... | 23791 |
+| https://adguardteam.github.io/HostlistsRegistry... | 81435 |
+| https://adguardteam.github.io/HostlistsRegistry... | 62810 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58567 |
+| https://adguardteam.github.io/HostlistsRegistry... | 49362 |
+| https://adguardteam.github.io/HostlistsRegistry... | 37371 |
+| https://adguardteam.github.io/HostlistsRegistry... | 36933 |
 | https://adguardteam.github.io/HostlistsRegistry... | 15885 |
 
 ## Top Domains
@@ -36,15 +36,15 @@
 | Domain | Count |
 |--------|-------|
 | `proto2ad.durasite.net` | 2 |
-| `awin1.com` | 2 |
+| `afi-b.com` | 2 |
+| `analytics.amplitude.com` | 2 |
+| `api.ads.tvb.com` | 2 |
+| `click.cptrack.de` | 2 |
+| `data.notify.macys.com` | 2 |
+| `data.orders.costco.com` | 2 |
 | `logentries.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `data.digital.costco.ca` | 2 |
-| `data.digital.costco.com` | 2 |
-| `data.notify.macys.com` | 2 |
-| `data.orders.costco.ca` | 2 |
-| `data.orders.costco.com` | 2 |
-| `data.promo.timhortons.ca` | 2 |
+| `sax.sina.com.cn` | 2 |
 
 ## Rule Types Distribution
 
