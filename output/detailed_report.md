@@ -1,53 +1,53 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-09-22 13:09:49 UTC
+**Generated:** 2026-09-22 15:10:59 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3939023
-- **Total Rules (after dedup):** 3263913
-- **Deduplication Rate:** 17.1%
-- **Sources Processed:** 14 / 14
-- **Processing Time:** 16.966 seconds
+- **Total Rules (before dedup):** 4340543
+- **Total Rules (after dedup):** 3751570
+- **Deduplication Rate:** 13.6%
+- **Sources Processed:** 18 / 18
+- **Processing Time:** 17.588 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 3263610
-- **Allow Rules:** 232
-- **Comments:** 71
+- **Block Rules:** 3751245
+- **Allow Rules:** 236
+- **Comments:** 89
 
 ## Source Distribution
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 2629393 |
-| https://adguardteam.github.io/HostlistsRegistry... | 267402 |
-| https://adguardteam.github.io/HostlistsRegistry... | 119323 |
-| https://adguardteam.github.io/HostlistsRegistry... | 72627 |
-| https://adguardteam.github.io/HostlistsRegistry... | 46049 |
-| https://adguardteam.github.io/HostlistsRegistry... | 40794 |
-| https://adguardteam.github.io/HostlistsRegistry... | 39564 |
-| https://adguardteam.github.io/HostlistsRegistry... | 26278 |
-| https://adguardteam.github.io/HostlistsRegistry... | 13520 |
-| https://adguardteam.github.io/HostlistsRegistry... | 3532 |
+| https://adguardteam.github.io/HostlistsRegistry... | 2626626 |
+| https://adguardteam.github.io/HostlistsRegistry... | 529382 |
+| https://adguardteam.github.io/HostlistsRegistry... | 173121 |
+| https://adguardteam.github.io/HostlistsRegistry... | 130127 |
+| https://adguardteam.github.io/HostlistsRegistry... | 92244 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60175 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56202 |
+| https://adguardteam.github.io/HostlistsRegistry... | 39610 |
+| https://adguardteam.github.io/HostlistsRegistry... | 19280 |
+| https://adguardteam.github.io/HostlistsRegistry... | 16469 |
 
 ## Top Domains
 
 | Domain | Count |
 |--------|-------|
-| `app.appsflyer.com` | 2 |
-| `autocomplete.clearbit.com` | 2 |
-| `sax.sina.com.cn` | 2 |
-| `data.orders.costco.ca` | 2 |
+| `js.monitor.azure.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
-| `str.hit.gemius.pl` | 2 |
-| `api.karte.io` | 2 |
+| `afi-b.com` | 2 |
+| `awin1.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
+| `data.digital.costco.ca` | 2 |
+| `data.digital.costco.com` | 2 |
+| `data.orders.costco.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
 | `omsc.kpn.com` | 2 |
-| `settings-win.data.microsoft.com` | 2 |
-| `sedge.nfl.com` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 3263610 (100.0%) ███████████████████
-- **Allow:** 232 (0.0%) 
-- **Comment:** 71 (0.0%) 
+- **Block:** 3751245 (100.0%) ███████████████████
+- **Allow:** 236 (0.0%) 
+- **Comment:** 89 (0.0%) 
