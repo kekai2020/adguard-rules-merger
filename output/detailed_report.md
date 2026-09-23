@@ -1,35 +1,35 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-09-23 09:08:15 UTC
+**Generated:** 2026-09-23 14:44:08 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 4341865
-- **Total Rules (after dedup):** 3751955
-- **Deduplication Rate:** 13.6%
+- **Total Rules (before dedup):** 3777175
+- **Total Rules (after dedup):** 3192514
+- **Deduplication Rate:** 15.5%
 - **Sources Processed:** 18 / 18
-- **Processing Time:** 18.491 seconds
+- **Processing Time:** 13.770 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 3751630
-- **Allow Rules:** 236
+- **Block Rules:** 3192188
+- **Allow Rules:** 237
 - **Comments:** 89
 
 ## Source Distribution
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 2626875 |
-| https://adguardteam.github.io/HostlistsRegistry... | 529382 |
-| https://adguardteam.github.io/HostlistsRegistry... | 173144 |
-| https://adguardteam.github.io/HostlistsRegistry... | 129953 |
-| https://adguardteam.github.io/HostlistsRegistry... | 92004 |
-| https://adguardteam.github.io/HostlistsRegistry... | 60441 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56421 |
-| https://adguardteam.github.io/HostlistsRegistry... | 39631 |
-| https://adguardteam.github.io/HostlistsRegistry... | 19277 |
-| https://adguardteam.github.io/HostlistsRegistry... | 16469 |
+| https://adguardteam.github.io/HostlistsRegistry... | 2066343 |
+| https://adguardteam.github.io/HostlistsRegistry... | 530360 |
+| https://adguardteam.github.io/HostlistsRegistry... | 173260 |
+| https://adguardteam.github.io/HostlistsRegistry... | 129845 |
+| https://adguardteam.github.io/HostlistsRegistry... | 101888 |
+| https://adguardteam.github.io/HostlistsRegistry... | 60446 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56384 |
+| https://adguardteam.github.io/HostlistsRegistry... | 39652 |
+| https://adguardteam.github.io/HostlistsRegistry... | 16460 |
+| https://adguardteam.github.io/HostlistsRegistry... | 9533 |
 
 ## Top Domains
 
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 3751630 (100.0%) ███████████████████
-- **Allow:** 236 (0.0%) 
+- **Block:** 3192188 (100.0%) ███████████████████
+- **Allow:** 237 (0.0%) 
 - **Comment:** 89 (0.0%) 
