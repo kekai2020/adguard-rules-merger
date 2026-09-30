@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-09-29 21:56:20 UTC
+**Generated:** 2026-09-30 01:07:17 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3968159
-- **Total Rules (after dedup):** 3386853
-- **Deduplication Rate:** 14.6%
+- **Total Rules (before dedup):** 3969673
+- **Total Rules (after dedup):** 3387210
+- **Deduplication Rate:** 14.7%
 - **Sources Processed:** 18 / 18
-- **Processing Time:** 16.112 seconds
+- **Processing Time:** 16.084 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 3386525
+- **Block Rules:** 3386882
 - **Allow Rules:** 239
 - **Comments:** 89
 
@@ -20,14 +20,14 @@
 
 | Source | Rule Count |
 |--------|------------|
-| https://adguardteam.github.io/HostlistsRegistry... | 2225390 |
-| https://adguardteam.github.io/HostlistsRegistry... | 567013 |
-| https://adguardteam.github.io/HostlistsRegistry... | 179338 |
-| https://adguardteam.github.io/HostlistsRegistry... | 129009 |
-| https://adguardteam.github.io/HostlistsRegistry... | 88479 |
-| https://adguardteam.github.io/HostlistsRegistry... | 58630 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56279 |
-| https://adguardteam.github.io/HostlistsRegistry... | 38794 |
+| https://adguardteam.github.io/HostlistsRegistry... | 2225457 |
+| https://adguardteam.github.io/HostlistsRegistry... | 567012 |
+| https://adguardteam.github.io/HostlistsRegistry... | 179343 |
+| https://adguardteam.github.io/HostlistsRegistry... | 127859 |
+| https://adguardteam.github.io/HostlistsRegistry... | 88541 |
+| https://adguardteam.github.io/HostlistsRegistry... | 58636 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56275 |
+| https://adguardteam.github.io/HostlistsRegistry... | 40200 |
 | https://adguardteam.github.io/HostlistsRegistry... | 19344 |
 | https://adguardteam.github.io/HostlistsRegistry... | 16328 |
 
@@ -48,6 +48,6 @@
 
 ## Rule Types Distribution
 
-- **Block:** 3386525 (100.0%) ███████████████████
+- **Block:** 3386882 (100.0%) ███████████████████
 - **Allow:** 239 (0.0%) 
 - **Comment:** 89 (0.0%) 
