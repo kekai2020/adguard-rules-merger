@@ -1,18 +1,18 @@
 # AdGuard Rules Merge Report
 
-**Generated:** 2026-10-18 20:09:01 UTC
+**Generated:** 2026-10-18 22:49:28 UTC
 
 ## Summary
 
-- **Total Rules (before dedup):** 3809758
-- **Total Rules (after dedup):** 2945569
+- **Total Rules (before dedup):** 3809861
+- **Total Rules (after dedup):** 2945620
 - **Deduplication Rate:** 22.7%
 - **Sources Processed:** 18 / 18
-- **Processing Time:** 12.195 seconds
+- **Processing Time:** 15.285 seconds
 
 ### Rule Breakdown
 
-- **Block Rules:** 2945199
+- **Block Rules:** 2945250
 - **Allow Rules:** 281
 - **Comments:** 89
 
@@ -22,14 +22,14 @@
 |--------|------------|
 | https://adguardteam.github.io/HostlistsRegistry... | 1786533 |
 | https://adguardteam.github.io/HostlistsRegistry... | 598283 |
-| https://adguardteam.github.io/HostlistsRegistry... | 143825 |
-| https://adguardteam.github.io/HostlistsRegistry... | 133938 |
-| https://adguardteam.github.io/HostlistsRegistry... | 131150 |
-| https://adguardteam.github.io/HostlistsRegistry... | 56296 |
-| https://adguardteam.github.io/HostlistsRegistry... | 31177 |
-| https://adguardteam.github.io/HostlistsRegistry... | 29909 |
+| https://adguardteam.github.io/HostlistsRegistry... | 143823 |
+| https://adguardteam.github.io/HostlistsRegistry... | 131157 |
+| https://adguardteam.github.io/HostlistsRegistry... | 95087 |
+| https://adguardteam.github.io/HostlistsRegistry... | 61906 |
+| https://adguardteam.github.io/HostlistsRegistry... | 56282 |
+| https://adguardteam.github.io/HostlistsRegistry... | 29901 |
+| https://adguardteam.github.io/HostlistsRegistry... | 19414 |
 | https://adguardteam.github.io/HostlistsRegistry... | 16265 |
-| https://adguardteam.github.io/HostlistsRegistry... | 11246 |
 
 ## Top Domains
 
@@ -38,16 +38,16 @@
 | `js.monitor.azure.com` | 2 |
 | `proto2ad.durasite.net` | 2 |
 | `afi-b.com` | 2 |
-| `hb.afl.rakuten.co.jp` | 2 |
-| `app.appsflyer.com` | 2 |
 | `awin1.com` | 2 |
-| `logentries.com` | 2 |
-| `omsc.kpn.com` | 2 |
+| `om-ssl.consorsbank.de` | 2 |
 | `data.digital.costco.ca` | 2 |
 | `data.digital.costco.com` | 2 |
+| `data.orders.costco.com` | 2 |
+| `marketing.net.idealo-partner.com` | 2 |
+| `omsc.kpn.com` | 2 |
 
 ## Rule Types Distribution
 
-- **Block:** 2945199 (100.0%) ███████████████████
+- **Block:** 2945250 (100.0%) ███████████████████
 - **Allow:** 281 (0.0%) 
 - **Comment:** 89 (0.0%) 
