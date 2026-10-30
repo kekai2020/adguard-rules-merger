@@ -10,8 +10,8 @@ import pytest
 from merger import dnsx, whois_audit
 from merger.whitelist_audit import dns_doh
 
-
 # ── dnsx ──
+
 
 @pytest.mark.asyncio
 async def test_dnsx_nxdomain():
@@ -33,6 +33,7 @@ async def test_dnsx_resolver_failure(monkeypatch):
 
 # ── dns_doh ──
 
+
 @pytest.mark.asyncio
 async def test_dns_doh_system_fallback():
     out = await dns_doh._dns_check("example.com", timeout=1)
@@ -48,6 +49,7 @@ async def test_dns_doh_mx_spf():
 
 
 # ── whois_audit ──
+
 
 def test_whois_parse_empty():
     out = whois_audit.parse_rdap_response({}, threshold_days=30)

@@ -1,14 +1,14 @@
-# AdGuard Rules Merger V7
+# AdGuard Rules Merger V8
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Version](https://img.shields.io/badge/Version-8.0.0-blue)
-![Tests](https://img.shields.io/badge/Tests-268-green)
+![Tests](https://img.shields.io/badge/Tests-703-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![CI](https://github.com/kekai2020/adguard-rules-merger-v7/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/kekai2020/adguard-rules-merger-v8/actions/workflows/ci.yml/badge.svg)
 
 从 18 个上游订阅源自动下载、合并、去重、聚合、消解冲突并输出 AdGuard Home 规则。
 
-V7 是一个**生产就绪（production-ready）**的重构版本：包内 CLI 与可安装的控制台命令、
+V8 是一个**生产就绪（production-ready）**的重构版本：包内 CLI 与可安装的控制台命令、
 确定性产物（相同规则即字节级一致）、`uv` 可复现构建、ruff 质量门禁、矩阵 CI、
 一键 Release 工作流、以及更完善的配置校验与白名单审计接线。
 
@@ -49,8 +49,8 @@ V7 是一个**生产就绪（production-ready）**的重构版本：包内 CLI �
 ### 方式一：uv（推荐，可复现）
 
 ```bash
-git clone https://github.com/kekai2020/adguard-rules-merger-v7.git
-cd adguard-rules-merger-v7
+git clone https://github.com/kekai2020/adguard-rules-merger-v8.git
+cd adguard-rules-merger-v8
 uv sync --extra dev        # 安装运行依赖 + 开发/测试/ruff 依赖（锁定版本）
 uv run adguard-rules-merger merge --config config/sources.yaml
 ```
@@ -72,16 +72,16 @@ python merge_rules.py merge --config config/sources.yaml
 ```bash
 uv sync --extra dev
 uv run python -m build
-pip install dist/adguard_rules_merger-7.0.0-py3-none-any.whl
+pip install dist/adguard_rules_merger-8.0.0-py3-none-any.whl
 adguard-rules-merger version
 ```
 
 ### 方式四：Docker（可选）
 
 ```bash
-docker build -t adguard-rules-merger:7.0.0 .
+docker build -t adguard-rules-merger:8.0.0 .
 docker run --rm -v "$PWD/output:/app/output" -v "$PWD/cache:/app/cache" \
-  adguard-rules-merger:7.0.0 merge --config config/sources.yaml
+  adguard-rules-merger:8.0.0 merge --config config/sources.yaml
 ```
 
 ---
@@ -148,7 +148,7 @@ uv run adguard-rules-merger version
 
 ---
 
-## 确定性产物（V7 重点）
+## 确定性产物（V8 重点）
 
 所有**提交到仓库**的文件都以内容哈希作为 `Version`，且默认不写入墙钟时间：
 
@@ -173,27 +173,27 @@ output:
 GitHub Actions 运行后，将以下 raw URL 填入 AdGuard Home → DNS 设置 → 过滤名单：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v7/main/output/merged_rules.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/merged_rules.txt
 ```
 
 白名单：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v7/main/output/whitelist.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist.txt
 ```
 
 纯域名（Pi-hole / 其他工具）：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v7/main/output/domains.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/domains.txt
 ```
 
 分级白名单：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v7/main/output/whitelist_safe.txt
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v7/main/output/whitelist_suspicious.txt
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v7/main/output/whitelist_malicious.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist_safe.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist_suspicious.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist_malicious.txt
 ```
 
 ---
@@ -212,7 +212,7 @@ download:
   retry_count: 2
   retry_delay: 1.5
   source_deadline: 120   # 单源硬超时预算（含全部重试），到期回退陈旧缓存
-  backoff: linear        # linear | exponential（V7 校验拼写）
+  backoff: linear        # linear | exponential（V8 校验拼写）
 ```
 
 ### 去重 / 质量过滤 / 聚合
@@ -319,7 +319,7 @@ output:
   formats: [adguard, whitelist, hosts, domains, clash, surge, smartdns]
   tiered: true
   report: true
-  report_timestamp: false  # V7：默认确定性
+  report_timestamp: false  # V8：默认确定性
 ```
 
 ---
@@ -334,13 +334,13 @@ output:
 | `.github/workflows/merge.yml` | 每日 UTC 0 点 / 手动 / 配置变更 | 跑测试后执行合并、校验产物、把 `output/` 提交回 `main` |
 | `.github/workflows/release.yml` | 推送 `v*` 标签 | 构建 wheel/sdist 并发布到 GitHub Release |
 
-缓存使用 `actions/cache`（缓存键前缀 `rule-cache-v7-`），可显著减少重复下载。
+缓存使用 `actions/cache`（缓存键前缀 `rule-cache-v8-`），可显著减少重复下载。
 
 发布一个版本：
 
 ```bash
-git tag v7.0.0
-git push origin v7.0.0   # release.yml 自动构建并发布 Release
+git tag v8.0.0
+git push origin v8.0.0   # release.yml 自动构建并发布 Release
 ```
 
 ---
@@ -385,7 +385,8 @@ adguard-rules-merger/
 │   ├── cache.py / feed_cache.py  # ETag/内容哈希/sidecar 缓存 + 情报源 blob 缓存
 │   ├── exporter.py          # 多格式流式导出
 │   ├── ports.py             # IO 薄端口（HTTP/DNS/Cache seam）
-│   ├── domain_classifier.py # 域名用途分类（高置信可映射块规则桶）
+│   ├── domain_classifier/    # 域名用途分类（高置信可映射块规则桶；v8.2 拆为子包）
+│   │   ├── api.py / rules.py / ruleset.py / seeds.py
 │   ├── homograph.py         # 离线同形字/typosquat 品牌对标
 │   ├── threat_feeds.py      # 威胁情报源下载/索引
 │   ├── dnsx.py / scam_check.py / whois_audit.py / virustotal_audit.py / ai_classifier.py
@@ -403,7 +404,7 @@ adguard-rules-merger/
 ├── config/sources.yaml      # 源配置
 ├── merge_rules.py           # 兼容启动器（旧入口，委托给 merger.cli）
 ├── config_loader.py         # 兼容垫片（重导出 merger.config）
-├── tests/                   # 487 个单元/集成测试（默认；另有 3 个 slow 网络/基准测试，共 490）
+├── tests/                   # 703 个单元/集成测试（默认；另有 3 个 slow 网络/基准测试，共 706）
 ├── .github/workflows/       # ci / merge / release
 ├── Dockerfile
 └── pyproject.toml + uv.lock # 打包与可复现依赖

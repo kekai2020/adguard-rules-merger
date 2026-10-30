@@ -8,7 +8,6 @@ here so existing ``from merger.domain_classifier import X`` imports keep working
 from __future__ import annotations
 
 from .api import (
-    block_bucket_for,
     category_counts,
     classify_batch,
     classify_domain,
@@ -18,22 +17,21 @@ from .rules import (
     BLOCK_BUCKET_MAP,
     CATEGORY_LABELS,
     CATEGORY_ORDER,
-    CONFIDENCE_NONE,
-    CONFIDENCE_REGISTERED,
-    CONFIDENCE_SUBDOMAIN,
     EXTERNAL_CATEGORY_MAP,
     REGISTERED_DOMAIN_RULES,
     SUBDOMAIN_PREFIX_RULES,
-    _extract,
+    block_bucket_for,
 )
-from .ruleset import (
-    ClassifierRuleSet,
-    _DEFAULT_RULESET,
-    _PREFIX_LOOKUP,
-    _REGISTERED_LOOKUP,
-    registered_domain,
-)
-from .seeds import _load_builtin_seeds, load_seed_file, merge_seed_map
+from .rules import CONFIDENCE_NONE as CONFIDENCE_NONE
+from .rules import CONFIDENCE_REGISTERED as CONFIDENCE_REGISTERED
+from .rules import CONFIDENCE_SUBDOMAIN as CONFIDENCE_SUBDOMAIN
+from .rules import _extract as _extract
+from .ruleset import _DEFAULT_RULESET as _DEFAULT_RULESET
+from .ruleset import _PREFIX_LOOKUP as _PREFIX_LOOKUP
+from .ruleset import _REGISTERED_LOOKUP as _REGISTERED_LOOKUP
+from .ruleset import ClassifierRuleSet, registered_domain
+from .seeds import _load_builtin_seeds as _load_builtin_seeds
+from .seeds import load_seed_file, merge_seed_map
 
 __all__ = [
     "ClassifierRuleSet",

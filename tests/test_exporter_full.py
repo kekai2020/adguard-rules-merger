@@ -22,18 +22,33 @@ def _rule(domain: str, rule_type: str = "block") -> Rule:
 
 def _outcome() -> SimpleNamespace:
     return SimpleNamespace(
-        sources_ok=3, sources_total=3, sources_cached=1,
-        raw_count=100, exact_merged=5, normalized_merged=2, regex_merged=1,
-        aggregated=10, wildcard_aggregated=3, wildcard_promoted=1,
-        conflict_resolved=2, conflicts=[],
+        sources_ok=3,
+        sources_total=3,
+        sources_cached=1,
+        raw_count=100,
+        exact_merged=5,
+        normalized_merged=2,
+        regex_merged=1,
+        aggregated=10,
+        wildcard_aggregated=3,
+        wildcard_promoted=1,
+        conflict_resolved=2,
+        conflicts=[],
         whitelist_blocked=0,
-        pattern_dropped=0, quality_dropped=0, css_dropped=0,
-        failed_sources=[], added=[], removed=[],
-        content_version="cv1", elapsed=0.5,
+        pattern_dropped=0,
+        quality_dropped=0,
+        css_dropped=0,
+        failed_sources=[],
+        added=[],
+        removed=[],
+        content_version="cv1",
+        elapsed=0.5,
         modifier_stats={"important": 1},
-        contributions=[], source_overlap={"pairs": [], "source_effective": {}},
+        contributions=[],
+        source_overlap={"pairs": [], "source_effective": {}},
         whitelist_audit={"summary": {}, "rules": []},
-        unrecognized_dropped=0, unsupported_modifier=0,
+        unrecognized_dropped=0,
+        unsupported_modifier=0,
     )
 
 
@@ -57,30 +72,55 @@ def test_write_stats(tmp_path):
 
 def test_write_conflicts(tmp_path):
     ex = Exporter(tmp_path, report_timestamp=False)
-    ex.write_conflicts([{
-        "domain": "x.com", "blocked_rule": "||x.com", "blocked_sources": ["a"],
-        "whitelist_rule": "@@||x.com", "whitelist_sources": ["b"], "conflict_type": "exact",
-    }])
+    ex.write_conflicts(
+        [
+            {
+                "domain": "x.com",
+                "blocked_rule": "||x.com",
+                "blocked_sources": ["a"],
+                "whitelist_rule": "@@||x.com",
+                "whitelist_sources": ["b"],
+                "conflict_type": "exact",
+            }
+        ]
+    )
     assert (tmp_path / "conflicts.json").exists()
 
 
 def test_write_contributions(tmp_path):
     ex = Exporter(tmp_path, report_timestamp=False)
-    ex.write_contributions([{
-        "name": "ad", "raw_rules": 100, "effective_rules": 90,
-        "unique_rules": 40, "shared_rules": 50,
-    }])
+    ex.write_contributions(
+        [
+            {
+                "name": "ad",
+                "raw_rules": 100,
+                "effective_rules": 90,
+                "unique_rules": 40,
+                "shared_rules": 50,
+            }
+        ]
+    )
     assert (tmp_path / "contributions.json").exists()
 
 
 def test_write_whitelist_audit(tmp_path):
     ex = Exporter(tmp_path, report_timestamp=False)
     out = _outcome()
-    out.whitelist_audit = {"summary": {"total": 1}, "rules": [
-        {"domain": "good.com", "rating": "safe", "category": "advertising",
-         "category_confidence": 0.9, "risk_score": 0, "recommendation_label": "ok",
-         "reason": "ok", "sources": ["test"]}
-    ]}
+    out.whitelist_audit = {
+        "summary": {"total": 1},
+        "rules": [
+            {
+                "domain": "good.com",
+                "rating": "safe",
+                "category": "advertising",
+                "category_confidence": 0.9,
+                "risk_score": 0,
+                "recommendation_label": "ok",
+                "reason": "ok",
+                "sources": ["test"],
+            }
+        ],
+    }
     ex.write_whitelist_audit(out)
     assert (tmp_path / "whitelist_audit.json").exists()
 

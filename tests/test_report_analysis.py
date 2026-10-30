@@ -19,6 +19,7 @@ def test_classify_rule():
     class R:
         normalized_domain = "example.com"
         wildcard = False
+
     assert analysis._classify_rule(R()) == "domain"
     R.wildcard = True
     assert analysis._classify_rule(R()) == "wildcard"
@@ -68,7 +69,14 @@ def test_build_matrix_from_pairs():
     src = {
         "source_effective": {"a": 90, "b": 70},
         "pairs": [
-            {"source_a": "a", "source_b": "b", "overlap": 20, "rate_a": 22.0, "rate_b": 18.0, "jaccard": 12.5},
+            {
+                "source_a": "a",
+                "source_b": "b",
+                "overlap": 20,
+                "rate_a": 22.0,
+                "rate_b": 18.0,
+                "jaccard": 12.5,
+            },
         ],
     }
     m = analysis._build_matrix(src)

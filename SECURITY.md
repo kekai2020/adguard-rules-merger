@@ -4,7 +4,7 @@
 
 If you discover a security issue, please **do not** open a public issue.
 Report it privately via the repository's
-[Security → Report a vulnerability](https://github.com/kekai2020/adguard-rules-merger-v7/security/advisories)
+[Security → Report a vulnerability](https://github.com/kekai2020/adguard-rules-merger-v8/security/advisories)
 flow, or contact the maintainer. Please include:
 
 - a description and reproduction steps,

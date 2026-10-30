@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
 #
-# AdGuard Rules Merger v8.2 — multi-stage image.
+# AdGuard Rules Merger v8.0.0 — multi-stage image.
 #
-# Build:  docker build -t adguard-rules-merger:8.2.0 .
+# Build:  docker build -t adguard-rules-merger:8.0.0 .
 # Run:    docker run --rm -v "$PWD/output:/app/output" \
 #                       -v "$PWD/cache:/app/cache" \
-#                       adguard-rules-merger:8.2.0 merge --config config/sources.yaml
+#                       adguard-rules-merger:8.0.0 merge --config config/sources.yaml
 #
 # The final image ships a pre-built virtual environment and the package
 # installed with its console script; no build tooling is present at runtime.

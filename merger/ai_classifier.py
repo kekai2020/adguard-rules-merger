@@ -68,6 +68,7 @@ logger = logging.getLogger(__name__)
 # TTL window do not re-hit the LLM API.
 _ai_cache = _TTLCache()
 
+
 def _build_user_prompt(domain: str) -> str:
     return f'Classify the domain "{domain}". Return JSON only.'
 

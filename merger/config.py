@@ -1,11 +1,11 @@
-"""V7 configuration loading and validation (pydantic).
+"""V8 configuration loading and validation (pydantic).
 
 This module replaces the top-level ``config_loader.py`` (which now remains
 as a thin backward-compatible shim re-exporting the symbols below). It is
 the single place that turns ``config/sources.yaml`` into typed
 configuration objects consumed by the engine and CLI.
 
-V7 enhancements over V6:
+V8 enhancements over V6:
 - ``download.backoff`` is a validated ``Literal`` (a typo fails fast).
 - ``whitelist_audit.fusion_weights`` / ``use_heuristics`` are exposed and
   actually reach the auditor (V6 only read them from defaults).
@@ -71,7 +71,7 @@ class DownloadConfig(_StrictConfig):
     retry_delay: float = Field(default=1.5, ge=0.0, le=60.0)
     # Hard per-source time budget (all retries combined, seconds).
     source_deadline: float = Field(default=120.0, ge=0.0)
-    # V7: backoff strategy is now validated (a typo used to fall through to
+    # V8: backoff strategy is now validated (a typo used to fall through to
     # "linear" silently).
     backoff: Literal["linear", "exponential"] = "linear"
     # Optional override; empty means the engine uses its versioned UA.
@@ -141,7 +141,7 @@ class WhitelistAuditConfig(_StrictConfig):
     virustotal_api_key: str = ""
     # Layer 7 (offline) + Layer 8: AI
     ai: AIAuditConfig = Field(default_factory=AIAuditConfig)
-    # V7: offline heuristic layer toggle + fusion weights (now actually wired
+    # V8: offline heuristic layer toggle + fusion weights (now actually wired
     # through to whitelist_audit.AuditConfig).
     use_heuristics: bool = True
     fusion_weights: dict[str, int] = Field(default_factory=lambda: dict(DEFAULT_FUSION_WEIGHTS))
@@ -222,7 +222,7 @@ class OutputConfig(_StrictConfig):
     tiered: bool = True
     report: bool = True
     write_diff: bool = False
-    # V7: when false (default), omit wall-clock timestamps and runtime from
+    # V8: when false (default), omit wall-clock timestamps and runtime from
     # committed artifacts so identical inputs yield byte-identical outputs.
     report_timestamp: bool = False
     publish_domains: bool = True

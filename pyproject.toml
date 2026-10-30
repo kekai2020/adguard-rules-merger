@@ -58,8 +58,9 @@ adguard-rules-merger = "merger.cli:app"
 packages = [
     "merger",
     "merger.core",
-    "merger.whitelist_audit",
+    "merger.domain_classifier",
     "merger.report",
+    "merger.whitelist_audit",
 ]
 py-modules = ["merge_rules", "config_loader"]
 

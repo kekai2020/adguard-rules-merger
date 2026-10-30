@@ -1,4 +1,4 @@
-"""V7 command line interface.
+"""V8 command line interface.
 
 This is the package-native entry point, exposed as the ``adguard-rules-merger``
 console script and runnable via ``python -m merger``. The top-level
@@ -48,7 +48,8 @@ def _force_utf8_stdio() -> None:
     """
     for stream in (sys.stdout, sys.stderr):
         try:
-            from typing import cast, TextIO
+            from typing import TextIO, cast
+
             cast(TextIO, stream).reconfigure(encoding="utf-8", errors="backslashreplace")  # type: ignore[attr-defined]
         except (AttributeError, ValueError, OSError):
             pass

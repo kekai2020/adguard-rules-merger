@@ -32,6 +32,7 @@ def _session(status=200, payload=None, exc=None):
 
 # ── virustotal ──
 
+
 @pytest.mark.asyncio
 async def test_vt_no_key():
     out = await virustotal_audit.query_virustotal("example.com", "", session=_session())
@@ -40,20 +41,42 @@ async def test_vt_no_key():
 
 @pytest.mark.asyncio
 async def test_vt_clean():
-    payload = {"data": {"attributes": {"last_analysis_stats": {
-        "malicious": 0, "suspicious": 0, "harmless": 70, "undetected": 0
-    }}}}
-    out = await virustotal_audit.query_virustotal("good.com", "key", session=_session(payload=payload))
+    payload = {
+        "data": {
+            "attributes": {
+                "last_analysis_stats": {
+                    "malicious": 0,
+                    "suspicious": 0,
+                    "harmless": 70,
+                    "undetected": 0,
+                }
+            }
+        }
+    }
+    out = await virustotal_audit.query_virustotal(
+        "good.com", "key", session=_session(payload=payload)
+    )
     assert out["malicious"] is False
     assert out["total_votes"] == 70
 
 
 @pytest.mark.asyncio
 async def test_vt_malicious():
-    payload = {"data": {"attributes": {"last_analysis_stats": {
-        "malicious": 30, "suspicious": 5, "harmless": 35, "undetected": 0
-    }}}}
-    out = await virustotal_audit.query_virustotal("bad.com", "key", session=_session(payload=payload))
+    payload = {
+        "data": {
+            "attributes": {
+                "last_analysis_stats": {
+                    "malicious": 30,
+                    "suspicious": 5,
+                    "harmless": 35,
+                    "undetected": 0,
+                }
+            }
+        }
+    }
+    out = await virustotal_audit.query_virustotal(
+        "bad.com", "key", session=_session(payload=payload)
+    )
     assert out["malicious"] is True
     assert out["reputation_score"] > 0.2
 
@@ -71,6 +94,7 @@ async def test_vt_429():
 
 
 # ── threat_intel ──
+
 
 @pytest.mark.asyncio
 async def test_urlhaus_hit():
@@ -110,6 +134,7 @@ async def test_threatfox_clean():
 @pytest.mark.asyncio
 async def test_threat_intel_disabled():
     from merger.whitelist_audit.config import AuditConfig
+
     cfg = AuditConfig(use_urlhaus=False, use_threatfox=False)
     u, t = await threat_intel._query_threat_intel("x.com", session=_session(), config=cfg)
     assert u["error"] == "disabled"
@@ -121,6 +146,7 @@ async def test_threat_intel_dataset_hit():
     class _Feed:
         def lookup_domain(self, d):
             return {"listed": True, "source": "URLhaus"}
+
     u, t = await threat_intel._query_threat_intel_dataset("evil.com", feed_index=_Feed())
     assert u["malicious"] is True
     assert t["malicious"] is False
@@ -131,5 +157,6 @@ async def test_threat_intel_dataset_miss():
     class _Feed:
         def lookup_domain(self, d):
             return {"listed": False, "source": ""}
+
     u, t = await threat_intel._query_threat_intel_dataset("good.com", feed_index=_Feed())
     assert u["malicious"] is False

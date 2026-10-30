@@ -231,10 +231,9 @@ def _render_modifier_rows(modifier_stats, modifier_total) -> str:
     if modifier_stats:
         for mod, cnt in modifier_stats.items():
             pct = cnt / modifier_total * 100 if modifier_total else 0
-            rows += (
-                f"<tr><td><code>${mod}</code></td><td>{cnt:,}</td><td>{pct:.1f}%</td></tr>\n"
-            )
+            rows += f"<tr><td><code>${mod}</code></td><td>{cnt:,}</td><td>{pct:.1f}%</td></tr>\n"
     return rows or '<tr><td colspan="3" class="empty-state">无带修饰符规则</td></tr>'
+
 
 def _render_conflict_rows(outcome) -> str:
     rows = ""
@@ -346,18 +345,26 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
             _diff_rows = ""
             if _added_list:
                 _sample = "".join(f"<li><code>{d}</code></li>" for d in _added_list[:20])
-                _more = f'<p class="note">… 共 {len(_added_list):,} 条，完整列表见 output/added.txt</p>' if len(_added_list) > 20 else ""
+                _more = (
+                    f'<p class="note">… 共 {len(_added_list):,} 条，完整列表见 output/added.txt</p>'
+                    if len(_added_list) > 20
+                    else ""
+                )
                 _diff_rows += f'<h3 style="color:#28a745">🟢 新增 {len(_added_list):,} 条拦截域名</h3><ul style="columns:2;column-gap:30px">{_sample}</ul>{_more}'
             if _removed_list:
                 _sample = "".join(f"<li><code>{d}</code></li>" for d in _removed_list[:20])
-                _more = f'<p class="note">… 共 {len(_removed_list):,} 条，完整列表见 output/removed.txt</p>' if len(_removed_list) > 20 else ""
+                _more = (
+                    f'<p class="note">… 共 {len(_removed_list):,} 条，完整列表见 output/removed.txt</p>'
+                    if len(_removed_list) > 20
+                    else ""
+                )
                 _diff_rows += f'<h3 style="color:#dc3545">🔴 移除 {len(_removed_list):,} 条拦截域名</h3><ul style="columns:2;column-gap:30px">{_sample}</ul>{_more}'
             diff_section = (
                 '\n  <div class="section" id="diff-compare">\n'
                 '    <h2><span class="sec-no">14</span>🔄 与上次合并对比</h2>\n'
                 f'    <p class="sec-intro">相对上次合并的规则集变化。净变化：<strong>{_net:+,d}</strong> 条拦截规则。</p>\n'
-                f'    {_diff_rows}\n'
-                '  </div>\n'
+                f"    {_diff_rows}\n"
+                "  </div>\n"
             )
         else:
             diff_section = ""
@@ -401,7 +408,6 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
     pure_dedup_rate = (dedup_steps / raw_count * 100) if raw_count else 0
     source_overlap = getattr(outcome, "source_overlap", {}) or {}
     overlap_pairs = source_overlap.get("pairs", [])
-    source_effective = source_overlap.get("source_effective", {})
 
     contrib_rows = _render_contrib_rows(outcome)
 
@@ -413,11 +419,8 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
     contributions = getattr(outcome, "contributions", [])
     whitelist_audit = getattr(outcome, "whitelist_audit", {}) or {}
     audit_summary = whitelist_audit.get("summary", {})
-    audit_rules = whitelist_audit.get("rules", [])
     cat_counts = audit_summary.get("category_counts", {})
     conf_dist = audit_summary.get("category_confidence", {})
-    layers_enabled = audit_summary.get("layers_enabled", {})
-    layer_hits = audit_summary.get("layer_hits", {})
 
     # V8.3: per-stage elapsed times — only when timestamped (byte-stable otherwise).
     # (computed inside the include_time block below)
@@ -558,7 +561,7 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AdGuard Rules Merger V7 - 规则分析报告</title>
+<title>AdGuard Rules Merger V8 - 规则分析报告</title>
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f5f7fa; color:#333; line-height:1.6; }}
@@ -634,7 +637,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
 <body>
 <div class="container">
   <div class="header">
-    <h1>🛡️ AdGuard Rules Merger V7</h1>
+    <h1>🛡️ AdGuard Rules Merger V8</h1>
     <div class="subtitle">专业规则合并分析报告</div>
     <div class="meta">{_meta_stamp} | 源：{outcome.sources_ok}/{outcome.sources_total}{_cache_meta}</div>
   </div>

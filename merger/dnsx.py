@@ -100,7 +100,7 @@ class DnsChecker:
                     "DnsChecker resolver error for %s (attempt %d)", domain, attempt + 1
                 )
                 if attempt < retries:
-                    await asyncio.sleep(0.5 * (2 ** attempt))
+                    await asyncio.sleep(0.5 * (2**attempt))
                     continue
                 return {"rcode": None, "nxdomain": False, "ips": [], "error_type": "resolver_error"}
             ips: list[str] = []

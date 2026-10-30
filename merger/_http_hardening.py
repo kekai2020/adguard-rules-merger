@@ -20,7 +20,8 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
-from typing import Any, Awaitable, Callable
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +48,10 @@ class _TTLCache:
         if item is None:
             return None
         expires, value = item
-        if time.monotonic() > expires:
+        # >= so a ttl of 0 (set-and-already-expired) holds even on coarse
+        # monotonic clocks (e.g. Windows tick granularity), where monotonic()
+        # may not have advanced past the set instant yet.
+        if time.monotonic() >= expires:
             self._store.pop(key, None)
             return None
         return value
@@ -85,6 +89,6 @@ async def with_retry(
             last_exc = exc
             logger.exception("%s failed (attempt %d/%d)", what, attempt + 1, retries + 1)
             if attempt < retries:
-                await asyncio.sleep(backoff_base * (2 ** attempt))
+                await asyncio.sleep(backoff_base * (2**attempt))
     assert last_exc is not None
     raise last_exc

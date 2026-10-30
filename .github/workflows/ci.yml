@@ -71,6 +71,17 @@ jobs:
           uv venv /tmp/verify-venv
           uv pip install --python /tmp/verify-venv/bin/python dist/*.whl
           /tmp/verify-venv/bin/adguard-rules-merger version
+      # Guards against wheel content regressions (e.g. a sub-package missing
+      # from [tool.setuptools] packages): ``version`` does not import the full
+      # engine, so run one offline local-file merge from the installed wheel.
+      - name: Smoke merge from installed wheel
+        run: |
+          printf '||example.com^\n||ads.example.org^\n||tracker.example.net^\n' > /tmp/smoke-rules.txt
+          printf 'sources:\n  - name: local-smoke\n    url: /tmp/smoke-rules.txt\n    category: other\n    enabled: true\n' > /tmp/smoke-sources.yaml
+          /tmp/verify-venv/bin/adguard-rules-merger merge --config /tmp/smoke-sources.yaml \
+            --no-audit --output /tmp/smoke-out --cache-dir /tmp/smoke-cache
+          grep -q '||example.com^' /tmp/smoke-out/merged_rules.txt
+          echo "wheel smoke merge OK"
       - name: Upload distributions
         uses: actions/upload-artifact@v6
         with:

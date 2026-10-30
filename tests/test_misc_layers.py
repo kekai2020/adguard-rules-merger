@@ -32,6 +32,7 @@ def _session(status=200, payload=None, exc=None):
 
 # ── ai_classifier ──
 
+
 @pytest.mark.asyncio
 async def test_ai_no_key():
     out = await ai_classifier.classify_with_ai("example.com", "", session=_session())
@@ -40,8 +41,14 @@ async def test_ai_no_key():
 
 @pytest.mark.asyncio
 async def test_ai_hit():
-    payload = {"choices": [{"message": {"content": '{"category": "cdn", "confidence": 0.9, "reason": "static"}'}}]}
-    out = await ai_classifier.classify_with_ai("cdn.example.com", "key", session=_session(payload=payload))
+    payload = {
+        "choices": [
+            {"message": {"content": '{"category": "cdn", "confidence": 0.9, "reason": "static"}'}}
+        ]
+    }
+    out = await ai_classifier.classify_with_ai(
+        "cdn.example.com", "key", session=_session(payload=payload)
+    )
     assert out["category"] == "cdn"
     assert out["confidence"] == 0.9
 
@@ -54,12 +61,14 @@ async def test_ai_http_error():
 
 @pytest.mark.asyncio
 async def test_ai_transport_error():
-    out = await ai_classifier.classify_with_ai("boom.example.com", "key",
-                                              session=_session(exc=RuntimeError("boom")))
+    out = await ai_classifier.classify_with_ai(
+        "boom.example.com", "key", session=_session(exc=RuntimeError("boom"))
+    )
     assert out["error"] == "transport error"
 
 
 # ── scam_check ──
+
 
 @pytest.mark.asyncio
 async def test_scam_clean():
@@ -84,6 +93,7 @@ async def test_scam_http_error():
 
 # ── heuristics ──
 
+
 def test_heuristics_local():
     out = heuristics.local_heuristics("example.com")
     assert isinstance(out, dict)
@@ -95,6 +105,7 @@ def test_heuristics_recycled_clue():
 
 
 # ── dnsbl ──
+
 
 @pytest.mark.asyncio
 async def test_dnsbl_lookup():

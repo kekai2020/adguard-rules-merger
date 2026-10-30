@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 _SEEDS_PATH = Path(__file__).resolve().parent.parent / "data" / "category_seeds.json"
 
 
-
 def _load_builtin_seeds() -> dict[str, str]:
     """Read ``data/category_seeds.json``; return {} on any read/parse failure.
 
@@ -110,6 +109,7 @@ def merge_seed_map(mapping: dict[str, str]) -> int:
     process default.
     """
     from .ruleset import _DEFAULT_RULESET
+
     return _DEFAULT_RULESET.merge_seeds(mapping)
 
 

@@ -255,7 +255,12 @@ async def audit_whitelist(
                 mxspf["recycled_clue"] = recycled_domain_clue(rdap, dns)
 
                 # Layer 7: AI classification (only for low confidence, after gather)
-                ai_result: dict[str, Any] = {"category": None, "confidence": 0.0, "reason": "", "error": "disabled"}
+                ai_result: dict[str, Any] = {
+                    "category": None,
+                    "confidence": 0.0,
+                    "reason": "",
+                    "error": "disabled",
+                }
                 if (
                     config.use_ai
                     and config.ai_api_key
@@ -457,7 +462,13 @@ async def audit_whitelist(
     _disk_cache_save(config, fresh_disk)
 
     # ── summary ──
-    summary: dict[str, Any] = {"total": len(results), "safe": 0, "suspicious": 0, "malicious": 0, "unknown": 0}
+    summary: dict[str, Any] = {
+        "total": len(results),
+        "safe": 0,
+        "suspicious": 0,
+        "malicious": 0,
+        "unknown": 0,
+    }
     all_categories = []
     for r in results:
         summary[r["rating"]] += 1

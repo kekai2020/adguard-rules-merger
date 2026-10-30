@@ -11,7 +11,7 @@ import asyncio
 import logging
 import time
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import Any
 from urllib.parse import unquote, urlparse
 
 import aiohttp
@@ -20,9 +20,6 @@ from ..cache import SourceCache
 from ..models import Rule, SourceMeta
 from ..parser import RuleParser
 from .outcome import SourceFailure, classify_source_error
-
-if TYPE_CHECKING:
-    from .engine import AsyncRuleEngine
 
 logger = logging.getLogger(__name__)
 

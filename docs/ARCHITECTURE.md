@@ -1,6 +1,6 @@
 # 架构说明（Architecture）
 
-本文档描述 AdGuard Rules Merger V7 的整体管线、模块职责、关键数据结构与设计取舍。
+本文档描述 AdGuard Rules Merger V8 的整体管线、模块职责、关键数据结构与设计取舍。
 面向二次开发、代码评审与部署排障。
 
 ## 1. 总体数据流
@@ -68,7 +68,7 @@ config/sources.yaml
 | `merger/virustotal_audit.py` | VirusTotal 可选层（需 key） |
 | `merger/ai_classifier.py` | OpenAI 兼容 LLM 分类（需 key，低置信度时调用） |
 
-顶层 `merge_rules.py` / `config_loader.py` 是 V7 保留的兼容垫片，分别委托到
+顶层 `merge_rules.py` / `config_loader.py` 是 V8 保留的兼容垫片，分别委托到
 `merger.cli` 与 `merger.config`。
 
 ## 3. 核心数据结构
@@ -139,7 +139,7 @@ config/sources.yaml
 
 DNS 解析 → URLhaus/ThreatFox（api 或 auto 数据集）→ RDAP 域名年龄 →
 MarketNow 诈骗检测 → DNSBL（Spamhaus DBL + SURBL）→ VirusTotal（可选）→
-离线启发式 → AI/LLM（可选，低置信度时）。V7 另增：
+离线启发式 → AI/LLM（可选，低置信度时）。V8 另增：
 
 - **离线同形字/typosquat 层（`use_homograph`，默认开，零网络）**：`homograph.py`
   把西里尔/希腊形近字折叠为拉丁字母，用长度分档的 Levenshtein 距离对标内置常见品牌
@@ -163,7 +163,7 @@ DNS 层可选走 DNS-over-HTTPS JSON 解析器（`whitelist_audit.doh_endpoint`�
 ### 4.5 确定性
 
 - 排序键确定；规则文件用内容哈希作为 `Version`，不含时间。
-- V7 起，报告与 `stats.json` 默认也不含墙钟时间 / 运行耗时（见
+- V8 起，报告与 `stats.json` 默认也不含墙钟时间 / 运行耗时（见
   `output.report_timestamp`），从而保证「相同输入 → 字节级相同的全部提交产物」。
 - 冷/热缓存导致的「缓存命中数」（`sources_cached`）同样属于运行环境而非规则内容，
   确定性模式下会从规则文件头、报告与 `stats.json` 中省略（`stats.json` 记为

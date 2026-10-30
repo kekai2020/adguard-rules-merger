@@ -38,19 +38,25 @@ def _session(status=200, payload=None, exc=None):
 
 # ── VirusTotal ──
 
+
 @pytest.mark.asyncio
 async def test_virustotal_http_error():
-    out = await virustotal_audit.query_virustotal("example.com", "key", session=_session(status=500))
+    out = await virustotal_audit.query_virustotal(
+        "example.com", "key", session=_session(status=500)
+    )
     assert out["error"] == "HTTP 500"
 
 
 @pytest.mark.asyncio
 async def test_virustotal_transport_error():
-    out = await virustotal_audit.query_virustotal("fail.example.com", "key", session=_session(exc=RuntimeError("boom")))
+    out = await virustotal_audit.query_virustotal(
+        "fail.example.com", "key", session=_session(exc=RuntimeError("boom"))
+    )
     assert out["error"] == "transport error"
 
 
 # ── URLhaus / ThreatFox ──
+
 
 @pytest.mark.asyncio
 async def test_urlhaus_http_error():
@@ -60,7 +66,9 @@ async def test_urlhaus_http_error():
 
 @pytest.mark.asyncio
 async def test_urlhaus_transport_error():
-    out = await threat_intel._query_urlhaus("boom.example.com", _session(exc=RuntimeError("x")), timeout=1)
+    out = await threat_intel._query_urlhaus(
+        "boom.example.com", _session(exc=RuntimeError("x")), timeout=1
+    )
     assert "error" in out
 
 
@@ -72,5 +80,7 @@ async def test_threatfox_http_error():
 
 @pytest.mark.asyncio
 async def test_threatfox_no_hit():
-    out = await threat_intel._query_threatfox("clean.example.com", _session(payload={"query_status": "no_result"}), timeout=1)
+    out = await threat_intel._query_threatfox(
+        "clean.example.com", _session(payload={"query_status": "no_result"}), timeout=1
+    )
     assert out["malicious"] is False

@@ -120,7 +120,7 @@ jobs:
           echo ""
           echo "merged_rules.txt lines: $(wc -l < output/merged_rules.txt)"
           grep -q '^! Version:' output/merged_rules.txt || (echo "ERROR: missing Version header" && exit 1)
-          grep -q '(V7)' output/merged_rules.txt || (echo "ERROR: missing V7 title" && exit 1)
+          grep -q '(V8)' output/merged_rules.txt || (echo "ERROR: missing V8 title" && exit 1)
 
           echo ""
           echo "=== Stats summary ==="
@@ -169,7 +169,7 @@ jobs:
       - name: Summary
         if: always()
         run: |
-          echo "### Merge Rules V7 Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### Merge Rules V8 Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ -f output/stats.json ]; then
             uv run python -c "

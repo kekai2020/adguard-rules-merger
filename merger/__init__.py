@@ -1,4 +1,4 @@
-"""AdGuard Rules Merger V7 — DNS-layer rule compiler.
+"""AdGuard Rules Merger V8 — DNS-layer rule compiler.
 
 Pipeline: multi-source fetch -> parse -> dedup (exact/normalized/regex)
 -> upward aggregation (exact + wildcard children + optional promotion)
@@ -6,7 +6,7 @@ Pipeline: multi-source fetch -> parse -> dedup (exact/normalized/regex)
 -> multi-format export + tiered files + HTML report.
 
 Committed artifacts are byte-stable for a given rule set (see
-``output.report_timestamp``); the V7 CLI is installed as the
+``output.report_timestamp``); the V8 CLI is installed as the
 ``adguard-rules-merger`` console script and via ``python -m merger``.
 """
 

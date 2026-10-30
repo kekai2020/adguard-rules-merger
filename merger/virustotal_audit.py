@@ -17,9 +17,8 @@ API docs: https://docs.virustotal.com/reference/domains-get
 
 from __future__ import annotations
 
-from typing import Any
-
 import logging
+from typing import Any
 
 from ._http_hardening import _TTLCache, with_retry
 from .version import user_agent
@@ -39,6 +38,7 @@ logger = logging.getLogger(__name__)
 # In-process result cache: repeated identical (domain, key) lookups within the
 # TTL window do not re-hit the network.
 _vt_cache = _TTLCache()
+
 
 async def query_virustotal(
     domain: str,

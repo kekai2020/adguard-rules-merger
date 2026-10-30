@@ -1,4 +1,4 @@
-# AdGuard Rules Merger V7 — Source configuration
+# AdGuard Rules Merger V8 — Source configuration
 # 18 sources with explicit categories (fixes V4 tiered-output bug).
 # Updated: 2026-10-19
 
@@ -89,7 +89,7 @@ whitelist_audit:
   use_urlhaus: true
   use_threatfox: true
   urlhaus_delay: 0.2
-  # V7: "auto" is the recommended setting for CI — bulk-download the datasets
+  # V8: "auto" is the recommended setting for CI — bulk-download the datasets
   # once and match offline (avoids per-domain rate limiting). "api" queries
   # URLhaus/ThreatFox directly for each domain (more real-time, much slower).
   ti_mode: auto
@@ -104,7 +104,7 @@ whitelist_audit:
   # Spamhaus DBL + SURBL — malware/phishing listings = malicious,
   # spam/junk/abused listings = suspicious
   use_dnsbl: true
-  # Layer 7 (offline) heuristic toggles + V7 fusion score weights.
+  # Layer 7 (offline) heuristic toggles + V8 fusion score weights.
   # Higher positive weight = stronger evidence for malicious; negative = safe.
   use_heuristics: true
   # Offline homograph/typosquat layer (zero network, on by default): folds
@@ -187,7 +187,7 @@ output:
   tiered: true
   report: true
   write_diff: false
-  # V7: when false (default), report.html / report.md / stats.json omit wall
+  # V8: when false (default), report.html / report.md / stats.json omit wall
   # clock time and runtime so identical rule sets produce byte-identical
   # artifacts (the CI job only commits when rules genuinely change). Set to
   # true to embed a human-readable generation timestamp and elapsed time.

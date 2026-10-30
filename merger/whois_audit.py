@@ -21,10 +21,9 @@ engine in whitelist_audit.py.
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timezone
 from typing import Any
-
-import logging
 
 from ._http_hardening import _TTLCache, with_retry
 from .version import user_agent
@@ -39,6 +38,7 @@ logger = logging.getLogger(__name__)
 # In-process result cache: repeated identical domain RDAP lookups within the
 # TTL window do not re-hit the network.
 _rdap_cache = _TTLCache()
+
 
 def _parse_iso_date(date_str: str) -> datetime | None:
     """Parse ISO 8601 date from RDAP (handles timezone offsets and 'Z')."""

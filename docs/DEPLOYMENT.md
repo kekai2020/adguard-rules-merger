@@ -1,6 +1,6 @@
 # 部署指南（Deployment）
 
-介绍如何把 AdGuard Rules Merger V7 部署到 GitHub Actions（推荐）、自建服务器、
+介绍如何把 AdGuard Rules Merger V8 部署到 GitHub Actions（推荐）、自建服务器、
 cron、或 Docker，并验证产物可被 AdGuard Home 订阅。
 
 ## 1. GitHub Actions 自动更新（推荐）
@@ -13,13 +13,13 @@ cron、或 Docker，并验证产物可被 AdGuard Home 订阅。
 # 在本地仓库根目录
 git init
 git add .
-git commit -m "feat: AdGuard Rules Merger V7"
+git commit -m "feat: AdGuard Rules Merger V8"
 git branch -M main
-git remote add origin https://github.com/<owner>/adguard-rules-merger-v7.git
+git remote add origin https://github.com/<owner>/adguard-rules-merger-v8.git
 git push -u origin main
 ```
 
-> 使用 gh CLI 可直接建仓：`gh repo create <owner>/adguard-rules-merger-v7 --public --push`。
+> 使用 gh CLI 可直接建仓：`gh repo create <owner>/adguard-rules-merger-v8 --public --push`。
 
 ### 1.2 工作流说明
 
@@ -41,12 +41,12 @@ git push -u origin main
 
 ### 1.4 手动触发
 
-仓库 Actions 页面 → **Merge Rules (V7)** → **Run workflow**。
+仓库 Actions 页面 → **Merge Rules (V8)** → **Run workflow**。
 
 ### 1.5 AdGuard Home 订阅
 
 ```
-https://raw.githubusercontent.com/<owner>/adguard-rules-merger-v7/main/output/merged_rules.txt
+https://raw.githubusercontent.com/<owner>/adguard-rules-merger-v8/main/output/merged_rules.txt
 ```
 
 ## 2. 自建服务器 / cron
@@ -56,7 +56,7 @@ https://raw.githubusercontent.com/<owner>/adguard-rules-merger-v7/main/output/me
 ### 2.1 安装（推荐 uv）
 
 ```bash
-git clone https://github.com/<owner>/adguard-rules-merger-v7.git
+git clone https://github.com/<owner>/adguard-rules-merger-v8.git
 cd adguard-rules-merger
 uv sync --extra dev
 uv run python -m merger validate config/sources.yaml
@@ -94,14 +94,14 @@ location /adguard/ {
 
 ```bash
 # 构建
-docker build -t adguard-rules-merger:7.0.0 .
+docker build -t adguard-rules-merger:8.0.0 .
 
 # 运行（挂载 output / cache / config）
 docker run --rm \
   -v "$PWD/output:/app/output" \
   -v "$PWD/cache:/app/cache" \
   -v "$PWD/config:/app/config:ro" \
-  adguard-rules-merger:7.0.0 merge --config config/sources.yaml --no-audit
+  adguard-rules-merger:8.0.0 merge --config config/sources.yaml --no-audit
 ```
 
 镜像默认工作目录 `/app`，入口即 `adguard-rules-merger` 控制台命令。
@@ -112,7 +112,7 @@ docker run --rm \
 合并完成后，在 CI 的 “Verify output” 步骤或本地依次确认：
 
 - `output/merged_rules.txt`、`output/whitelist.txt`、`output/stats.json` 存在且非空；
-- `merged_rules.txt` 含 `! Version:` 头且标题为 `(V7)`；
+- `merged_rules.txt` 含 `! Version:` 头且标题为 `(V8)`；
 - 各格式文件按需生成（`hosts.txt` / `domains.txt` / `clash.yaml` /
   `surge.list` / `smartdns.conf`）；
 - 分层文件 `merged_ads.txt` 等存在；
@@ -139,12 +139,12 @@ diff -r /tmp/out1 /tmp/out2    # 应无差异（两次抓取的源内容一致�
 | 本地中文输出乱码 | Windows 终端设置 `PYTHONIOENCODING=utf-8` 或使用 PowerShell 7 + UTF-8 代码页 |
 | wheel 安装后找不到命令 | 确认安装的是 `adguard-rules-merger`（脚本入口），或改用 `python -m merger` |
 
-## 6. 升级到 V7（来自 V6）
+## 6. 版本说明（V8）
 
 - 配置 schema 向后兼容；新增项都有默认值，可直接沿用旧 `sources.yaml`。
 - 建议在 YAML 中显式加入 `ti_mode: auto` 与 `output.report_timestamp: false`
   （仓库内的 `config/sources.yaml` 已更新）。
-- 旧缓存可继续使用（磁盘格式版本未变）；CI 缓存键前缀改为 `rule-cache-v7-`，
+- 旧缓存可继续使用（磁盘格式版本未变）；CI 缓存键前缀为 `rule-cache-v8-`，
   首次运行会重建缓存。
 - 旧文档中的 `python merge_rules.py` 仍可用；新文档统一为
   `adguard-rules-merger` / `python -m merger`。

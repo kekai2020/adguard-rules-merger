@@ -743,7 +743,6 @@ EXTERNAL_CATEGORY_MAP: dict[str, str] = {
 }
 
 
-
 BLOCK_BUCKET_MAP: dict[str, str] = {
     "advertising": "ads",
     "affiliate": "ads",
@@ -768,5 +767,3 @@ def block_bucket_for(category: str, confidence: float) -> str | None:
     if confidence < CONFIDENCE_REGISTERED:
         return None
     return BLOCK_BUCKET_MAP.get(category)
-
-

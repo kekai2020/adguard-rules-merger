@@ -1,4 +1,4 @@
-"""V7 incremental cache — HTTP ETag / Last-Modified / content hash + parsed sidecar.
+"""V8 incremental cache — HTTP ETag / Last-Modified / content hash + parsed sidecar.
 
 - Conditional GET (If-None-Match / If-Modified-Since); 304 reuses the body.
 - SHA-256 content hash skips re-parsing when the bytes did not change.
@@ -354,7 +354,7 @@ class SourceCache:
         # "delete everything" promise). load()/writes recreate them on demand.
         for sub in (self._content_dir(), self._parsed_dir()):
             shutil.rmtree(sub, ignore_errors=True)
-        # V7 C-06: also purge the threat-feed blob cache and the audit disk
+        # V8 C-06: also purge the threat-feed blob cache and the audit disk
         # cache, which previously survived `cache clear` despite the prompt
         # saying "delete everything".
         feeds = self.cache_dir / "feeds"

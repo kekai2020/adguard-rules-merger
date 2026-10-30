@@ -1,4 +1,4 @@
-# AdGuard Rules Merger V7 — runtime dependencies.
+# AdGuard Rules Merger V8 — runtime dependencies.
 #
 # The canonical source of truth is pyproject.toml (with the fully pinned
 # uv.lock for reproducible installs). This file is kept for environments that

@@ -3,16 +3,15 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
 
-from .rules import BLOCK_BUCKET_MAP, CATEGORY_ORDER, EXTERNAL_CATEGORY_MAP, block_bucket_for
+from .rules import CATEGORY_ORDER
 from .ruleset import (
-    ClassifierRuleSet,
     _DEFAULT_RULESET,
-    registered_domain,
+    ClassifierRuleSet,
 )
 
 logger = logging.getLogger(__name__)
+
 
 def _resolve_ruleset(ruleset: ClassifierRuleSet | None) -> ClassifierRuleSet:
     """Return the given ruleset, or the default singleton when omitted."""

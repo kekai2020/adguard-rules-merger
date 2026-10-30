@@ -81,15 +81,15 @@ class TestMarkdownRenderStageTimings:
         timings = {"sort": 0.01, "fetch": 0.5, "aggregation": 0.1}
         lines = _render_stage_timings_md(timings)
         # Find line indices
-        fetch_idx = next(i for i, l in enumerate(lines) if "抓取/解析" in l)
-        agg_idx = next(i for i, l in enumerate(lines) if "聚合" in l)
-        sort_idx = next(i for i, l in enumerate(lines) if "排序" in l)
+        fetch_idx = next(i for i, ln in enumerate(lines) if "抓取/解析" in ln)
+        agg_idx = next(i for i, ln in enumerate(lines) if "聚合" in ln)
+        sort_idx = next(i for i, ln in enumerate(lines) if "排序" in ln)
         assert fetch_idx < agg_idx < sort_idx
 
     def test_total_row(self):
         timings = {"fetch": 0.1}
         lines = _render_stage_timings_md(timings)
-        total_line = next(l for l in lines if "合计" in l)
+        total_line = next(ln for ln in lines if "合计" in ln)
         assert "100.0%" in total_line
 
 
@@ -99,6 +99,7 @@ class TestStageOrderConsistency:
         # Import from both modules and compare
         from merger.report.html import _STAGE_ORDER as HTML_ORDER
         from merger.report.markdown import _STAGE_ORDER as MD_ORDER
+
         assert HTML_ORDER == MD_ORDER
 
     def test_all_labels_have_chinese_names(self):

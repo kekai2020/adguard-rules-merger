@@ -67,7 +67,6 @@ def _render_stage_timings_md(stage_timings: dict[str, float]) -> list[str]:
     return lines
 
 
-
 def _render_whitelist_audit(outcome) -> list[str]:
     """Render the whitelist threat-intel audit section (nine)."""
     lines: list[str] = []
@@ -198,7 +197,6 @@ def _render_whitelist_audit(outcome) -> list[str]:
         lines.append("*审计未启用或无域名规则*")
         lines.append("")
 
-
     return lines
 
 
@@ -243,7 +241,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     after_agg = after_badfilter - agg_net
 
     lines: list[str] = []
-    lines.append("# AdGuard Rules Merger V7 — 规则分析报告")
+    lines.append("# AdGuard Rules Merger V8 — 规则分析报告")
     lines.append("")
     lines.append(f"> {_meta_stamp} | 源：{outcome.sources_ok}/{outcome.sources_total}{_cache_meta}")
     lines.append("")
@@ -579,6 +577,6 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
             lines.append("")
 
     lines.append("---")
-    lines.append(f"*AdGuard Rules Merger V7 · 自动生成 · {_footer_stamp}*")
+    lines.append(f"*AdGuard Rules Merger V8 · 自动生成 · {_footer_stamp}*")
     lines.append("")
     return "\n".join(lines)

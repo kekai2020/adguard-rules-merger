@@ -11,9 +11,7 @@ from merger.models import SourceMeta
 def test_badfilter_cancellation(tmp_path):
     src = tmp_path / "s.txt"
     src.write_text(
-        "||ads.example.com^\n"
-        "||ads.example.com$badfilter\n"
-        "||track.example.com^\n",
+        "||ads.example.com^\n||ads.example.com$badfilter\n||track.example.com^\n",
         encoding="utf-8",
     )
     engine = AsyncRuleEngine(cache_dir=None)

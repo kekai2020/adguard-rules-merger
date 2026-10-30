@@ -11,6 +11,9 @@ Highlights across the v8 cycle:
 - Cleared all mypy type debt (0 errors across 51 files).
 - Pushed merger coverage to 90%.
 - Audited for security, async correctness, resource bounds.
+- Per-stage pipeline timings (``stage_timings``) collected on ``MergeOutcome``
+  and rendered in the HTML/Markdown reports and ``stats.json``; gated behind
+  ``report_timestamp`` so committed artifacts stay byte-stable.
 
 ## 8.3.0
 

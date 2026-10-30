@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import logging
 
-from .seeds import _load_builtin_seeds
 from .rules import (
     BLOCK_BUCKET_MAP,
     CONFIDENCE_NONE,
@@ -14,8 +13,10 @@ from .rules import (
     SUBDOMAIN_PREFIX_RULES,
     _extract,
 )
+from .seeds import _load_builtin_seeds
 
 logger = logging.getLogger(__name__)
+
 
 def registered_domain(domain: str) -> str:
     """Extract registered domain (eTLD+1) using PSL (public API)."""
@@ -174,5 +175,3 @@ class ClassifierRuleSet:
 _DEFAULT_RULESET = ClassifierRuleSet()
 _REGISTERED_LOOKUP: dict[str, str] = _DEFAULT_RULESET.registered
 _PREFIX_LOOKUP: dict[str, str] = _DEFAULT_RULESET.prefix
-
-

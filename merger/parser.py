@@ -360,7 +360,6 @@ class RuleParser:
         re_regex = self.RE_REGEX.match
         re_urlbar = self.RE_URLBAR.match
         re_hash_comment = self.RE_COMMENT_HASH.match
-        re_wild = self.RE_WILD_PREFIX.match
         clean = self._clean
         is_ip = self._is_ip
         localhost = self.LOCALHOST

@@ -179,7 +179,7 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
         source_deadline: float = 120.0,
         backoff: str = "linear",
         negative_ttl_seconds: int = 300,
-        # V7: offline heuristic layer toggle and fusion weights are now
+        # V8: offline heuristic layer toggle and fusion weights are now
         # constructor-configurable (previously the weights were hard-coded to
         # an empty dict, making the AuditConfig/YAML knobs unreachable here).
         whitelist_audit_use_heuristics: bool = True,

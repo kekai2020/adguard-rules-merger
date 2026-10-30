@@ -55,6 +55,28 @@ def test_ci_cache_key_and_name_aligned():
     assert "rule-cache-v6-" not in text
     assert "rule-cache-v51" not in text
     assert "Merge Rules (V5.1)" not in text
+    # The merge job greps the produced rule file for the version label in its
+    # title; the exporter's label and this CI assertion must stay in lockstep.
+    assert "grep -q '(V8)' output/merged_rules.txt" in text
+    assert "(V7)" not in text
+
+
+def test_exported_titles_are_v8():
+    # The exporter and both report renderers embed the version label directly in
+    # their output. CI greps for the merged_rules.txt title, so keep these in
+    # sync with the exporter label and the workflow assertion above.
+    exporter = (ROOT / "merger" / "exporter.py").read_text(encoding="utf-8")
+    assert "Merged AdGuard Home Filter Rules (V8)" in exporter
+    assert "Whitelist for Merged Rules (V8)" in exporter
+    assert "AdGuard Rules Merger V8" in exporter
+    html = (ROOT / "merger" / "report" / "html.py").read_text(encoding="utf-8")
+    assert "AdGuard Rules Merger V8" in html
+    md = (ROOT / "merger" / "report" / "markdown.py").read_text(encoding="utf-8")
+    assert "AdGuard Rules Merger V8" in md
+    # No residual V7 labels in generated-output code paths.
+    assert "(V7)" not in exporter
+    assert "(V7)" not in html
+    assert "(V7)" not in md
 
 
 def test_sources_yaml_no_hardcoded_user_agent():
@@ -70,3 +92,37 @@ def test_homepage_points_at_v8():
 
     assert HOMEPAGE.endswith("adguard-rules-merger-v8")
     assert EXPORTER_HOMEPAGE == HOMEPAGE
+
+
+def test_dockerfile_version_aligned():
+    text = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    assert "8.0.0" in text
+    # Development-iteration numbers (8.1/8.2/8.3) must not leak into metadata;
+    # 8.0.0 is the single public release number (see CHANGELOG 8.0.0).
+    assert "8.1.0" not in text
+    assert "8.2.0" not in text
+    assert "8.3.0" not in text
+
+
+def test_readme_repo_urls_point_at_v8():
+    text = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "# AdGuard Rules Merger V8" in text
+    # Clone / badge / subscription raw URLs must reference the v8 repository.
+    assert "adguard-rules-merger-v7" not in text
+    assert "adguard-rules-merger-v8" in text
+
+
+def test_pyproject_packages_cover_all_subpackages():
+    # v8.2 split domain_classifier into a sub-package but forgot to ship it in
+    # [tool.setuptools] packages, so installed wheels crashed on ``merge``
+    # while CI (which only ran ``version``) stayed green. Guard every actual
+    # sub-package on disk against the packaging list.
+    text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    subpackages = [
+        p.name for p in (ROOT / "merger").iterdir() if p.is_dir() and (p / "__init__.py").exists()
+    ]
+    assert subpackages, "expected at least one merger sub-package on disk"
+    for name in subpackages:
+        assert f'"merger.{name}"' in text, (
+            f"subpackage merger.{name} missing from [tool.setuptools] packages"
+        )

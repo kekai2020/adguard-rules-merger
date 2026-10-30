@@ -1,6 +1,6 @@
 """Offline deterministic benchmark + byte-hash harness.
 
-Runs the V7 pipeline over ``tests/fixtures/bench_rules/`` (pure local files,
+Runs the V8 pipeline over ``tests/fixtures/bench_rules/`` (pure local files,
 no network, deterministic mode) and records:
   - median wall-clock over 3 runs
   - tracemalloc peak (one run)

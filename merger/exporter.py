@@ -1,4 +1,4 @@
-"""V7 streaming multi-format exporter.
+"""V8 streaming multi-format exporter.
 
 Outputs:
   merged_rules.txt   AdGuard block rules (||domain^ + /regex/)
@@ -101,7 +101,7 @@ class Exporter:
         self.report = report
         self.write_diff_enabled = write_diff
         self.whitelist_output = whitelist_output
-        # V7: when False (default), reports/stats omit wall-clock time and
+        # V8: when False (default), reports/stats omit wall-clock time and
         # runtime so identical inputs produce byte-identical artifacts.
         self.report_timestamp = report_timestamp
         # R5 decoupling: rendering (analyze_rules + HTML/Markdown generation)
@@ -139,7 +139,7 @@ class Exporter:
             for k in ("ads", "malware", "tracking", "phishing", "mining", "other")
         )
         lines = [
-            "! Title: Merged AdGuard Home Filter Rules (V7)",
+            "! Title: Merged AdGuard Home Filter Rules (V8)",
             f"! Description: Auto-merged from {src_tot} sources (dedup + aggregation + conflict resolution)",
             f"! Version: {content_ver}",
             f"! Homepage: {HOMEPAGE}",
@@ -163,7 +163,7 @@ class Exporter:
     def _whitelist_header(self, allows: list[Rule]) -> list[str]:
         content_ver = _content_hash([], allows)
         return [
-            "! Title: Whitelist for Merged Rules (V7)",
+            "! Title: Whitelist for Merged Rules (V8)",
             "! Description: Allow rules separated from main filter",
             f"! Version: {content_ver}",
             f"! Total allow rules: {len(allows)}",
@@ -213,7 +213,7 @@ class Exporter:
                 yield f"0.0.0.0 {d}"
 
         self._write_lines(
-            self.out / "hosts.txt", ["# Hosts format — AdGuard Rules Merger V7", "#"], body()
+            self.out / "hosts.txt", ["# Hosts format — AdGuard Rules Merger V8", "#"], body()
         )
 
     def write_domains(self, blocks):
@@ -230,7 +230,7 @@ class Exporter:
 
         self._write_lines(
             self.out / "clash.yaml",
-            ["# Clash rule-set — AdGuard Rules Merger V7", "payload:"],
+            ["# Clash rule-set — AdGuard Rules Merger V8", "payload:"],
             body(),
         )
 
@@ -241,7 +241,7 @@ class Exporter:
 
         self._write_lines(
             self.out / "surge.list",
-            ["# Surge rule-set — AdGuard Rules Merger V7", "# DOMAIN-SUFFIX,<domain>"],
+            ["# Surge rule-set — AdGuard Rules Merger V8", "# DOMAIN-SUFFIX,<domain>"],
             body(),
         )
 
@@ -253,7 +253,7 @@ class Exporter:
         self._write_lines(
             self.out / "smartdns.conf",
             [
-                "# SmartDNS blocking config — AdGuard Rules Merger V7",
+                "# SmartDNS blocking config — AdGuard Rules Merger V8",
                 "# address /domain/#  (blocks domain + subdomains)",
             ],
             body(),
@@ -275,7 +275,7 @@ class Exporter:
         for cat, rules in buckets.items():
             content_ver = f"{parent_ver}-{cat}" if parent_ver else _content_hash(rules, [])
             header = [
-                f"! Title: Merged {cat} filter (V7)",
+                f"! Title: Merged {cat} filter (V8)",
                 f"! Category: {cat}",
                 f"! Version: {content_ver}",
                 f"! Rules: {len(rules)}",
@@ -351,7 +351,7 @@ class Exporter:
                 "removed": len(outcome.removed),
             },
         }
-        # V7: wall-clock runtime is only embedded when explicitly requested,
+        # V8: wall-clock runtime is only embedded when explicitly requested,
         # keeping stats.json byte-stable for identical rule sets.
         if self.report_timestamp:
             stats["elapsed_seconds"] = round(outcome.elapsed, 3)
