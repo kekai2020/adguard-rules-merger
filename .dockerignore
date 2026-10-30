@@ -1,0 +1,14 @@
+.venv
+.git
+.gitignore
+output
+cache
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+*.egg-info
+docs
+release
+.coverage
+.DS_Store

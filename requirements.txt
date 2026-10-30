@@ -1,0 +1,18 @@
+# AdGuard Rules Merger V7 — runtime dependencies.
+#
+# The canonical source of truth is pyproject.toml (with the fully pinned
+# uv.lock for reproducible installs). This file is kept for environments that
+# only speak plain pip (e.g. a minimal container):
+#
+#     pip install -r requirements.txt
+#
+# For development or reproducible builds, prefer uv instead:
+#
+#     uv sync --frozen --extra dev
+#
+aiohttp>=3.9
+pyyaml>=6.0
+tldextract>=5.0
+dnspython>=2.4
+typer>=0.12
+pydantic>=2.0

@@ -1,0 +1,312 @@
+# AdGuard Rules Merger V7 — Source configuration
+# 18 sources with explicit categories (fixes V4 tiered-output bug).
+# Updated: 2026-10-19
+
+# ── Global merge settings ──────────────────────────────────────────
+timeout: 120
+max_concurrency: 50
+# Abort if more than 50% of enabled sources fail to download.
+fail_threshold: 0.5
+# Optional: diff against the previous domains.txt (set to e.g. output/domains.txt).
+diff_against: null
+
+# ── Download settings ─────────────────────────────────────────────
+download:
+
+  retry_count: 2
+  retry_delay: 1.5
+  # V5.2: hard per-source time budget (all retries combined, seconds).
+  # A dead source falls back to its stale cache after this budget instead of
+  # burning (retry_count+1) × timeout ≈ 6 minutes of wall time. 0 = unlimited.
+  source_deadline: 120
+  # Retry backoff: "linear" (fixed retry_delay) or "exponential" (doubling).
+  backoff: linear
+
+# ── Dedup settings ──────────────────────────────────────────────────
+# V5: lowercasing and trailing-dot removal are ALWAYS applied (not configurable).
+# Only www-stripping is optional.
+dedup:
+  strip_www: true
+
+# ── Quality filter settings ─────────────────────────────────────────
+quality_filter:
+  enabled: true
+  min_domain_length: 4
+  max_domain_length: 253
+  filter_localhost: true
+  filter_ip_rules: false
+
+# ── Aggregation settings ────────────────────────────────────────────
+aggregation:
+  enabled: true
+  min_aggregator_labels: 2
+  # V5: fold ||*.sub.example.com^ under ||*.example.com^ / ||example.com^
+  wildcard_child_aggregation: true
+  # V5: promote N exact sibling subdomains to one ||*.parent^ (0 = off, conservative).
+  # Raise to e.g. 100 only if you accept slightly wider blocking to shrink the list.
+  wildcard_promotion_threshold: 0
+
+# ── Conflict resolution settings ────────────────────────────────────
+conflict_resolution:
+  enabled: true
+  # V5: this flag now genuinely controls @@||A^ cascading to subdomains.
+  cascade_subdomains: true
+
+# ── Block-rule offline re-judgement (optional, default off) ─────────
+# When enabled, high-confidence registered-domain matches may move a rule
+# into ads/tracking; CDN/payment/privacy keep the source bucket and security
+# declarations (malware/phishing/mining) are never downgraded. Off when off.
+classification:
+  enabled: false
+  rejudge_registered_only: true
+  # Optional offline external seed file (Shallalist `domain;cat` / UT1
+  # `domain,ID`); missing/bad files are skipped with a warning. Built-in
+  # merger/data/category_seeds.json always fills gaps (hand-written wins).
+  seed_file: ""
+  # Optional dnspython CNAME hints (2s budget); accept only when a CNAME
+  # target itself hits a registered domain at 0.9. Off by default (DNS is
+  # environment-specific and stays out of the deterministic path).
+  use_cname_hints: false
+
+# ── Whitelist threat-intel audit (optional) ─────────────────────────
+# Disabled by default: the network layers add latency and hit third-party APIs.
+# Enable locally or via VIRUSTOTAL_API_KEY / OPENAI_API_KEY env vars.
+whitelist_audit:
+  # Disabled by default (matches the pydantic default). Flip to true locally to
+  # run the networked multi-layer audit; the switches/keys below are honoured
+  # only when this is enabled.
+  enabled: false
+  concurrency: 20
+  # Layer 1: DNS resolution (free, keyless)
+  use_dns: true
+  # Optional DNS-over-HTTPS JSON resolver: NextDNS profile endpoint
+  # (https://dns.nextdns.io/<profile-id>). When set, NXDOMAIN/private-IP
+  # signals are read through this encrypted channel; any DoH failure
+  # automatically falls back to the system resolver (never blocks a check).
+  # Leave empty to use the system resolver only.
+  doh_endpoint: "https://dns.nextdns.io/3fef68"
+  # Layer 2: Threat intelligence (free, keyless)
+  use_urlhaus: true
+  use_threatfox: true
+  urlhaus_delay: 0.2
+  # V7: "auto" is the recommended setting for CI — bulk-download the datasets
+  # once and match offline (avoids per-domain rate limiting). "api" queries
+  # URLhaus/ThreatFox directly for each domain (more real-time, much slower).
+  ti_mode: auto
+  # Layer 3: RDAP domain age check (free, keyless)
+  # Flags domains registered < new_domain_threshold_days as suspicious
+  use_rdap: true
+  new_domain_threshold_days: 30
+  # Layer 4: MarketNow scam/phishing check (free, keyless)
+  # Detects typosquatting, suspicious TLD, punycode, unregistered domains
+  use_scam_check: true
+  # Layer 5: DNSBL blocklists (V5.2, free, keyless DNS queries)
+  # Spamhaus DBL + SURBL — malware/phishing listings = malicious,
+  # spam/junk/abused listings = suspicious
+  use_dnsbl: true
+  # Layer 7 (offline) heuristic toggles + V7 fusion score weights.
+  # Higher positive weight = stronger evidence for malicious; negative = safe.
+  use_heuristics: true
+  # Offline homograph/typosquat layer (zero network, on by default): folds
+  # Cyrillic/Greek look-alikes and compares edit distance against common
+  # brand registered domains (google/paypal/alipay/...).
+  use_homograph: true
+  # MX/SPF absence clue (needs DNS; off by default).
+  use_dns_mx: false
+  # Optional online intel layers (default off; skipped without a key; any
+  # failure falls back to an error dict and never blocks the other layers).
+  use_gsb: false
+  gsb_api_key: ""
+  use_phishtank: false
+  phishtank_api_key: ""
+  use_urlscan: false
+  urlscan_api_key: ""
+  # Certificate transparency (crt.sh) lookup; interface-only, off by default.
+  use_crtsh: false
+  # Override any weight here; omitted keys keep the built-in defaults.
+  # The engine shallow-merges this table on top of the built-in defaults, so
+  # only the keys you name are changed. Values below mirror the built-ins.
+  fusion_weights:
+    threat_intel: 40
+    dnsbl_malicious: 30
+    scam_confirmed: 30
+    dns_private_ip: 20
+    scam_suspicious: 20
+    dnsbl_listed: 15
+    dns_nxdomain: 15
+    rdap_new_domain: 15
+    heuristics: 10
+    homograph: 12
+    dns_mx_missing: 8
+    gsb_malicious: 35
+    phishtank_malicious: 30
+    urlscan_suspicious: 20
+  # V5.2: persist audit results 24h (cache/whitelist_audit_cache.json) so
+  # repeated runs skip network lookups for unchanged whitelist domains
+  cache_results: true
+  # Cached threat-intel dataset lifetime (seconds); used by ti_mode: auto.
+  feed_ttl_seconds: 3600
+  # Layer 6: VirusTotal (optional, requires API key)
+  use_virustotal: false
+  virustotal_api_key: ""
+  # Layer 8: AI / LLM classification (optional, requires API key)
+  # Only called for domains where offline confidence < ai.min_confidence
+  ai:
+    enabled: false
+    api_key: ""
+    base_url: "https://api.openai.com/v1"
+    model: "gpt-4o-mini"
+    min_confidence: 0.6
+    max_domains: 100
+
+# V5: graded whitelist output (requires whitelist_audit.enabled=true)
+# Splits whitelist.txt into sub-files by rating and category.
+whitelist_output:
+  enabled: true
+  by_rating: true            # whitelist_safe.txt, whitelist_suspicious.txt, ...
+  by_category: true          # whitelist_by_category/<rating>_<category>.txt
+  include_all_ratings: false # only split "safe" by category by default
+  categories: []             # empty = all 9 categories; or list e.g. [advertising, cdn]
+
+# ── Cache settings (ETag + SHA256, compatible with actions/cache) ──
+cache:
+  enabled: true
+  directory: cache
+  ttl_seconds: 0
+  max_size_mb: 500
+  # How long a source that failed to download is treated as "lame" so a
+  # repeat run falls back to its stale cache instead of retrying immediately.
+  negative_ttl_seconds: 300
+
+# ── Output settings ────────────────────────────────────────────────
+output:
+  directory: output
+  formats:
+    - adguard
+    - whitelist
+  tiered: true
+  report: true
+  write_diff: false
+  # V7: when false (default), report.html / report.md / stats.json omit wall
+  # clock time and runtime so identical rule sets produce byte-identical
+  # artifacts (the CI job only commits when rules genuinely change). Set to
+  # true to embed a human-readable generation timestamp and elapsed time.
+  report_timestamp: false
+  publish_domains: true
+
+# ── Rule sources (18 enabled) ──────────────────────────────────────
+# Categories: ads | tracking | malware | phishing | mining | other
+# On duplicate domains the security-first priority applies:
+# malware > phishing > mining > tracking > ads > other
+sources:
+  # ==================== 广告拦截 ====================
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+    name: AdGuard DNS filter
+    category: ads
+    id: 1
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt
+    name: AWAvenue Ads Rule
+    category: ads
+    id: 2
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_49.txt
+    name: HaGeZi's Ultimate Blocklist
+    category: ads
+    id: 3
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_5.txt
+    name: OISD Blocklist Small
+    category: ads
+    id: 4
+
+  # ==================== 专项 / 其它 ====================
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_47.txt
+    name: HaGeZi's Gambling Blocklist
+    category: other
+    id: 5
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_63.txt
+    name: HaGeZi's Windows/Office Tracker Blocklist
+    category: tracking
+    id: 6
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_57.txt
+    name: ShadowWhisperer's Dating List
+    category: other
+    id: 7
+
+  # ==================== 区域 / 中国大陆 ====================
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_29.txt
+    name: 'CHN: AdRules DNS List'
+    category: ads
+    id: 8
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_21.txt
+    name: 'CHN: anti-AD'
+    category: ads
+    id: 9
+
+  # ==================== 安全威胁 ====================
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt
+    name: Phishing URL Blocklist (PhishTank and OpenPhish)
+    category: phishing
+    id: 10
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_71.txt
+    name: HaGeZi's DNS Rebind Protection
+    category: malware
+    id: 11
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_52.txt
+    name: HaGeZi's Encrypted DNS/VPN/TOR/Proxy Bypass
+    category: other
+    id: 12
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt
+    name: HaGeZi's Threat Intelligence Feeds
+    category: malware
+    id: 13
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_8.txt
+    name: NoCoin Filter List
+    category: mining
+    id: 14
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt
+    name: Phishing Army
+    category: phishing
+    id: 15
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_10.txt
+    name: Scam Blocklist by DurableNapkin
+    category: phishing
+    id: 16
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_31.txt
+    name: Stalkerware Indicators List
+    category: malware
+    id: 17
+
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt
+    name: Malicious URL Blocklist (URLHaus)
+    category: malware
+    id: 18

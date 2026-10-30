@@ -1,0 +1,31 @@
+# KB syntax golden cases — AdGuard DNS filter syntax
+# Format: each rule line is tested; expectation is in the trailing comment after # (exp:...)
+# exp values: keep_block / keep_allow / drop_comment / drop_css / drop_url /
+#             drop_unrecognized / modstrip (rule kept, modifiers stripped) /
+#             keep_mod (rule kept, specific modifier preserved)
+||ads.example.com^                    # exp:keep_block
+@@||ads.example.com^                  # exp:keep_allow
+||*.example.com^                      # exp:keep_block
+0.0.0.0 ads.example.com               # exp:keep_block
+127.0.0.1 localhost                   # exp:drop_localhost
+example.com                           # exp:keep_block
+/ads-[a-z]+/                          # exp:keep_block
+@@/track-[a-z]+/                      # exp:keep_allow
+||x.com^$important                    # exp:keep_mod:important
+||x.com^$badfilter                    # exp:keep_mod:badfilter
+||x.com^$dnsrewrite=1.2.3.4           # exp:keep_mod:dnsrewrite
+||x.com^$dnstype=A                    # exp:keep_mod:dnstype
+||x.com^$denyallow=y.com              # exp:keep_mod:denyallow
+||x.com^$client=1.2.3.4               # exp:keep_mod:client
+||x.com^$ctag=android                 # exp:keep_mod:ctag
+||x.com^$respgeo=CN                   # exp:keep_mod:respgeo
+||x.com^$removeparam=utm               # exp:unknown_mod (per spec whole-line drop)
+||x.com^$csp=script-src               # exp:unknown_mod
+||x.com^$third-party                  # exp:unknown_mod
+! a comment                           # exp:drop_comment
+# a comment                            # exp:drop_comment
+example.com##.ad                      # exp:drop_css
+https://example.com/path              # exp:drop_url
+|example.com^                         # exp:anchor (leading |)
+example.com|                          # exp:anchor (trailing |)
+||example.org^$important              # exp:keep_mod:important

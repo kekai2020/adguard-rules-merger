@@ -1,0 +1,197 @@
+name: Merge Rules (V8)
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'config/**'
+      - 'merger/**'
+      - 'tests/**'
+      - 'merge_rules.py'
+      - 'config_loader.py'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/**'
+
+concurrency:
+  group: merge-rules-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: uv sync --frozen --extra dev
+      - name: Lint
+        run: uv run ruff check merger merge_rules.py config_loader.py
+      - name: Tests
+        run: uv run pytest tests/ -q --tb=short
+
+  merge:
+    needs: test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: uv sync --frozen --extra dev
+
+      - name: Validate config
+        run: uv run python -m merger validate config/sources.yaml
+
+      - name: Restore rule cache
+        uses: actions/cache@v5
+        with:
+          path: cache/
+          key: rule-cache-v8-${{ hashFiles('config/sources.yaml', 'merger/**', 'pyproject.toml', 'uv.lock') }}
+          restore-keys: |
+            rule-cache-v8-
+
+      - name: Run merge
+        env:
+          VIRUSTOTAL_API_KEY: ${{ secrets.VIRUSTOTAL_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "::group::Merge Output"
+          uv run python -m merger merge --config config/sources.yaml
+          echo "::endgroup::"
+
+      - name: Verify output
+        run: |
+          echo "=== Output directory ==="
+          ls -la output/ 2>/dev/null || (echo "ERROR: output/ directory missing!" && exit 1)
+
+          echo ""
+          echo "=== Required files ==="
+          for f in merged_rules.txt whitelist.txt stats.json; do
+            if [ -f "output/$f" ]; then
+              size=$(stat -c%s "output/$f")
+              echo "✓ $f ($(numfmt --to=iec $size))"
+            else
+              echo "✗ $f MISSING"
+              exit 1
+            fi
+          done
+
+          echo ""
+          echo "=== Optional format files ==="
+          for f in hosts.txt domains.txt clash.yaml surge.list smartdns.conf; do
+            if [ -f "output/$f" ]; then
+              size=$(stat -c%s "output/$f")
+              echo "✓ $f ($(numfmt --to=iec $size))"
+            else
+              echo "○ $f (not enabled)"
+            fi
+          done
+
+          echo ""
+          echo "=== Tiered files ==="
+          for f in merged_ads.txt merged_malware.txt merged_tracking.txt merged_phishing.txt merged_mining.txt merged_other.txt; do
+            if [ -f "output/$f" ]; then
+              size=$(stat -c%s "output/$f")
+              echo "✓ $f ($(numfmt --to=iec $size))"
+            fi
+          done
+
+          echo ""
+          echo "merged_rules.txt lines: $(wc -l < output/merged_rules.txt)"
+          grep -q '^! Version:' output/merged_rules.txt || (echo "ERROR: missing Version header" && exit 1)
+          grep -q '(V7)' output/merged_rules.txt || (echo "ERROR: missing V7 title" && exit 1)
+
+          echo ""
+          echo "=== Stats summary ==="
+          uv run python -c "import json; s=json.load(open('output/stats.json')); print(f\"block={s['rules']['block']:,} allow={s['rules']['allow']:,} raw={s['rules']['before']:,} dedup={s['rules']['dedup_rate']}%\")"
+
+      - name: Commit subscription files
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # 双步法：清理陈旧跟踪 + 强制添加；不吞错误，让问题暴露
+          git rm -r --cached output/ 2>&1 || true
+          git add -f output/
+
+          echo "=== Files now tracked in output/ ==="
+          git ls-files output/ | head -20
+          echo "=== Staged changes ==="
+          git diff --cached --stat
+
+          if git diff --cached --quiet; then
+            echo "No changes detected — skipping commit"
+            echo "committed=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          SUMMARY=$(uv run python -c "import json; s=json.load(open('output/stats.json')); print(f\"block={s['rules']['block']:,} allow={s['rules']['allow']:,}\")" 2>/dev/null || echo "")
+
+          git commit -m "Auto-merge: update rules [${SUMMARY}] $(date -u +'%Y-%m-%d %H:%M UTC')"
+
+          # 用 rebase 避免并发冲突
+          for i in 1 2 3; do
+            if git pull --rebase origin main && git push origin main; then
+              echo "Push successful (attempt $i)"
+              echo "committed=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            echo "Push attempt $i failed, retrying in 5s..."
+            sleep 5
+          done
+
+          echo "ERROR: Push failed after 3 attempts"
+          echo "committed=false" >> $GITHUB_OUTPUT
+          exit 1
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Merge Rules V7 Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f output/stats.json ]; then
+            uv run python -c "
+          import json
+          s = json.load(open('output/stats.json'))
+          print(f'| Metric | Value |')
+          print(f'|--------|-------|')
+          print(f'| Raw rules | {s[\"rules\"][\"before\"]:,} |')
+          print(f'| Block rules | {s[\"rules\"][\"block\"]:,} |')
+          print(f'| Allow rules | {s[\"rules\"][\"allow\"]:,} |')
+          print(f'| Dedup rate | {s[\"rules\"][\"dedup_rate\"]}% |')
+          print(f'| Sources OK | {s[\"sources\"][\"ok\"]}/{s[\"sources\"][\"total\"]} |')
+          " >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Committed: ${{ steps.commit.outputs.committed }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: merged-rules-v7
+          path: output/
+          retention-days: 30
+          compression-level: 6
