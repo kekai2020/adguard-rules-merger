@@ -448,6 +448,10 @@ class RuleParser:
                     continue
                 self.modifier_stripped += 1
             if not s2:
+                # Degenerate line ("$", "$comment") vanishes once modifiers are
+                # split — still account for it, silent drops are how defects
+                # hide (hypothesis property test caught this exact gap).
+                self.unrecognized_dropped += 1
                 continue
 
             # allow: @@||domain^
