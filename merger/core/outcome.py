@@ -106,6 +106,8 @@ class MergeOutcome:
     contributions: list[dict[str, Any]] = field(default_factory=list)
     source_overlap: dict[str, Any] = field(default_factory=dict)
     modifier_stats: dict[str, int] = field(default_factory=dict)
+    # Source-side modifier census (pre-removal) for the complete report table.
+    modifier_stats_sources: dict[str, int] = field(default_factory=dict)
     whitelist_audit: dict[str, Any] = field(default_factory=dict)
     added: list[str] = field(default_factory=list)
     removed: list[str] = field(default_factory=list)

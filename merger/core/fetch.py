@@ -111,6 +111,11 @@ class SourceFetcher:
         self._cache_lock: asyncio.Lock | None = None
         self._negative_cache: dict[str, float] = {}
         self.counters: dict[str, int] = dict.fromkeys(_FETCH_COUNTERS, 0)
+        # R7: SOURCE-side modifier census — counts every token from every
+        # parsed rule BEFORE dedup/badfilter/aggregation remove them, so the
+        # report's modifier table can show the complete picture (the final
+        # modifier_stats only sees survivors).
+        self.modifier_census: dict[str, int] = {}
 
     # ── async context ───────────────────────────────────────────
 
@@ -450,6 +455,11 @@ class SourceFetcher:
             for r in rules:
                 if r.rule_type == "comment":
                     continue
+                if r.modifiers:
+                    for tok in r.modifiers.split(","):
+                        tok = tok.strip()
+                        if tok:
+                            self.modifier_census[tok] = self.modifier_census.get(tok, 0) + 1
                 if r.normalized_domain == "":
                     m = regex_blocks if r.rule_type == "block" else regex_allows
                     key = r.raw

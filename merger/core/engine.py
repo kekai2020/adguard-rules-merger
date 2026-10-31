@@ -694,6 +694,7 @@ class AsyncRuleEngine(AggregationMixin, ConflictMixin, StatsMixin):
             contributions=contributions,
             source_overlap=source_overlap,
             modifier_stats=modifier_stats,
+            modifier_stats_sources=dict(self._fetcher.modifier_census),
             whitelist_audit=whitelist_audit,
             added=added,
             removed=removed,

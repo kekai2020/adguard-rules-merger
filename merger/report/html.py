@@ -509,6 +509,24 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
 
     conflict_rows = _render_conflict_rows(outcome)
 
+    # R7: source-side census table (complete picture incl. removed rules)
+    _census = getattr(outcome, "modifier_stats_sources", {}) or {}
+    _census_total = sum(_census.values())
+    if _census:
+        _census_rows = "".join(
+            f"<tr><td><code>${_esc(mod)}</code></td><td>{cnt:,}</td>"
+            f"<td>{cnt / _census_total * 100:.1f}%</td></tr>\n"
+            for mod, cnt in sorted(_census.items(), key=lambda kv: (-kv[1], kv[0]))
+        )
+        _census_block = (
+            '<h3 style="margin:14px 0 8px">🔎 源侧修饰符普查（合并移除前，全量）</h3>'
+            '<div class="table-wrap"><table>'
+            "<thead><tr><th>修饰符</th><th class='num'>token 数</th><th class='num'>占比</th></tr></thead>"
+            f"<tbody>{_census_rows}</tbody></table></div>"
+        )
+    else:
+        _census_block = ""
+
     # V5: whitelist audit setup
     contributions = getattr(outcome, "contributions", [])
     whitelist_audit = getattr(outcome, "whitelist_audit", {}) or {}
@@ -868,6 +886,8 @@ tbody tr:hover {{ background:#f0f5fa; }}
       <tbody>{modifier_rows}</tbody>
     </table>
     </div>
+    <p class="note">上表统计<strong>最终输出</strong>中的修饰符（合并语义会移除部分规则：$badfilter 及其目标被取消、解析期未知修饰符整条丢弃、跨源重复键只计一次），因此不是全量。下方为<strong>源侧普查</strong>：合并去重/取消之前的全部已解析修饰符 token 计数。</p>
+    {_census_block}
   </div>
 
   <div class="section" id="audit">
