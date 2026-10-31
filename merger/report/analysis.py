@@ -7,7 +7,6 @@ the P1-3 package split; colors, thresholds and catalog wording are unchanged.
 
 from __future__ import annotations
 
-import json
 import os
 from collections import Counter
 from datetime import datetime, timezone
@@ -105,22 +104,31 @@ def analyze_rules(blocks: list[Rule], allows: list[Rule]) -> dict[str, Any]:
     }
 
 
-def _json_for_script(data) -> str:
-    """JSON safe to embed inside a ``<script>`` block.
-
-    ``json.dumps`` escapes non-ASCII but not ``</script>``; a hostile domain
-    label such as ``x</script><script>alert(1)</script>.com`` would otherwise
-    terminate the script element and inject markup. Escaping every ``</``
-    (JSON only ever produces it inside string values) neutralises this.
-    E-2: U+2028/U+2029 are JS line terminators; ``json.dumps`` already escapes
-    them to ``\\u2028``/``\\u2029`` via the default ``ensure_ascii=True``, but
-    this guard keeps that invariant even if the default ever changes.
-    """
-    s = json.dumps(data).replace("</", "<\\/")
-    return s.replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
-
-
 # ── shared helpers ────────────────────────────────────────────────
+
+# Stage timing table rows (per-stage elapsed from MergeOutcome.stage_timings).
+# Single source shared verbatim by the HTML and Markdown renderers — keep the
+# pipeline order in lock-step with engine.run()'s _stages keys.
+_STAGE_ORDER = [
+    ("fetch", "抓取/解析"),
+    ("badfilter", "badfilter 取消"),
+    ("aggregation", "聚合"),
+    ("conflict", "冲突解析"),
+    ("sort", "排序"),
+    ("rejudge", "分类重判"),
+    ("stats", "统计/贡献"),
+    ("audit", "白名单审计"),
+    ("diff", "差异对比"),
+    ("content_version", "内容哈希"),
+]
+
+
+def _format_stage_time(secs: float) -> str:
+    """Adaptive time format: < 1ms show microseconds, else milliseconds."""
+    ms = secs * 1000
+    if ms < 1.0:
+        return f"{ms * 1000:.0f} µs"
+    return f"{ms:.1f} ms"
 
 
 def _modifier_total(modifier_stats: dict[str, int]) -> int:

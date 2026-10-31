@@ -91,9 +91,10 @@ def test_build_matrix_diagonal():
     assert m["get"]("a", "a") is None
 
 
-def test_json_for_script_escapes_script_tag():
-    out = analysis._json_for_script({"d": "x</script>"})
-    assert "</" not in out
+def test_json_for_script_removed():
+    # Dead-code sweep: the ECharts-era _json_for_script helper is gone
+    # (report.html is script-free pure-CSS now).
+    assert not hasattr(analysis, "_json_for_script")
 
 
 def test_modifier_total():

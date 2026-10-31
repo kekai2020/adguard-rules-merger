@@ -12,11 +12,13 @@ from html import escape as _esc
 
 from ..domain_classifier import CATEGORY_LABELS, CATEGORY_ORDER
 from .analysis import (
+    _STAGE_ORDER,
     _build_matrix,
     _cat_label,
     _defense_layer_rows,
     _dup_color,
     _dup_legend_html,
+    _format_stage_time,
     _generation_label,
     _modifier_total,
     _overlap_heat_color,
@@ -255,29 +257,6 @@ def _render_conflict_rows(outcome) -> str:
             f"<td><span class='tag tag-yellow'>{ctype_tag}</span></td></tr>\n"
         )
     return rows or '<tr><td colspan="6" class="empty-state">无冲突</td></tr>'
-
-
-# Stage timing table rows (per-stage elapsed from MergeOutcome.stage_timings).
-_STAGE_ORDER = [
-    ("fetch", "抓取/解析"),
-    ("badfilter", "badfilter 取消"),
-    ("aggregation", "聚合"),
-    ("conflict", "冲突解析"),
-    ("sort", "排序"),
-    ("rejudge", "分类重判"),
-    ("stats", "统计/贡献"),
-    ("audit", "白名单审计"),
-    ("diff", "差异对比"),
-    ("content_version", "内容哈希"),
-]
-
-
-def _format_stage_time(secs: float) -> str:
-    """Adaptive time format: < 1ms show microseconds, else milliseconds."""
-    ms = secs * 1000
-    if ms < 1.0:
-        return f"{ms * 1000:.0f} µs"
-    return f"{ms:.1f} ms"
 
 
 def _render_stage_timing_rows(stage_timings: dict[str, float]) -> str:

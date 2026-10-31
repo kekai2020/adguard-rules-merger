@@ -167,19 +167,13 @@ class TestReportRendering:
         assert m["get"]("A", "B") is not None
         assert m["get"]("B", "A") is not None
 
-    def test_json_embedded_in_script_escapes_closing_tag(self):
-        # V6: hostile domain labels must not be able to terminate the <script>
-        # element (XSS guard). JSON inside report scripts goes through
-        # _json_for_script which escapes "</".
-        from merger.report import _json_for_script, analyze_rules, generate_html_report
+    def test_hostile_label_cannot_inject_script_tag(self):
+        # XSS guard (kept from the V6 suite): a hostile regex-rule label must
+        # not leak a raw closing <script> tag into the generated HTML report.
+        # (The ECharts-era _json_for_script helper was removed with the
+        # script-free pure-CSS renderer; the end-to-end assertion remains.)
+        from merger.report import analyze_rules, generate_html_report
 
-        hostile = "x</script><script>alert(1)</script>.com"
-        encoded = _json_for_script([hostile])
-        assert "</script>" not in encoded
-        assert "<\\/script>" in encoded
-
-        # end-to-end: a hostile label in a rule must not leak a raw closing tag
-        # into the generated HTML report.
         outcome = self._outcome()
         outcome.blocks.append(_rule("", raw="/^z.*$/", sources=("s1",)))
         outcome.blocks[-1]._norm = ""

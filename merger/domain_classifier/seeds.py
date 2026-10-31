@@ -30,33 +30,9 @@ def _load_builtin_seeds() -> dict[str, str]:
 # External lists carry their own category IDs/names; collapse them into our
 # 9 classes. Unmapped IDs (malware/phishing/gambling/porn/...) are dropped
 # rather than forced into a bucket — offline rejudge only owns ads/tracking.
-EXTERNAL_CATEGORY_MAP: dict[str, str] = {
-    "adv": "advertising",
-    "ad": "advertising",
-    "advert": "advertising",
-    "advertising": "advertising",
-    "trk": "analytics",
-    "tracking": "analytics",
-    "spyware": "analytics",
-    "spy": "analytics",
-    "soc": "social",
-    "social": "social",
-    "rsg": "social",
-    "aff": "affiliate",
-    "affiliate": "affiliate",
-    "cdn": "cdn",
-    "content_delivery": "cdn",
-    "shop": "ecommerce_payment",
-    "shopping": "ecommerce_payment",
-    "commerce": "ecommerce_payment",
-    "ecommerce": "ecommerce_payment",
-    "fin": "ecommerce_payment",
-    "finance": "ecommerce_payment",
-    "bank": "ecommerce_payment",
-    "payment": "ecommerce_payment",
-    "sec": "privacy_security",
-    "security": "privacy_security",
-}
+# Single source of truth: the table lives in .rules; importing it here keeps
+# the legacy `seeds.EXTERNAL_CATEGORY_MAP` import path working.
+from .rules import EXTERNAL_CATEGORY_MAP  # noqa: E402 — deliberately after the docs
 
 
 def _clean_external_domain(raw: str) -> str:

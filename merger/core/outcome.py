@@ -58,16 +58,6 @@ def classify_source_error(err: BaseException | str) -> str:
 
 
 @dataclass
-class SourceContribution:
-    name: str
-    url: str
-    category: str
-    raw_rules: int = 0
-    unique_rules: int = 0
-    shared_rules: int = 0
-
-
-@dataclass
 class MergeOutcome:
     """Result of a merge run — all counts and rule lists produced by the engine.
 

@@ -225,7 +225,6 @@ class OutputConfig(_StrictConfig):
     # V8: when false (default), omit wall-clock timestamps and runtime from
     # committed artifacts so identical inputs yield byte-identical outputs.
     report_timestamp: bool = False
-    publish_domains: bool = True
 
     @field_validator("formats")
     @classmethod

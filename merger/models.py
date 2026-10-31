@@ -357,7 +357,7 @@ class Rule:
 class SourceMeta:
     """Metadata for a rule source."""
 
-    __slots__ = ("name", "url", "category", "enabled", "reputation", "timeout", "id")
+    __slots__ = ("name", "url", "category", "enabled", "timeout", "id")
 
     def __init__(
         self,
@@ -365,7 +365,6 @@ class SourceMeta:
         url: str,
         category: str = CATEGORY_OTHER,
         enabled: bool = True,
-        reputation: float = 0.5,
         timeout: int | None = None,
         id: int | None = None,
     ) -> None:
@@ -373,6 +372,5 @@ class SourceMeta:
         self.url = url
         self.category = sys.intern(category) if category else CATEGORY_OTHER
         self.enabled = enabled
-        self.reputation = max(0.0, min(1.0, reputation))
         self.timeout = timeout
         self.id = id

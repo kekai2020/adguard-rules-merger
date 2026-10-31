@@ -277,7 +277,6 @@ class RuleParser:
 
     def _make_rule(
         self,
-        raw_line: str,
         d: str,
         rule_type: str,
         wildcard: bool,
@@ -454,7 +453,7 @@ class RuleParser:
                     continue
                 d = clean(m.group(1))
                 r = self._make_rule(
-                    s2, d, "allow", d.startswith("*."), source, category, modifiers=modifiers
+                    d, "allow", d.startswith("*."), source, category, modifiers=modifiers
                 )
                 if r:
                     yield r
@@ -468,7 +467,7 @@ class RuleParser:
                     continue
                 d = clean(m.group(1))
                 r = self._make_rule(
-                    s2, d, "block", d.startswith("*."), source, category, modifiers=modifiers
+                    d, "block", d.startswith("*."), source, category, modifiers=modifiers
                 )
                 if r:
                     yield r
@@ -489,9 +488,7 @@ class RuleParser:
                         if "*" in d:
                             self.pattern_dropped += 1
                         continue
-                    r = self._make_rule(
-                        s2, d, "block", False, source, category, modifiers=host_mods
-                    )
+                    r = self._make_rule(d, "block", False, source, category, modifiers=host_mods)
                     if r:
                         yield r
                 continue
@@ -508,9 +505,7 @@ class RuleParser:
                         if "*" in d:
                             self.pattern_dropped += 1
                         continue
-                    r = self._make_rule(
-                        s2, d, "block", False, source, category, modifiers=host_mods
-                    )
+                    r = self._make_rule(d, "block", False, source, category, modifiers=host_mods)
                     if r:
                         yield r
                 continue
@@ -518,7 +513,7 @@ class RuleParser:
             # plain wildcard domain: *.example.com
             if re_wild_plain(s2) and not is_ip(s2):
                 d = clean(s2)
-                r = self._make_rule(s2, d, "block", True, source, category, modifiers=modifiers)
+                r = self._make_rule(d, "block", True, source, category, modifiers=modifiers)
                 if r:
                     yield r
                 continue
@@ -527,7 +522,7 @@ class RuleParser:
             dom = s2.split("#", 1)[0].strip() if not s2.startswith("#") else s2
             if re_plain(dom) and not is_ip(dom):
                 d = clean(dom)
-                r = self._make_rule(dom, d, "block", False, source, category, modifiers=modifiers)
+                r = self._make_rule(dom, "block", False, source, category, modifiers=modifiers)
                 if r:
                     yield r
                 continue

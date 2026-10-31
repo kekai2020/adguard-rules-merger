@@ -10,7 +10,6 @@ from .engine import AsyncRuleEngine
 from .fetch import FetchMixin
 from .outcome import (
     MergeOutcome,
-    SourceContribution,
     SourceFailure,
     _iter_parents,
     classify_source_error,
@@ -21,7 +20,6 @@ __all__ = [
     "AsyncRuleEngine",
     "MergeOutcome",
     "SourceFailure",
-    "SourceContribution",
     "classify_source_error",
     "_iter_parents",
     "FetchMixin",
