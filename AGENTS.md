@@ -36,8 +36,8 @@ mypy 已配置但为非阻塞 advisory（`packages = ["merger"]`）。CI 矩阵�
   `merger/report/`（HTML/MD 渲染）、`merger/domain_classifier/`（子包，含 seeds/rules/ruleset）。
 - 外部 IO（HTTP/DNS/缓存）走 `merger/ports.py` 薄端口，便于测试替身。
 - 导出为原子写（`*.tmp` → replace）。
-- ⚠️ `docs/ARCHITECTURE.md` 模块表部分陈旧（写 `merger/core.py`、`domain_classifier.py`），
-  以实际目录 `merger/core/`、`merger/domain_classifier/` 为准。
+- `docs/` 只保留三篇活文档（ARCHITECTURE / DEVELOPMENT / DEPLOYMENT）；
+  历史审阅报告已于 8.0.1 清理，结论沉淀在 `CHANGELOG.md` 与代码注释。
 
 ## 硬性约定（改动前必读）
 
