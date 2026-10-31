@@ -2,8 +2,9 @@
 
 - Conditional GET (If-None-Match / If-Modified-Since); 304 reuses the body.
 - SHA-256 content hash skips re-parsing when the bytes did not change.
-- Parsed-rule sidecar (pickle of compact tuples) so a cache hit does not
-  re-run the regex parser.
+- Parsed-rule sidecar (JSON of compact tuples) so a cache hit does not
+  re-run the regex parser. v51 sidecars were pickle; they are still READ
+  for migration and rewritten as JSON on the next store.
 - Index is written atomically; content files are written via tmp+replace.
 """
 
@@ -21,8 +22,10 @@ from typing import Any
 
 logger = logging.getLogger(__name__)
 
-PARSED_CACHE_VERSION = "v51"  # sidecar schema version — bump ONLY when the
-# pickled record format actually changes (older sidecars must keep loading)
+PARSED_CACHE_VERSION = "v52"  # sidecar schema version — bump ONLY when the
+# serialized layout actually changes. v52 = JSON (tuples serialize as lists);
+# v51 = pickle and is still read once for migration.
+_LEGACY_PARSED_VERSION = "v51"
 
 
 @dataclass
@@ -90,7 +93,10 @@ class SourceCache:
         return self.cache_dir / self.PARSED_SUBDIR
 
     def _parsed_path(self, content_hash: str) -> Path:
-        return self._parsed_dir() / f"{PARSED_CACHE_VERSION}-{content_hash}.pkl"
+        return self._parsed_dir() / f"{PARSED_CACHE_VERSION}-{content_hash}.json"
+
+    def _legacy_parsed_path(self, content_hash: str) -> Path:
+        return self._parsed_dir() / f"{_LEGACY_PARSED_VERSION}-{content_hash}.pkl"
 
     def load(self) -> None:
         """Load cache index from disk (idempotent)."""
@@ -187,26 +193,43 @@ class SourceCache:
     # ── parsed sidecar ──────────────────────────────────────────
 
     def load_parsed(self, content_hash: str) -> tuple[list[tuple], dict[str, int] | None] | None:
-        """Return ``(compact rule tuples, parse counters)`` for this content
-        hash, or None. Counters are optional (older sidecars lack them)."""
+        """Return ``(compact rule records, parse counters)`` for this content
+        hash, or None. Counters are optional (older sidecars lack them).
+
+        Reads the JSON (v52) sidecar first; falls back to the legacy pickle
+        (v51) once for migration — the JSON successor is written by the next
+        :meth:`store_parsed`, which also removes the legacy file.
+        """
         if not content_hash:
             return None
         path = self._parsed_path(content_hash)
-        if not path.exists():
+        if path.exists():
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                if isinstance(data, dict) and data.get("v") == PARSED_CACHE_VERSION:
+                    recs = data.get("records")
+                    if isinstance(recs, list):
+                        counters = data.get("counters")
+                        return recs, (counters if isinstance(counters, dict) else None)
+            except (OSError, json.JSONDecodeError) as e:
+                logger.debug("parsed cache unreadable for %s: %s", content_hash[:12], e)
+                return None
+        legacy = self._legacy_parsed_path(content_hash)
+        if not legacy.exists():
             return None
         try:
-            # Trust boundary: the parsed cache is written by this process under
-            # ``cache_dir``. Treat the file as local-trust; do not point the
-            # cache dir at a world-writable location.
-            with path.open("rb") as f:
+            # v51 migration read: the ONLY remaining pickle consumer, kept
+            # until one release after the JSON switch. Local-trust file under
+            # ``cache_dir`` (written by this process).
+            with legacy.open("rb") as f:
                 data = pickle.load(f)
-            if isinstance(data, dict) and data.get("v") == PARSED_CACHE_VERSION:
+            if isinstance(data, dict) and data.get("v") == _LEGACY_PARSED_VERSION:
                 recs = data.get("records")
                 if isinstance(recs, list):
                     counters = data.get("counters")
                     return recs, (counters if isinstance(counters, dict) else None)
         except (OSError, pickle.UnpicklingError, EOFError) as e:
-            logger.debug("parsed cache unreadable for %s: %s", content_hash[:12], e)
+            logger.debug("legacy parsed cache unreadable for %s: %s", content_hash[:12], e)
         return None
 
     def store_parsed(
@@ -222,10 +245,13 @@ class SourceCache:
             # V5.2: persist drop counters so cache-hit runs report the same
             # diagnostics as full-parse runs.
             payload["counters"] = counters
-        tmp = path.with_suffix(".pkl.tmp")
-        with tmp.open("wb") as f:
-            pickle.dump(payload, f, protocol=5)
+        tmp = path.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
         tmp.replace(path)
+        # Migration: the legacy pickle for the same hash is superseded now.
+        legacy = self._legacy_parsed_path(content_hash)
+        if legacy.exists():
+            legacy.unlink()
 
     # ── conditional request headers ──────────────────────────────
 
@@ -276,6 +302,30 @@ class SourceCache:
             size_bytes=len(content.encode("utf-8")),
             rule_count=rule_count,
         )
+        # Sidecar hygiene: when a source's content CHANGES, the superseded
+        # hash's sidecar becomes unreachable — prune it (unless another entry
+        # still shares that hash) so the parsed directory cannot grow without
+        # bound. Sidecars are only pruned here, never by content existence:
+        # file:// / local-path sources legitimately keep a sidecar with no
+        # cached body (their warm-run parsed-cache hit depends on it).
+        old = self._entries.get(url)
+        if (
+            old is not None
+            and old.content_hash
+            and old.content_hash != content_hash
+            and not any(
+                e.content_hash == old.content_hash for k, e in self._entries.items() if k != url
+            )
+        ):
+            for sidecar in (
+                self._parsed_path(old.content_hash),
+                self._legacy_parsed_path(old.content_hash),
+            ):
+                if sidecar.exists():
+                    try:
+                        sidecar.unlink()
+                    except OSError:
+                        pass
         self._entries[url] = entry
         self._dirty = True
 
@@ -332,9 +382,12 @@ class SourceCache:
                     if full.exists():
                         full.unlink()
                     if entry.content_hash:
-                        pkl = self._parsed_path(entry.content_hash)
-                        if pkl.exists():
-                            pkl.unlink()
+                        for sidecar in (
+                            self._parsed_path(entry.content_hash),
+                            self._legacy_parsed_path(entry.content_hash),
+                        ):
+                            if sidecar.exists():
+                                sidecar.unlink()
             if entry.content_hash:
                 hash_refs[entry.content_hash] = hash_refs.get(entry.content_hash, 1) - 1
             total -= entry.size_bytes

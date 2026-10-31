@@ -320,56 +320,17 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
     def _build_audit_config(self) -> Any:
         """D-6: single source of truth for the whitelist-audit config.
 
-        Centralizes the ~35 attribute → ``AuditConfig`` wiring so the ``run``
-        path (and any future config-object path) share one construction.
-        Building fresh each call keeps it exact — no stale cache if a caller
-        mutates an attribute between runs.
+        Centralizes the attribute → ``AuditConfig`` wiring in one construction
+        point. Building fresh each call keeps it exact — no stale cache if a
+        caller mutates an attribute between runs. The field mapping itself is
+        declarative and lives in ``AuditConfig.from_engine`` (conventional
+        ``whitelist_audit_*`` attributes map automatically; only renames are
+        listed there); completeness is guarded by
+        ``tests/test_config_wiring.py``.
         """
         from ..whitelist_audit import AuditConfig
 
-        return AuditConfig(
-            use_dns=self.whitelist_audit_use_dns,
-            use_urlhaus=self.whitelist_audit_use_urlhaus,
-            use_threatfox=self.whitelist_audit_use_threatfox,
-            use_rdap=self.whitelist_audit_use_rdap,
-            use_scam_check=self.whitelist_audit_use_scam_check,
-            use_dnsbl=self.whitelist_audit_use_dnsbl,
-            cache_results=self.whitelist_audit_cache_results,
-            cache_dir=self.whitelist_audit_cache_dir,
-            use_virustotal=self.whitelist_audit_use_virustotal,
-            virustotal_api_key=self.whitelist_audit_vt_api_key,
-            use_ai=self.whitelist_audit_use_ai,
-            ai_api_key=self.whitelist_audit_ai_api_key,
-            ai_base_url=self.whitelist_audit_ai_base_url,
-            ai_model=self.whitelist_audit_ai_model,
-            ai_min_confidence=self.whitelist_audit_ai_min_confidence,
-            ai_max_domains=self.whitelist_audit_ai_max_domains,
-            concurrency=self.whitelist_audit_concurrency,
-            urlhaus_delay=self.whitelist_audit_urlhaus_delay,
-            new_domain_threshold_days=self.whitelist_audit_new_domain_days,
-            ti_mode=self.whitelist_audit_ti_mode,
-            feed_ttl_seconds=self.whitelist_audit_feed_ttl,
-            use_heuristics=self.whitelist_audit_use_heuristics,
-            # Shallow-merge the user's partial table on top of the AuditConfig
-            # built-in default weights, so naming only a few keys overrides just
-            # those (no whole-table replacement that would silently drop the
-            # unmentioned layers' weights). With the default table ==
-            # AuditConfig defaults the scored result is unchanged.
-            fusion_weights={
-                **AuditConfig().fusion_weights,
-                **self.whitelist_audit_fusion_weights,
-            },
-            doh_endpoint=self.whitelist_audit_doh_endpoint,
-            use_homograph=self.whitelist_audit_use_homograph,
-            use_dns_mx=self.whitelist_audit_use_dns_mx,
-            use_gsb=self.whitelist_audit_use_gsb,
-            gsb_api_key=self.whitelist_audit_gsb_api_key,
-            use_phishtank=self.whitelist_audit_use_phishtank,
-            phishtank_api_key=self.whitelist_audit_phishtank_api_key,
-            use_urlscan=self.whitelist_audit_use_urlscan,
-            urlscan_api_key=self.whitelist_audit_urlscan_api_key,
-            use_crtsh=self.whitelist_audit_use_crtsh,
-        )
+        return AuditConfig.from_engine(self)
 
     @classmethod
     def from_config(cls, cfg: Any) -> AsyncRuleEngine:

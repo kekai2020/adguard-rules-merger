@@ -52,13 +52,13 @@ def test_parsed_sidecar(tmp_path):
 
 
 def test_parsed_sidecar_legacy_without_counters(tmp_path):
-    """Sidecars written before V5.2 (no counters key) still load."""
+    """v51 pickle sidecars (no counters key) still load for migration."""
     import pickle
 
     c = SourceCache(cache_dir=str(tmp_path / "cache"))
     c.load()
     h = "def" * 10 + "cd"
-    path = c._parsed_path(h)
+    path = c._legacy_parsed_path(h)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("wb") as f:
         pickle.dump({"v": "v51", "records": [("block", "a.com", False, "", "ads", "")]}, f)

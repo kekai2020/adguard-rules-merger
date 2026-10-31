@@ -1,16 +1,39 @@
 """AuditConfig dataclass (layer switches, fusion weights, thresholds) + _CacheEntry.
 
 Moved verbatim during the P1-3 package split; default weights and defaults are
-unchanged.
+unchanged. ``from_engine`` is the SINGLE declarative mapping point from the
+engine's flattened ``whitelist_audit_*`` attributes to this dataclass.
 """
 
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
+from dataclasses import fields as dataclass_fields
 from typing import Any
 
 from .constants import CACHE_TTL
+
+# ── declarative engine → AuditConfig mapping ────────────────────────
+# Convention: an AuditConfig field maps from ``engine.whitelist_audit_<field>``.
+# Only fields BREAKING the convention are listed here. Adding a new audit knob
+# with a conventional attribute name needs NO entry (guarded by
+# tests/test_config_wiring.py::test_build_audit_config_populates_every_audit_field).
+_ENGINE_ATTR_GETTERS: dict[str, Callable[[Any], Any]] = {
+    "virustotal_api_key": lambda e: e.whitelist_audit_vt_api_key,
+    "new_domain_threshold_days": lambda e: e.whitelist_audit_new_domain_days,
+    "feed_ttl_seconds": lambda e: e.whitelist_audit_feed_ttl,
+    "use_ai": lambda e: e.whitelist_audit_use_ai,
+    "ai_api_key": lambda e: e.whitelist_audit_ai_api_key,
+    "ai_base_url": lambda e: e.whitelist_audit_ai_base_url,
+    "ai_model": lambda e: e.whitelist_audit_ai_model,
+    "ai_min_confidence": lambda e: e.whitelist_audit_ai_min_confidence,
+    "ai_max_domains": lambda e: e.whitelist_audit_ai_max_domains,
+    "fusion_weights": lambda e: e.whitelist_audit_fusion_weights,
+}
+# AuditConfig-only internal parameters with no engine-side knob (keep defaults).
+_AUDIT_ONLY_FIELDS = frozenset({"cache_ttl_seconds", "doh_timeout"})
 
 
 @dataclass
@@ -87,6 +110,30 @@ class AuditConfig:
     urlscan_api_key: str = ""
     # V6: certificate transparency (crt.sh) — optional interface only, default off.
     use_crtsh: bool = False
+
+    @classmethod
+    def from_engine(cls, engine: Any) -> AuditConfig:
+        """Build from an ``AsyncRuleEngine`` (single declarative mapping point).
+
+        Fields map from ``engine.whitelist_audit_<field>`` by convention;
+        ``_ENGINE_ATTR_GETTERS`` carries only the renames. The user's partial
+        ``fusion_weights`` table is shallow-merged over the built-in defaults
+        so naming a few keys does not silently zero the unmentioned layers.
+        """
+        kwargs: dict[str, Any] = {}
+        for f in dataclass_fields(cls):
+            name = f.name
+            getter = _ENGINE_ATTR_GETTERS.get(name)
+            if getter is not None:
+                kwargs[name] = getter(engine)
+            elif name in _AUDIT_ONLY_FIELDS:
+                continue  # keep the dataclass default
+            else:
+                attr = f"whitelist_audit_{name}"
+                if hasattr(engine, attr):
+                    kwargs[name] = getattr(engine, attr)
+        kwargs["fusion_weights"] = {**cls().fusion_weights, **kwargs["fusion_weights"]}
+        return cls(**kwargs)
 
 
 @dataclass
