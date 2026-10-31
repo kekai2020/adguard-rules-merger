@@ -51,13 +51,16 @@ class StatsMixin:
         source_names: dict[str, str],
         source_raw_counts: dict[str, int],
     ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-        """Fused single-pass contributions + source_overlap (V5.3 C9).
+        """Fused two-pass contributions + source_overlap (V5.3 C9, R-2 pass form).
 
         Two traversals over chain(blocks, allows): the first accumulates
         per-key coverage, per-source effective counts and pairwise overlap;
-        the second attributes unique/shared/category counts. Provenance bits
-        are walked lazily via ``iter_source_keys`` — rows hold the integer
-        mask, not a per-rule tuple, so memory stays flat on millions of rules.
+        the second (re-walking the same rules — the lists are already in
+        memory, so no per-rule staging rows are materialized) attributes
+        unique/shared/category counts once coverage is final. Provenance bits
+        are walked lazily via ``iter_source_keys``; dropping the old per-rule
+        ``rows`` staging list removes a multi-hundred-MB transient at
+        million-rule scale.
         """
         from collections import Counter
         from itertools import chain
@@ -65,7 +68,6 @@ class StatsMixin:
         coverage: dict[str, int] = {}
         effective: Counter = Counter()
         pair_overlap: Counter = Counter()
-        rows: list[tuple[str | None, int, str, list[str] | None]] = []
 
         for r in chain(blocks, allows):
             key = cls._rule_key(r)
@@ -79,16 +81,11 @@ class StatsMixin:
             mask = r.source_mask
             if not mask or not key:
                 continue
-            # O-9: materialise the source list only for rules with >=2 sources;
-            # single-source rules stay lazy (rows holds None) so the common
-            # case allocates nothing and pair-overlap is only O(1) there.
             if mask.bit_count() == 1:
                 s = next(iter_source_keys(mask))
                 effective[s] += 1
-                rows.append((key, mask, r.category, None))
                 continue
             srcs = list(iter_source_keys(mask))
-            rows.append((key, mask, r.category, srcs))
             for s in srcs:
                 effective[s] += 1
             n = len(srcs)
@@ -102,18 +99,22 @@ class StatsMixin:
         unique_count: dict[str, int] = {}
         shared_count: dict[str, int] = {}
         cat_by_src: dict[str, Counter] = {}
-        for key, mask, category, srcs in rows:  # type: ignore[misc,assignment]
-            # O-1: coverage now holds an OR-accumulated mask; unique means the
-            # mask has exactly one bit set (single contributing source).
+        for r in chain(blocks, allows):
+            key = cls._rule_key(r)
+            mask = r.source_mask
+            if not mask or not key:
+                continue
+            # O-1: coverage is now final; unique means the mask has exactly
+            # one bit set (single contributing source). Re-walking in the same
+            # chain order keeps dict insertion order (and thus output bytes)
+            # identical to the previous staged-rows form.
             unique = coverage.get(key, 0).bit_count() == 1
-            if srcs is None:
-                srcs = iter_source_keys(mask)  # single source, lazy
-            for src in srcs:
+            for src in iter_source_keys(mask):
                 if unique:
                     unique_count[src] = unique_count.get(src, 0) + 1
                 else:
                     shared_count[src] = shared_count.get(src, 0) + 1
-                cat_by_src.setdefault(src, Counter())[category] += 1
+                cat_by_src.setdefault(src, Counter())[r.category] += 1
 
         contributions: list[dict[str, Any]] = []
         for url, name in source_names.items():

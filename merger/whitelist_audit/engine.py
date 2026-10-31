@@ -199,7 +199,10 @@ async def audit_whitelist(
                 # to its disabled-default shape (same as a skipped layer).
                 gathered = await asyncio.gather(*tasks, return_exceptions=True) if tasks else []
                 layer_data = {}
-                for name, res in zip(task_names, gathered):
+                # strict=True pins the invariant that gather() returns exactly
+                # one result per submitted task (a mismatch must be a bug, not
+                # a silent mis-mapping).
+                for name, res in zip(task_names, gathered, strict=True):
                     if isinstance(res, BaseException):
                         layer_data[name] = _SPECS_BY_NAME[name].default()
                     else:
@@ -402,7 +405,7 @@ async def audit_whitelist(
             # Defensive: a single domain must never take the whole audit down.
             # Exceptions (from any layer) are demoted to an "unknown" record.
             gathered = await asyncio.gather(*tasks, return_exceptions=True)
-            for r, rule in zip(gathered, chunk):
+            for r, rule in zip(gathered, chunk, strict=True):
                 if isinstance(r, BaseException):
                     logger.warning("audit failed for %s: %s", rule.normalized_domain, r)
                     results.append(

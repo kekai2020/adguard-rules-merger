@@ -10,6 +10,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
+from contextlib import contextmanager
 from itertools import chain
 from pathlib import Path
 from typing import Any
@@ -389,25 +390,34 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
             raise ValueError("No enabled sources")
 
         t0 = time.time()
-        _pt = time.perf_counter()
-        _stages: dict[str, float] = {}
-        (
-            block_map,
-            allow_map,
-            regex_blocks,
-            regex_allows,
-            raw_count,
-            ok,
-            cached,
-            exact_merged,
-            normalized_merged,
-            regex_merged,
-            failures,
-            source_raw_counts,
-            source_names,
-        ) = await self.fetch_all(sources)
-        _stages["fetch"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
+        stages: dict[str, float] = {}
+
+        @contextmanager
+        def _stage(name: str):
+            """Time one pipeline stage into ``stages`` (single writer, no manual
+            perf_counter pairs to keep in sync when stages are added/moved)."""
+            pt0 = time.perf_counter()
+            try:
+                yield
+            finally:
+                stages[name] = time.perf_counter() - pt0
+
+        with _stage("fetch"):
+            (
+                block_map,
+                allow_map,
+                regex_blocks,
+                regex_allows,
+                raw_count,
+                ok,
+                cached,
+                exact_merged,
+                normalized_merged,
+                regex_merged,
+                failures,
+                source_raw_counts,
+                source_names,
+            ) = await self.fetch_all(sources)
 
         total = len(sources)
         if ok == 0:
@@ -433,127 +443,123 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
         for r in chain(block_map.values(), allow_map.values()):
             r.raw = ""
 
-        badfilter_removed = self._apply_badfilter(block_map, allow_map)
-        _stages["badfilter"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
+        with _stage("badfilter"):
+            badfilter_removed = self._apply_badfilter(block_map, allow_map)
         if badfilter_removed:
             logger.info("badfilter cancellation: removed %d rules", badfilter_removed)
 
         aggregated_n = wild_agg_n = promoted_n = 0
         promo_counters: dict[str, int] = {}
-        if self.aggregation_enabled:
-            allow_domains = {r.normalized_domain for r in allow_map.values() if r.normalized_domain}
-            aggregated_blocks, aggregated_n, wild_agg_n, promoted_n = self._aggregate(
-                block_map, allow_domains=allow_domains, counters=promo_counters
-            )
-            if promo_counters.get("promotion_multi_level_skipped"):
-                logger.info(
-                    "promotion multi-level skipped: %d",
-                    promo_counters["promotion_multi_level_skipped"],
+        with _stage("aggregation"):
+            if self.aggregation_enabled:
+                allow_domains = {
+                    r.normalized_domain for r in allow_map.values() if r.normalized_domain
+                }
+                aggregated_blocks, aggregated_n, wild_agg_n, promoted_n = self._aggregate(
+                    block_map, allow_domains=allow_domains, counters=promo_counters
                 )
-            logger.info(
-                "aggregation: exact=%d wildcard=%d promoted=%d",
-                aggregated_n,
-                wild_agg_n,
-                promoted_n,
+                if promo_counters.get("promotion_multi_level_skipped"):
+                    logger.info(
+                        "promotion multi-level skipped: %d",
+                        promo_counters["promotion_multi_level_skipped"],
+                    )
+                logger.info(
+                    "aggregation: exact=%d wildcard=%d promoted=%d",
+                    aggregated_n,
+                    wild_agg_n,
+                    promoted_n,
+                )
+            else:
+                aggregated_blocks = list(block_map.values())
+
+        with _stage("conflict"):
+            if self.conflict_resolution_enabled:
+                final_blocks, removed_n, conflicts = self._resolve_conflicts(
+                    aggregated_blocks, list(allow_map.values()), source_names
+                )
+            else:
+                final_blocks, removed_n, conflicts = aggregated_blocks, 0, []
+
+        with _stage("sort"):
+            final_blocks, final_allows = sort_merged(
+                final_blocks, regex_blocks, allow_map.values(), regex_allows
             )
-        else:
-            aggregated_blocks = list(block_map.values())
-        _stages["aggregation"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
 
-        if self.conflict_resolution_enabled:
-            final_blocks, removed_n, conflicts = self._resolve_conflicts(
-                aggregated_blocks, list(allow_map.values()), source_names
+        with _stage("rejudge"):
+            # Offline high-confidence re-judgement (no-op unless enabled); runs
+            # before stats/contributions so bucket counts reflect the new bucket.
+            if self.classification_enabled and self.classification_seed_file:
+                self.classification_ruleset = self.classification_ruleset.with_seeds(
+                    load_seed_file(self.classification_seed_file)
+                )
+            reclassified = await self._rejudge_block_categories(final_blocks)
+
+        with _stage("stats"):
+            contributions, source_overlap = compute_contributions(
+                final_blocks, final_allows, source_names, source_raw_counts
             )
-        else:
-            final_blocks, removed_n, conflicts = aggregated_blocks, 0, []
-        _stages["conflict"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
-
-        final_blocks, final_allows = sort_merged(
-            final_blocks, regex_blocks, allow_map.values(), regex_allows
-        )
-        _stages["sort"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
-
-        # Offline high-confidence re-judgement (no-op unless enabled); runs
-        # before stats/contributions so bucket counts reflect the new bucket.
-        if self.classification_enabled and self.classification_seed_file:
-            self.classification_ruleset = self.classification_ruleset.with_seeds(
-                load_seed_file(self.classification_seed_file)
-            )
-        reclassified = await self._rejudge_block_categories(final_blocks)
-        _stages["rejudge"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
-
-        contributions, source_overlap = compute_contributions(
-            final_blocks, final_allows, source_names, source_raw_counts
-        )
-        modifier_stats = compute_modifier_stats(final_blocks, final_allows)
-        _stages["stats"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
+            modifier_stats = compute_modifier_stats(final_blocks, final_allows)
 
         whitelist_audit: dict[str, Any] = {}
-        if self.whitelist_audit_enabled:
-            from ..whitelist_audit import audit_whitelist
+        with _stage("audit"):
+            if self.whitelist_audit_enabled:
+                from ..whitelist_audit import audit_whitelist
 
-            logger.info("running whitelist multi-layer audit...")
-            # D-6: single construction via _build_audit_config (no per-run
-            # re-derivation from ~35 attributes).
-            audit_cfg = self._build_audit_config()
-            whitelist_audit = await audit_whitelist(
-                final_allows,
-                source_names,
-                config=audit_cfg,
-                # G-2: share the pipeline's classifier tables so the audit and
-                # the block rejudge agree for custom category_seeds.json.
-                ruleset=self.classification_ruleset,
-            )
-            logger.info("whitelist audit: %s", whitelist_audit.get("summary", {}))
-        _stages["audit"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
+                logger.info("running whitelist multi-layer audit...")
+                # D-6: single construction via _build_audit_config (no per-run
+                # re-derivation from ~35 attributes).
+                audit_cfg = self._build_audit_config()
+                whitelist_audit = await audit_whitelist(
+                    final_allows,
+                    source_names,
+                    config=audit_cfg,
+                    # G-2: share the pipeline's classifier tables so the audit and
+                    # the block rejudge agree for custom category_seeds.json.
+                    ruleset=self.classification_ruleset,
+                )
+                logger.info("whitelist audit: %s", whitelist_audit.get("summary", {}))
 
         added, removed = [], []
         added_allows, removed_allows = [], []
-        if self.diff_against:
-            # File IO must not run on the event loop (ASYNC240): the previous
-            # output can be tens of MB, and reading it inline would stall all
-            # concurrent work until the IO completes. Stats (is_dir/exists)
-            # go through the executor too.
-            loop = asyncio.get_running_loop()
-            diff_path = Path(self.diff_against)
-            if await loop.run_in_executor(None, diff_path.is_dir):
-                blocks_file = str(diff_path / "merged_rules.txt")
-                allows_file = diff_path / "whitelist.txt"
-            else:
-                blocks_file = self.diff_against
-                allows_file = None
-            new_domains = {b.normalized_domain for b in final_blocks if b.normalized_domain}
-            old_domains = await loop.run_in_executor(None, self._load_previous_domains, blocks_file)
-            added = sorted(new_domains - old_domains)
-            removed = sorted(old_domains - new_domains)
-            if allows_file is not None and await loop.run_in_executor(
-                None, Path.exists, allows_file
-            ):
-                new_allows = {a.normalized_domain for a in final_allows if a.normalized_domain}
-                old_allows = await loop.run_in_executor(
-                    None, self._load_previous_domains, str(allows_file)
+        with _stage("diff"):
+            if self.diff_against:
+                # File IO must not run on the event loop (ASYNC240): the previous
+                # output can be tens of MB, and reading it inline would stall all
+                # concurrent work until the IO completes. Stats (is_dir/exists)
+                # go through the executor too.
+                loop = asyncio.get_running_loop()
+                diff_path = Path(self.diff_against)
+                if await loop.run_in_executor(None, diff_path.is_dir):
+                    blocks_file = str(diff_path / "merged_rules.txt")
+                    allows_file = diff_path / "whitelist.txt"
+                else:
+                    blocks_file = self.diff_against
+                    allows_file = None
+                new_domains = {b.normalized_domain for b in final_blocks if b.normalized_domain}
+                old_domains = await loop.run_in_executor(
+                    None, self._load_previous_domains, blocks_file
                 )
-                added_allows = sorted(new_allows - old_allows)
-                removed_allows = sorted(old_allows - new_allows)
-            logger.info(
-                "diff: blocks +%d -%d, allows +%d -%d",
-                len(added),
-                len(removed),
-                len(added_allows),
-                len(removed_allows),
-            )
-        _stages["diff"] = time.perf_counter() - _pt
-        _pt = time.perf_counter()
+                added = sorted(new_domains - old_domains)
+                removed = sorted(old_domains - new_domains)
+                if allows_file is not None and await loop.run_in_executor(
+                    None, Path.exists, allows_file
+                ):
+                    new_allows = {a.normalized_domain for a in final_allows if a.normalized_domain}
+                    old_allows = await loop.run_in_executor(
+                        None, self._load_previous_domains, str(allows_file)
+                    )
+                    added_allows = sorted(new_allows - old_allows)
+                    removed_allows = sorted(old_allows - new_allows)
+                logger.info(
+                    "diff: blocks +%d -%d, allows +%d -%d",
+                    len(added),
+                    len(removed),
+                    len(added_allows),
+                    len(removed_allows),
+                )
 
-        content_version = compute_content_version(final_blocks, final_allows)
-        _stages["content_version"] = time.perf_counter() - _pt
+        with _stage("content_version"):
+            content_version = compute_content_version(final_blocks, final_allows)
 
         outcome = MergeOutcome(
             blocks=final_blocks,
@@ -596,7 +602,7 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
             added_allows=added_allows,
             removed_allows=removed_allows,
             elapsed=time.time() - t0,
-            stage_timings=_stages,
+            stage_timings=stages,
             content_version=content_version,
         )
         return outcome
