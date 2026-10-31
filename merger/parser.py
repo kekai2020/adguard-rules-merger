@@ -50,7 +50,13 @@ def _split_mod_tokens(mod_str: str) -> list[str]:
     commas, pipes and escaped chars — those must NOT be treated as modifier
     separators. Quotes are preserved verbatim in the returned token so the
     caller keeps the original spelling.
+
+    Fast path: without quotes/backslashes nothing can shield a comma, so a
+    plain ``str.split`` is exactly equivalent to the character state machine
+    below (strip per token + drop empties matches its behaviour).
     """
+    if "'" not in mod_str and '"' not in mod_str and "\\" not in mod_str:
+        return [t for t in (tok.strip() for tok in mod_str.split(",")) if t]
     tokens: list[str] = []
     cur: list[str] = []
     quote: str | None = None
@@ -270,8 +276,10 @@ class RuleParser:
                 return False
         if "." not in check_d:
             return False
-        parts = check_d.split(".")
-        if "" in parts:
+        # `_clean` already stripped leading/trailing dots, so an empty label
+        # can only come from a CONSECUTIVE dot — check it without allocating
+        # the split list (this runs once per parsed rule).
+        if ".." in check_d:
             return False
         return True
 
@@ -479,19 +487,27 @@ class RuleParser:
             # 0–255 (reuse _is_ip) so an out-of-range IP is NOT parsed as a
             # hostname list (fall through and get dropped as unparsed).
             m = re_hosts(s2)
-            if m and is_ip(s2.split()[0]):
-                host_mods = self._drop_badfilter(modifiers)
-                for d in (clean(x) for x in s2.split()[1:]):
-                    if not d:
-                        continue
-                    if d in localhost or "*" in d:
-                        if "*" in d:
-                            self.pattern_dropped += 1
-                        continue
-                    r = self._make_rule(d, "block", False, source, category, modifiers=host_mods)
-                    if r:
-                        yield r
-                continue
+            if m:
+                # Single split for both the IP validation and the alias walk —
+                # hosts lines with thousands of aliases paid for it twice.
+                parts = s2.split()
+                if is_ip(parts[0]):
+                    host_mods = self._drop_badfilter(modifiers)
+                    for d in (clean(x) for x in parts[1:]):
+                        if not d:
+                            continue
+                        if d in localhost or "*" in d:
+                            if "*" in d:
+                                self.pattern_dropped += 1
+                            continue
+                        r = self._make_rule(
+                            d, "block", False, source, category, modifiers=host_mods
+                        )
+                        if r:
+                            yield r
+                    continue
+                # not a valid IPv4 host line: fall through to the next branch
+                # (unchanged P-1 behaviour — out-of-range octets are unparsed)
 
             # hosts: IPv6 hostname(s)
             m = re_hosts_v6(s2)

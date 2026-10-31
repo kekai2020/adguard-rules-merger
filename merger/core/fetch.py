@@ -109,7 +109,8 @@ class FetchMixin:
         if self._session and not self._session.closed:
             await self._session.close()
         if self.cache:
-            self.cache_port.save_if_dirty()
+            # Flushing the index is a blocking JSON dump — keep it off the loop.
+            await asyncio.get_running_loop().run_in_executor(None, self.cache_port.save_if_dirty)
 
     # ── fetch ────────────────────────────────────────────────────
 
@@ -205,7 +206,9 @@ class FetchMixin:
                             if cached is not None:
                                 async with self._cache_lock:  # type: ignore[union-attr]
                                     self.cache_port.store_not_modified(source)
-                                    self.cache_port.save_if_dirty()
+                                    await asyncio.get_running_loop().run_in_executor(
+                                        None, self.cache_port.save_if_dirty
+                                    )
                                 return cached, True, None, self.cache_port.content_hash_of(source)
                         # 304 but body/cache missing: retry once without validators.
                         logger.warning(
@@ -228,7 +231,9 @@ class FetchMixin:
                                         last_modified=resp2.headers.get("Last-Modified"),
                                         content_hash=content_hash,
                                     )
-                                    self.cache_port.save_if_dirty()
+                                    await asyncio.get_running_loop().run_in_executor(
+                                        None, self.cache_port.save_if_dirty
+                                    )
                             return text, False, None, content_hash
                     resp.raise_for_status()
                     text = (await read_response_bytes(resp)).decode("utf-8", errors="replace")
@@ -244,7 +249,9 @@ class FetchMixin:
                                 last_modified=resp.headers.get("Last-Modified"),
                                 content_hash=h2,
                             )
-                            self.cache_port.save_if_dirty()
+                            await asyncio.get_running_loop().run_in_executor(
+                                None, self.cache_port.save_if_dirty
+                            )
                         if not changed:
                             from_cache = True
                     return text, from_cache, None, h2

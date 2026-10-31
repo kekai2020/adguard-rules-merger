@@ -41,7 +41,7 @@ config/sources.yaml
  └──────────────────────────────────────────────────────────────┘
 ```
 
-编排入口在 `merger/core.py` 的 `AsyncRuleEngine.run()`（异步）与
+编排入口在 `merger/core/engine.py` 的 `AsyncRuleEngine.run()`（异步）与
 `run_sync()`（同步包装）。CLI 只负责装配配置、调用引擎、调用导出器。
 
 ## 2. 模块职责
@@ -52,14 +52,14 @@ config/sources.yaml
 | `merger/__main__.py` | `python -m merger` 入口 |
 | `merger/config.py` | pydantic 配置模型、默认值、字面量/URL 校验、`validate_config` |
 | `merger/version.py` | 版本号唯一事实源、User-Agent；磁盘格式版本常量 |
-| `merger/core.py` | 异步引擎：下载调度、去重、聚合、冲突消解、审计编排、统计 |
+| `merger/core/`（包） | 合并内核：`engine.py` 异步引擎编排；`fetch.py` 下载/重试/负缓存/三级缓存接缝；`aggregation.py` badfilter 取消与向上聚合；`conflicts.py` 白名单冲突记录；`stages.py` 排序/内容哈希；`stats.py` 贡献/重叠/离线重判；`outcome.py` 结果数据类与错误分类 |
 | `merger/parser.py` | 流式解析 AdGuard / Hosts / 纯域名；修饰符识别；质量过滤 |
 | `merger/models.py` | `Rule` / `SourceMeta`；类别优先级；整数位掩码溯源 |
 | `merger/cache.py` | 条件请求、内容哈希、解析 sidecar、负缓存、`stats/clear` |
 | `merger/exporter.py` | 多格式流式导出、分层文件、白名单分级、报告调度、原子写 |
-| `merger/report.py` | 漏斗/分类/贡献/重复矩阵/审计的 HTML 与 Markdown 渲染 |
-| `merger/domain_classifier.py` | 基于 tldextract + 模式库的注册域与用途分类；高置信结果可映射到块规则 6 桶 |
-| `merger/whitelist_audit.py` | 多层审计任务编排、离线信号、融合评级与风险分 |
+| `merger/report/`（包） | `analysis.py` 数据准备与共享助手；`html.py` / `markdown.py` 双渲染器；`render.py` 渲染编排（分析一次、双视图共享） |
+| `merger/domain_classifier/`（包） | `rules.py` 静态规则表与置信阈值；`ruleset.py` 实例化查找表；`seeds.py` 内置/外部种子解析；`api.py` 公共分类 API；高置信结果可映射到块规则 6 桶 |
+| `merger/whitelist_audit/`（包） | `engine.py` 多层审计编排；`fusion.py` 加权融合评级；`registry.py` 声明式层注册表；`disk_cache.py` 配置指纹缓存；`dns_doh.py` / `dnsbl.py` / `rdap.py` / `online.py` / `threat_intel.py` / `heuristics.py` 各信号层 |
 | `merger/homograph.py` | 纯离线同形字折叠 + 长度分档编辑距离 typosquat 品牌对标 |
 | `merger/threat_feeds.py` / `feed_cache.py` | URLhaus/ThreatFox 数据集索引与 blob 缓存（`ti_mode: auto`） |
 | `merger/dnsx.py` | dnspython 可移植 DNS 解析与 DNSBL 查询 |

@@ -113,7 +113,7 @@ class Exporter:
         self.renderer = renderer
         self._reports = reports
         self.modifier_skipped = 0
-        self._domain_cache: list[tuple] | None = None
+        self._domain_cache: list[str] | None = None
 
     # ── header helpers ────────────────────────────────────────────
 
@@ -180,22 +180,24 @@ class Exporter:
                 f.write(line + "\n")
 
     def _domain_rules(self, blocks: list[Rule]):
-        """Yield only domain rules (skip regex AND skip modifier rules) for
+        """Yield unique plain domains (skip regex AND skip modifier rules) for
         hosts/domains/clash/surge/smartdns formats.
 
         Results are cached after the first call so the 5 plain-domain formats
-        don't rebuild the seen set over 3.7M rules each time.
+        don't rebuild the seen set over 3.7M rules each time. Only the domain
+        string is kept — every consumer just renders the name, and holding the
+        Rule refs would pin ~200 MB of dead tuples at production scale.
         """
         if self._domain_cache is None:
             seen = set()
-            cached = []
+            cached: list[str] = []
             for b in blocks:
                 if b.modifiers:
                     continue
                 d = b.normalized_domain
                 if d and d not in seen:
                     seen.add(d)
-                    cached.append((b, d))
+                    cached.append(d)
             self._domain_cache = cached
         return iter(self._domain_cache)
 
@@ -209,7 +211,7 @@ class Exporter:
 
     def write_hosts(self, blocks):
         def body():
-            for _, d in self._domain_rules(blocks):
+            for d in self._domain_rules(blocks):
                 yield f"0.0.0.0 {d}"
 
         self._write_lines(
@@ -218,14 +220,13 @@ class Exporter:
 
     def write_domains(self, blocks):
         def body():
-            for _, d in self._domain_rules(blocks):
-                yield d
+            yield from self._domain_rules(blocks)
 
         self._write_lines(self.out / "domains.txt", [], body())
 
     def write_clash(self, blocks):
         def body():
-            for _, d in self._domain_rules(blocks):
+            for d in self._domain_rules(blocks):
                 yield f"  - DOMAIN-SUFFIX,{d}"
 
         self._write_lines(
@@ -236,7 +237,7 @@ class Exporter:
 
     def write_surge(self, blocks):
         def body():
-            for _, d in self._domain_rules(blocks):
+            for d in self._domain_rules(blocks):
                 yield f"DOMAIN-SUFFIX,{d}"
 
         self._write_lines(
@@ -247,7 +248,7 @@ class Exporter:
 
     def write_smartdns(self, blocks):
         def body():
-            for _, d in self._domain_rules(blocks):
+            for d in self._domain_rules(blocks):
                 yield f"address /{d}/#"
 
         self._write_lines(
