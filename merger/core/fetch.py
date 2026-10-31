@@ -48,6 +48,11 @@ def _file_url_to_path(source: str) -> str | None:
     return unquote(path)
 
 
+def _read_source_text(p: Path) -> str:
+    """Read a local source file (executor target: blocking IO off the loop)."""
+    return p.read_text(encoding="utf-8-sig", errors="replace")
+
+
 class FetchMixin:
     """Mixin attributes populated by AsyncRuleEngine.__init__."""
 
@@ -123,7 +128,10 @@ class FetchMixin:
         if local_path is not None:
             p = Path(local_path)
             try:
-                text = p.read_text(encoding="utf-8-sig", errors="replace")
+                # Local reads can be large (or live on a network drive): keep
+                # the blocking IO off the event loop (ASYNC240).
+                loop = asyncio.get_running_loop()
+                text = await loop.run_in_executor(None, _read_source_text, p)
             except OSError as e:
                 return "", False, f"local file unreadable: {e}", None
             h = SourceCache.hash_text(text)
@@ -135,7 +143,8 @@ class FetchMixin:
                 # utf-8-sig strips a leading BOM; otherwise the first line of a
                 # BOM-prefixed list would carry U+FEFF and be dropped as
                 # unrecognized. Rule content never legitimately starts with BOM.
-                text = p.read_text(encoding="utf-8-sig", errors="replace")
+                loop = asyncio.get_running_loop()
+                text = await loop.run_in_executor(None, _read_source_text, p)
             except OSError as e:
                 return "", False, f"local file unreadable: {e}", None
             h = SourceCache.hash_text(text)

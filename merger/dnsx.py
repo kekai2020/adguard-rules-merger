@@ -117,11 +117,13 @@ class DnsChecker:
             answer = self._resolver.resolve(domain, rdtype, tcp=self.force_tcp)
             return [r.to_text() for r in answer]
         except dns.resolver.NXDOMAIN:
-            raise _Nxdomain
+            # Sentinel exceptions: the original DNS error is translated, not
+            # chained (callers classify on the sentinel type alone).
+            raise _Nxdomain from None
         except dns.resolver.NoNameservers:
-            raise _Servfail
+            raise _Servfail from None
         except (dns.exception.Timeout, dns.resolver.LifetimeTimeout):
-            raise _Timeout
+            raise _Timeout from None
         except dns.resolver.NoAnswer:
             return []
 

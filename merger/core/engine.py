@@ -517,20 +517,29 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
         added, removed = [], []
         added_allows, removed_allows = [], []
         if self.diff_against:
+            # File IO must not run on the event loop (ASYNC240): the previous
+            # output can be tens of MB, and reading it inline would stall all
+            # concurrent work until the IO completes. Stats (is_dir/exists)
+            # go through the executor too.
+            loop = asyncio.get_running_loop()
             diff_path = Path(self.diff_against)
-            if diff_path.is_dir():
+            if await loop.run_in_executor(None, diff_path.is_dir):
                 blocks_file = str(diff_path / "merged_rules.txt")
                 allows_file = diff_path / "whitelist.txt"
             else:
                 blocks_file = self.diff_against
                 allows_file = None
             new_domains = {b.normalized_domain for b in final_blocks if b.normalized_domain}
-            old_domains = self._load_previous_domains(blocks_file)
+            old_domains = await loop.run_in_executor(None, self._load_previous_domains, blocks_file)
             added = sorted(new_domains - old_domains)
             removed = sorted(old_domains - new_domains)
-            if allows_file and allows_file.exists():
+            if allows_file is not None and await loop.run_in_executor(
+                None, Path.exists, allows_file
+            ):
                 new_allows = {a.normalized_domain for a in final_allows if a.normalized_domain}
-                old_allows = self._load_previous_domains(str(allows_file))
+                old_allows = await loop.run_in_executor(
+                    None, self._load_previous_domains, str(allows_file)
+                )
                 added_allows = sorted(new_allows - old_allows)
                 removed_allows = sorted(old_allows - new_allows)
             logger.info(

@@ -22,6 +22,16 @@ from .analysis import (
 )
 
 
+def _cell(text: object) -> str:
+    """Escape a value for a GFM table cell.
+
+    ``|`` splits cells even inside backticks, and rule lines (``||x.com^``),
+    upstream scam-API reason strings and user-configured source names all
+    routinely contain pipes — every free-text table cell goes through this.
+    """
+    return str(text).replace("|", "\\|")
+
+
 def _render_stage_timings_md(stage_timings: dict[str, float]) -> list[str]:
     """Render per-stage elapsed times as a Markdown table."""
     if not stage_timings:
@@ -173,7 +183,7 @@ def _render_whitelist_audit(outcome) -> list[str]:
             risk = r.get("risk_score", 0)
             rec = r.get("recommendation_label", "")
             lines.append(
-                f"| `{r['domain']}` | {label} | {cat_label} | {risk} | {rec} | {conf:.2f} | {r['reason']} | {srcs} |"
+                f"| `{_cell(r['domain'])}` | {label} | {cat_label} | {risk} | {rec} | {conf:.2f} | {_cell(r['reason'])} | {_cell(srcs)} |"
             )
         lines.append("")
     else:
@@ -270,7 +280,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
         f"（原始 {raw_count:,}，压缩 **-{compression:.0f}%**）"
     )
     if outcome.conflict_resolved:
-        _summary.append(f"- ⚔️ **{outcome.conflict_resolved:,}** 条拦截规则被白名单覆盖移除")
+        _summary.append(f"- ⚔️ **{outcome.conflict_resolved:,}** 条拦截规则与白名单重叠（拦截保留）")
     _added = getattr(outcome, "added", None)
     _removed = getattr(outcome, "removed", None)
     if _added is not None or _removed is not None:
@@ -290,7 +300,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
         for f in outcome.failed_sources:
             et = f.get("error_type")
             tag = f" `[{et}]`" if et else ""
-            lines.append(f"- **{f['name']}**{tag} — {f['error']}")
+            lines.append(f"- **{_cell(f['name'])}**{tag} — {_cell(f['error'])}")
         lines.append("")
 
     # ── 优化流水线 ──
@@ -352,7 +362,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
             cov = c.get("coverage_rate", (eff / c["raw_rules"] * 100) if c["raw_rules"] else 0.0)
             uniq_rate = c.get("unique_rate", (c["unique_rules"] / eff * 100) if eff else 0.0)
             lines.append(
-                f"| {c['name']} | {c['raw_rules']:,} | {eff:,} | {cov:.1f}% | {c['unique_rules']:,} | {c['shared_rules']:,} | {uniq_rate:.1f}% |"
+                f"| {_cell(c['name'])} | {c['raw_rules']:,} | {eff:,} | {cov:.1f}% | {c['unique_rules']:,} | {c['shared_rules']:,} | {uniq_rate:.1f}% |"
             )
     else:
         lines.append("| 无数据 | - | - | - | - | - | - |")
@@ -392,7 +402,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
         lines.append("| # | 源 | 输出覆盖 |")
         lines.append("|---|---|----------|")
         for name in m_order:
-            lines.append(f"| {m_num[name]} | {name} | {m_eff.get(name, 0):,} |")
+            lines.append(f"| {m_num[name]} | {_cell(name)} | {m_eff.get(name, 0):,} |")
         lines.append("")
 
     lines.append("### 源间重复 Top 20（双向覆盖率明细）")
@@ -404,7 +414,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     for p in overlap_pairs[:20]:
         jac = p.get("jaccard", 0.0)
         lines.append(
-            f"| {p['source_a']} | {p['source_b']} | {p['overlap']:,} | {_dup_emoji(jac)} {jac}% | {p['rate_a']:.1f}% | {p['rate_b']:.1f}% |"
+            f"| {_cell(p['source_a'])} | {_cell(p['source_b'])} | {p['overlap']:,} | {_dup_emoji(jac)} {jac}% | {p['rate_a']:.1f}% | {p['rate_b']:.1f}% |"
         )
     if not overlap_pairs:
         lines.append("| - | - | - | - | - | - |")
@@ -424,7 +434,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
             c = contrib_by_name.get(name, {})
             raw = c.get("raw_rules", 0)
             self_dedup = (1 - eff / raw) * 100 if raw else 0
-            lines.append(f"| {name} | {raw:,} | {eff:,} | {self_dedup:.1f}% |")
+            lines.append(f"| {_cell(name)} | {raw:,} | {eff:,} | {self_dedup:.1f}% |")
     else:
         lines.append("| 无数据 | - | - | - |")
     lines.append("")
@@ -433,7 +443,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     lines.append("## 七、冲突分析（白名单覆盖拦截）")
     lines.append("")
     lines.append(
-        f"> 被白名单移除的拦截规则（仅显示前 50 条 / 共 {getattr(outcome, 'conflict_resolved', 0):,} 条）；展示双方来源。精确=域名完全匹配，级联=白名单父域覆盖子域，通配符=白名单通配父域（`*.parent`）覆盖子域。完整清单见 output/conflicts.json。"
+        f"> 与白名单重叠的拦截规则（blocks-preserved 政策：拦截规则保留输出、白名单单独成文件，此处仅记录重叠明细；仅显示前 50 条 / 共 {getattr(outcome, 'conflict_resolved', 0):,} 条）。展示双方来源。精确=域名完全匹配，级联=白名单父域覆盖子域，通配符=白名单通配父域（`*.parent`）覆盖子域。完整清单见 output/conflicts.json。"
     )
     lines.append("")
     lines.append("| 域名 | 被拦规则 | 被拦来源 | 白名单规则 | 白名单来源 | 类型 |")
@@ -445,7 +455,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
             c.get("conflict_type", "exact"), "精确"
         )
         lines.append(
-            f"| `{c.get('domain', '')}` | `{c.get('blocked_rule', '')}` | {blocked_srcs} | `{c.get('whitelist_rule', '')}` | {allow_srcs} | {ctype} |"
+            f"| `{_cell(c.get('domain', ''))}` | `{_cell(c.get('blocked_rule', ''))}` | {_cell(blocked_srcs)} | `{_cell(c.get('whitelist_rule', ''))}` | {_cell(allow_srcs)} | {ctype} |"
         )
     if not (getattr(outcome, "conflicts", []) or []):
         lines.append("| - | - | - | - | - | - |")
