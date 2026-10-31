@@ -19,13 +19,13 @@ import aiohttp
 
 from ..cache import SourceCache
 from ..domain_classifier import ClassifierRuleSet, load_seed_file
-from ..models import SourceMeta
+from ..models import Rule, SourceMeta
 from ..parser import RuleParser
 from ..ports import AioHttpHttpPort, DnspythonDnsPort, SourceCachePort
 from ..version import user_agent as default_user_agent
 from .aggregation import AggregationMixin
 from .conflicts import ConflictMixin
-from .fetch import FetchMixin
+from .fetch import SourceFetcher
 from .outcome import MergeOutcome
 from .stages import (
     compute_content_version,
@@ -120,7 +120,7 @@ def config_to_kwargs(cfg: Any) -> dict[str, Any]:
     }
 
 
-class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
+class AsyncRuleEngine(AggregationMixin, ConflictMixin, StatsMixin):
     """Fetch + merge AdGuard DNS rules (async)."""
 
     def __init__(
@@ -274,9 +274,8 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
         self.source_deadline = source_deadline
         self.backoff = backoff
         self.negative_ttl_seconds = negative_ttl_seconds
-        self._negative_cache: dict[str, float] = {}
         self._badfilter_cancelled: set[tuple[str, bool]] = set()
-        self._parser_kwargs = dict(
+        self._parser_kwargs: dict[str, Any] = dict(
             strip_www=strip_www,
             quality_filter=quality_filter_enabled,
             min_domain_length=min_domain_length,
@@ -285,27 +284,33 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
             filter_ip_rules=filter_ip_rules,
         )
         self.parser = RuleParser(**self._parser_kwargs)
-        self.cache: SourceCache | None = None
+        cache_obj: SourceCache | None = None
         if cache_dir is not None:
-            self.cache = SourceCache(
+            cache_obj = SourceCache(
                 cache_dir=cache_dir, ttl_seconds=cache_ttl, max_size_mb=cache_max_size_mb
             )
-            self.cache.load()
-        self._session: aiohttp.ClientSession | None = None
-        self._cache_lock: asyncio.Lock | None = None
-        # R4 thin ports: default adapters wrap the live session / dnspython /
-        # SourceCache verbatim; an injected fake replaces only the IO call
-        # point (retries, 304, negative cache and CNAME walk stay unchanged).
-        self.http_port = http_port or AioHttpHttpPort(lambda: self._session)
+            cache_obj.load()
+        # A1-lite: the fetch stage is a composed SourceFetcher with explicit
+        # dependencies (was a Mixin reading ~17 implicit host attributes). The
+        # engine surface stays intact via property aliases onto the fetcher, so
+        # callers/tests may still reassign engine.http_port / engine._session
+        # and read the drop counters exactly as before.
         self.dns_port = dns_port or DnspythonDnsPort(timeout=self._CNAME_TIMEOUT)
-        self.cache_port = cache_port or SourceCachePort(self.cache)
-        self.pattern_dropped = 0
-        self.quality_dropped = 0
-        self.css_dropped = 0
-        self.comment_dropped = 0
-        self.modifier_stripped = 0
-        self.unrecognized_dropped = 0
-        self.unsupported_modifier = 0
+        self._fetcher = SourceFetcher(
+            timeout=timeout,
+            max_concurrency=max_concurrency,
+            user_agent=self.user_agent,
+            retry_count=retry_count,
+            retry_delay=retry_delay,
+            source_deadline=source_deadline,
+            backoff=backoff,
+            negative_ttl_seconds=negative_ttl_seconds,
+            http_port=http_port or AioHttpHttpPort(lambda: self._session),
+            cache=cache_obj,
+            cache_port=cache_port or SourceCachePort(cache_obj),
+            parser_kwargs=self._parser_kwargs,
+            strip_www=strip_www,
+        )
 
     @property
     def config(self) -> Any:
@@ -342,6 +347,112 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
         engine = cls(**config_to_kwargs(cfg))
         engine._merge_config = cfg
         return engine
+
+    # ── fetch-stage composition surface (A1-lite) ───────────────
+    # Property aliases onto the composed SourceFetcher keep the historical
+    # engine attribute surface: tests may reassign engine.http_port /
+    # engine._session after construction, mutate _negative_cache, and read
+    # the drop counters after runs — exactly as with the old Mixin.
+
+    @property
+    def _session(self) -> aiohttp.ClientSession | None:
+        return self._fetcher._session
+
+    @_session.setter
+    def _session(self, value: aiohttp.ClientSession | None) -> None:
+        self._fetcher._session = value
+
+    @property
+    def _cache_lock(self) -> asyncio.Lock | None:
+        return self._fetcher._cache_lock
+
+    @_cache_lock.setter
+    def _cache_lock(self, value: asyncio.Lock | None) -> None:
+        self._fetcher._cache_lock = value
+
+    @property
+    def _negative_cache(self) -> dict[str, float]:
+        return self._fetcher._negative_cache
+
+    @property
+    def http_port(self) -> Any:
+        return self._fetcher.http_port
+
+    @http_port.setter
+    def http_port(self, value: Any) -> None:
+        self._fetcher.http_port = value
+
+    @property
+    def cache_port(self) -> Any:
+        return self._fetcher.cache_port
+
+    @cache_port.setter
+    def cache_port(self, value: Any) -> None:
+        self._fetcher.cache_port = value
+
+    @property
+    def cache(self) -> SourceCache | None:
+        return self._fetcher.cache
+
+    @property
+    def pattern_dropped(self) -> int:
+        return self._fetcher.counters["pattern_dropped"]
+
+    @property
+    def quality_dropped(self) -> int:
+        return self._fetcher.counters["quality_dropped"]
+
+    @property
+    def css_dropped(self) -> int:
+        return self._fetcher.counters["css_dropped"]
+
+    @property
+    def comment_dropped(self) -> int:
+        return self._fetcher.counters["comment_dropped"]
+
+    @property
+    def modifier_stripped(self) -> int:
+        return self._fetcher.counters["modifier_stripped"]
+
+    @property
+    def unrecognized_dropped(self) -> int:
+        return self._fetcher.counters["unrecognized_dropped"]
+
+    @property
+    def unsupported_modifier(self) -> int:
+        return self._fetcher.counters["unsupported_modifier"]
+
+    async def __aenter__(self):
+        await self._fetcher._ensure_session()
+        return self
+
+    async def __aexit__(self, *exc: Any) -> None:
+        await self.close()
+
+    async def _ensure_session(self) -> None:
+        await self._fetcher._ensure_session()
+
+    async def close(self) -> None:
+        await self._fetcher.close()
+
+    async def _fetch_text(
+        self,
+        source: str,
+        retries: int = 2,
+        timeout: int | None = None,
+    ) -> tuple[str, bool, str | None, str | None]:
+        return await self._fetcher._fetch_text(source, retries=retries, timeout=timeout)
+
+    def _parse_text(
+        self, text: str, url: str, category: str
+    ) -> tuple[list[Rule], int, int, int, int, int, int, int]:
+        return self._fetcher._parse_text(text, url, category)
+
+    async def _fetch_one(self, meta: SourceMeta) -> tuple[list[Rule], bool, bool, int, str | None]:
+        return await self._fetcher._fetch_one(meta)
+
+    async def fetch_all(self, sources: list[SourceMeta]):
+        return await self._fetcher.fetch_all(sources)
 
     # ── high-level run ──────────────────────────────────────────
 

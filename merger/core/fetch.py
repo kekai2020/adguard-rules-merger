@@ -1,8 +1,12 @@
-"""Network/session fetch layer mixed into :class:`AsyncRuleEngine`.
+"""Fetch stage as a composed object (:class:`SourceFetcher`).
 
-Holds the async context manager, ETag/SHA256/parsed-cache fetch, per-source
-parse dispatch and concurrent ``fetch_all`` dedup. Moved verbatim during the
-P1-3 package split.
+Owns session lifecycle, ETag/SHA256/parsed-cache fetch, retry/backoff with a
+hard per-source deadline, negative/stale cache, per-source parse dispatch and
+concurrent ``fetch_all`` dedup — with EXPLICIT dependencies instead of the
+former FetchMixin's implicit "attributes populated by AsyncRuleEngine.__init__"
+contract. :class:`AsyncRuleEngine` composes one and delegates; the drop
+counters accumulate on the fetcher and are mirrored onto the engine by its
+delegates (keys mirror the engine attribute names).
 """
 
 from __future__ import annotations
@@ -53,41 +57,62 @@ def _read_source_text(p: Path) -> str:
     return p.read_text(encoding="utf-8-sig", errors="replace")
 
 
-class FetchMixin:
-    """Mixin attributes populated by AsyncRuleEngine.__init__."""
+_FETCH_COUNTERS = (
+    "pattern_dropped",
+    "quality_dropped",
+    "css_dropped",
+    "comment_dropped",
+    "modifier_stripped",
+    "unrecognized_dropped",
+    "unsupported_modifier",
+)
 
-    timeout: float
-    max_concurrency: int
-    user_agent: str
-    retry_count: int
-    retry_delay: float
-    source_deadline: float
-    backoff: str
-    strip_www: bool
-    negative_ttl_seconds: int
-    http_port: Any
-    cache: SourceCache | None
-    cache_port: Any
-    _parser_kwargs: dict[str, Any]
-    _session: aiohttp.ClientSession | None
-    _cache_lock: asyncio.Lock | None
-    _negative_cache: dict[str, float]
-    pattern_dropped: int
-    quality_dropped: int
-    css_dropped: int
-    comment_dropped: int
-    modifier_stripped: int
-    unrecognized_dropped: int
-    unsupported_modifier: int
+
+class SourceFetcher:
+    """Composed fetch stage with explicit dependencies.
+
+    Args mirror the engine constructor values that the old FetchMixin consumed
+    implicitly. ``http_port`` / ``cache`` / ``cache_port`` are shared objects
+    with the engine (tests may reassign the engine-side properties after
+    construction — the engine forwards those onto the fetcher instance).
+    """
+
+    def __init__(
+        self,
+        *,
+        timeout: float,
+        max_concurrency: int,
+        user_agent: str,
+        retry_count: int,
+        retry_delay: float,
+        source_deadline: float,
+        backoff: str,
+        negative_ttl_seconds: int,
+        http_port: Any,
+        cache: SourceCache | None,
+        cache_port: Any,
+        parser_kwargs: dict[str, Any],
+        strip_www: bool,
+    ) -> None:
+        self.timeout = timeout
+        self.max_concurrency = max_concurrency
+        self.user_agent = user_agent
+        self.retry_count = retry_count
+        self.retry_delay = retry_delay
+        self.source_deadline = source_deadline
+        self.backoff = backoff
+        self.negative_ttl_seconds = negative_ttl_seconds
+        self.http_port = http_port
+        self.cache = cache
+        self.cache_port = cache_port
+        self._parser_kwargs = parser_kwargs
+        self.strip_www = strip_www
+        self._session: aiohttp.ClientSession | None = None
+        self._cache_lock: asyncio.Lock | None = None
+        self._negative_cache: dict[str, float] = {}
+        self.counters: dict[str, int] = dict.fromkeys(_FETCH_COUNTERS, 0)
 
     # ── async context ───────────────────────────────────────────
-
-    async def __aenter__(self):
-        await self._ensure_session()
-        return self
-
-    async def __aexit__(self, *exc: Any) -> None:
-        await self.close()
 
     async def _ensure_session(self) -> None:
         if self._session is None or self._session.closed:
@@ -299,6 +324,10 @@ class FetchMixin:
             getattr(parser, "unsupported_modifier", 0),
         )
 
+    def _accumulate(self, **amounts: int) -> None:
+        for name, amount in amounts.items():
+            self.counters[name] += amount
+
     async def _fetch_one(self, meta: SourceMeta) -> tuple[list[Rule], bool, bool, int, str | None]:
         """Return (rules, success, from_cache, raw_line_count, error)."""
         t0 = time.time()
@@ -318,13 +347,15 @@ class FetchMixin:
                     recs, source=meta.url, strip_www=self.strip_www
                 )
                 if counters:  # V5.2: drop counters survive the parsed cache
-                    self.pattern_dropped += counters.get("pattern", 0)
-                    self.quality_dropped += counters.get("quality", 0)
-                    self.css_dropped += counters.get("css", 0)
-                    self.comment_dropped += counters.get("comment", 0)
-                    self.modifier_stripped += counters.get("modifier_stripped", 0)
-                    self.unrecognized_dropped += counters.get("unrecognized", 0)
-                    self.unsupported_modifier += counters.get("unsupported_modifier", 0)
+                    self._accumulate(
+                        pattern_dropped=counters.get("pattern", 0),
+                        quality_dropped=counters.get("quality", 0),
+                        css_dropped=counters.get("css", 0),
+                        comment_dropped=counters.get("comment", 0),
+                        modifier_stripped=counters.get("modifier_stripped", 0),
+                        unrecognized_dropped=counters.get("unrecognized", 0),
+                        unsupported_modifier=counters.get("unsupported_modifier", 0),
+                    )
                 logger.info(
                     "parsed %6d rules from %-40s (parsed-cache, %.2fs)",
                     len(rules),
@@ -345,13 +376,15 @@ class FetchMixin:
             unsupported,
         ) = await loop.run_in_executor(None, self._parse_text, text, meta.url, meta.category)
         assert rules is not None
-        self.pattern_dropped += pat
-        self.quality_dropped += qual
-        self.css_dropped += css
-        self.comment_dropped += comments
-        self.modifier_stripped += modstrip
-        self.unrecognized_dropped += unrec
-        self.unsupported_modifier += unsupported
+        self._accumulate(
+            pattern_dropped=pat,
+            quality_dropped=qual,
+            css_dropped=css,
+            comment_dropped=comments,
+            modifier_stripped=modstrip,
+            unrecognized_dropped=unrec,
+            unsupported_modifier=unsupported,
+        )
         if self.cache and content_hash:
             try:
                 recs = RuleParser.compact_records(rules)
@@ -455,3 +488,10 @@ class FetchMixin:
             source_raw_counts,
             source_names,
         )
+
+
+# Backwards-compatible name: FetchMixin was folded into the composed
+# SourceFetcher (A1-lite). The name is kept only so ``from merger.core.fetch
+# import FetchMixin`` and the merger.core facade keep importing; it is a
+# concrete class now, NOT a mixin.
+FetchMixin = SourceFetcher

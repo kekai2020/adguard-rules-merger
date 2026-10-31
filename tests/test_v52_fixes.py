@@ -328,7 +328,7 @@ class TestSidecarCounterRestore:
         async def fake_fetch(source, retries=2, timeout=None):
             return text, True, None, h
 
-        engine._fetch_text = fake_fetch
+        engine._fetcher._fetch_text = fake_fetch  # composition target (A1-lite)
 
         rules, ok, _cached, _n, _err = await engine._fetch_one(meta)
         assert ok and len(rules) == 1
@@ -337,7 +337,7 @@ class TestSidecarCounterRestore:
         # second engine: sidecar hit must restore the comment counter too
         engine2 = AsyncRuleEngine(cache_dir=str(tmp_path / "cache"), strip_www=False)
         engine2._session = _LocalSession()
-        engine2._fetch_text = fake_fetch
+        engine2._fetcher._fetch_text = fake_fetch
         rules2, ok2, _c2, _n2, _e2 = await engine2._fetch_one(meta)
         assert ok2 and len(rules2) == 1
         assert engine2.comment_dropped == 1  # restored from sidecar
