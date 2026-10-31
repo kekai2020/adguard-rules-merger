@@ -100,7 +100,7 @@ def canonicalize_modifiers(mod_str: str) -> str:
         if "=" in m:
             key, _, val = m.partition("=")
             combined = f"{key.strip().lower()}={val.strip()}"
-            if combined.startswith(_DNS_VALUED_PREFIXES):
+            if val.strip() and combined.startswith(_DNS_VALUED_PREFIXES):
                 valued.append(combined)
         elif m.lower() in _DNS_FLAG_MODS:
             flags.append(m.lower())
@@ -205,7 +205,13 @@ class RuleParser:
                 key, _, val = m.partition("=")
                 key = key.strip().lower()
                 combined = f"{key}={val.strip()}"
-                if combined.startswith(_DNS_VALUED_PREFIXES):
+                if not val.strip():
+                    # A valued DNS modifier with an EMPTY value ($dnsrewrite=,
+                    # $client=, ...) is invalid per the AdGuard syntax and AGH
+                    # would reject the line — treat it like an unknown modifier
+                    # so the rule is dropped whole (counted, not silently kept).
+                    stripped = True
+                elif combined.startswith(_DNS_VALUED_PREFIXES):
                     valued.append(combined)
                 else:
                     stripped = True

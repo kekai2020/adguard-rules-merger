@@ -99,3 +99,49 @@ sources:
 def test_missing_file_reported(tmp_path):
     problems = validate_config(str(tmp_path / "nonexistent.yaml"))
     assert len(problems) >= 1
+
+
+def test_validate_does_not_create_directories(tmp_path):
+    """Read-only pre-flight (audit P2): validate must not mkdir output/cache.
+
+    Merge creates and validates them for real; a validate run — especially
+    with --json in CI — must stay side-effect-free for missing directories.
+    """
+    out = tmp_path / "out_missing"
+    cache = tmp_path / "cache_missing"
+    p = _write_yaml(
+        tmp_path,
+        f"""
+output:
+  directory: {out.as_posix()}
+cache:
+  directory: {cache.as_posix()}
+sources:
+  - id: 1
+    url: https://example.com/list.txt
+    name: Example
+    category: ads
+""",
+    )
+    assert validate_config(p) == []
+    assert not out.exists()
+    assert not cache.exists()
+
+
+def test_validate_existing_writable_dir_no_problems(tmp_path):
+    """An EXISTING writable directory still passes the probe unchanged."""
+    d = tmp_path / "out_existing"
+    d.mkdir()
+    p = _write_yaml(
+        tmp_path,
+        f"""
+output:
+  directory: {d.as_posix()}
+sources:
+  - id: 1
+    url: https://example.com/list.txt
+    name: Example
+    category: ads
+""",
+    )
+    assert validate_config(str(p)) == []

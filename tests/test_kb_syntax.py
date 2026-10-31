@@ -6,7 +6,7 @@ the kb iterations is pinned here.
 
 from __future__ import annotations
 
-from merger.parser import RuleParser, _split_mod_tokens
+from merger.parser import RuleParser, _split_mod_tokens, canonicalize_modifiers
 
 
 def _parse(text):
@@ -219,3 +219,30 @@ def test_inline_comment_after_allow_modifiers_kept():
     assert len(r) == 1
     assert r[0].rule_type == "allow"
     assert r[0].modifiers == "important"
+
+
+# kb11: an EMPTY valued modifier ($dnsrewrite=, $client=) is invalid per the
+# AdGuard syntax — AGH would reject the emitted line. The rule must be dropped
+# whole (counted as unsupported), not kept with an empty value.
+def test_empty_valued_modifier_drops_whole_line():
+    p = RuleParser()
+    r = p.parse_text("||x.com^$dnsrewrite=", source="s", category="ads")
+    assert r == []
+    assert p.unsupported_modifier == 1
+
+
+def test_empty_valued_modifier_among_flags_drops():
+    p = RuleParser()
+    r = p.parse_text("||x.com^$important,client=", source="s", category="ads")
+    assert r == []
+    assert p.unsupported_modifier == 1
+
+
+def test_valued_modifier_with_value_still_kept():
+    p = RuleParser()
+    r = p.parse_text("||x.com^$dnstype=A", source="s", category="ads")
+    assert len(r) == 1 and r[0].modifiers == "dnstype=A"
+
+
+def test_canonicalize_skips_empty_valued():
+    assert canonicalize_modifiers("important,dnstype=") == "important"

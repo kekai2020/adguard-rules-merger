@@ -152,6 +152,12 @@ def merge(
     except (RuntimeError, ValueError, OSError) as e:
         typer.secho(f"✗ Merge aborted: {e}", fg=typer.colors.RED, err=True)
         raise typer.Exit(1)
+    except Exception as e:  # noqa: BLE001 — CLI must fail with a message, not a traceback
+        # Transport-layer surprises (session/connector failures etc.) surface
+        # here; -v keeps the full stack visible via DEBUG logging.
+        logger.debug("merge failed", exc_info=True)
+        typer.secho(f"✗ Merge aborted: {type(e).__name__}: {e}", fg=typer.colors.RED, err=True)
+        raise typer.Exit(1)
 
     # CLI informational banner only — never written into the artifact headers.
     if outcome.failed_sources:

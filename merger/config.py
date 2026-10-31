@@ -361,25 +361,23 @@ def validate_config(path: str) -> list[str]:
         problems.append("No enabled sources")
 
     if cfg is not None:
-        # Directory writability checks (best effort).
-        out_dir = Path(cfg.output.directory)
-        try:
-            out_dir.mkdir(parents=True, exist_ok=True)
-            probe = out_dir / ".write_test"
-            probe.write_text("test", encoding="utf-8")
-            probe.unlink()
-        except OSError:
-            problems.append(f"Output directory not writable: {cfg.output.directory}")
-
+        # Directory writability checks (best effort, side-effect-free for
+        # missing dirs): a validate run must not create output/ or cache/ —
+        # validate may run purely as a read-only pre-flight check (also with
+        # --json). Only an EXISTING directory is probed (probe removed after);
+        # merge creates and validates them for real.
+        probes: list[tuple[str, Path]] = [("Output directory", Path(cfg.output.directory))]
         if cfg.cache.enabled:
-            cdir = Path(cfg.cache.directory)
+            probes.append(("Cache directory", Path(cfg.cache.directory)))
+        for label, d in probes:
+            if not d.is_dir():
+                continue
             try:
-                cdir.mkdir(parents=True, exist_ok=True)
-                probe = cdir / ".write_test"
+                probe = d / ".write_test"
                 probe.write_text("test", encoding="utf-8")
                 probe.unlink()
             except OSError:
-                problems.append(f"Cache directory not writable: {cfg.cache.directory}")
+                problems.append(f"{label} not writable: {d}")
 
     return problems
 
