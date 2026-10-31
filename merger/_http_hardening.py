@@ -23,11 +23,57 @@ import time
 from collections.abc import Awaitable, Callable
 from typing import Any
 
+import aiohttp
+
 logger = logging.getLogger(__name__)
 
 DEFAULT_TTL = 300.0  # seconds (5 minutes)
 DEFAULT_RETRIES = 2  # extra attempts after the first call (≤3 total)
 _DEFAULT_BACKOFF = 0.5  # base seconds; doubled per attempt
+# Hard cap on a single response body (64 MiB): a corrupted or hostile upstream
+# that streams an unbounded body must fail the fetch instead of OOM-ing the
+# merger. Raised as aiohttp.ClientPayloadError (a ClientError) so existing
+# retry / stale-fallback paths handle it unchanged.
+DEFAULT_MAX_RESPONSE_BYTES = 64 * 1024 * 1024
+
+
+async def read_response_bytes(resp: Any, limit: int = DEFAULT_MAX_RESPONSE_BYTES) -> bytes:
+    """Stream an aiohttp response body with a hard byte cap.
+
+    ``Content-Length`` is fast-rejected before reading when present; chunked
+    bodies are accumulated with a running total. Raises
+    ``aiohttp.ClientPayloadError`` on any breach.
+
+    Duck-typed responses without ``.content`` (test doubles, alternate
+    transports) fall back to ``read()`` / ``text()`` — the cap is still
+    enforced after the read, so a fake can never smuggle an oversized body
+    past this. Real aiohttp responses always take the streaming path.
+    """
+    length = getattr(resp, "content_length", None)
+    if length is not None and length > limit:
+        raise aiohttp.ClientPayloadError(f"response too large: {length} > {limit} bytes")
+    content = getattr(resp, "content", None)
+    if content is not None:
+        chunks: list[bytes] = []
+        total = 0
+        async for chunk in content.iter_chunked(1 << 20):
+            total += len(chunk)
+            if total > limit:
+                raise aiohttp.ClientPayloadError(f"response exceeds {limit} byte limit")
+            chunks.append(chunk)
+        return b"".join(chunks)
+    if hasattr(resp, "read"):
+        data = await resp.read()
+        if len(data) > limit:
+            raise aiohttp.ClientPayloadError(f"response exceeds {limit} byte limit")
+        return data
+    text_fn = getattr(resp, "text", None)
+    if text_fn is not None:
+        data = (await text_fn(encoding="utf-8", errors="replace")).encode("utf-8", errors="replace")
+        if len(data) > limit:
+            raise aiohttp.ClientPayloadError(f"response exceeds {limit} byte limit")
+        return data
+    raise aiohttp.ClientPayloadError(f"unsupported response object: {type(resp).__name__}")
 
 
 class _TTLCache:

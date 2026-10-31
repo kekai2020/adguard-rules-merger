@@ -121,9 +121,7 @@ def _render_audit_fragments(outcome, audit_summary, source_overlap, overlap_pair
         c = contrib_by_name.get(name, {})
         raw = c.get("raw_rules", 0)
         self_dedup = (1 - eff / raw) * 100 if raw else 0
-        effective_rows += (
-            f"<tr><td>{name}</td><td>{raw:,}</td><td>{eff:,}</td><td>{self_dedup:.1f}%</td></tr>\n"
-        )
+        effective_rows += f"<tr><td>{_esc(name)}</td><td>{raw:,}</td><td>{eff:,}</td><td>{self_dedup:.1f}%</td></tr>\n"
     if not effective_rows:
         effective_rows = '<tr><td colspan="4" class="empty-state">暂无数据</td></tr>'
 
@@ -133,7 +131,7 @@ def _render_audit_fragments(outcome, audit_summary, source_overlap, overlap_pair
         bg_a = _overlap_heat_color(p["rate_a"])
         bg_b = _overlap_heat_color(p["rate_b"])
         overlap_rows += (
-            f"<tr><td>{p['source_a']}</td><td>{p['source_b']}</td>"
+            f"<tr><td>{_esc(p['source_a'])}</td><td>{_esc(p['source_b'])}</td>"
             f"<td>{p['overlap']:,}</td>"
             f"<td style='background:{bg_a}'>{p['rate_a']:.1f}%</td>"
             f"<td style='background:{bg_b}'>{p['rate_b']:.1f}%</td></tr>\n"
@@ -231,7 +229,13 @@ def _render_modifier_rows(modifier_stats, modifier_total) -> str:
     if modifier_stats:
         for mod, cnt in modifier_stats.items():
             pct = cnt / modifier_total * 100 if modifier_total else 0
-            rows += f"<tr><td><code>${mod}</code></td><td>{cnt:,}</td><td>{pct:.1f}%</td></tr>\n"
+            # P0 hardening: the modifier VALUE part is raw upstream-list text
+            # (only the key is normalized), so it must be escaped before it is
+            # interpolated into report.html — an unescaped `$dnsrewrite=...`
+            # value was a stored-XSS vector committed to the repo.
+            rows += (
+                f"<tr><td><code>${_esc(mod)}</code></td><td>{cnt:,}</td><td>{pct:.1f}%</td></tr>\n"
+            )
     return rows or '<tr><td colspan="3" class="empty-state">无带修饰符规则</td></tr>'
 
 
@@ -509,7 +513,7 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
     )
     if outcome.conflict_resolved:
         _summary_items.append(
-            f"<li>⚔️ <strong>{outcome.conflict_resolved:,}</strong> 条拦截规则被白名单覆盖移除</li>"
+            f"<li>⚔️ <strong>{outcome.conflict_resolved:,}</strong> 条拦截规则与白名单重叠（拦截保留）</li>"
         )
     _added = getattr(outcome, "added", None)
     _removed = getattr(outcome, "removed", None)
@@ -744,7 +748,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
 
   <div class="section" id="conflicts">
     <h2><span class="sec-no">08</span>⚔️ 冲突分析（白名单覆盖拦截）</h2>
-    <p class="note">被白名单移除的拦截规则（仅显示前 50 条 / 共 {outcome.conflict_resolved:,} 条）；展示双方来源，便于追溯是哪个源的白名单覆盖了哪个源的拦截。精确=域名完全匹配，级联=白名单父域覆盖子域。完整清单见 output/conflicts.json。</p>
+    <p class="note">与白名单重叠的拦截规则（blocks-preserved 政策：拦截规则保留输出、白名单单独成文件，此处仅记录重叠明细；仅显示前 50 条 / 共 {outcome.conflict_resolved:,} 条）。展示双方来源，便于追溯是哪个源的白名单覆盖了哪个源的拦截。精确=域名完全匹配，级联=白名单父域覆盖子域。完整清单见 output/conflicts.json。</p>
     <div class="table-wrap">
     <table>
       <thead><tr><th>域名</th><th>被拦规则</th><th>被拦来源</th><th>白名单规则</th><th>白名单来源</th><th>类型</th></tr></thead>

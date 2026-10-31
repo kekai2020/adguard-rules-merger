@@ -14,6 +14,7 @@ import logging
 import time
 from typing import Any
 
+from ._http_hardening import read_response_bytes
 from .feed_cache import FeedCache
 
 logger = logging.getLogger(__name__)
@@ -134,7 +135,7 @@ class ThreatFeedIndex:
             async with session.get(url, timeout=30) as resp:
                 if resp.status != 200:
                     return (cached[0], True) if cached else None
-                blob = await resp.read()
+                blob = await read_response_bytes(resp)
                 self._cache.store_blob(name, blob)
                 self._last_checked = now
                 return blob, False

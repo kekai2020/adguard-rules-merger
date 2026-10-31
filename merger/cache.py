@@ -162,6 +162,24 @@ class SourceCache:
             logger.warning("Failed to read cache content for %s: %s", url, e)
             return None
 
+    def get_content_stale(self, url: str) -> str | None:
+        """Read cached content ignoring TTL/expiry (stale fallback path).
+
+        The whole point of a stale fallback is to serve an EXPIRED entry when
+        the live fetch failed, so this deliberately bypasses the TTL check in
+        :meth:`get` while still verifying the body file exists on disk.
+        """
+        self.load()
+        entry = self._entries.get(url)
+        if entry is None or not entry.content_path:
+            return None
+        full = self.cache_dir / entry.content_path
+        try:
+            return full.read_text(encoding="utf-8", errors="replace")
+        except OSError as e:
+            logger.warning("Failed to read stale cache content for %s: %s", url, e)
+            return None
+
     def content_hash_of(self, url: str) -> str | None:
         entry = self.get(url)
         return entry.content_hash if entry else None

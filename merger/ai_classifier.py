@@ -118,15 +118,22 @@ async def classify_with_ai(
                 result["error"] = f"HTTP {resp.status}"
                 return result
             data = await resp.json(content_type=None)
-            content = data["choices"][0]["message"]["content"]
-            parsed = json.loads(content)
-
-            cat = parsed.get("category", "other").lower().strip()
-            if cat not in AI_CATEGORIES:
-                cat = "other"
-            conf = float(parsed.get("confidence", 0.0))
-            conf = max(0.0, min(1.0, conf))
-            reason = str(parsed.get("reason", ""))[:200]
+            try:
+                content = data["choices"][0]["message"]["content"]
+                parsed = json.loads(content)
+                if not isinstance(parsed, dict):
+                    raise ValueError("non-object payload")
+                cat = parsed.get("category", "other").lower().strip()
+                if cat not in AI_CATEGORIES:
+                    cat = "other"
+                conf = float(parsed.get("confidence", 0.0))
+                conf = max(0.0, min(1.0, conf))
+                reason = str(parsed.get("reason", ""))[:200]
+            except (KeyError, IndexError, TypeError, ValueError):
+                # Malformed payload is a parse error, not a transport error:
+                # report it without burning retry attempts on the same gateway.
+                result["error"] = "malformed response"
+                return result
 
             result["category"] = cat
             result["confidence"] = conf

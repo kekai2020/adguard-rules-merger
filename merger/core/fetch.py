@@ -16,6 +16,7 @@ from urllib.parse import unquote, urlparse
 
 import aiohttp
 
+from .._http_hardening import read_response_bytes
 from ..cache import SourceCache
 from ..models import Rule, SourceMeta
 from ..parser import RuleParser
@@ -149,15 +150,16 @@ class FetchMixin:
             neg_ts = self._negative_cache.get(source)
             if neg_ts is not None and (time.monotonic() - neg_ts) < self.negative_ttl_seconds:
                 if self.cache:
-                    cached = self.cache_port.get_content(source)
+                    # Stale read ignores TTL: a lamed source must fall back to
+                    # its cached body even when cache.ttl_seconds has passed.
+                    cached = self.cache_port.get_content_stale(source)
                     if cached is not None:
                         logger.warning("negative cache hit for %s; using stale", source)
-                        return (
-                            cached,
-                            True,
-                            "negative cache hit",
-                            self.cache_port.content_hash_of(source),
-                        )
+                        # err=None so _fetch_one actually consumes the stale
+                        # body — the old "negative cache hit" error string made
+                        # the caller discard the content this fallback exists
+                        # to provide (defeating the whole feature).
+                        return (cached, True, None, self.cache_port.content_hash_of(source))
                 return "", False, "negative cache hit (no stale content)", None
 
         await self._ensure_session()
@@ -203,7 +205,9 @@ class FetchMixin:
                         cond_headers = {}
                         async with await _get({}, req_timeout) as resp2:
                             resp2.raise_for_status()
-                            text = await resp2.text(encoding="utf-8", errors="replace")
+                            text = (await read_response_bytes(resp2)).decode(
+                                "utf-8", errors="replace"
+                            )
                             content_hash: str | None = None
                             if self.cache:
                                 content_hash = SourceCache.hash_text(text)
@@ -218,7 +222,7 @@ class FetchMixin:
                                     self.cache_port.save_if_dirty()
                             return text, False, None, content_hash
                     resp.raise_for_status()
-                    text = await resp.text(encoding="utf-8", errors="replace")
+                    text = (await read_response_bytes(resp)).decode("utf-8", errors="replace")
                     h2: str | None = None
                     from_cache = False
                     if self.cache:
@@ -248,7 +252,10 @@ class FetchMixin:
         if self.negative_ttl_seconds > 0:
             self._negative_cache[source] = time.monotonic()
         if self.cache:
-            cached = self.cache_port.get_content(source)
+            # Stale read ignores TTL (see get_content_stale): with a configured
+            # cache.ttl_seconds the old get_content() returned None for expired
+            # entries, silently defeating the documented stale fallback.
+            cached = self.cache_port.get_content_stale(source)
             if cached is not None:
                 logger.warning("fetch %s failed (%s); using stale cache", source, last_exc)
                 return cached, True, None, self.cache_port.content_hash_of(source)

@@ -480,7 +480,11 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     if modifier_stats:
         for mod, cnt in modifier_stats.items():
             pct = cnt / modifier_total * 100 if modifier_total else 0
-            lines.append(f"| `${mod}` | {cnt:,} | {pct:.1f}% |")
+            # `|` is a standard AdGuard modifier-value separator (dnstype=A|AAAA,
+            # denyallow=a.com|b.com, client=ip|ip) — inside a GFM table row it
+            # must be escaped or it splits the cell.
+            disp = mod.replace("|", "\\|")
+            lines.append(f"| `${disp}` | {cnt:,} | {pct:.1f}% |")
     else:
         lines.append("| 无 | - | - |")
     lines.append("")

@@ -409,10 +409,14 @@ class Exporter:
         # Keep only last 30 runs
         history = history[-30:]
 
-        history_path.write_text(
+        # Atomic write (tmp + replace) like every other artifact: a crash
+        # mid-write must not leave a truncated history.json behind.
+        tmp = history_path.with_suffix(".json.tmp")
+        tmp.write_text(
             json.dumps(history, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
+        tmp.replace(history_path)
 
     def write_conflicts(self, conflicts):
         self._write_json(self.out / "conflicts.json", conflicts)
@@ -561,7 +565,13 @@ class Exporter:
             self.write_tiered(blocks, parent_ver=parent_ver)
 
         self.write_stats(blocks, allows, outcome)
-        self.write_history(blocks, allows, outcome)
+        # history.json embeds wall-clock timestamps by design (trend log), so
+        # it is written ONLY in timestamped mode. Writing it unconditionally
+        # broke the byte-determinism contract for output/ (a committed artifact
+        # containing wall-clock time) and made the CI "commit only when rules
+        # changed" guard fire on every run.
+        if self.report_timestamp:
+            self.write_history(blocks, allows, outcome)
         self.write_conflicts(outcome.conflicts)
         self.write_contributions(outcome.contributions)
         self.write_whitelist_audit(outcome)
