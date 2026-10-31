@@ -573,6 +573,63 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
                 lines.append(f"  - … 共 {len(removed)} 条，完整列表见 output/removed.txt")
             lines.append("")
 
+        # 三级对比：上次合并（含源）→ 本次源 → 本次合并 的源级增减
+        prev_eff = getattr(outcome, "prev_source_effective", {}) or {}
+        current_eff = {c["name"]: c for c in getattr(outcome, "contributions", []) or []}
+        if prev_eff or current_eff:
+            lines.append("**源级增减（上次合并 → 本次合并，含源）：**")
+            lines.append("")
+            lines.append("| 源 | 本次原始规则 | 上次输出覆盖 | 本次输出覆盖 | 变化 |")
+            lines.append("|---|---:|---:|---:|---|")
+            delta_names = sorted(
+                set(current_eff) | set(prev_eff),
+                key=lambda n: -(current_eff.get(n, {}).get("effective_rules", 0)),
+            )
+            for name in delta_names:
+                c = current_eff.get(name)
+                now = c["effective_rules"] if c else 0
+                was = prev_eff.get(name, 0)
+                delta = now - was
+                status = (
+                    "本轮缺失"
+                    if c is None
+                    else ("新增源" if name not in prev_eff else f"{delta:+,}")
+                )
+                raw = c.get("raw_rules", 0) if c else 0
+                lines.append(f"| {_cell(name)} | {raw:,} | {was:,} | {now:,} | {status} |")
+            lines.append("")
+
+    # 历史波动（仅 timestamped 模式：history 每次运行都变）
+    if include_time:
+        snaps = list(getattr(outcome, "prev_history", []) or [])
+        snaps.append(
+            {
+                "timestamp": _generation_label(True)[:19].replace("T", " "),
+                "block_count": len(blocks),
+                "allow_count": len(allows),
+                "added": len(getattr(outcome, "added", []) or []),
+                "removed": len(getattr(outcome, "removed", []) or []),
+                "sources_ok": getattr(outcome, "sources_ok", 0),
+                "sources_total": getattr(outcome, "sources_total", 0),
+            }
+        )
+        if len(snaps) > 1:
+            lines.append("### 📈 历史波动（最近 12 次运行）")
+            lines.append("")
+            lines.append(
+                "> 规则规模与增减量的运行间波动，取自 output/history.json（仅 report_timestamp 模式记录）。"
+            )
+            lines.append("")
+            lines.append("| 运行时间 | Block | Allow | 新增 | 移除 | 源成功 |")
+            lines.append("|---|---:|---:|---:|---:|---|")
+            for s in snaps[-12:]:
+                lines.append(
+                    f"| {s.get('timestamp', '?')} | {s.get('block_count', 0):,} | "
+                    f"{s.get('allow_count', 0):,} | {s.get('added', 0):,} | "
+                    f"{s.get('removed', 0):,} | {s.get('sources_ok', 0)}/{s.get('sources_total', 0)} |"
+                )
+            lines.append("")
+
     lines.append("---")
     lines.append(f"*AdGuard Rules Merger V8 · 自动生成 · {_footer_stamp}*")
     lines.append("")

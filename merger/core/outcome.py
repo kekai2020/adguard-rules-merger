@@ -111,6 +111,12 @@ class MergeOutcome:
     removed: list[str] = field(default_factory=list)
     added_allows: list[str] = field(default_factory=list)
     removed_allows: list[str] = field(default_factory=list)
+    # Previous-run payloads loaded by the diff stage when ``diff_against``
+    # points at a previous output directory: per-source effective coverage
+    # (name → count, from the previous stats.json) and the previous history
+    # trend snapshots (history.json). Empty when no previous run is available.
+    prev_source_effective: dict[str, int] = field(default_factory=dict)
+    prev_history: list[dict[str, Any]] = field(default_factory=list)
     elapsed: float = 0.0
     stage_timings: dict[str, float] = field(default_factory=dict)
     content_version: str = ""

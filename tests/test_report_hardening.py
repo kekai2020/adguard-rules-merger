@@ -27,7 +27,7 @@ from merger.core.stats import StatsMixin
 from merger.exporter import Exporter
 from merger.models import Rule, SourceMeta
 from merger.report.analysis import analyze_rules
-from merger.report.html import _render_audit_fragments, _render_modifier_rows
+from merger.report.html import _render_audit_fragments, _render_modifier_rows, generate_html_report
 from merger.report.markdown import generate_markdown_report
 
 # ── fixtures / helpers ────────────────────────────────────────────────
@@ -223,3 +223,62 @@ async def test_ai_malformed_response_no_retry():
     res = await ai_classifier.classify_with_ai("malformed.example", "k", _Session())
     assert res["error"] == "malformed response"
     assert calls["n"] == 1, "parse errors must not burn retry attempts"
+
+
+# ── R6: three-level previous-run comparison + history trend ──────────
+
+
+def _report_outcome(**extra):
+    o = MergeOutcome(
+        content_version="abc123",
+        contributions=[
+            {
+                "name": "SrcA",
+                "raw_rules": 100,
+                "effective_rules": 90,
+                "unique_rules": 70,
+                "shared_rules": 20,
+            }
+        ],
+        prev_source_effective={"SrcA": 80, "SrcGone": 10},
+        added=["new.example"],
+        removed=["old.example"],
+        **extra,
+    )
+    return o
+
+
+def test_diff_section_renders_in_deterministic_mode():
+    """The previous-run diff is content-derived: it must render with
+    report_timestamp off (it previously only appeared in timestamped mode)."""
+    o = _report_outcome()
+    analysis = analyze_rules(o.blocks, o.allows)
+    html = generate_html_report(o.blocks, o.allows, o, analysis, include_time=False)
+    assert "与上次合并对比" in html and "新增 1 条" in html
+    # source-level delta table present
+    assert "源级增减" in html and "SrcA" in html and "+10" in html and "SrcGone" in html
+    md = generate_markdown_report(o.blocks, o.allows, o, analysis, include_time=False)
+    assert "源级增减" in md and "本轮缺失" in md
+    # history trend stays out of deterministic mode
+    assert "历史波动" not in html and "历史波动" not in md
+
+
+def test_history_trend_renders_in_timestamped_mode():
+    o = _report_outcome(
+        prev_history=[
+            {
+                "timestamp": "2026-10-30T00:00:00",
+                "block_count": 10,
+                "allow_count": 2,
+                "added": 3,
+                "removed": 1,
+                "sources_ok": 18,
+                "sources_total": 18,
+            }
+        ]
+    )
+    analysis = analyze_rules(o.blocks, o.allows)
+    html = generate_html_report(o.blocks, o.allows, o, analysis, include_time=True)
+    assert "历史波动" in html and "2026-10-30T00:00:00" in html
+    md = generate_markdown_report(o.blocks, o.allows, o, analysis, include_time=True)
+    assert "历史波动" in md

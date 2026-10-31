@@ -8,6 +8,7 @@ legacy ``merger.core`` module during the P1-3 package split.
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import time
 from contextlib import contextmanager
@@ -593,6 +594,8 @@ class AsyncRuleEngine(AggregationMixin, ConflictMixin, StatsMixin):
 
         added, removed = [], []
         added_allows, removed_allows = [], []
+        prev_source_effective: dict[str, int] = {}
+        prev_history: list[dict[str, Any]] = []
         with _stage("diff"):
             if self.diff_against:
                 # File IO must not run on the event loop (ASYNC240): the previous
@@ -622,6 +625,29 @@ class AsyncRuleEngine(AggregationMixin, ConflictMixin, StatsMixin):
                     )
                     added_allows = sorted(new_allows - old_allows)
                     removed_allows = sorted(old_allows - new_allows)
+
+                def _load_prev_json(name: str) -> Any:
+                    p = diff_path / name
+                    if not p.exists():
+                        return None
+                    try:
+                        return json.loads(p.read_text(encoding="utf-8"))
+                    except (OSError, json.JSONDecodeError) as e:
+                        logger.debug("previous-run %s unreadable: %s", name, e)
+                        return None
+
+                # R6 report enrichment: three-level comparison payloads —
+                # per-source effective coverage (stats.json) and the history
+                # trend (history.json) from the previous run. Best-effort.
+                prev_stats = _load_prev_json("stats.json")
+                if isinstance(prev_stats, dict):
+                    eff = prev_stats.get("source_effective")
+                    if isinstance(eff, dict):
+                        prev_source_effective = {k: v for k, v in eff.items() if isinstance(v, int)}
+                prev_hist = _load_prev_json("history.json")
+                if isinstance(prev_hist, list):
+                    prev_history = [h for h in prev_hist if isinstance(h, dict)]
+
                 logger.info(
                     "diff: blocks +%d -%d, allows +%d -%d",
                     len(added),
@@ -673,6 +699,8 @@ class AsyncRuleEngine(AggregationMixin, ConflictMixin, StatsMixin):
             removed=removed,
             added_allows=added_allows,
             removed_allows=removed_allows,
+            prev_source_effective=prev_source_effective,
+            prev_history=prev_history,
             elapsed=time.time() - t0,
             stage_timings=stages,
             content_version=content_version,

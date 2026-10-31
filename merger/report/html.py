@@ -309,8 +309,134 @@ def _render_stage_timing_rows(stage_timings: dict[str, float]) -> str:
     return rows
 
 
+def _render_source_delta_rows(outcome) -> str:
+    """Per-source effective-coverage delta vs the previous run (三级对比).
+
+    Current side comes from ``outcome.contributions``; the previous side from
+    ``outcome.prev_source_effective`` (loaded by the diff stage). Sources seen
+    only in one run are flagged 新增 / 已移除.
+    """
+    current = {c["name"]: c for c in getattr(outcome, "contributions", []) or []}
+    prev = getattr(outcome, "prev_source_effective", {}) or {}
+    rows = ""
+    names = sorted(
+        set(current) | set(prev), key=lambda n: (-(current.get(n, {}).get("effective_rules", 0)), n)
+    )
+    for name in names:
+        c = current.get(name)
+        now = c["effective_rules"] if c else 0
+        raw = c.get("raw_rules", 0) if c else 0
+        was = prev.get(name, 0)
+        delta = now - was
+        if c is None:
+            status = "<span class='tag tag-blue'>本轮缺失</span>"
+        elif name not in prev:
+            status = "<span class='tag tag-green'>新增源</span>"
+        elif delta == 0:
+            status = "—"
+        else:
+            cls = "tag-green" if delta > 0 else "tag-red"
+            sign = "+" if delta > 0 else ""
+            status = f"<span class='tag {cls}'>{sign}{delta:,}</span>"
+        cov = c.get("coverage_rate", 0.0) if c else 0.0
+        rows += (
+            f"<tr><td>{_esc(name)}</td><td class='num'>{raw:,}</td>"
+            f"<td class='num'>{was:,}</td><td class='num'>{now:,}</td>"
+            f"<td>{status}</td><td class='num'>{cov:.1f}%</td></tr>\n"
+        )
+    return rows
+
+
+def _render_history_trend_rows(outcome) -> str:
+    """Historical fluctuation table from the previous history.json snapshots
+    (plus this run as the newest row). Renders only in timestamped mode — the
+    history log changes on every run, which would break byte determinism."""
+    snaps = list(getattr(outcome, "prev_history", []) or [])
+    snaps.append(
+        {
+            "timestamp": _generation_label(True)[:19].replace("T", " "),
+            "block_count": len(getattr(outcome, "blocks", []) or []),
+            "allow_count": len(getattr(outcome, "allows", []) or []),
+            "added": len(getattr(outcome, "added", []) or []),
+            "removed": len(getattr(outcome, "removed", []) or []),
+            "sources_ok": getattr(outcome, "sources_ok", 0),
+            "sources_total": getattr(outcome, "sources_total", 0),
+            "current": True,
+        }
+    )
+    snaps = snaps[-12:]
+    max_total = (
+        max((s.get("block_count", 0) + s.get("allow_count", 0) for s in snaps), default=1) or 1
+    )
+    rows = ""
+    for s in snaps:
+        total = s.get("block_count", 0) + s.get("allow_count", 0)
+        w = max(2.0, total / max_total * 100)
+        stamp = _esc(str(s.get("timestamp", "?")))
+        label = "本轮" if s.get("current") else ""
+        rows += (
+            f"<tr><td>{stamp} {label}</td>"
+            f"<td class='num'>{s.get('block_count', 0):,}</td>"
+            f"<td class='num'>{s.get('allow_count', 0):,}</td>"
+            f"<td class='bar-cell'><div class='bar' style='width:{w:.1f}%'></div></td>"
+            f"<td class='num'>{s.get('added', 0):,}</td>"
+            f"<td class='num'>{s.get('removed', 0):,}</td>"
+            f"<td class='num'>{s.get('sources_ok', 0)}/{s.get('sources_total', 0)}</td></tr>\n"
+        )
+    return rows
+
+
 def generate_html_report(blocks, allows, outcome, analysis, include_time: bool = False) -> str:
     generated_at = _generation_label(include_time)
+    # R6: the previous-run diff is CONTENT-derived (added/removed rule lists
+    # come from comparing rule sets), so it renders in deterministic mode too —
+    # same rule set ⇒ same bytes. Only run-fact decorations stay behind
+    # include_time.
+    _added_list = getattr(outcome, "added", []) or []
+    _removed_list = getattr(outcome, "removed", []) or []
+    diff_section = ""
+    if _added_list or _removed_list:
+        _net = len(_added_list) - len(_removed_list)
+        _diff_rows = ""
+        if _added_list:
+            _sample = "".join(f"<li><code>{d}</code></li>" for d in _added_list[:20])
+            _more = (
+                f'<p class="note">… 共 {len(_added_list):,} 条，完整列表见 output/added.txt</p>'
+                if len(_added_list) > 20
+                else ""
+            )
+            _diff_rows += f'<h3 style="color:#28a745">🟢 新增 {len(_added_list):,} 条拦截域名</h3><ul style="columns:2;column-gap:30px">{_sample}</ul>{_more}'
+        if _removed_list:
+            _sample = "".join(f"<li><code>{d}</code></li>" for d in _removed_list[:20])
+            _more = (
+                f'<p class="note">… 共 {len(_removed_list):,} 条，完整列表见 output/removed.txt</p>'
+                if len(_removed_list) > 20
+                else ""
+            )
+            _diff_rows += f'<h3 style="color:#dc3545">🔴 移除 {len(_removed_list):,} 条拦截域名</h3><ul style="columns:2;column-gap:30px">{_sample}</ul>{_more}'
+        # 三级对比：上次合并（含源）→ 本次源 → 本次合并 的源级增减
+        _src_delta_rows = _render_source_delta_rows(outcome)
+        _src_delta = ""
+        if _src_delta_rows:
+            _src_delta = (
+                '<h3 style="margin:18px 0 8px">📊 源级增减（上次合并 → 本次合并，含源）</h3>'
+                '<div class="table-wrap"><table>'
+                "<thead><tr><th>源</th><th class='num'>本次原始规则</th>"
+                "<th class='num'>上次输出覆盖</th><th class='num'>本次输出覆盖</th>"
+                "<th>变化</th><th class='num'>覆盖率</th></tr></thead>"
+                f"<tbody>{_src_delta_rows}</tbody></table></div>"
+                '<p class="note">输出覆盖 = 该源参与最终规则的条数（独占+共享，含聚合折叠归并）；'
+                '"本轮缺失" = 上次运行存在的源本次未出现或失败。与上方规则级 新增/移除 对照，可定位变化来自哪个源。</p>'
+            )
+        diff_section = (
+            '\n  <div class="section" id="diff-compare">\n'
+            '    <h2><span class="sec-no">14</span>🔄 与上次合并对比（规则级 + 源级）</h2>\n'
+            f'    <p class="sec-intro">相对上次合并的规则集变化。净变化：<strong>{_net:+,d}</strong> 条拦截规则。'
+            "对比基线：<code>diff_against</code> 指向的上一次 output 目录。</p>\n"
+            f"    {_diff_rows}\n    {_src_delta}\n"
+            "  </div>\n"
+        )
+
     if include_time:
         _meta_stamp = generated_at[:19].replace("T", " ")
         _elapsed_value = f"{outcome.elapsed:.1f}s"
@@ -320,37 +446,21 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
         stage_rows = _render_stage_timing_rows(stage_timings)
         stage_sum_ms = sum(stage_timings.values()) * 1000
 
-        # 与上次合并对比章节
-        _added_list = getattr(outcome, "added", []) or []
-        _removed_list = getattr(outcome, "removed", []) or []
-        if _added_list or _removed_list:
-            _net = len(_added_list) - len(_removed_list)
-            _diff_rows = ""
-            if _added_list:
-                _sample = "".join(f"<li><code>{d}</code></li>" for d in _added_list[:20])
-                _more = (
-                    f'<p class="note">… 共 {len(_added_list):,} 条，完整列表见 output/added.txt</p>'
-                    if len(_added_list) > 20
-                    else ""
-                )
-                _diff_rows += f'<h3 style="color:#28a745">🟢 新增 {len(_added_list):,} 条拦截域名</h3><ul style="columns:2;column-gap:30px">{_sample}</ul>{_more}'
-            if _removed_list:
-                _sample = "".join(f"<li><code>{d}</code></li>" for d in _removed_list[:20])
-                _more = (
-                    f'<p class="note">… 共 {len(_removed_list):,} 条，完整列表见 output/removed.txt</p>'
-                    if len(_removed_list) > 20
-                    else ""
-                )
-                _diff_rows += f'<h3 style="color:#dc3545">🔴 移除 {len(_removed_list):,} 条拦截域名</h3><ul style="columns:2;column-gap:30px">{_sample}</ul>{_more}'
-            diff_section = (
-                '\n  <div class="section" id="diff-compare">\n'
-                '    <h2><span class="sec-no">14</span>🔄 与上次合并对比</h2>\n'
-                f'    <p class="sec-intro">相对上次合并的规则集变化。净变化：<strong>{_net:+,d}</strong> 条拦截规则。</p>\n'
-                f"    {_diff_rows}\n"
-                "  </div>\n"
-            )
-        else:
-            diff_section = ""
+        # 历史波动（仅 timestamped 模式：history 每次运行都变，嵌入会破坏字节确定性）
+        _trend_rows = _render_history_trend_rows(outcome)
+        history_section = (
+            '\n  <div class="section" id="history-trend">\n'
+            '    <h2><span class="sec-no">15</span>📈 历史波动（最近 12 次运行）</h2>\n'
+            '    <p class="sec-intro">规则规模与增减量的运行间波动，取自 output/history.json 趋势日志'
+            "（仅 report_timestamp 模式记录/渲染，保持确定性产物稳定）。柱长 = 规则总量相对峰值。</p>\n"
+            '    <div class="table-wrap"><table>'
+            "<thead><tr><th>运行时间</th><th class='num'>Block</th><th class='num'>Allow</th>"
+            "<th>规模（相对峰值）</th><th class='num'>新增</th><th class='num'>移除</th>"
+            "<th class='num'>源成功</th></tr></thead>"
+            f"<tbody>{_trend_rows}</tbody></table></div>\n  </div>\n"
+        )
+        toc_history_li = '<li><a href="#history-trend">15 · 历史波动</a></li>'
+
         _footer_stamp = generated_at[:10]
         _cache_value = str(outcome.sources_cached)
         _cache_meta = f" | 缓存：{outcome.sources_cached}"
@@ -363,9 +473,10 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
         _footer_stamp = f"内容版本 {outcome.content_version}"
         _cache_value = "—"
         _cache_meta = ""
-        diff_section = ""
         stage_rows = ""
         stage_sum_ms = 0.0
+        history_section = ""
+        toc_history_li = ""
     total_block = len(blocks)
     total_allow = len(allows)
     raw_count = outcome.raw_count
@@ -645,6 +756,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
       <li><a href="#audit">11 · 白名单多层防御审计</a></li>
       <li><a href="#grammar">12 · 规则语法支持度</a></li>
       <li><a href="#performance">13 · 性能与诊断</a></li>
+      {toc_history_li}
     </ol>
   </details>
 
@@ -817,6 +929,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
     </div>
   </div>
 
+  {history_section}
   <!-- 与上次合并对比 -->
   {diff_section}
 
