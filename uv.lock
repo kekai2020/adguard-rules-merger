@@ -9,7 +9,7 @@ resolution-markers = [
 
 [[package]]
 name = "adguard-rules-merger"
-version = "8.0.0"
+version = "8.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },

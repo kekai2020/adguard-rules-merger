@@ -1,5 +1,48 @@
 # Changelog
 
+## 8.0.1
+
+Post-release hardening: full-source audit fixes, architecture batches and
+quality gates. No public API changes.
+
+Security & correctness:
+- **P0 (security)**: report.html now escapes `$modifier` values and source
+  names — upstream rule text could inject HTML/JS into the committed report
+  (stored XSS).
+- Determinism: `history.json` (wall-clock trend log) is only written in
+  `report_timestamp` mode, so it no longer defeats the CI "commit only when
+  rules changed" guard.
+- Fetch: negative-cache stale fallback returns `err=None` (the feature was
+  dead); stale fallbacks ignore `cache.ttl_seconds` via
+  `SourceCache.get_content_stale`; local/file source reads and cache index
+  flushes run off the event loop; response bodies capped at 64 MiB.
+- Parser: empty-valued DNS modifiers (`$dnsrewrite=`) drop the rule whole
+  (AGH would reject the emitted line); hosts lines split once with the
+  non-IP fall-through preserved.
+- Markdown report: pipe-escaped free-text cells (rule lines contain `|`);
+  conflict wording aligned with the blocks-preserved policy.
+- Config: `validate` no longer creates output/cache directories; the
+  never-consumed `publish_domains` knob removed; malformed AI payloads report
+  a parse error without burning retries.
+
+Architecture & performance:
+- Fetch stage composed into `SourceFetcher` (explicit dependencies replace
+  the Mixin's implicit attribute contract); `AuditConfig.from_engine`
+  declarative mapping (35 manual lines → convention + rename table); `stats`
+  drops the per-rule staging rows; engine stages timed via a `_stage()`
+  context manager; config→engine wiring pinned by guard tests.
+- Parsed sidecar v51 pickle → **v52 JSON** (legacy readable for migration,
+  superseded files pruned on content change) — pickle trust boundary removed.
+- Parser throughput +10% (differential-fuzz-verified fast path); export
+  domain cache −43% memory at 550k rules.
+- Dead-code / duplication sweep (vulture clean at 80% confidence).
+
+Quality:
+- Test suite 707 → 733 (+26: report-hardening regressions, kb11 syntax,
+  config-wiring guards, sidecar migration, hypothesis property tests);
+  mypy `check_untyped_defs` enabled; `zip(strict=True)` invariants in the
+  audit engine.
+
 ## 8.0.0
 
 Final v8 release — unified version after v8.1 / v8.2 / v8.3 stabilization rounds. This is the public release number; the intermediate 8.1/8.2/8.3 tags were development iteration numbers.

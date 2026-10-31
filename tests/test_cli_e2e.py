@@ -21,7 +21,7 @@ runner = CliRunner()
 def test_version_command_reports_800_and_ua():
     result = runner.invoke(app, ["version"])
     assert result.exit_code == 0, result.output
-    assert "8.0.0" in result.output
+    assert "8.0.1" in result.output
     # User-Agent advertised on fetches (version.short derived from version.py).
     assert "AdGuard-Rules-Merger" in result.output
 

@@ -12,7 +12,7 @@ V8 notes:
   ``AUDIT_CACHE_VERSION`` below.
 """
 
-__version__ = "8.0.0"
+__version__ = "8.0.1"
 __version_short__ = "8"
 
 # Increment to invalidate the JSON whitelist-audit cache when the

@@ -13,8 +13,8 @@ from merger import __version__, __version_short__, user_agent
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def test_version_is_8_0_0():
-    assert __version__ == "8.0.0"
+def test_version_is_8_0_1():
+    assert __version__ == "8.0.1"
 
 
 def test_version_short_is_8_0():
@@ -28,7 +28,7 @@ def test_user_agent_tracks_version():
 
 def test_pyproject_version_aligned():
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert 'version = "8.0.0"' in text
+    assert 'version = "8.0.1"' in text
     assert "6.1.0" not in text
     assert "5.2.0" not in text
 
@@ -42,7 +42,7 @@ def test_pyproject_exposes_console_script():
 def test_readme_badge_aligned():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
 
-    assert "Version-8.0.0-blue" in text
+    assert "Version-8.0.1-blue" in text
     assert "Version-6.1.0-blue" not in text
     assert "Version-5.3.0-blue" not in text
 
@@ -100,9 +100,9 @@ def test_homepage_points_at_v8():
 
 def test_dockerfile_version_aligned():
     text = (ROOT / "Dockerfile").read_text(encoding="utf-8")
-    assert "8.0.0" in text
+    assert "8.0.1" in text
     # Development-iteration numbers (8.1/8.2/8.3) must not leak into metadata;
-    # 8.0.0 is the single public release number (see CHANGELOG 8.0.0).
+    # 8.0.1 is the current public release number (see CHANGELOG 8.0.1).
     assert "8.1.0" not in text
     assert "8.2.0" not in text
     assert "8.3.0" not in text
