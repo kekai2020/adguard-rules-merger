@@ -13,6 +13,17 @@ from ..parser import canonicalize_modifiers
 from .outcome import _iter_parents
 
 
+def _aggregation_sort_key(r: Rule) -> tuple[int, str]:
+    """Deterministic aggregation order: most-specific (most labels) first,
+    then lexicographic domain.
+
+    ``sorted(key=...)`` memoizes the key (one call per element), so the two
+    sorts below do not re-count ``.`` per element; this shared key function
+    also documents that the tie-break must stay identical across both passes.
+    """
+    return (-r.normalized_domain.count("."), r.normalized_domain)
+
+
 class AggregationMixin:
     min_aggregator_labels: int
     wildcard_child_aggregation: bool
@@ -215,7 +226,7 @@ class AggregationMixin:
                 for r in block_map.values()
                 if not r.wildcard and not r.modifiers and id(r) not in removed
             ),
-            key=lambda r: (-r.normalized_domain.count("."), r.normalized_domain),
+            key=_aggregation_sort_key,
         )
         for child in exact_children:
             if allow_domains and child.normalized_domain in allow_domains:
@@ -235,7 +246,7 @@ class AggregationMixin:
                     for r in block_map.values()
                     if r.wildcard and not r.modifiers and id(r) not in removed
                 ),
-                key=lambda r: (-r.normalized_domain.count("."), r.normalized_domain),
+                key=_aggregation_sort_key,
             )
             for child in wild_children:
                 child_norm = child.normalized_domain

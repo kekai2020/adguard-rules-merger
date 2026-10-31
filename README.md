@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Version](https://img.shields.io/badge/Version-8.0.0-blue)
-![Tests](https://img.shields.io/badge/Tests-703-green)
+![Tests](https://img.shields.io/badge/Tests-710-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![CI](https://github.com/kekai2020/adguard-rules-merger-v8/actions/workflows/ci.yml/badge.svg)
 
@@ -404,7 +404,7 @@ adguard-rules-merger/
 ├── config/sources.yaml      # 源配置
 ├── merge_rules.py           # 兼容启动器（旧入口，委托给 merger.cli）
 ├── config_loader.py         # 兼容垫片（重导出 merger.config）
-├── tests/                   # 703 个单元/集成测试（默认；另有 3 个 slow 网络/基准测试，共 706）
+├── tests/                   # 707 个单元/集成测试（默认；另有 3 个 slow 网络/基准测试，共 710）
 ├── .github/workflows/       # ci / merge / release
 ├── Dockerfile
 └── pyproject.toml + uv.lock # 打包与可复现依赖

@@ -7,13 +7,14 @@ split; no algorithm, threshold or wording changed.
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Iterator
 from dataclasses import dataclass, field
 from typing import Any
 
 from ..models import Rule
 
 
-def _iter_parents(norm: str, min_labels: int = 2):
+def _iter_parents(norm: str, min_labels: int = 2) -> Iterator[str]:
     """Yield strict parent domains, most-specific first.
 
     Stops as soon as a parent would have fewer than ``min_labels`` labels,

@@ -593,6 +593,18 @@ class AsyncRuleEngine(FetchMixin, AggregationMixin, ConflictMixin, StatsMixin):
         return outcome
 
     def run_sync(self, sources: list[SourceMeta]) -> MergeOutcome:
+        # `asyncio.run()` cannot be entered from a running event loop; give a
+        # clear error instead of the cryptic RuntimeError it would raise.
+        try:
+            asyncio.get_running_loop()
+        except RuntimeError:
+            pass
+        else:
+            raise RuntimeError(
+                "AsyncRuleEngine.run_sync() called from a running event loop; "
+                "use `await engine.run(sources)` instead."
+            )
+
         async def _go():
             async with self:
                 return await self.run(sources)

@@ -1,0 +1,12 @@
+# Ensure the sdist carries the operational config and every repo-level file
+# that is NOT auto-included by setuptools. Package data (merger/data/*.json,
+# merger/py.typed) is already declared via [tool.setuptools.package-data]
+# and ships in both sdist and wheel without this file.
+
+include config/sources.yaml
+include requirements.txt uv.lock
+include AGENTS.md SECURITY.md Dockerfile
+recursive-include tests/fixtures *
+recursive-include docs *
+recursive-include scripts *
+recursive-include .github *

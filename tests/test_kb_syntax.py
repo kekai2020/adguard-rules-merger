@@ -189,3 +189,33 @@ def test_unsupported_counter_recorded():
     p = RuleParser()
     p.parse_text("||a.com^$third-party\n||b.com^\n", source="s", category="ads")
     assert p.unsupported_modifier == 1
+
+
+# kb10: an inline ``#`` comment AFTER ``$modifiers`` must not corrupt the rule.
+# Regression for the P0 defect where ``_split_modifiers`` treated everything
+# after ``$`` as modifier tokens, so ``# reason`` was parsed as a modifier and
+# (a) dropped a legitimate rule as "unknown modifier", or (b) leaked the
+# comment text into ``modifiers`` (corrupting the dedup key / output hash).
+def test_inline_comment_after_modifiers_kept():
+    p = RuleParser()
+    r = p.parse_text("||x.com^$important # reason", source="s", category="ads")
+    assert len(r) == 1
+    assert r[0].output_raw == "||x.com^$important"
+    assert r[0].modifiers == "important"
+    assert p.unsupported_modifier == 0
+
+
+def test_inline_comment_after_valued_modifier_not_leaked():
+    p = RuleParser()
+    r = p.parse_text("||*.x.com^$dnstype=AAAA # y", source="s", category="ads")
+    assert len(r) == 1
+    assert r[0].modifiers == "dnstype=AAAA"
+    assert "#" not in r[0].modifiers
+
+
+def test_inline_comment_after_allow_modifiers_kept():
+    p = RuleParser()
+    r = p.parse_text("@@||x.com^$important # allow reason", source="s", category="ads")
+    assert len(r) == 1
+    assert r[0].rule_type == "allow"
+    assert r[0].modifiers == "important"

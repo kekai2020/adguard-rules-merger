@@ -191,7 +191,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: merged-rules-v7
+          name: merged-rules-v8
           path: output/
           retention-days: 30
           compression-level: 6

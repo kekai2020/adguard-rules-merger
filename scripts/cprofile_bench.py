@@ -1,4 +1,5 @@
 """cProfile harness for bench."""
+
 from __future__ import annotations
 
 import cProfile
@@ -9,7 +10,6 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
-from merger.config import MergeConfig
 from merger.core import AsyncRuleEngine
 from merger.exporter import Exporter
 from merger.models import SourceMeta
@@ -22,13 +22,15 @@ def run():
     sources = []
     for i, p in enumerate(sorted(FIXTURE.glob("*.txt"))):
         sources.append(SourceMeta(name=p.stem, url=str(p), category=cats[i % 4]))
-    engine = AsyncRuleEngine(cache_dir=None, aggregation_enabled=True,
-                             wildcard_promotion_threshold=3)
+    engine = AsyncRuleEngine(
+        cache_dir=None, aggregation_enabled=True, wildcard_promotion_threshold=3
+    )
     outcome = engine.run_sync(sources)
     out = REPO / "release" / "bench" / "profile"
     out.mkdir(parents=True, exist_ok=True)
     Exporter(out, report=False, write_diff=False).export_all(
-        outcome.blocks, outcome.allows, outcome)
+        outcome.blocks, outcome.allows, outcome
+    )
 
 
 if __name__ == "__main__":

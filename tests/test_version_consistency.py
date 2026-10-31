@@ -59,6 +59,10 @@ def test_ci_cache_key_and_name_aligned():
     # title; the exporter's label and this CI assertion must stay in lockstep.
     assert "grep -q '(V8)' output/merged_rules.txt" in text
     assert "(V7)" not in text
+    # The uploaded-artifact name must carry the V8 label too; a stale `v7`
+    # artifact name is exactly the class of V7 residue the guard exists to catch.
+    assert "merged-rules-v8" in text
+    assert "merged-rules-v7" not in text
 
 
 def test_exported_titles_are_v8():

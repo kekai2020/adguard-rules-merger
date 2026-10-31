@@ -114,7 +114,6 @@ class RuleParser:
     # ^ is optional when $ modifiers follow directly: ||domain$important
     RE_BLOCK = re.compile(r"^\|\|([^/^\s$]+)\^?")
     RE_ALLOW = re.compile(r"^@@\|\|([^/^\s$]+)\^?")
-    RE_WILD_PREFIX = re.compile(r"^\*\.")
     RE_HOSTS = re.compile(r"^(?:\d{1,3}\.){3}\d{1,3}\s+(\S+)")
     RE_HOSTS_V6 = re.compile(r"^(?:(?:[0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}|::1?)\s+(\S+)")
     # D2: labels may contain a leading/embedded underscore (e.g. _dmarc,
@@ -417,12 +416,17 @@ class RuleParser:
             elif s.endswith("|"):
                 s = s[:-1]
 
-            s2, modifiers, stripped_mods = split_mod(s)
             # Inline comment: any ``#`` to end-of-line after the body starts a
-            # comment (AdGuard syntax). Strip it so ``0.0.0.0 example.com #foo``
-            # does not emit a bogus ``||#foo^`` rule from the hosts alias list.
-            if "#" in s2:
-                s2 = s2.split("#", 1)[0].rstrip()
+            # comment (AdGuard syntax). Strip it BEFORE splitting ``$``
+            # modifiers so (a) ``||x.com^$dnstype=AAAA # y`` does not leak the
+            # trailing comment into the modifier string (corrupting the dedup
+            # key and byte-stable hashes), and (b) ``||x.com^$important # why``
+            # does not mis-parse ``# why`` as extra modifier tokens that turn
+            # an otherwise-kept rule into an unknown-modifier drop.
+            if "#" in s:
+                s = s.split("#", 1)[0].rstrip()
+
+            s2, modifiers, stripped_mods = split_mod(s)
             if stripped_mods:
                 # AdGuard spec: a rule carrying an unlisted (browser-layer)
                 # modifier must be dropped whole, not kept with the mod stripped.
