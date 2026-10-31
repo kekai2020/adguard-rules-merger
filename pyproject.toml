@@ -113,4 +113,5 @@ check_untyped_defs = true
 [dependency-groups]
 dev = [
     "hypothesis>=6.168.5",
+    "pytest-cov>=7.1.0",
 ]
