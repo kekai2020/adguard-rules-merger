@@ -38,14 +38,29 @@ import aiohttp
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+# Only NON-FILTERING variants (no ad/malware/family blocking) — a filtering
+# resolver would answer blocked domains with NXDOMAIN/0.0.0.0 and fabricate
+# false "dead" verdicts. Quad9 = dns11 (unfiltered), AdGuard = unfiltered
+# variant, per https://adguard-dns.io/kb/zh-CN/general/dns-providers/
 DOH_RESOLVERS = [
-    {"label": "223.5.5.5 (AliDNS)", "url": "https://223.5.5.5/resolve"},
-    {"label": "223.6.6.6 (AliDNS)", "url": "https://223.6.6.6/resolve"},
-    {"label": "119.29.29.29 (DNSPod)", "url": "https://doh.pub/resolve"},
+    {"label": "223.5.5.5 (AliDNS)", "url": "https://dns.alidns.com/dns-query"},
+    {"label": "223.6.6.6 (AliDNS)", "url": "https://dns.alidns.com/dns-query"},
+    {"label": "119.29.29.29 (DNSPod)", "url": "https://doh.pub/dns-query"},
     {"label": "120.53.53.53 (DNSPod-2)", "url": "https://120.53.53.53/resolve"},
     {"label": "101.226.4.6 (360)", "url": "https://doh.360.cn/resolve"},
     {"label": "1.1.1.1 (Cloudflare)", "url": "https://cloudflare-dns.com/dns-query", "json": True},
     {"label": "8.8.8.8 (Google)", "url": "https://dns.google/resolve"},
+    {
+        "label": "9.9.9.10 (Quad9-unfiltered)",
+        "url": "https://dns11.quad9.net/dns-query",
+        "json": True,
+    },
+    {
+        "label": "94.140.14.140 (AdGuard-nonfilter)",
+        "url": "https://dns.unfiltered.adguard-dns.org/dns-query",
+        "json": True,
+    },
+    {"label": "dns.sb (DNS.SB)", "url": "https://doh.dns.sb/dns-query", "json": True},
 ]
 UDP_RESOLVERS = ["223.6.6.6", "119.29.29.29", "114.114.114.114", "1.1.1.1", "8.8.8.8"]
 CONTROL_DOMAINS = ["www.qq.com", "www.baidu.com", "www.cloudflare.com"]
@@ -93,15 +108,51 @@ def _udp_query(ip, name, timeout_s):
         return ("timeout", type(e).__name__)
 
 
-async def query_all(names, resolvers, mode, args, timeout_s):
+async def query_shard(names, resolvers, mode, args, timeout_s, into):
+    """Round-1 shard sweep: each domain is queried by exactly ONE resolver
+    (round-robin assignment). Returns the names whose probe FAILED — those
+    enter the round-2 all-resolver cross-check."""
+    loop = asyncio.get_running_loop()
+    failed: list[str] = []
+
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(limit=max(args.concurrency * 2, 100))
+    ) as session:
+
+        async def one(name, resolver):
+            # weighted phase assigns dedicated semaphores; pre-weighting
+            # probes (controls) get an equal-share semaphore on first use
+            rsem = resolver.get("sem")
+            if rsem is None:
+                rsem = resolver["sem"] = asyncio.Semaphore(
+                    max(args.concurrency // max(len(resolvers), 1), 8)
+                )
+            async with rsem:
+                if mode == "doh":
+                    r, d = await _doh_query(session, resolver, name, timeout_s)
+                else:
+                    r, d = await loop.run_in_executor(
+                        None, _udp_query, resolver["ip"], name, timeout_s
+                    )
+                into.setdefault(name, []).append((resolver["label"], r, d))
+                if r != "ok":
+                    failed.append(name)
+
+        tasks = [one(n, resolvers[i % len(resolvers)]) for i, n in enumerate(names)]
+        await asyncio.gather(*tasks)
+    return failed
+
+
+async def query_all(names, resolvers, mode, args, timeout_s, into=None):
     """Fully pipelined sweep over every (name × resolver) pair.
 
     Returns {name: [(label, result, detail), ...]}. The semaphore is the only
     throttle; a progress task prints rate/ETA and checkpoints partial verdicts
     independently of the workers.
     """
-    sem = asyncio.Semaphore(args.concurrency)
-    out: dict[str, list] = {n: [] for n in names}
+    out: dict[str, list] = into if into is not None else {n: [] for n in names}
+    for n in names:
+        out.setdefault(n, [])
     loop = asyncio.get_running_loop()
     state = {"done": 0, "total": len(names) * len(resolvers)}
     started = time.monotonic()
@@ -125,7 +176,14 @@ async def query_all(names, resolvers, mode, args, timeout_s):
     ) as session:
 
         async def one(name, resolver):
-            async with sem:
+            # weighted phase assigns dedicated semaphores; pre-weighting
+            # probes (controls) get an equal-share semaphore on first use
+            rsem = resolver.get("sem")
+            if rsem is None:
+                rsem = resolver["sem"] = asyncio.Semaphore(
+                    max(args.concurrency // max(len(resolvers), 1), 8)
+                )
+            async with rsem:
                 if mode == "doh":
                     r, d = await _doh_query(session, resolver, name, timeout_s)
                     if r == "timeout" and timeout_s >= 6:
@@ -237,7 +295,8 @@ def verdict(results: list[tuple[str, str, str]], min_live: int) -> str:
     kinds = {r for _, r, _ in results}
     if "ok" in kinds:
         return "reachable"
-    if "nxdomain" in kinds and kinds <= {"nxdomain", "servfail"} and len(kinds) >= min_live:
+    nx = sum(1 for _, r, _ in results if r == "nxdomain")
+    if nx >= min_live and kinds <= {"nxdomain", "servfail"}:
         # NXDOMAIN is an authoritative registry answer; with a single live
         # resolver it is trusted but reported without cross-validation.
         return "dead"
@@ -268,7 +327,13 @@ async def run(args) -> int:
         else:
             mode, resolvers = "doh", DOH_RESOLVERS
 
-    # 1) channel self-diagnosis on control domains
+    # 1) channel self-diagnosis WITH latency measurement (R8.2):
+    #    each resolver resolves the control domains twice and keeps the median
+    #    wall-time of successes -> weight = 1/median -> shard quota
+    #    proportional to speed, so slow resolvers never leave fast groups
+    #    waiting and each group runs under its OWN semaphore (R8.3).
+    import time as _time
+
     control = await query_all(CONTROL_DOMAINS, resolvers, mode, args, max(args.timeout, 6))
     live: set[str] = set()
     channel_rows = []
@@ -285,21 +350,87 @@ async def run(args) -> int:
         channel_rows.append((lbl, oks, len(CONTROL_DOMAINS)))
     print(f"channel[{mode}]: live resolvers = {len(live)}/{len(resolvers)}")
     for lbl, oks, total in channel_rows:
-        print(f"  {lbl:<24} controls {oks}/{total}")
+        print(f"  {lbl:<34} controls {oks}/{total}")
     if len(live) < args.min_live:
         print(f"ABORT: {len(live)} live resolver(s) < --min-live {args.min_live}.")
         return 2
-    live_resolvers = [r for r in resolvers if r["label"] in live]
 
-    # 2) pipelined sweep (wildcards audited via parent domain)
+    # latency probe: 2 timed control resolutions per live resolver
+    live_resolvers = [r for r in resolvers if r["label"] in live]
+    for r in live_resolvers:
+        times = []
+        for _ in range(2):
+            t0 = _time.monotonic()
+            probe = await query_all(CONTROL_DOMAINS[:1], [r], mode, args, max(args.timeout, 6))
+            if any(res == "ok" for rs in probe.values() for _, res, _ in rs):
+                times.append(_time.monotonic() - t0)
+        r["latency"] = sorted(times)[len(times) // 2] if times else args.timeout
+    weights = {r["label"]: 1.0 / max(r["latency"], 0.01) for r in live_resolvers}
+    wsum = sum(weights.values())
+    caps = {}
+    quotas = {}
+    for r in live_resolvers:
+        share = weights[r["label"]] / wsum
+        caps[r["label"]] = max(8, round(args.concurrency * share))
+        quotas[r["label"]] = max(20, round(len(doms) * share))
+    for r in live_resolvers:
+        r["sem"] = asyncio.Semaphore(caps[r["label"]])
+    print("weighted sharding (latency ms -> domains quota / concurrency cap):")
+    for r in live_resolvers:
+        print(
+            f"  {r['label']:<34} {r['latency'] * 1000:6.0f} ms  ->  "
+            f"{quotas[r['label']]:,} / {caps[r['label']]}"
+        )
+
+    # 2) TWO-PHASE SHARDED sweep (R8.1):
+    #    round 1 — rules split evenly across live resolvers, ONE query each
+    #              (a success anywhere is a final "reachable");
+    #    round 2 — every round-1 failure is re-tested by ALL live resolvers
+    #              concurrently (cross-validated dead/unresolved verdict).
+    #    Query volume: N + F*R instead of N*R — ~60% fewer queries at the
+    #    observed 92% reachable rate.
     audit_names = sorted({d.removeprefix("*.") if d.startswith("*.") else d for d in doms})
+    total_domains = len(audit_names)
+    # weighted round-robin assignment pool (per-resolver quotas by latency)
+    assign_pool: list = []
+    for r in live_resolvers:
+        assign_pool += [r] * quotas[r["label"]]
     print(
-        f"sweeping {len(audit_names):,} domains x {len(live_resolvers)} live "
-        f"resolvers (timeout {args.timeout}s, concurrency {args.concurrency}) ..."
+        f"sweeping {total_domains:,} domains, 2-phase sharded across "
+        f"{len(live_resolvers)} live resolvers (timeout {args.timeout}s, "
+        f"concurrency {args.concurrency}) ..."
     )
     t0 = time.monotonic()
-    raw = await query_all(audit_names, live_resolvers, mode, args, args.timeout)
-    print(f"sweep done in {(time.monotonic() - t0) / 60:.1f} min")
+    raw: dict[str, list] = {}
+
+    # round 1 — one resolver per domain, round-robin sharded
+    r1_fail: list[str] = []
+    for i in range(0, total_domains, args.concurrency * 4):
+        chunk = audit_names[i : i + args.concurrency * 4]
+        part = await query_shard(chunk, live_resolvers, mode, args, args.timeout, raw)
+        r1_fail.extend(part)
+        print(
+            f"  round1 {min(i + len(chunk), total_domains):,}/{total_domains:,} "
+            f"({len(r1_fail):,} failed -> round 2)",
+            flush=True,
+        )
+    r1_elapsed = time.monotonic() - t0
+    print(
+        f"round 1 done in {r1_elapsed / 60:.1f} min: "
+        f"{total_domains - len(r1_fail):,} reachable on first probe, "
+        f"{len(r1_fail):,} enter round 2"
+    )
+    if args.checkpoint_every:
+        _checkpoint(raw, out_dir, mode)
+
+    # round 2 — all resolvers on every round-1 failure
+    t1 = time.monotonic()
+    if r1_fail:
+        for i in range(0, len(r1_fail), args.concurrency * 4):
+            chunk = r1_fail[i : i + args.concurrency * 4]
+            await query_all(chunk, live_resolvers, mode, args, args.timeout, into=raw)
+            print(f"  round2 {min(i + len(chunk), len(r1_fail)):,}/{len(r1_fail):,}", flush=True)
+    print(f"round 2 done in {(time.monotonic() - t1) / 60:.1f} min")
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
     results = []
@@ -356,7 +487,7 @@ async def run(args) -> int:
         "",
         f"- 通道：{mode.upper()}（自诊断通过，{len(live)}/{len(resolvers)} 解析器存活；"
         f"控制域 {', '.join(CONTROL_DOMAINS)}）",
-        f"- 解析器：{', '.join(sorted(live))}",
+        f"- 解析器（全部为无过滤/非家庭变体）：{', '.join(sorted(live))}",
         "- 判定口径：任一存活解析器解析成功=可达；"
         f"≥{args.min_live} 个存活解析器均返回 NXDOMAIN=已死亡"
         + ("（单解析器，无交叉验证，置信度降低）" if len(live) == 1 else "（交叉验证）")
