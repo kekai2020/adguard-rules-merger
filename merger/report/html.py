@@ -438,7 +438,7 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
         )
 
     if include_time:
-        _meta_stamp = generated_at[:19].replace("T", " ")
+        _meta_stamp = f"合并时间 {generated_at[:19].replace('T', ' ')}"
         _elapsed_value = f"{outcome.elapsed:.1f}s"
 
         # 各阶段执行耗时
@@ -464,6 +464,11 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
         _footer_stamp = generated_at[:10]
         _cache_value = str(outcome.sources_cached)
         _cache_meta = f" | 缓存：{outcome.sources_cached}"
+        _merge_time_card = (
+            f'<div class="stat-card"><div class="value">'
+            f"{generated_at[:19].replace('T', ' ')}</div>"
+            "<div class='label'>合并时间</div></div>"
+        )
     else:
         _meta_stamp = f"内容版本 {outcome.content_version}"
         # Always show the real wall-clock elapsed (not "—"); the timestamp
@@ -473,6 +478,7 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
         _footer_stamp = f"内容版本 {outcome.content_version}"
         _cache_value = "—"
         _cache_meta = ""
+        _merge_time_card = ""
         stage_rows = ""
         stage_sum_ms = 0.0
         history_section = ""
@@ -787,6 +793,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
     <div class="stat-card"><div class="value">{outcome.conflict_resolved:,}</div><div class="label">冲突消解</div></div>
     <div class="stat-card"><div class="value">{mod_rule_count:,}</div><div class="label">带 $ 修饰符规则数</div></div>
     <div class="stat-card"><div class="value">{_elapsed_value}</div><div class="label">总耗时</div></div>
+    {_merge_time_card}
   </div>
 
   <div class="section" id="stage-timings">

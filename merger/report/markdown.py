@@ -197,7 +197,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     """Generate a plain-text Markdown report (no external dependencies)."""
     generated_at = _generation_label(include_time)
     if include_time:
-        _meta_stamp = generated_at[:19].replace("T", " ")
+        _meta_stamp = f"合并时间 {generated_at[:19].replace('T', ' ')}"
         _elapsed = f"{outcome.elapsed:.1f}s"
         _footer_stamp = generated_at[:10]
         _cache_value = str(outcome.sources_cached)
@@ -261,6 +261,8 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     # R-4: "带 $ 修饰符规则" must be a rule count, not a modifier-token count.
     mod_rule_count = sum(1 for r in blocks if r.modifiers) + sum(1 for r in allows if r.modifiers)
     lines.append(f"| 带 $ 修饰符规则数 | {mod_rule_count:,} |")
+    if include_time:
+        lines.append(f"| 合并时间 | {generated_at[:19].replace('T', ' ')} |")
     lines.append(f"| 总耗时 | {_elapsed} |")
     lines.append("")
 

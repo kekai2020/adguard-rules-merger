@@ -331,3 +331,18 @@ def test_merge_timestamp_gated_by_report_timestamp(tmp_path):
         assert ("! Generated:" in merged) is expect, (ts_mode, merged[:200])
         assert ("! Generated:" in wl) is expect
         assert ("generated_at" in stats) is expect
+
+
+def test_report_shows_labeled_merge_time():
+    """Timestamped reports label the merge time explicitly (合并时间) in the
+    header meta + overview; deterministic reports never contain it."""
+    o = _report_outcome()
+    analysis = analyze_rules(o.blocks, o.allows)
+    html_ts = generate_html_report(o.blocks, o.allows, o, analysis, include_time=True)
+    assert "合并时间" in html_ts
+    html_det = generate_html_report(o.blocks, o.allows, o, analysis, include_time=False)
+    assert "合并时间" not in html_det
+    md_ts = generate_markdown_report(o.blocks, o.allows, o, analysis, include_time=True)
+    assert "| 合并时间 |" in md_ts
+    md_det = generate_markdown_report(o.blocks, o.allows, o, analysis, include_time=False)
+    assert "合并时间" not in md_det
