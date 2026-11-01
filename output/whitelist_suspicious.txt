@@ -1,0 +1,29 @@
+! Title: AdGuard Rules Merger — Whitelist (suspicious)
+! Count: 26
+! Version: e2cd342034e5
+@@||a.adwolf.ru^
+@@||ad.cityu.edu.hk^
+@@||ads.tdbank.com^
+@@||avqs.mcafee.com^
+@@||avts.mcafee.com^
+@@||cloud.notification-naviextras.com^
+@@||counter-strike.net^
+@@||dishy.starlink.com^
+@@||edge-enterprise.activity.windows.com^
+@@||edge.activity.windows.com^
+@@||email.awscloud.com^
+@@||email.elitedangerous.com^
+@@||email.procook.co.uk^
+@@||fritz.box^
+@@||fritz.nas^
+@@||fritz.powerline^
+@@||fritz.repeater^
+@@||fritz.smartgateway^
+@@||guce.advertising.com^
+@@||mail.abusix.zone^
+@@||meizu.coapi.moji.com^
+@@||plex.direct^
+@@||router.asus.com^
+@@||speedport.ip^
+@@||sponsor.nitropay.com^
+@@||thumbnail.thench.net^

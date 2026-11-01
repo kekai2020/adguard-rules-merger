@@ -1,0 +1,15 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 分析/追踪)
+! Count: 12
+! Version: 4add51b20eaa
+@@||analytics.amplitude.com^
+@@||app.crazyegg.com^
+@@||chart-embed.service.newrelic.com^
+@@||citiintl.122.2o7.net^
+@@||core.crazyegg.com^
+@@||gs.statcounter.com^
+@@||infra-api.newrelic.com^
+@@||sbs.demdex.net^
+@@||stat.jseea.cn^
+@@||statcounter.com^
+@@||stats.uptimerobot.com^
+@@||track.rutarget.ru^

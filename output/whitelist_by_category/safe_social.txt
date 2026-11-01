@@ -1,0 +1,7 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 社交/分享)
+! Count: 4
+! Version: 1871f08d867a
+@@||ads.privacy.qq.com^
+@@||feed.adrelayer.com^
+@@||future.biz.weibo.com^
+@@||tube.e.kuaishou.com^

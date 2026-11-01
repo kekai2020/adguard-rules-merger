@@ -1,0 +1,25 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 广告/营销)
+! Count: 22
+! Version: ae85fec87593
+@@||5471782.fls.doubleclick.net^
+@@||ads.adsterra.com^
+@@||ads.taboola.com^
+@@||adsterra.com^
+@@||advert.kf5.com^
+@@||affiliates.adsterra.com^
+@@||api.ads.tvb.com^
+@@||beta.affiliates.adsterra.com^
+@@||beta.partners.adsterra.com^
+@@||beta.publishers.adsterra.com^
+@@||cdn.taboola.com^
+@@||cmp.inmobi.com^
+@@||googleadservices.com^
+@@||help-advertisers.adsterra.com^
+@@||img.ads.tvb.com^
+@@||nineto5mac-d.openx.net^
+@@||pagead.l.doubleclick.net^
+@@||partners.adsterra.com^
+@@||publishers.adsterra.com^
+@@||res.ads.nicovideo.jp^
+@@||tracker.eu.org^
+@@||www3.doubleclick.net^

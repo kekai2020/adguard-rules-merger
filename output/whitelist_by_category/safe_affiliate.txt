@@ -1,0 +1,18 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 联盟营销/跳转)
+! Count: 15
+! Version: c28ed2f3c29a
+@@||aax-fe.amazon.co.jp^
+@@||affiliate.notion.so^
+@@||awin1.com^
+@@||click.appcast.io^
+@@||click.avs.io^
+@@||click.cptrack.de^
+@@||click.trafficguard.ai^
+@@||click.virt.exacttarget.com^
+@@||go.redirectingat.com^
+@@||partner.everydays.de^
+@@||partner.o2online.de^
+@@||redir.tradedoubler.com^
+@@||redirect.appmetrica.yandex.com^
+@@||refer.discover.com^
+@@||track.webgains.com^

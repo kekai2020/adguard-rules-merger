@@ -1,0 +1,8 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 隐私/安全)
+! Count: 5
+! Version: ef09313e6e6e
+@@||ad-block.dns.adguard.com^
+@@||bl.spamcop.net^
+@@||spamhaus.org^
+@@||surbl.org^
+@@||uribl.com^

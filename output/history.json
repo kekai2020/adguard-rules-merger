@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2026-11-01T10:05:26.192858+00:00",
+    "raw_count": 3529604,
+    "block_count": 2766485,
+    "allow_count": 300,
+    "total_count": 2766785,
+    "compression_pct": 21.6,
+    "elapsed_seconds": 71.55,
+    "sources_ok": 18,
+    "sources_total": 18,
+    "added": 0,
+    "removed": 0,
+    "stage_timings": {
+      "fetch": 26.430676,
+      "badfilter": 0.094378,
+      "aggregation": 5.689422,
+      "conflict": 1.839383,
+      "sort": 1.560705,
+      "rejudge": 8e-06,
+      "stats": 8.820521,
+      "audit": 25.727888,
+      "diff": 3e-06,
+      "content_version": 1.277748
+    }
+  }
+]

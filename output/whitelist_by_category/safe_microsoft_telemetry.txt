@@ -1,0 +1,13 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 微软/Windows 遥测)
+! Count: 10
+! Version: 3c58ac325009
+@@||ad.azure.com^
+@@||analysis.windows.net^
+@@||c.office.com^
+@@||dns.msftncsi.com^
+@@||insideruser.microsoft.com^
+@@||js.monitor.azure.com^
+@@||msftconnecttest.com^
+@@||settings-win.data.microsoft.com^
+@@||skyapi.onedrive.live.com^
+@@||storage.live.com^

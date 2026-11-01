@@ -1,0 +1,14 @@
+! Title: AdGuard Rules Merger — Whitelist (safe / 电商/支付)
+! Count: 11
+! Version: 5606c48e9ff7
+@@||advertisement.taobao.com^
+@@||center-h5api.m.taobao.com^
+@@||click.simba.taobao.com^
+@@||data.digital.costco.com^
+@@||data.notify.macys.com^
+@@||data.orders.costco.ca^
+@@||data.orders.costco.com^
+@@||goto.target.com^
+@@||goto.walmart.com^
+@@||omniture.walmart.com^
+@@||uland.taobao.com^
