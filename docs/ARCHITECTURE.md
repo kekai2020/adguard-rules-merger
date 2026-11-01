@@ -192,3 +192,33 @@ DNS 层可选走 DNS-over-HTTPS JSON 解析器（`whitelist_audit.doh_endpoint`�
   由 `tests/test_version_consistency.py` 守卫其它静态版本点。
 - `SIDECAR_VERSION` / `CACHE_VERSION` 标记的是**磁盘格式**，与产品版本解耦；
   升级产品版本不会使旧缓存失效，只有格式变化才会。
+
+## 架构图
+
+```mermaid
+flowchart TB
+    subgraph SRC["① 采集层"]
+        F["core/fetch<br/>SourceFetcher · 18源并发 · ETag/负缓存"]
+        DNS["scripts/dns_coverage_audit<br/>多DoH可达性审计（旁路）"]
+    end
+    subgraph CORE["② 合并内核"]
+        P["parser 流式解析"] --> E["core/engine<br/>_stage编排 · badfilter · 聚合"]
+        E --> C["core/conflicts<br/>blocks-preserved"]
+        E --> S["core/stats 贡献/重叠"]
+    end
+    subgraph AUD["③ 白名单审计 · 16层"]
+        W["whitelist_audit/engine<br/>registry + fusion + 指纹缓存"]
+        H["homograph · dnsx · scam · rdap · VT/AI"]
+    end
+    subgraph OUT["④ 出口层"]
+        X["exporter 7格式原子写"]
+        R["report html/md<br/>三级对比 · 历史波动 · §16 DNS"]
+    end
+    CFG["config pydantic"] -->|66旋钮·守卫测试| E
+    F --> P --> E
+    E --> W
+    W --> E
+    E --> X --> R
+    M["models 位掩码溯源"] -.-> F & P & E & W
+    K["cache v52 JSON · ports接缝 · _http_hardening"] -.-> F & W
+```
