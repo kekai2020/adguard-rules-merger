@@ -1,13 +1,13 @@
 ! Title: Merged AdGuard Home Filter Rules
 ! Description: Auto-merged from 18 sources (dedup + aggregation + conflict resolution)
 ! Version: 909590b04587
-! Generated: 2026-11-01T10:34:29.472070+00:00
+! Generated: 2026-11-01T10:58:28.047082+00:00
 ! Homepage: https://github.com/kekai2020/adguard-rules-merger
 ! Total block rules: 2766522
 ! Total whitelist rules: 300
-! Sources: 18/18 (16 cached)
+! Sources: 18/18 (18 cached)
 ! Dedup rate: 21.6%
-! Exact dedup: 726440 | Normalized dedup: 26 | Regex dedup: 322
+! Exact dedup: 726466 | Normalized dedup: 0 | Regex dedup: 322
 ! Aggregated: exact=36019 wildcard=2 promoted=0
 ! Conflicts recorded (block rules kept): 44
 ! Dropped: pattern=0 quality=39 css=0 badfilter=6 comments=162
