@@ -318,8 +318,13 @@ def test_merge_timestamp_gated_by_report_timestamp(tmp_path):
         )
 
     for ts_mode, expect in ((False, False), (True, True)):
-        exp = Exporter(tmp_path / f"o{ts_mode}", formats=["adguard", "whitelist"],
-                       tiered=False, report=False, report_timestamp=ts_mode)
+        exp = Exporter(
+            tmp_path / f"o{ts_mode}",
+            formats=["adguard", "whitelist"],
+            tiered=False,
+            report=False,
+            report_timestamp=ts_mode,
+        )
         exp.export_all(
             [Rule("||a.com^", "a.com", "block", False)],
             [Rule("@@||b.com^", "b.com", "allow", False)],
