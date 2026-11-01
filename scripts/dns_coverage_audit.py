@@ -409,6 +409,8 @@ async def run(args) -> int:
         chunk = audit_names[i : i + args.concurrency * 4]
         part = await query_shard(chunk, live_resolvers, mode, args, args.timeout, raw)
         r1_fail.extend(part)
+        if args.checkpoint_every:
+            _checkpoint(raw, out_dir, mode)
         print(
             f"  round1 {min(i + len(chunk), total_domains):,}/{total_domains:,} "
             f"({len(r1_fail):,} failed -> round 2)",
@@ -431,6 +433,22 @@ async def run(args) -> int:
             await query_all(chunk, live_resolvers, mode, args, args.timeout, into=raw)
             print(f"  round2 {min(i + len(chunk), len(r1_fail)):,}/{len(r1_fail):,}", flush=True)
     print(f"round 2 done in {(time.monotonic() - t1) / 60:.1f} min")
+
+    # round 3 — unresolved retry: timeouts are often transient; one fresh
+    # all-resolver pass over the unresolved set, then re-verdict
+    t2 = time.monotonic()
+    still: list[str] = [
+        d for d in audit_names if raw.get(d) and verdict(raw[d], args.min_live) == "unresolved"
+    ]
+    if still and args.unresolved_retry:
+        print(f"round 3: retrying {len(still):,} unresolved with all resolvers ...")
+        for i in range(0, len(still), args.concurrency * 4):
+            chunk = still[i : i + args.concurrency * 4]
+            for name in chunk:
+                raw[name] = []  # clear stale answers; re-probe fresh
+            await query_all(chunk, live_resolvers, mode, args, max(args.timeout, 6), into=raw)
+            print(f"  round3 {min(i + len(chunk), len(still)):,}/{len(still):,}", flush=True)
+        print(f"round 3 done in {(time.monotonic() - t2) / 60:.1f} min")
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
     results = []
@@ -555,6 +573,11 @@ def main() -> None:
     ap.add_argument("--concurrency", type=int, default=150)
     ap.add_argument("--timeout", type=float, default=4, help="per-query timeout (s)")
     ap.add_argument("--min-live", type=int, default=2)
+    ap.add_argument(
+        "--no-unresolved-retry",
+        action="store_true",
+        help="skip the round-3 fresh retry of unresolved domains",
+    )
     ap.add_argument("--blocks-sample", type=int, default=0)
     ap.add_argument("--full-json", action="store_true", help="keep raw answers in json")
     ap.add_argument("--progress-every", type=int, default=5000)
@@ -567,6 +590,7 @@ def main() -> None:
     ap.add_argument("--no-append-report", action="store_true")
     args = ap.parse_args()
     args.append_report = not args.no_append_report
+    args.unresolved_retry = not args.no_unresolved_retry
     raise SystemExit(asyncio.run(run(args)))
 
 
