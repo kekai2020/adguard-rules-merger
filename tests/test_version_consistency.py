@@ -93,7 +93,7 @@ def test_homepage_points_at_v8():
     from merger.config import HOMEPAGE
     from merger.exporter import HOMEPAGE as EXPORTER_HOMEPAGE
 
-    assert HOMEPAGE.endswith("adguard-rules-merger-v8")
+    assert HOMEPAGE.endswith("adguard-rules-merger")
     assert EXPORTER_HOMEPAGE == HOMEPAGE
 
 
@@ -107,12 +107,12 @@ def test_dockerfile_version_aligned():
     assert "8.3.0" not in text
 
 
-def test_readme_repo_urls_point_at_v8():
+def test_readme_repo_urls_canonical():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "# adguard-rules-merger" in text or "# AdGuard Rules Merger" in text
     # Clone / badge / subscription raw URLs must reference the v8 repository.
     assert "adguard-rules-merger-v7" not in text
-    assert "adguard-rules-merger-v8" in text
+    assert "adguard-rules-merger" in text
 
 
 def test_pyproject_packages_cover_all_subpackages():
