@@ -42,27 +42,30 @@ sys.path.insert(0, str(ROOT))
 # resolver would answer blocked domains with NXDOMAIN/0.0.0.0 and fabricate
 # false "dead" verdicts. Quad9 = dns11 (unfiltered), AdGuard = unfiltered
 # variant, per https://adguard-dns.io/kb/zh-CN/general/dns-providers/
+# 无过滤池（2025 国内DNS调研 + AdGuard kb）：114 用无过滤通道
+# 114.114.115.115（114.114.114.114 是广告过滤版，会伪造死亡判定）；
+# OneDNS 自带拦截、CNNIC 无 DoH，不入池；Quad9/AdGuard 取无过滤变体。
 DOH_RESOLVERS = [
     {"label": "223.5.5.5 (AliDNS)", "url": "https://dns.alidns.com/dns-query"},
     {"label": "223.6.6.6 (AliDNS)", "url": "https://dns.alidns.com/dns-query"},
     {"label": "119.29.29.29 (DNSPod)", "url": "https://doh.pub/dns-query"},
     {"label": "120.53.53.53 (DNSPod-2)", "url": "https://120.53.53.53/resolve"},
     {"label": "101.226.4.6 (360)", "url": "https://doh.360.cn/resolve"},
+    {"label": "180.76.76.76 (Baidu)", "url": "https://doh.baidu.com/dns-query"},
     {"label": "1.1.1.1 (Cloudflare)", "url": "https://cloudflare-dns.com/dns-query", "json": True},
     {"label": "8.8.8.8 (Google)", "url": "https://dns.google/resolve"},
-    {
-        "label": "9.9.9.10 (Quad9-unfiltered)",
-        "url": "https://dns11.quad9.net/dns-query",
-        "json": True,
-    },
-    {
-        "label": "94.140.14.140 (AdGuard-nonfilter)",
-        "url": "https://dns.unfiltered.adguard-dns.org/dns-query",
-        "json": True,
-    },
+    {"label": "9.9.9.10 (Quad9-unfiltered)", "url": "https://dns11.quad9.net/dns-query", "json": True},
+    {"label": "94.140.14.140 (AdGuard-nonfilter)", "url": "https://dns.unfiltered.adguard-dns.org/dns-query", "json": True},
     {"label": "dns.sb (DNS.SB)", "url": "https://doh.dns.sb/dns-query", "json": True},
 ]
-UDP_RESOLVERS = ["223.6.6.6", "119.29.29.29", "114.114.114.114", "1.1.1.1", "8.8.8.8"]
+UDP_RESOLVERS = [
+    "223.6.6.6",           # AliDNS 无过滤
+    "119.29.29.29",        # DNSPod 无过滤
+    "114.114.115.115",     # 114 无过滤通道（114.114.114.114 是过滤版！）
+    "180.76.76.76",        # 百度
+    "1.1.1.1",
+    "8.8.8.8",
+]
 CONTROL_DOMAINS = ["www.qq.com", "www.baidu.com", "www.cloudflare.com"]
 
 
