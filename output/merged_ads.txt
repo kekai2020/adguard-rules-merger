@@ -1,7 +1,7 @@
 ! Title: Merged ads filter
 ! Category: ads
-! Version: 62843c9884e7-ads
-! Rules: 318026
+! Version: 909590b04587-ads
+! Rules: 318063
 !
 /(https?:\/\/)213\.32\.115\..{100,}/
 /(https?:\/\/)217\.182\.11\..{100,}/
@@ -26232,6 +26232,7 @@
 ||ajxyjzwhhcznj.space^
 ||ajxzagdszztbv.website^
 ||ajyykkim.com^
+||ajz2kq4y.xyz^
 ||ajzdgaiikefwv.website^
 ||ajzq.com^
 ||ajzsa.xyz^
@@ -27197,6 +27198,7 @@
 ||almaty-digital.com^
 ||almeidanascimento.anunciojuridico.com.br^
 ||almemardemurer.com^
+||almemarsclat.cfd^
 ||almenu.io^
 ||almetanga.com^
 ||almggvgovqvlb.top^
@@ -71310,6 +71312,7 @@
 ||dajx.org^
 ||dakic-ia-300.com^
 ||dakotanews.com^
+||dakotasmouill.cyou^
 ||dal9hkyfi0m0n.cloudfront.net^
 ||dalarmars.com^
 ||dalecta.com^
@@ -71344,6 +71347,7 @@
 ||damageddistance.com^
 ||damagedplough.com^
 ||damagingfiles.com^
+||damasksnunship.qpon^
 ||damassets.autodesk.com^
 ||damb68.com^
 ||dambr.creditrepairexpo.com^
@@ -77984,6 +77988,7 @@
 ||dcmn.io^
 ||dcmonitor.opsgreat.vn^
 ||dcms.alibaba.com^
+||dcnfrsinlaryb.website^
 ||dcniko1cv0rz.cloudfront.net^
 ||dcnkrd.baseballsavings.com^
 ||dcnsee.com^
@@ -79975,6 +79980,7 @@
 ||dheblxw.com^
 ||dheear.site^
 ||dhenr54m.com^
+||dheolvrfifmpj.website^
 ||dherea.site^
 ||dhetrrlzesril.space^
 ||dhexdnikblnsk.website^
@@ -80026,6 +80032,7 @@
 ||dhoajdxad5656wadaw.top^
 ||dhobeynandi.com^
 ||dhobiesands.cfd^
+||dhocbrjcqhunq.site^
 ||dhole.samuelhubbard.com^
 ||dhotycontokolhozy.cyou^
 ||dhouse.mobi^
@@ -81355,6 +81362,7 @@
 ||divorcedrefreshing.com^
 ||divorcelawyer.rocks^
 ||divvit.com^
+||diwatafluxile.cyou^
 ||diwenganzaoji.com^
 ||diwu8.com^
 ||diwuyu.com^
@@ -81555,6 +81563,7 @@
 ||dkvvwq.aosom.ca^
 ||dkweuy.com^
 ||dkwra9.close.futureisready.com^
+||dkxtzubbtmzie.space^
 ||dkxwqu.annefontaine.com^
 ||dkymcxtze.com^
 ||dkyofzatrdp.com^
@@ -87576,6 +87585,7 @@
 ||educationlink.clear360.com^
 ||educontinua.javeriana.edu.co^
 ||eduction.fr^
+||edudxfkyzxux.com^
 ||eduforms.org^
 ||edugram.com^
 ||edugramlink.com^
@@ -98151,6 +98161,7 @@
 ||flakerslatents.com^
 ||flakespunishmentscythe.com^
 ||flakyfeast.com^
+||flakylingas.cfd^
 ||flambesbyssoid.cfd^
 ||flamboyant-brattain-68628f.netlify.com^
 ||flamboyant-euclid.netlify.com^
@@ -104152,6 +104163,7 @@
 ||gestionpub.com^
 ||gestionresiliation.fr^
 ||gestpileata.com^
+||gestsgenoa.qpon^
 ||gesundheits-zentrum-bad-waldliesborn.de^
 ||gesundheits-zentrum-bw.de^
 ||gesundheitszentrum-bad-waldliesborn.de^
@@ -116321,6 +116333,7 @@
 ||guwoagrokumsee.com^
 ||guwuym.barneys.co.jp^
 ||guxiezhuang.top^
+||guxzzlbqhkapq.online^
 ||guyersludibry.cfd^
 ||guyotcalmer.com^
 ||guyprior.com^
@@ -122397,6 +122410,7 @@
 ||hzqdj.bobbyjones.com^
 ||hzqqldqfjsyjn.site^
 ||hzqvvkvoqgkel.site^
+||hzregbrhnzdts.website^
 ||hzrghx.xyz^
 ||hzrsuk.miniroi.com^
 ||hzsanz.com^
@@ -124060,6 +124074,7 @@
 ||ikuwnk.ibackup.com^
 ||ikvjvw.pharma.mynavi.jp^
 ||ikvql.insideoptions.io^
+||ikwagbiakdggv.space^
 ||ikwb.com^
 ||ikwlimmgbapas.online^
 ||ikwyd.com^
@@ -131244,6 +131259,7 @@
 ||jgyajiisanpac.site^
 ||jgytve.kagome.co.jp^
 ||jgyugc.mp.com.tr^
+||jgzccjmuydvvx.space^
 ||jgzhsu.caterer.com^
 ||jh1230.com^
 ||jh16csf.com^
@@ -134112,6 +134128,7 @@
 ||karriere-job-booster.com^
 ||karrot-pixel.business.daangn.com^
 ||karshin.com^
+||karsticsoars.cfd^
 ||kart2ks.icu^
 ||kartables.fr^
 ||kartalescortkizlar.com^
@@ -141729,6 +141746,7 @@
 ||listenlayer.com^
 ||listenloop.com^
 ||listenonrepeat.fr^
+||listensaigrets.qpon^
 ||listenup.ai^
 ||listforclosures.com^
 ||listforeclosures.com^
@@ -174274,6 +174292,7 @@
 ||mvhcvlfbzstlex.com^
 ||mvhlcshfdhsql.website^
 ||mvhmppnuvmpdp.online^
+||mvhnfemksjlss.site^
 ||mviasyrhzdmqr.site^
 ||mvideochat.com^
 ||mvilivestats.com^
@@ -182251,6 +182270,7 @@
 ||ofvosb.jumbo.com.tr^
 ||ofvvwyigl.com^
 ||ofwdvh.suntransfers.com^
+||ofxelmzxcrkhp.site^
 ||ofxmryjd.walmart.com^
 ||ofxvob.plantura.garden^
 ||ofymjcdwjuvdi.online^
@@ -187046,6 +187066,7 @@
 ||p8wwtt.nt.nativetrees.co.uk^
 ||p9-ad-sign.byteimg.com^
 ||p9-ad-sign.byteimg.com.bsgslb.com^
+||p91j2vpiqqhz4y.rest^
 ||p952.syracuse.com^
 ||p957.uutis-jousi.fi^
 ||p95bxv.ru^
@@ -199904,6 +199925,7 @@
 ||qdzyspjx.com^
 ||qebnkbtmjdlwe.site^
 ||qecgxlafkueau.site^
+||qecmposqk.com^
 ||qecsasdafhtqr.online^
 ||qedgcxi.cn^
 ||qedlai.restplatzboerse.com^
@@ -201566,6 +201588,7 @@
 ||quqizo.com^
 ||quran-competition.com^
 ||quriobot.com^
+||qurtiduress.qpon^
 ||qushad.com^
 ||quspga.xyz^
 ||qustk.aerosleep.com^
@@ -214158,6 +214181,7 @@
 ||seegerstone.de^
 ||seegroucho.net^
 ||seehits.com^
+||seeiigebk.com^
 ||seeimmunityswim.com^
 ||seeinglie.com^
 ||seeip.org^
@@ -222142,6 +222166,7 @@
 ||sgads.molilexue.com^
 ||sgajop.hififnk.kr^
 ||sgali-mcs.byteoversea.com^
+||sgamtodtvlcbt.website^
 ||sganalytics.com^
 ||sgappanalytics.com^
 ||sgaukdlj.com^
@@ -244638,6 +244663,7 @@
 ||spadsync.com^
 ||spahipyemias.cyou^
 ||spain.thomsonreuters.com^
+||spaldceded.qpon^
 ||spam.carte-gr.total.fr^
 ||spam.rottne.com^
 ||spam.velpa.pl^
@@ -268932,6 +268958,7 @@
 ||strhl.tirestreets.com^
 ||strhreqxcfcmr.online^
 ||stricaik.com^
+||stricheageusiaprevent.qpon^
 ||stricklyhouses.com^
 ||strictly888.com^
 ||strictlybeneath.com^
@@ -270000,6 +270027,7 @@
 ||superproxy123.com^
 ||superscale.com^
 ||superserver100.hopto.org^
+||superset-qa.sese.cn^
 ||supership.jp^
 ||supersonic.com^
 ||supersonicads-a.akamaihd.net^
@@ -278719,6 +278747,7 @@
 ||tidebuy.com^
 ||tidecao.com^
 ||tidedaybreakdiverge.com^
+||tidewayamounts.com^
 ||tidido.com^
 ||tidingsdressed.com^
 ||tidint.pro^
@@ -294819,6 +294848,7 @@
 ||umault.com^
 ||umazvs.raybiotech.com^
 ||umbel.com^
+||umbosfondues.cfd^
 ||umbrellaomendear.com^
 ||umbrhavn.store^
 ||umbrilkanae.qpon^
@@ -296185,6 +296215,7 @@
 ||urhu.cn^
 ||uri6.com^
 ||urimnugocfr.com^
+||urinatereroute.cyou^
 ||urineassertive.com^
 ||uriokr.bauhaus.es^
 ||urioy.com^
@@ -303443,6 +303474,7 @@
 ||walz.cn^
 ||wam.sach.check24.de^
 ||wamahe.wokularach.pl^
+||wambledrabbits.com^
 ||wamcash.com^
 ||wameprodimages.blob.core.windows.net^
 ||wamjaghxk.com^
@@ -306194,6 +306226,7 @@
 ||wgkqywcf.com^
 ||wgkwfkdvltuqy.online^
 ||wgmarketingdigital.com^
+||wgmmlpgkhleac.space^
 ||wgmxvubzck.com^
 ||wgnlbsihmxohr.space^
 ||wgnpq.com^
@@ -306223,6 +306256,7 @@
 ||wgwt5p8.com^
 ||wgyapq.stormberg.com^
 ||wgyeya.helalsitesi.com^
+||wgytbefamiqoj.online^
 ||wgz.cz^
 ||wgzgarcunfpjq.space^
 ||wgztae.audials.com^
@@ -306253,6 +306287,7 @@
 ||whaledb.io^
 ||whalehunter.cash^
 ||whaleman.ru^
+||whalesautocar.qpon^
 ||whalpacceded.com^
 ||whamiqbjdzzcj.space^
 ||whammywombierusuries.qpon^
@@ -308952,7 +308987,6 @@
 ||www-stats.thm.de^
 ||www-stats.unipi.it^
 ||www-x-videos.com^
-||www.superset-qa.sese.cn^
 ||www0-49.net.mydays.de^
 ||www1-6-1.net.mydays.de^
 ||www1-van-city-signon.com^
@@ -309268,6 +309302,7 @@
 ||wy213.com^
 ||wy3fvp.shet.eveshamairporttransfers.co.uk^
 ||wy7btl038.com^
+||wy7zi79ri3vbkz63zeegr.cfd^
 ||wy903.com^
 ||wy914.com^
 ||wy916.com^
@@ -314295,6 +314330,7 @@
 ||ypdewh.dokuritsu.mynavi.jp^
 ||ypdizpjmjgcsr.website^
 ||ypetp.com^
+||ypfjdasswhmzt.site^
 ||ypfqfviyyzwxz.site^
 ||yphenxyyazpfv.com^
 ||ypiqeucturclw.site^
@@ -316151,6 +316187,7 @@
 ||zfx.com^
 ||zfx2cs4s.com^
 ||zfxakx.xyz^
+||zfxbbumfngvnd.site^
 ||zfxckpiaypnrm.online^
 ||zg.mmyuer.com^
 ||zg40c.cn^

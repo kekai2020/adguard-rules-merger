@@ -137,13 +137,13 @@
     ],
     "disk_cache": {
       "enabled": true,
-      "hits": 0,
-      "stored": 288,
+      "hits": 288,
+      "stored": 0,
       "path": "cache/whitelist_audit_cache.json"
     },
     "layer_hits": {
-      "dns_nxdomain": 16,
-      "dns_private_ip": 5,
+      "dns_nxdomain": 0,
+      "dns_private_ip": 0,
       "urlhaus": 0,
       "threatfox": 0,
       "rdap_new_domain": 0,
@@ -153,7 +153,7 @@
       "heuristics": 0,
       "dnsbl_malicious": 0,
       "dnsbl_listed": 0,
-      "homograph": 7,
+      "homograph": 0,
       "dns_mx_missing": 0,
       "gsb": 0,
       "phishtank": 0,
@@ -178,10 +178,10 @@
     },
     "execution_mode": "parallel",
     "threat_feeds": {
-      "dataset_hits": 288,
+      "dataset_hits": 0,
       "api_fallbacks": 0,
       "feed_schema_error": 0,
-      "feed_age_hours": 0.0,
+      "feed_age_hours": 0.49,
       "freshness": "fresh",
       "domains_indexed": 3,
       "urlhaus_loaded": true,
@@ -191,10 +191,6 @@
   "rules": [
     {
       "domain": "a.adwolf.ru",
-      "rule": "@@||a.adwolf.ru^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "suspicious",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -232,14 +228,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||a.adwolf.ru^",
+      "disk_cache": true
     },
     {
       "domain": "ad.cityu.edu.hk",
-      "rule": "@@||ad.cityu.edu.hk^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -282,14 +279,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||ad.cityu.edu.hk^",
+      "disk_cache": true
     },
     {
       "domain": "ads.tdbank.com",
-      "rule": "@@||ads.tdbank.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "suspicious",
       "category": "advertising",
       "category_confidence": 0.6,
@@ -327,104 +325,107 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "avqs.mcafee.com",
-      "rule": "@@||avqs.mcafee.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
-      "rating": "suspicious",
-      "category": "privacy_security",
-      "category_confidence": 0.9,
-      "category_reason": "registered domain match: mcafee.com",
-      "reason": "DNS NXDOMAIN（域名已过期，白名单可能无效）",
-      "dns_ips": [],
-      "dns_nxdomain": true,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 15,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": false,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "review",
-      "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "avts.mcafee.com",
-      "rule": "@@||avts.mcafee.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
-      "rating": "suspicious",
-      "category": "privacy_security",
-      "category_confidence": 0.9,
-      "category_reason": "registered domain match: mcafee.com",
-      "reason": "DNS NXDOMAIN（域名已过期，白名单可能无效）",
-      "dns_ips": [],
-      "dns_nxdomain": true,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 15,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": false,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "review",
-      "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "cloud.notification-naviextras.com",
-      "rule": "@@||cloud.notification-naviextras.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ads.tdbank.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "avqs.mcafee.com",
+      "rating": "suspicious",
+      "category": "privacy_security",
+      "category_confidence": 0.9,
+      "category_reason": "registered domain match: mcafee.com",
+      "reason": "DNS NXDOMAIN（域名已过期，白名单可能无效）",
+      "dns_ips": [],
+      "dns_nxdomain": true,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 15,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "review",
+      "recommendation_label": "建议复核",
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||avqs.mcafee.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "avts.mcafee.com",
+      "rating": "suspicious",
+      "category": "privacy_security",
+      "category_confidence": 0.9,
+      "category_reason": "registered domain match: mcafee.com",
+      "reason": "DNS NXDOMAIN（域名已过期，白名单可能无效）",
+      "dns_ips": [],
+      "dns_nxdomain": true,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 15,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "review",
+      "recommendation_label": "建议复核",
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||avts.mcafee.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cloud.notification-naviextras.com",
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -464,14 +465,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||cloud.notification-naviextras.com^",
+      "disk_cache": true
     },
     {
       "domain": "counter-strike.net",
-      "rule": "@@||counter-strike.net^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -513,14 +515,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||counter-strike.net^",
+      "disk_cache": true
     },
     {
       "domain": "dishy.starlink.com",
-      "rule": "@@||dishy.starlink.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -560,14 +563,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||dishy.starlink.com^",
+      "disk_cache": true
     },
     {
       "domain": "edge-enterprise.activity.windows.com",
-      "rule": "@@||edge-enterprise.activity.windows.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "suspicious",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -607,14 +611,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||edge-enterprise.activity.windows.com^",
+      "disk_cache": true
     },
     {
       "domain": "edge.activity.windows.com",
-      "rule": "@@||edge.activity.windows.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "suspicious",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -654,14 +659,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||edge.activity.windows.com^",
+      "disk_cache": true
     },
     {
       "domain": "email.awscloud.com",
-      "rule": "@@||email.awscloud.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -707,14 +713,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "email.elitedangerous.com",
-      "rule": "@@||email.elitedangerous.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||email.awscloud.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "email.elitedangerous.com",
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -759,14 +766,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "email.procook.co.uk",
-      "rule": "@@||email.procook.co.uk^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||email.elitedangerous.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "email.procook.co.uk",
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -806,14 +814,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||email.procook.co.uk^",
+      "disk_cache": true
     },
     {
       "domain": "fritz.box",
-      "rule": "@@||fritz.box^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -855,14 +864,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||fritz.box^",
+      "disk_cache": true
     },
     {
       "domain": "fritz.nas",
-      "rule": "@@||fritz.nas^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -900,14 +910,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||fritz.nas^",
+      "disk_cache": true
     },
     {
       "domain": "fritz.powerline",
-      "rule": "@@||fritz.powerline^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -945,14 +956,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||fritz.powerline^",
+      "disk_cache": true
     },
     {
       "domain": "fritz.repeater",
-      "rule": "@@||fritz.repeater^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -990,14 +1002,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||fritz.repeater^",
+      "disk_cache": true
     },
     {
       "domain": "fritz.smartgateway",
-      "rule": "@@||fritz.smartgateway^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1035,14 +1048,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||fritz.smartgateway^",
+      "disk_cache": true
     },
     {
       "domain": "guce.advertising.com",
-      "rule": "@@||guce.advertising.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "suspicious",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -1080,14 +1094,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||guce.advertising.com^",
+      "disk_cache": true
     },
     {
       "domain": "mail.abusix.zone",
-      "rule": "@@||mail.abusix.zone^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1129,14 +1144,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||mail.abusix.zone^",
+      "disk_cache": true
     },
     {
       "domain": "meizu.coapi.moji.com",
-      "rule": "@@||meizu.coapi.moji.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1174,14 +1190,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||meizu.coapi.moji.com^",
+      "disk_cache": true
     },
     {
       "domain": "plex.direct",
-      "rule": "@@||plex.direct^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1221,14 +1238,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||plex.direct^",
+      "disk_cache": true
     },
     {
       "domain": "router.asus.com",
-      "rule": "@@||router.asus.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1266,14 +1284,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||router.asus.com^",
+      "disk_cache": true
     },
     {
       "domain": "speedport.ip",
-      "rule": "@@||speedport.ip^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1311,14 +1330,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||speedport.ip^",
+      "disk_cache": true
     },
     {
       "domain": "sponsor.nitropay.com",
-      "rule": "@@||sponsor.nitropay.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1356,14 +1376,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "thumbnail.thench.net",
-      "rule": "@@||thumbnail.thench.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||sponsor.nitropay.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "thumbnail.thench.net",
       "rating": "suspicious",
       "category": "other",
       "category_confidence": 0.0,
@@ -1401,14 +1422,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||thumbnail.thench.net^",
+      "disk_cache": true
     },
     {
       "domain": "tplinklogin.net",
-      "rule": "@@||tplinklogin.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "unknown",
       "category": "other",
       "category_confidence": 0.0,
@@ -1446,14 +1468,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "3gppnetwork.org",
-      "rule": "@@||3gppnetwork.org^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||tplinklogin.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "3gppnetwork.org",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1491,14 +1514,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||3gppnetwork.org^",
+      "disk_cache": true
     },
     {
       "domain": "5471782.fls.doubleclick.net",
-      "rule": "@@||5471782.fls.doubleclick.net^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -1538,14 +1562,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "79423.analytics.edgekey.net",
-      "rule": "@@||79423.analytics.edgekey.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||5471782.fls.doubleclick.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "79423.analytics.edgekey.net",
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.9,
@@ -1585,14 +1610,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "a.sellpoint.net",
-      "rule": "@@||a.sellpoint.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||79423.analytics.edgekey.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "a.sellpoint.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1632,14 +1658,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "aax-fe.amazon.co.jp",
-      "rule": "@@||aax-fe.amazon.co.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||a.sellpoint.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "aax-fe.amazon.co.jp",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.9,
@@ -1682,14 +1709,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ac.ebis.ne.jp",
-      "rule": "@@||ac.ebis.ne.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||aax-fe.amazon.co.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ac.ebis.ne.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1730,14 +1758,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "acs-m.daraz.com.bd",
-      "rule": "@@||acs-m.daraz.com.bd^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ac.ebis.ne.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "acs-m.daraz.com.bd",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1777,14 +1806,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "acs-m.daraz.pk",
-      "rule": "@@||acs-m.daraz.pk^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||acs-m.daraz.com.bd^",
+      "disk_cache": true
+    },
+    {
+      "domain": "acs-m.daraz.pk",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1824,14 +1854,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "action.metaffiliation.com",
-      "rule": "@@||action.metaffiliation.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||acs-m.daraz.pk^",
+      "disk_cache": true
+    },
+    {
+      "domain": "action.metaffiliation.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1871,14 +1902,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||action.metaffiliation.com^",
+      "disk_cache": true
     },
     {
       "domain": "ad-block.dns.adguard.com",
-      "rule": "@@||ad-block.dns.adguard.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "privacy_security",
       "category_confidence": 0.9,
@@ -1918,14 +1950,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ad-gone.com",
-      "rule": "@@||ad-gone.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||ad-block.dns.adguard.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ad-gone.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -1965,14 +1998,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ad-putting.gw.zt-express.com",
-      "rule": "@@||ad-putting.gw.zt-express.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||ad-gone.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ad-putting.gw.zt-express.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2012,14 +2046,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||ad-putting.gw.zt-express.com^",
+      "disk_cache": true
     },
     {
       "domain": "ad.10010.com",
-      "rule": "@@||ad.10010.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2059,14 +2094,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ad.abchina.com",
-      "rule": "@@||ad.abchina.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ad.10010.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ad.abchina.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2104,14 +2140,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||ad.abchina.com^",
+      "disk_cache": true
     },
     {
       "domain": "ad.azure.com",
-      "rule": "@@||ad.azure.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -2149,14 +2186,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||ad.azure.com^",
+      "disk_cache": true
     },
     {
       "domain": "ad.kazakinfo.com",
-      "rule": "@@||ad.kazakinfo.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2197,14 +2235,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ad.ourgame.com",
-      "rule": "@@||ad.ourgame.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ad.kazakinfo.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ad.ourgame.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2245,14 +2284,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||ad.ourgame.com^",
+      "disk_cache": true
     },
     {
       "domain": "ad.siemens.com.cn",
-      "rule": "@@||ad.siemens.com.cn^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2292,14 +2332,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||ad.siemens.com.cn^",
+      "disk_cache": true
     },
     {
       "domain": "adcdn.pingan.com",
-      "rule": "@@||adcdn.pingan.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2337,14 +2378,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "admin.dable.io",
-      "rule": "@@||admin.dable.io^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||adcdn.pingan.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "admin.dable.io",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2385,14 +2427,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ads.adsterra.com",
-      "rule": "@@||ads.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||admin.dable.io^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ads.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -2439,14 +2482,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||ads.adsterra.com^",
+      "disk_cache": true
     },
     {
       "domain": "ads.finance",
-      "rule": "@@||ads.finance^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2486,14 +2530,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ads.privacy.qq.com",
-      "rule": "@@||ads.privacy.qq.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||ads.finance^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ads.privacy.qq.com",
       "rating": "safe",
       "category": "social",
       "category_confidence": 0.9,
@@ -2533,14 +2578,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ads.taboola.com",
-      "rule": "@@||ads.taboola.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||ads.privacy.qq.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ads.taboola.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -2580,14 +2626,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||ads.taboola.com^",
+      "disk_cache": true
     },
     {
       "domain": "adsterra.com",
-      "rule": "@@||adsterra.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -2628,14 +2675,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "advert.kf5.com",
-      "rule": "@@||advert.kf5.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||adsterra.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "advert.kf5.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.6,
@@ -2676,14 +2724,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||advert.kf5.com^",
+      "disk_cache": true
     },
     {
       "domain": "advertisement.taobao.com",
-      "rule": "@@||advertisement.taobao.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -2723,14 +2772,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||advertisement.taobao.com^",
+      "disk_cache": true
     },
     {
       "domain": "affiliate.notion.so",
-      "rule": "@@||affiliate.notion.so^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -2771,14 +2821,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "affiliates.adsterra.com",
-      "rule": "@@||affiliates.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||affiliate.notion.so^",
+      "disk_cache": true
+    },
+    {
+      "domain": "affiliates.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -2819,14 +2870,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "afi-b.com",
-      "rule": "@@||afi-b.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||affiliates.adsterra.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "afi-b.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2868,14 +2920,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||afi-b.com^",
+      "disk_cache": true
     },
     {
       "domain": "analysis.chess.com",
-      "rule": "@@||analysis.chess.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -2919,14 +2972,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "analysis.windows.net",
-      "rule": "@@||analysis.windows.net^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||analysis.chess.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "analysis.windows.net",
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -2964,14 +3018,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||analysis.windows.net^",
+      "disk_cache": true
     },
     {
       "domain": "analytics.amplitude.com",
-      "rule": "@@||analytics.amplitude.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -3012,14 +3067,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "anwb.webpower.eu",
-      "rule": "@@||anwb.webpower.eu^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||analytics.amplitude.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "anwb.webpower.eu",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3059,14 +3115,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ap01.records.in.treasuredata.com",
-      "rule": "@@||ap01.records.in.treasuredata.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||anwb.webpower.eu^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ap01.records.in.treasuredata.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3107,14 +3164,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "api.ads.tvb.com",
-      "rule": "@@||api.ads.tvb.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ap01.records.in.treasuredata.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "api.ads.tvb.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.6,
@@ -3154,14 +3212,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "api.docodoco.jp",
-      "rule": "@@||api.docodoco.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||api.ads.tvb.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "api.docodoco.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3202,14 +3261,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||api.docodoco.jp^",
+      "disk_cache": true
     },
     {
       "domain": "api.huangye.miui.com",
-      "rule": "@@||api.huangye.miui.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3256,14 +3316,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||api.huangye.miui.com^",
+      "disk_cache": true
     },
     {
       "domain": "api.karte.io",
-      "rule": "@@||api.karte.io^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3303,14 +3364,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "app-advertise.zhihuishu.com",
-      "rule": "@@||app-advertise.zhihuishu.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||api.karte.io^",
+      "disk_cache": true
+    },
+    {
+      "domain": "app-advertise.zhihuishu.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3350,15 +3412,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||app-advertise.zhihuishu.com^",
+      "disk_cache": true
     },
     {
       "domain": "app.adjust.com",
-      "rule": "@@||app.adjust.com^",
-      "sources": [
-        "CHN: anti-AD",
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3401,14 +3463,16 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||app.adjust.com^",
+      "disk_cache": true
     },
     {
       "domain": "app.appsflyer.com",
-      "rule": "@@||app.appsflyer.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3451,14 +3515,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "app.crazyegg.com",
-      "rule": "@@||app.crazyegg.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||app.appsflyer.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "app.crazyegg.com",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -3499,14 +3564,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||app.crazyegg.com^",
+      "disk_cache": true
     },
     {
       "domain": "app.powerbi.com",
-      "rule": "@@||app.powerbi.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3546,14 +3612,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||app.powerbi.com^",
+      "disk_cache": true
     },
     {
       "domain": "artifactory.appodeal.com",
-      "rule": "@@||artifactory.appodeal.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3593,14 +3660,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||artifactory.appodeal.com^",
+      "disk_cache": true
     },
     {
       "domain": "asusrouter.com",
-      "rule": "@@||asusrouter.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3638,14 +3706,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||asusrouter.com^",
+      "disk_cache": true
     },
     {
       "domain": "autocomplete.clearbit.com",
-      "rule": "@@||autocomplete.clearbit.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3688,14 +3757,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||autocomplete.clearbit.com^",
+      "disk_cache": true
     },
     {
       "domain": "awin1.com",
-      "rule": "@@||awin1.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.9,
@@ -3740,14 +3810,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||awin1.com^",
+      "disk_cache": true
     },
     {
       "domain": "b.barracudacentral.org",
-      "rule": "@@||b.barracudacentral.org^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3785,14 +3856,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "backscatterer.org",
-      "rule": "@@||backscatterer.org^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||b.barracudacentral.org^",
+      "disk_cache": true
+    },
+    {
+      "domain": "backscatterer.org",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3833,14 +3905,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||backscatterer.org^",
+      "disk_cache": true
     },
     {
       "domain": "baozhang.baidu.com",
-      "rule": "@@||baozhang.baidu.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3880,14 +3953,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||baozhang.baidu.com^",
+      "disk_cache": true
     },
     {
       "domain": "belgium.wolterskluwer.com",
-      "rule": "@@||belgium.wolterskluwer.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -3927,14 +4001,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "beta.affiliates.adsterra.com",
-      "rule": "@@||beta.affiliates.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||belgium.wolterskluwer.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "beta.affiliates.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -3975,14 +4050,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "beta.partners.adsterra.com",
-      "rule": "@@||beta.partners.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||beta.affiliates.adsterra.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "beta.partners.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -4023,14 +4099,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "beta.publishers.adsterra.com",
-      "rule": "@@||beta.publishers.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||beta.partners.adsterra.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "beta.publishers.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -4071,14 +4148,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||beta.publishers.adsterra.com^",
+      "disk_cache": true
     },
     {
       "domain": "bl.blocklist.de",
-      "rule": "@@||bl.blocklist.de^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4116,14 +4194,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "bl.spamcop.net",
-      "rule": "@@||bl.spamcop.net^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||bl.blocklist.de^",
+      "disk_cache": true
+    },
+    {
+      "domain": "bl.spamcop.net",
       "rating": "safe",
       "category": "privacy_security",
       "category_confidence": 0.9,
@@ -4163,14 +4242,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||bl.spamcop.net^",
+      "disk_cache": true
     },
     {
       "domain": "buyad.bi-xenon.cn",
-      "rule": "@@||buyad.bi-xenon.cn^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4208,14 +4288,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "c.office.com",
-      "rule": "@@||c.office.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||buyad.bi-xenon.cn^",
+      "disk_cache": true
+    },
+    {
+      "domain": "c.office.com",
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -4255,14 +4336,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "captcha.su.baidu.com",
-      "rule": "@@||captcha.su.baidu.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||c.office.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "captcha.su.baidu.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4302,14 +4384,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "catchup.thisisdax.com",
-      "rule": "@@||catchup.thisisdax.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||captcha.su.baidu.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "catchup.thisisdax.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4349,14 +4432,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cdn.atmedia.hu",
-      "rule": "@@||cdn.atmedia.hu^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||catchup.thisisdax.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cdn.atmedia.hu",
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.6,
@@ -4396,14 +4480,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cdn.duurzaam.greenchoice.nl",
-      "rule": "@@||cdn.duurzaam.greenchoice.nl^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cdn.atmedia.hu^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cdn.duurzaam.greenchoice.nl",
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.6,
@@ -4443,14 +4528,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cdn.rozetka.com.ua",
-      "rule": "@@||cdn.rozetka.com.ua^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cdn.duurzaam.greenchoice.nl^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cdn.rozetka.com.ua",
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.6,
@@ -4490,14 +4576,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cdn.taboola.com",
-      "rule": "@@||cdn.taboola.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cdn.rozetka.com.ua^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cdn.taboola.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -4537,14 +4624,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||cdn.taboola.com^",
+      "disk_cache": true
     },
     {
       "domain": "center-h5api.m.taobao.com",
-      "rule": "@@||center-h5api.m.taobao.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -4584,14 +4672,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "chart-embed.service.newrelic.com",
-      "rule": "@@||chart-embed.service.newrelic.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||center-h5api.m.taobao.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "chart-embed.service.newrelic.com",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -4639,14 +4728,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||chart-embed.service.newrelic.com^",
+      "disk_cache": true
     },
     {
       "domain": "cindyholbrook.lpages.co",
-      "rule": "@@||cindyholbrook.lpages.co^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4687,14 +4777,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "citiintl.122.2o7.net",
-      "rule": "@@||citiintl.122.2o7.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cindyholbrook.lpages.co^",
+      "disk_cache": true
+    },
+    {
+      "domain": "citiintl.122.2o7.net",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -4734,14 +4825,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cj.dotomi.com",
-      "rule": "@@||cj.dotomi.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||citiintl.122.2o7.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cj.dotomi.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4781,14 +4873,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cl.link-ag.net",
-      "rule": "@@||cl.link-ag.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cj.dotomi.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cl.link-ag.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4829,14 +4922,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "classliving.lpages.co",
-      "rule": "@@||classliving.lpages.co^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cl.link-ag.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "classliving.lpages.co",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -4877,14 +4971,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "click.appcast.io",
-      "rule": "@@||click.appcast.io^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||classliving.lpages.co^",
+      "disk_cache": true
+    },
+    {
+      "domain": "click.appcast.io",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -4925,14 +5020,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "click.avs.io",
-      "rule": "@@||click.avs.io^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||click.appcast.io^",
+      "disk_cache": true
+    },
+    {
+      "domain": "click.avs.io",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -4972,14 +5068,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "click.cptrack.de",
-      "rule": "@@||click.cptrack.de^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||click.avs.io^",
+      "disk_cache": true
+    },
+    {
+      "domain": "click.cptrack.de",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -5019,14 +5116,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "click.simba.taobao.com",
-      "rule": "@@||click.simba.taobao.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||click.cptrack.de^",
+      "disk_cache": true
+    },
+    {
+      "domain": "click.simba.taobao.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -5066,14 +5164,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "click.trafficguard.ai",
-      "rule": "@@||click.trafficguard.ai^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||click.simba.taobao.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "click.trafficguard.ai",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -5113,14 +5212,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "click.virt.exacttarget.com",
-      "rule": "@@||click.virt.exacttarget.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||click.trafficguard.ai^",
+      "disk_cache": true
+    },
+    {
+      "domain": "click.virt.exacttarget.com",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -5160,14 +5260,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "clickattr.wayup.com",
-      "rule": "@@||clickattr.wayup.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||click.virt.exacttarget.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "clickattr.wayup.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5210,14 +5311,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cm-beacon.nakanohito.jp",
-      "rule": "@@||cm-beacon.nakanohito.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||clickattr.wayup.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cm-beacon.nakanohito.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5257,14 +5359,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cm-widget.nakanohito.jp",
-      "rule": "@@||cm-widget.nakanohito.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cm-beacon.nakanohito.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cm-widget.nakanohito.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5304,14 +5407,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cmp.inmobi.com",
-      "rule": "@@||cmp.inmobi.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cm-widget.nakanohito.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cmp.inmobi.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -5354,14 +5458,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cmp.osano.com",
-      "rule": "@@||cmp.osano.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cmp.inmobi.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cmp.osano.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5404,14 +5509,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "content.viralize.tv",
-      "rule": "@@||content.viralize.tv^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cmp.osano.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "content.viralize.tv",
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.6,
@@ -5451,14 +5557,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "core.crazyegg.com",
-      "rule": "@@||core.crazyegg.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||content.viralize.tv^",
+      "disk_cache": true
+    },
+    {
+      "domain": "core.crazyegg.com",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -5499,14 +5606,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "crm-cdn.peek-cloppenburg.com",
-      "rule": "@@||crm-cdn.peek-cloppenburg.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||core.crazyegg.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "crm-cdn.peek-cloppenburg.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5546,14 +5654,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cs.silverpop.com",
-      "rule": "@@||cs.silverpop.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||crm-cdn.peek-cloppenburg.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cs.silverpop.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5594,14 +5703,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "cutcaptcha.com",
-      "rule": "@@||cutcaptcha.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cs.silverpop.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "cutcaptcha.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5641,14 +5751,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "daikoku.ebis.ne.jp",
-      "rule": "@@||daikoku.ebis.ne.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||cutcaptcha.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "daikoku.ebis.ne.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5689,14 +5800,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "daraz.com",
-      "rule": "@@||daraz.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||daikoku.ebis.ne.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "daraz.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5736,14 +5848,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "daraz.pk",
-      "rule": "@@||daraz.pk^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||daraz.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "daraz.pk",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5786,14 +5899,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "data.digital.costco.ca",
-      "rule": "@@||data.digital.costco.ca^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||daraz.pk^",
+      "disk_cache": true
+    },
+    {
+      "domain": "data.digital.costco.ca",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -5833,14 +5947,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "data.digital.costco.com",
-      "rule": "@@||data.digital.costco.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||data.digital.costco.ca^",
+      "disk_cache": true
+    },
+    {
+      "domain": "data.digital.costco.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -5880,14 +5995,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "data.notify.macys.com",
-      "rule": "@@||data.notify.macys.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||data.digital.costco.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "data.notify.macys.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -5927,14 +6043,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "data.orders.costco.ca",
-      "rule": "@@||data.orders.costco.ca^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||data.notify.macys.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "data.orders.costco.ca",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.6,
@@ -5974,14 +6091,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "data.orders.costco.com",
-      "rule": "@@||data.orders.costco.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||data.orders.costco.ca^",
+      "disk_cache": true
+    },
+    {
+      "domain": "data.orders.costco.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -6021,14 +6139,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "data.promo.timhortons.ca",
-      "rule": "@@||data.promo.timhortons.ca^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||data.orders.costco.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "data.promo.timhortons.ca",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6068,14 +6187,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "datadoghq-browser-agent.com",
-      "rule": "@@||datadoghq-browser-agent.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||data.promo.timhortons.ca^",
+      "disk_cache": true
+    },
+    {
+      "domain": "datadoghq-browser-agent.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6115,14 +6235,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||datadoghq-browser-agent.com^",
+      "disk_cache": true
     },
     {
       "domain": "direct.quickconnect.to",
-      "rule": "@@||direct.quickconnect.to^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6160,14 +6281,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "dns.msftncsi.com",
-      "rule": "@@||dns.msftncsi.com^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||direct.quickconnect.to^",
+      "disk_cache": true
+    },
+    {
+      "domain": "dns.msftncsi.com",
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -6207,14 +6329,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "dnsbl.dronebl.org",
-      "rule": "@@||dnsbl.dronebl.org^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||dns.msftncsi.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "dnsbl.dronebl.org",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6252,14 +6375,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "dnswl.org",
-      "rule": "@@||dnswl.org^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||dnsbl.dronebl.org^",
+      "disk_cache": true
+    },
+    {
+      "domain": "dnswl.org",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6299,14 +6423,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||dnswl.org^",
+      "disk_cache": true
     },
     {
       "domain": "dogpile.com",
-      "rule": "@@||dogpile.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6349,104 +6474,107 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "dq.spamhaus.net",
-      "rule": "@@||dq.spamhaus.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
-      "rating": "safe",
-      "category": "other",
-      "category_confidence": 0.0,
-      "category_reason": "no match",
-      "reason": "DNS 正常解析，无威胁情报标记",
-      "dns_ips": [],
-      "dns_nxdomain": false,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 0,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": false,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "keep",
-      "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "dxcloud.episerver.net",
-      "rule": "@@||dxcloud.episerver.net^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
-      "rating": "safe",
-      "category": "other",
-      "category_confidence": 0.0,
-      "category_reason": "no match",
-      "reason": "DNS 正常解析，无威胁情报标记",
-      "dns_ips": [],
-      "dns_nxdomain": false,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 0,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": false,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "keep",
-      "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "e.customeriomail.com",
-      "rule": "@@||e.customeriomail.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||dogpile.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "dq.spamhaus.net",
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||dq.spamhaus.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "dxcloud.episerver.net",
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||dxcloud.episerver.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "e.customeriomail.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6486,14 +6614,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "emails.educause.edu",
-      "rule": "@@||emails.educause.edu^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||e.customeriomail.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "emails.educause.edu",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6534,14 +6663,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "envato.market",
-      "rule": "@@||envato.market^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||emails.educause.edu^",
+      "disk_cache": true
+    },
+    {
+      "domain": "envato.market",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6579,14 +6709,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ezodn.com",
-      "rule": "@@||ezodn.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||envato.market^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ezodn.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6627,14 +6758,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "f-gear.ec-optimizer.com",
-      "rule": "@@||f-gear.ec-optimizer.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ezodn.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "f-gear.ec-optimizer.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6674,14 +6806,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "feed.adrelayer.com",
-      "rule": "@@||feed.adrelayer.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||f-gear.ec-optimizer.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "feed.adrelayer.com",
       "rating": "safe",
       "category": "social",
       "category_confidence": 0.6,
@@ -6722,14 +6855,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "forum.notebookreview.com",
-      "rule": "@@||forum.notebookreview.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||feed.adrelayer.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "forum.notebookreview.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6769,15 +6903,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||forum.notebookreview.com^",
+      "disk_cache": true
     },
     {
       "domain": "ftp.bmp.ovh",
-      "rule": "@@||ftp.bmp.ovh^",
-      "sources": [
-        "CHN: anti-AD",
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6817,14 +6951,16 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||ftp.bmp.ovh^",
+      "disk_cache": true
     },
     {
       "domain": "future.biz.weibo.com",
-      "rule": "@@||future.biz.weibo.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "social",
       "category_confidence": 0.9,
@@ -6864,14 +7000,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||future.biz.weibo.com^",
+      "disk_cache": true
     },
     {
       "domain": "gate.first-id.fr",
-      "rule": "@@||gate.first-id.fr^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6913,14 +7050,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "get.neofinancial.com",
-      "rule": "@@||get.neofinancial.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||gate.first-id.fr^",
+      "disk_cache": true
+    },
+    {
+      "domain": "get.neofinancial.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -6961,14 +7099,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "go.adjust.com",
-      "rule": "@@||go.adjust.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||get.neofinancial.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "go.adjust.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7008,14 +7147,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "go.redirectingat.com",
-      "rule": "@@||go.redirectingat.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||go.adjust.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "go.redirectingat.com",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.9,
@@ -7055,14 +7195,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "go.scorptec.com.au",
-      "rule": "@@||go.scorptec.com.au^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||go.redirectingat.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "go.scorptec.com.au",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7103,14 +7244,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "googleadservices.com",
-      "rule": "@@||googleadservices.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||go.scorptec.com.au^",
+      "disk_cache": true
+    },
+    {
+      "domain": "googleadservices.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -7150,14 +7292,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "goto.target.com",
-      "rule": "@@||goto.target.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||googleadservices.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "goto.target.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -7197,14 +7340,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "goto.walmart.com",
-      "rule": "@@||goto.walmart.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||goto.target.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "goto.walmart.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -7244,14 +7388,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "grp07.ias.rakuten.co.jp",
-      "rule": "@@||grp07.ias.rakuten.co.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||goto.walmart.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "grp07.ias.rakuten.co.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7291,14 +7436,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "gs.statcounter.com",
-      "rule": "@@||gs.statcounter.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||grp07.ias.rakuten.co.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "gs.statcounter.com",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -7339,14 +7485,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||gs.statcounter.com^",
+      "disk_cache": true
     },
     {
       "domain": "hash.cymru.com",
-      "rule": "@@||hash.cymru.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7387,14 +7534,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||hash.cymru.com^",
+      "disk_cache": true
     },
     {
       "domain": "hb.afl.rakuten.co.jp",
-      "rule": "@@||hb.afl.rakuten.co.jp^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7434,14 +7582,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "health.halodoc.com",
-      "rule": "@@||health.halodoc.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||hb.afl.rakuten.co.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "health.halodoc.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7481,14 +7630,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "help-advertisers.adsterra.com",
-      "rule": "@@||help-advertisers.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||health.halodoc.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "help-advertisers.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -7529,14 +7679,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "hidive.com",
-      "rule": "@@||hidive.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||help-advertisers.adsterra.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "hidive.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7579,14 +7730,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "home.focusatwill.com",
-      "rule": "@@||home.focusatwill.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||hidive.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "home.focusatwill.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7626,14 +7778,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||home.focusatwill.com^",
+      "disk_cache": true
     },
     {
       "domain": "hostkarma.junkemailfilter.com",
-      "rule": "@@||hostkarma.junkemailfilter.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7673,14 +7826,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||hostkarma.junkemailfilter.com^",
+      "disk_cache": true
     },
     {
       "domain": "href.li",
-      "rule": "@@||href.li^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7721,14 +7875,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ia.hit.interia.pl",
-      "rule": "@@||ia.hit.interia.pl^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||href.li^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ia.hit.interia.pl",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7768,14 +7923,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "id.i2i.jp",
-      "rule": "@@||id.i2i.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ia.hit.interia.pl^",
+      "disk_cache": true
+    },
+    {
+      "domain": "id.i2i.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -7816,14 +7972,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "img.ads.tvb.com",
-      "rule": "@@||img.ads.tvb.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||id.i2i.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "img.ads.tvb.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.6,
@@ -7863,14 +8020,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "infra-api.newrelic.com",
-      "rule": "@@||infra-api.newrelic.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||img.ads.tvb.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "infra-api.newrelic.com",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -7910,14 +8068,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||infra-api.newrelic.com^",
+      "disk_cache": true
     },
     {
       "domain": "insideruser.microsoft.com",
-      "rule": "@@||insideruser.microsoft.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -7957,14 +8116,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||insideruser.microsoft.com^",
+      "disk_cache": true
     },
     {
       "domain": "intersport.peerius.com",
-      "rule": "@@||intersport.peerius.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8005,14 +8165,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||intersport.peerius.com^",
+      "disk_cache": true
     },
     {
       "domain": "ipv4only.arpa",
-      "rule": "@@||ipv4only.arpa^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8053,14 +8214,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||ipv4only.arpa^",
+      "disk_cache": true
     },
     {
       "domain": "itoya.ec-optimizer.com",
-      "rule": "@@||itoya.ec-optimizer.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8100,14 +8262,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "jdoqocy.com",
-      "rule": "@@||jdoqocy.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||itoya.ec-optimizer.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "jdoqocy.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8145,14 +8308,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "js.monitor.azure.com",
-      "rule": "@@||js.monitor.azure.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||jdoqocy.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "js.monitor.azure.com",
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -8192,14 +8356,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "learn.khanacademy.org",
-      "rule": "@@||learn.khanacademy.org^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||js.monitor.azure.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "learn.khanacademy.org",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8239,14 +8404,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "leechers-paradise.org",
-      "rule": "@@||leechers-paradise.org^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||learn.khanacademy.org^",
+      "disk_cache": true
+    },
+    {
+      "domain": "leechers-paradise.org",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8284,14 +8450,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "link.meet5.net",
-      "rule": "@@||link.meet5.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||leechers-paradise.org^",
+      "disk_cache": true
+    },
+    {
+      "domain": "link.meet5.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8334,14 +8501,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "link.morningbrew.com",
-      "rule": "@@||link.morningbrew.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||link.meet5.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "link.morningbrew.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8383,14 +8551,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "link.nzz.ch",
-      "rule": "@@||link.nzz.ch^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||link.morningbrew.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "link.nzz.ch",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8433,14 +8602,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "link.sylikes.com",
-      "rule": "@@||link.sylikes.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||link.nzz.ch^",
+      "disk_cache": true
+    },
+    {
+      "domain": "link.sylikes.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8480,14 +8650,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "linka.page",
-      "rule": "@@||linka.page^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||link.sylikes.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "linka.page",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8528,14 +8699,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "links.e.theatlantic.com",
-      "rule": "@@||links.e.theatlantic.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||linka.page^",
+      "disk_cache": true
+    },
+    {
+      "domain": "links.e.theatlantic.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8575,14 +8747,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "links.getblueshift.com",
-      "rule": "@@||links.getblueshift.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||links.e.theatlantic.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "links.getblueshift.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8623,15 +8796,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||links.getblueshift.com^",
+      "disk_cache": true
     },
     {
       "domain": "log.mmstat.com",
-      "rule": "@@||log.mmstat.com^",
-      "sources": [
-        "CHN: anti-AD",
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.9,
@@ -8671,14 +8844,16 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||log.mmstat.com^",
+      "disk_cache": true
     },
     {
       "domain": "logentries.com",
-      "rule": "@@||logentries.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8719,14 +8894,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "login.sendpulse.com",
-      "rule": "@@||login.sendpulse.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||logentries.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "login.sendpulse.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8766,14 +8942,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ma135-r.analytics.edgekey.net",
-      "rule": "@@||ma135-r.analytics.edgekey.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||login.sendpulse.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ma135-r.analytics.edgekey.net",
       "rating": "safe",
       "category": "cdn",
       "category_confidence": 0.9,
@@ -8813,14 +8990,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||ma135-r.analytics.edgekey.net^",
+      "disk_cache": true
     },
     {
       "domain": "mailspike.net",
-      "rule": "@@||mailspike.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8858,14 +9036,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||mailspike.net^",
+      "disk_cache": true
     },
     {
       "domain": "marketing.net.idealo-partner.com",
-      "rule": "@@||marketing.net.idealo-partner.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8905,14 +9084,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "media-consumer365.desigual.com",
-      "rule": "@@||media-consumer365.desigual.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||marketing.net.idealo-partner.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "media-consumer365.desigual.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8952,14 +9132,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||media-consumer365.desigual.com^",
+      "disk_cache": true
     },
     {
       "domain": "msftconnecttest.com",
-      "rule": "@@||msftconnecttest.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -8997,14 +9178,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||msftconnecttest.com^",
+      "disk_cache": true
     },
     {
       "domain": "my.tealiumiq.com",
-      "rule": "@@||my.tealiumiq.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9045,14 +9227,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||my.tealiumiq.com^",
+      "disk_cache": true
     },
     {
       "domain": "myunraid.net",
-      "rule": "@@||myunraid.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9090,14 +9273,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||myunraid.net^",
+      "disk_cache": true
     },
     {
       "domain": "netatmo.commander1.com",
-      "rule": "@@||netatmo.commander1.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9140,14 +9324,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||netatmo.commander1.com^",
+      "disk_cache": true
     },
     {
       "domain": "news-app.abumedia.yql.yahoo.com",
-      "rule": "@@||news-app.abumedia.yql.yahoo.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9187,14 +9372,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||news-app.abumedia.yql.yahoo.com^",
+      "disk_cache": true
     },
     {
       "domain": "news.warhammer.com",
-      "rule": "@@||news.warhammer.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9235,14 +9421,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "nineto5mac-d.openx.net",
-      "rule": "@@||nineto5mac-d.openx.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||news.warhammer.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "nineto5mac-d.openx.net",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -9283,14 +9470,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||nineto5mac-d.openx.net^",
+      "disk_cache": true
     },
     {
       "domain": "nordspam.com",
-      "rule": "@@||nordspam.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9331,14 +9519,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||nordspam.com^",
+      "disk_cache": true
     },
     {
       "domain": "oa.tr.line.me",
-      "rule": "@@||oa.tr.line.me^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9378,14 +9567,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||oa.tr.line.me^",
+      "disk_cache": true
     },
     {
       "domain": "obituaries.startribune.com",
-      "rule": "@@||obituaries.startribune.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9426,14 +9616,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||obituaries.startribune.com^",
+      "disk_cache": true
     },
     {
       "domain": "obituaries.therecord.com",
-      "rule": "@@||obituaries.therecord.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9474,14 +9665,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "obituaries.thestar.com",
-      "rule": "@@||obituaries.thestar.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||obituaries.therecord.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "obituaries.thestar.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9522,14 +9714,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "obituaries.toacorn.com",
-      "rule": "@@||obituaries.toacorn.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||obituaries.thestar.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "obituaries.toacorn.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9570,14 +9763,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "official.paymaya.com",
-      "rule": "@@||official.paymaya.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||obituaries.toacorn.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "official.paymaya.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9618,14 +9812,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "om-ssl.consorsbank.de",
-      "rule": "@@||om-ssl.consorsbank.de^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||official.paymaya.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "om-ssl.consorsbank.de",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9665,14 +9860,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "omniture.walmart.com",
-      "rule": "@@||omniture.walmart.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||om-ssl.consorsbank.de^",
+      "disk_cache": true
+    },
+    {
+      "domain": "omniture.walmart.com",
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -9712,14 +9908,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "omsc.kpn.com",
-      "rule": "@@||omsc.kpn.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||omniture.walmart.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "omsc.kpn.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9759,14 +9956,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "oneline.nextday.media",
-      "rule": "@@||oneline.nextday.media^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||omsc.kpn.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "oneline.nextday.media",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9807,14 +10005,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "pagead.l.doubleclick.net",
-      "rule": "@@||pagead.l.doubleclick.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||oneline.nextday.media^",
+      "disk_cache": true
+    },
+    {
+      "domain": "pagead.l.doubleclick.net",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -9854,14 +10053,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "partner.everydays.de",
-      "rule": "@@||partner.everydays.de^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||pagead.l.doubleclick.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "partner.everydays.de",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -9901,14 +10101,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "partner.o2online.de",
-      "rule": "@@||partner.o2online.de^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||partner.everydays.de^",
+      "disk_cache": true
+    },
+    {
+      "domain": "partner.o2online.de",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -9948,14 +10149,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "partners.adsterra.com",
-      "rule": "@@||partners.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||partner.o2online.de^",
+      "disk_cache": true
+    },
+    {
+      "domain": "partners.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -9996,14 +10198,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||partners.adsterra.com^",
+      "disk_cache": true
     },
     {
       "domain": "passport.bobo.com",
-      "rule": "@@||passport.bobo.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10043,14 +10246,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||passport.bobo.com^",
+      "disk_cache": true
     },
     {
       "domain": "prod.impartner.live",
-      "rule": "@@||prod.impartner.live^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10090,14 +10294,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "promo.gramedia.com",
-      "rule": "@@||promo.gramedia.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||prod.impartner.live^",
+      "disk_cache": true
+    },
+    {
+      "domain": "promo.gramedia.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10137,14 +10342,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "proto2ad.durasite.net",
-      "rule": "@@||proto2ad.durasite.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||promo.gramedia.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "proto2ad.durasite.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10184,14 +10390,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||proto2ad.durasite.net^",
+      "disk_cache": true
     },
     {
       "domain": "psbl.surriel.com",
-      "rule": "@@||psbl.surriel.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10231,14 +10438,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||psbl.surriel.com^",
+      "disk_cache": true
     },
     {
       "domain": "pt.afl.rakuten.co.jp",
-      "rule": "@@||pt.afl.rakuten.co.jp^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10278,14 +10486,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "public-cis.exponea.com",
-      "rule": "@@||public-cis.exponea.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||pt.afl.rakuten.co.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "public-cis.exponea.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10325,14 +10534,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "publishers.adsterra.com",
-      "rule": "@@||publishers.adsterra.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||public-cis.exponea.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "publishers.adsterra.com",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -10373,14 +10583,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "puzzles-games-api.gp-prod.conde.digital",
-      "rule": "@@||puzzles-games-api.gp-prod.conde.digital^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||publishers.adsterra.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "puzzles-games-api.gp-prod.conde.digital",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10421,14 +10632,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "px.a8.net",
-      "rule": "@@||px.a8.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||puzzles-games-api.gp-prod.conde.digital^",
+      "disk_cache": true
+    },
+    {
+      "domain": "px.a8.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10469,14 +10681,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "radiofrance.targetspot.com",
-      "rule": "@@||radiofrance.targetspot.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||px.a8.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "radiofrance.targetspot.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10516,14 +10729,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "rd.bizrate.com",
-      "rule": "@@||rd.bizrate.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||radiofrance.targetspot.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "rd.bizrate.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10563,14 +10777,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "recommender.scarabresearch.com",
-      "rule": "@@||recommender.scarabresearch.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||rd.bizrate.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "recommender.scarabresearch.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10612,14 +10827,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "redir.ownpage.fr",
-      "rule": "@@||redir.ownpage.fr^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||recommender.scarabresearch.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "redir.ownpage.fr",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10661,14 +10877,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "redir.tradedoubler.com",
-      "rule": "@@||redir.tradedoubler.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||redir.ownpage.fr^",
+      "disk_cache": true
+    },
+    {
+      "domain": "redir.tradedoubler.com",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.9,
@@ -10706,14 +10923,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "redirect.appmetrica.yandex.com",
-      "rule": "@@||redirect.appmetrica.yandex.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||redir.tradedoubler.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "redirect.appmetrica.yandex.com",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -10753,14 +10971,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ref.rbauction.com",
-      "rule": "@@||ref.rbauction.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||redirect.appmetrica.yandex.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ref.rbauction.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10800,14 +11019,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "refer.discover.com",
-      "rule": "@@||refer.discover.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ref.rbauction.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "refer.discover.com",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.6,
@@ -10847,14 +11067,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "remembering.ca",
-      "rule": "@@||remembering.ca^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||refer.discover.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "remembering.ca",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10894,14 +11115,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "res.ads.nicovideo.jp",
-      "rule": "@@||res.ads.nicovideo.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||remembering.ca^",
+      "disk_cache": true
+    },
+    {
+      "domain": "res.ads.nicovideo.jp",
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.6,
@@ -10944,14 +11166,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||res.ads.nicovideo.jp^",
+      "disk_cache": true
     },
     {
       "domain": "routerlogin.com",
-      "rule": "@@||routerlogin.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -10992,14 +11215,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "routerlogin.net",
-      "rule": "@@||routerlogin.net^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||routerlogin.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "routerlogin.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11040,14 +11264,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||routerlogin.net^",
+      "disk_cache": true
     },
     {
       "domain": "s.bluecore.com",
-      "rule": "@@||s.bluecore.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11087,14 +11312,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||s.bluecore.com^",
+      "disk_cache": true
     },
     {
       "domain": "s.mvconf.f.360.cn",
-      "rule": "@@||s.mvconf.f.360.cn^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11137,14 +11363,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||s.mvconf.f.360.cn^",
+      "disk_cache": true
     },
     {
       "domain": "sax.sina.com.cn",
-      "rule": "@@||sax.sina.com.cn^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11184,14 +11411,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "sbs.demdex.net",
-      "rule": "@@||sbs.demdex.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||sax.sina.com.cn^",
+      "disk_cache": true
+    },
+    {
+      "domain": "sbs.demdex.net",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -11238,14 +11466,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||sbs.demdex.net^",
+      "disk_cache": true
     },
     {
       "domain": "sdkapi.sms.mob.com",
-      "rule": "@@||sdkapi.sms.mob.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11285,14 +11514,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||sdkapi.sms.mob.com^",
+      "disk_cache": true
     },
     {
       "domain": "secureimage.securedataimages.com",
-      "rule": "@@||secureimage.securedataimages.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11333,14 +11563,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "sedge.nfl.com",
-      "rule": "@@||sedge.nfl.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||secureimage.securedataimages.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "sedge.nfl.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11380,14 +11611,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||sedge.nfl.com^",
+      "disk_cache": true
     },
     {
       "domain": "settings-win.data.microsoft.com",
-      "rule": "@@||settings-win.data.microsoft.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -11427,14 +11659,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "skyapi.onedrive.live.com",
-      "rule": "@@||skyapi.onedrive.live.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||settings-win.data.microsoft.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "skyapi.onedrive.live.com",
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -11474,14 +11707,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "skydrivesync.policies.live.net",
-      "rule": "@@||skydrivesync.policies.live.net^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||skyapi.onedrive.live.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "skydrivesync.policies.live.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11521,14 +11755,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||skydrivesync.policies.live.net^",
+      "disk_cache": true
     },
     {
       "domain": "smtp.focusgroupresearch.com",
-      "rule": "@@||smtp.focusgroupresearch.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11569,14 +11804,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||smtp.focusgroupresearch.com^",
+      "disk_cache": true
     },
     {
       "domain": "sophosxl.net",
-      "rule": "@@||sophosxl.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11614,14 +11850,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "spameatingmonkey.net",
-      "rule": "@@||spameatingmonkey.net^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||sophosxl.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "spameatingmonkey.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11661,14 +11898,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "spamhaus.org",
-      "rule": "@@||spamhaus.org^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||spameatingmonkey.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "spamhaus.org",
       "rating": "safe",
       "category": "privacy_security",
       "category_confidence": 0.9,
@@ -11708,14 +11946,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "spamrats.com",
-      "rule": "@@||spamrats.com^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||spamhaus.org^",
+      "disk_cache": true
+    },
+    {
+      "domain": "spamrats.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11755,14 +11994,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||spamrats.com^",
+      "disk_cache": true
     },
     {
       "domain": "spartaindependent.com",
-      "rule": "@@||spartaindependent.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11803,14 +12043,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "ssai.aniview.com",
-      "rule": "@@||ssai.aniview.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||spartaindependent.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "ssai.aniview.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11850,14 +12091,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "stash.roistat.com",
-      "rule": "@@||stash.roistat.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||ssai.aniview.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "stash.roistat.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -11897,14 +12139,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||stash.roistat.com^",
+      "disk_cache": true
     },
     {
       "domain": "stat.jseea.cn",
-      "rule": "@@||stat.jseea.cn^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.6,
@@ -11945,14 +12188,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||stat.jseea.cn^",
+      "disk_cache": true
     },
     {
       "domain": "statcounter.com",
-      "rule": "@@||statcounter.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.9,
@@ -11993,14 +12237,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||statcounter.com^",
+      "disk_cache": true
     },
     {
       "domain": "stats.gov.cn",
-      "rule": "@@||stats.gov.cn^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12038,14 +12283,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "stats.uptimerobot.com",
-      "rule": "@@||stats.uptimerobot.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||stats.gov.cn^",
+      "disk_cache": true
+    },
+    {
+      "domain": "stats.uptimerobot.com",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.6,
@@ -12085,14 +12331,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "storage.live.com",
-      "rule": "@@||storage.live.com^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||stats.uptimerobot.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "storage.live.com",
       "rating": "safe",
       "category": "microsoft_telemetry",
       "category_confidence": 0.9,
@@ -12132,14 +12379,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||storage.live.com^",
+      "disk_cache": true
     },
     {
       "domain": "str.hit.gemius.pl",
-      "rule": "@@||str.hit.gemius.pl^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12183,14 +12431,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "support-beacon.nakanohito.jp",
-      "rule": "@@||support-beacon.nakanohito.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||str.hit.gemius.pl^",
+      "disk_cache": true
+    },
+    {
+      "domain": "support-beacon.nakanohito.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12230,14 +12479,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "support-widget.nakanohito.jp",
-      "rule": "@@||support-widget.nakanohito.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||support-beacon.nakanohito.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "support-widget.nakanohito.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12277,14 +12527,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||support-widget.nakanohito.jp^",
+      "disk_cache": true
     },
     {
       "domain": "surbl.org",
-      "rule": "@@||surbl.org^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "privacy_security",
       "category_confidence": 0.9,
@@ -12326,14 +12577,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||surbl.org^",
+      "disk_cache": true
     },
     {
       "domain": "surveymyopinion.researchnow.com",
-      "rule": "@@||surveymyopinion.researchnow.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12376,14 +12628,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "swasc.homedepot.com",
-      "rule": "@@||swasc.homedepot.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||surveymyopinion.researchnow.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "swasc.homedepot.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12423,14 +12676,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tags.crwdcntrl.net",
-      "rule": "@@||tags.crwdcntrl.net^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||swasc.homedepot.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tags.crwdcntrl.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12473,14 +12727,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "taiga.maven.io",
-      "rule": "@@||taiga.maven.io^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||tags.crwdcntrl.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "taiga.maven.io",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12521,14 +12776,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||taiga.maven.io^",
+      "disk_cache": true
     },
     {
       "domain": "tj.gov.cn",
-      "rule": "@@||tj.gov.cn^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12568,14 +12824,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||tj.gov.cn^",
+      "disk_cache": true
     },
     {
       "domain": "tlaol.com",
-      "rule": "@@||tlaol.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12615,14 +12872,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tlh.gedidigital.it",
-      "rule": "@@||tlh.gedidigital.it^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||tlaol.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tlh.gedidigital.it",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12665,14 +12923,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tms.capitalone.com",
-      "rule": "@@||tms.capitalone.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||tlh.gedidigital.it^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tms.capitalone.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12712,14 +12971,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||tms.capitalone.com^",
+      "disk_cache": true
     },
     {
       "domain": "tongji.cn",
-      "rule": "@@||tongji.cn^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12759,14 +13019,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tongji.edu.cn",
-      "rule": "@@||tongji.edu.cn^",
+      "ai_classified": false,
       "sources": [
         "CHN: anti-AD"
       ],
+      "rule": "@@||tongji.cn^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tongji.edu.cn",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12804,14 +13065,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||tongji.edu.cn^",
+      "disk_cache": true
     },
     {
       "domain": "tor.dan.me.uk",
-      "rule": "@@||tor.dan.me.uk^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12849,14 +13111,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||tor.dan.me.uk^",
+      "disk_cache": true
     },
     {
       "domain": "torexit.dan.me.uk",
-      "rule": "@@||torexit.dan.me.uk^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12894,14 +13157,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||torexit.dan.me.uk^",
+      "disk_cache": true
     },
     {
       "domain": "torimochi.line-apps.com",
-      "rule": "@@||torimochi.line-apps.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -12941,155 +13205,159 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tplinkap.net",
-      "rule": "@@||tplinkap.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
-      "rating": "safe",
-      "category": "other",
-      "category_confidence": 0.0,
-      "category_reason": "no match",
-      "reason": "DNS 正常解析，无威胁情报标记",
-      "dns_ips": [
-        "3.224.42.34"
-      ],
-      "dns_nxdomain": false,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 0,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "keep",
-      "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tplinkrepeater.net",
-      "rule": "@@||tplinkrepeater.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
-      "rating": "safe",
-      "category": "other",
-      "category_confidence": 0.0,
-      "category_reason": "no match",
-      "reason": "DNS 正常解析，无威胁情报标记",
-      "dns_ips": [
-        "3.224.42.34"
-      ],
-      "dns_nxdomain": false,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 0,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "keep",
-      "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tplinkwifi.net",
-      "rule": "@@||tplinkwifi.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
-      "rating": "safe",
-      "category": "other",
-      "category_confidence": 0.0,
-      "category_reason": "no match",
-      "reason": "DNS 正常解析，无威胁情报标记",
-      "dns_ips": [
-        "3.224.42.34"
-      ],
-      "dns_nxdomain": false,
-      "urlhaus_malicious": false,
-      "threatfox_malicious": false,
-      "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
-      "scam_suspicious": false,
-      "scam_decision": null,
-      "scam_risk_score": 0,
-      "virustotal_malicious": false,
-      "virustotal_reputation": 0.0,
-      "dnsbl_listed": false,
-      "dnsbl_malicious": false,
-      "dnsbl_hits": [],
-      "risk_score": 0,
-      "heuristics_score": 0,
-      "heuristics_flags": [],
-      "homograph_is_typosquat": false,
-      "homograph_brand": null,
-      "homograph_distance": null,
-      "homograph_reasons": [],
-      "mxspf_has_mx": null,
-      "mxspf_has_spf": null,
-      "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
-      "gsb_malicious": false,
-      "phishtank_malicious": false,
-      "urlscan_malicious": false,
-      "crtsh_entries": [],
-      "recommendation": "keep",
-      "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tr.rdrtr.com",
-      "rule": "@@||tr.rdrtr.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||torimochi.line-apps.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tplinkap.net",
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "3.224.42.34"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": true,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||tplinkap.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tplinkrepeater.net",
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "3.224.42.34"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": true,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||tplinkrepeater.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tplinkwifi.net",
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "3.224.42.34"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": true,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||tplinkwifi.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tr.rdrtr.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13130,14 +13398,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "track.rutarget.ru",
-      "rule": "@@||track.rutarget.ru^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||tr.rdrtr.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "track.rutarget.ru",
       "rating": "safe",
       "category": "analytics",
       "category_confidence": 0.6,
@@ -13186,14 +13455,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "track.webgains.com",
-      "rule": "@@||track.webgains.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||track.rutarget.ru^",
+      "disk_cache": true
+    },
+    {
+      "domain": "track.webgains.com",
       "rating": "safe",
       "category": "affiliate",
       "category_confidence": 0.9,
@@ -13236,14 +13506,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||track.webgains.com^",
+      "disk_cache": true
     },
     {
       "domain": "tracker.eu.org",
-      "rule": "@@||tracker.eu.org^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.6,
@@ -13283,14 +13554,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||tracker.eu.org^",
+      "disk_cache": true
     },
     {
       "domain": "trk.ecomm.lenovo.com",
-      "rule": "@@||trk.ecomm.lenovo.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13330,14 +13602,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||trk.ecomm.lenovo.com^",
+      "disk_cache": true
     },
     {
       "domain": "tube.e.kuaishou.com",
-      "rule": "@@||tube.e.kuaishou.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "social",
       "category_confidence": 0.9,
@@ -13380,14 +13653,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||tube.e.kuaishou.com^",
+      "disk_cache": true
     },
     {
       "domain": "uceprotect.net",
-      "rule": "@@||uceprotect.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13425,14 +13699,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||uceprotect.net^",
+      "disk_cache": true
     },
     {
       "domain": "uland.taobao.com",
-      "rule": "@@||uland.taobao.com^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "ecommerce_payment",
       "category_confidence": 0.9,
@@ -13472,14 +13747,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||uland.taobao.com^",
+      "disk_cache": true
     },
     {
       "domain": "unsubscribe.lhinsights.com",
-      "rule": "@@||unsubscribe.lhinsights.com^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13519,14 +13795,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||unsubscribe.lhinsights.com^",
+      "disk_cache": true
     },
     {
       "domain": "uribl.com",
-      "rule": "@@||uribl.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "privacy_security",
       "category_confidence": 0.9,
@@ -13566,14 +13843,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||uribl.com^",
+      "disk_cache": true
     },
     {
       "domain": "used.ca",
-      "rule": "@@||used.ca^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13614,14 +13892,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "validate.perfdrive.com",
-      "rule": "@@||validate.perfdrive.com^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||used.ca^",
+      "disk_cache": true
+    },
+    {
+      "domain": "validate.perfdrive.com",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13661,14 +13940,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "vcentry2.valuecommerce.ne.jp",
-      "rule": "@@||vcentry2.valuecommerce.ne.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||validate.perfdrive.com^",
+      "disk_cache": true
+    },
+    {
+      "domain": "vcentry2.valuecommerce.ne.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13710,14 +13990,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "vcentry3.valuecommerce.ne.jp",
-      "rule": "@@||vcentry3.valuecommerce.ne.jp^",
+      "ai_classified": false,
       "sources": [
         "AdGuard DNS filter"
       ],
+      "rule": "@@||vcentry2.valuecommerce.ne.jp^",
+      "disk_cache": true
+    },
+    {
+      "domain": "vcentry3.valuecommerce.ne.jp",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13759,14 +14040,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||vcentry3.valuecommerce.ne.jp^",
+      "disk_cache": true
     },
     {
       "domain": "widget.intercom.io",
-      "rule": "@@||widget.intercom.io^",
-      "sources": [
-        "CHN: anti-AD"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13809,14 +14091,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "CHN: anti-AD"
+      ],
+      "rule": "@@||widget.intercom.io^",
+      "disk_cache": true
     },
     {
       "domain": "www3.doubleclick.net",
-      "rule": "@@||www3.doubleclick.net^",
-      "sources": [
-        "AdGuard DNS filter"
-      ],
       "rating": "safe",
       "category": "advertising",
       "category_confidence": 0.9,
@@ -13856,7 +14139,12 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rule": "@@||www3.doubleclick.net^",
+      "disk_cache": true
     }
   ]
 }

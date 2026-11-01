@@ -1,6 +1,6 @@
 ! Title: Merged phishing filter
 ! Category: phishing
-! Version: 62843c9884e7-phishing
+! Version: 909590b04587-phishing
 ! Rules: 60613
 !
 ||booking.com-id*^

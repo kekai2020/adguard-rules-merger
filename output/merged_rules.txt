@@ -1,17 +1,17 @@
 ! Title: Merged AdGuard Home Filter Rules
 ! Description: Auto-merged from 18 sources (dedup + aggregation + conflict resolution)
-! Version: 62843c9884e7
-! Generated: 2026-11-01T10:05:24.547156+00:00
+! Version: 909590b04587
+! Generated: 2026-11-01T10:34:29.472070+00:00
 ! Homepage: https://github.com/kekai2020/adguard-rules-merger
-! Total block rules: 2766485
+! Total block rules: 2766522
 ! Total whitelist rules: 300
-! Sources: 18/18 (0 cached)
+! Sources: 18/18 (16 cached)
 ! Dedup rate: 21.6%
-! Exact dedup: 722670 | Normalized dedup: 3800 | Regex dedup: 322
+! Exact dedup: 726440 | Normalized dedup: 26 | Regex dedup: 322
 ! Aggregated: exact=36019 wildcard=2 promoted=0
 ! Conflicts recorded (block rules kept): 44
 ! Dropped: pattern=0 quality=39 css=0 badfilter=6 comments=162
-! Categories: ads=318026 malware=1867361 tracking=376 phishing=60613 mining=167 other=519942
+! Categories: ads=318063 malware=1867361 tracking=376 phishing=60613 mining=167 other=519942
 !
 /(https?:\/\/)213\.32\.115\..{100,}/
 /(https?:\/\/)217\.182\.11\..{100,}/
@@ -193677,6 +193677,7 @@
 ||admin.jupiterpod.com^
 ||admin.kalitorental.de^
 ||admin.kargahban.ir^
+||admin.kkkshu.net^
 ||admin.klico.co^
 ||admin.landingtrk.com^
 ||admin.lobutuh.com^
@@ -228232,6 +228233,7 @@
 ||ajyrjn.help^
 ||ajyykkim.com^
 ||ajz-whatsapp.com^
+||ajz2kq4y.xyz^
 ||ajzdgaiikefwv.website^
 ||ajzfdz.help^
 ||ajzq.com^
@@ -246731,6 +246733,7 @@
 ||almeley.net^
 ||almelocasino.com^
 ||almemardemurer.com^
+||almemarsclat.cfd^
 ||almendraslitral.cl^
 ||almendrawinery.com^
 ||almenu.io^
@@ -838121,6 +838124,7 @@
 ||dakotascripts.xyz^
 ||dakotaservices.xyz^
 ||dakotashuffle.xyz^
+||dakotasmouill.cyou^
 ||dakotasoft.xyz^
 ||dakotaspin.xyz^
 ||dakotastation.xyz^
@@ -838783,6 +838787,7 @@
 ||damasksatoshi.xyz^
 ||damaskservices.xyz^
 ||damaskshop.xyz^
+||damasksnunship.qpon^
 ||damaskstaking.xyz^
 ||damassets.autodesk.com^
 ||damatmacunlari.lat^
@@ -857193,6 +857198,7 @@
 ||dcnbcwgjg7u6c.cloudfront.net^
 ||dcncgbhug.firebaseapp.com^
 ||dcncgbhug.web.app^
+||dcnfrsinlaryb.website^
 ||dcniko1cv0rz.cloudfront.net^
 ||dcnkrd.baseballsavings.com^
 ||dcnmgservices.com^
@@ -891818,6 +891824,7 @@
 ||dhelmetsdirect.shop^
 ||dhengdong7yu.top^
 ||dhenr54m.com^
+||dheolvrfifmpj.website^
 ||dherea.site^
 ||dherjdpc.cfd^
 ||dhetrrlzesril.space^
@@ -892310,6 +892317,7 @@
 ||dhoased.top^
 ||dhobeynandi.com^
 ||dhobiesands.cfd^
+||dhocbrjcqhunq.site^
 ||dhodha.com^
 ||dhol-blogs-mousy.space^
 ||dhole.samuelhubbard.com^
@@ -916183,6 +916191,7 @@
 ||diwaspin-casino.com^
 ||diwata-casino.com^
 ||diwatacasino.net^
+||diwatafluxile.cyou^
 ||diwavipslots.com^
 ||diwdei.cn^
 ||diwebaifi.com^
@@ -917452,6 +917461,7 @@
 ||dkxjf.com^
 ||dkxpr.com^
 ||dkxpx9hig15ae.cloudfront.net^
+||dkxtzubbtmzie.space^
 ||dkxwqu.annefontaine.com^
 ||dkyatirimmenkul.com^
 ||dkymcxtze.com^
@@ -986755,6 +986765,7 @@
 ||edudeals.global^
 ||edudeals.shop^
 ||edudsh.com^
+||edudxfkyzxux.com^
 ||eduentservices.com^
 ||edufarm.com.np^
 ||edufarm.com.sg^
@@ -1115111,6 +1115122,7 @@
 ||flaksicasino.biz^
 ||flaksicasino.org^
 ||flakyfeast.com^
+||flakylingas.cfd^
 ||flaluxe.shop^
 ||flamahq.shop^
 ||flamaliving.shop^
@@ -1210432,6 +1210444,7 @@
 ||gestpileata.com^
 ||gestrauss.shop^
 ||gestroom.it^
+||gestsgenoa.qpon^
 ||gestun777.com^
 ||gestunbet.vip^
 ||gestuny.space^
@@ -1288604,6 +1288617,7 @@
 ||guxiezhuang.top^
 ||guxmeli.shop^
 ||guxueba.com^
+||guxzzlbqhkapq.online^
 ||guy.to^
 ||guyafidexprotrade.com^
 ||guyaivexiapro.com^
@@ -1374484,6 +1374498,7 @@
 ||hzqwwym.info^
 ||hzqyzs.com^
 ||hzr0dm28m17c.com^
+||hzregbrhnzdts.website^
 ||hzrghx.xyz^
 ||hzright.com^
 ||hzrnd.cfd^
@@ -1387980,6 +1387995,7 @@
 ||ikvgpvpp.top^
 ||ikvjvw.pharma.mynavi.jp^
 ||ikvql.insideoptions.io^
+||ikwagbiakdggv.space^
 ||ikwb.com^
 ||ikwlimmgbapas.online^
 ||ikwosh.work^
@@ -1447268,6 +1447284,7 @@
 ||jgyugc.mp.com.tr^
 ||jgyxpwms.top^
 ||jgzcbxx-dokispecrfdokispecrfdokispecrfdokisp-doki-spec-rf.click^
+||jgzccjmuydvvx.space^
 ||jgzhsu.caterer.com^
 ||jgzivtxc.bond^
 ||jh-2m5j.vercel.app^
@@ -1488582,6 +1488599,7 @@
 ||karsom.info^
 ||karsondiecasttoys.shop^
 ||karstennurserygarden.shop^
+||karsticsoars.cfd^
 ||karstledger.info^
 ||karstunderwater.org^
 ||karszulen.com^
@@ -1564782,6 +1564800,7 @@
 ||listenrad.xyz^
 ||listenrei.xyz^
 ||listenrpc.xyz^
+||listensaigrets.qpon^
 ||listenser.xyz^
 ||listenservice.xyz^
 ||listenservices.xyz^
@@ -1764228,6 +1764247,7 @@
 ||mvhlcshfdhsql.website^
 ||mvhlw.wiki^
 ||mvhmppnuvmpdp.online^
+||mvhnfemksjlss.site^
 ||mvhome.shop^
 ||mvhub.shop^
 ||mvhuzmm.cn^
@@ -1847063,6 +1847083,7 @@
 ||ofxaccount.dev^
 ||ofxaccount.info^
 ||ofxaccount.work^
+||ofxelmzxcrkhp.site^
 ||ofxgbr.art^
 ||ofxl.top^
 ||ofxmryjd.walmart.com^
@@ -1892372,6 +1892393,7 @@
 ||p900.casino^
 ||p91249.pro^
 ||p91476.pro^
+||p91j2vpiqqhz4y.rest^
 ||p92224.com^
 ||p92722.pro^
 ||p932842.pro^
@@ -2033273,6 +2033295,7 @@
 ||qebwv.top^
 ||qecgxlafkueau.site^
 ||qecloud.top^
+||qecmposqk.com^
 ||qecsasdafhtqr.online^
 ||qed.casino^
 ||qed.ro^
@@ -2045834,6 +2045857,7 @@
 ||qurnora-gld-zarqumi-a5t8dc62.pages.dev^
 ||qursvf.courses^
 ||qurta-i328.eu.cc^
+||qurtiduress.qpon^
 ||qurvani.digital^
 ||qurviyani.digital^
 ||qurysnemovit.com^
@@ -2181026,6 +2181050,7 @@
 ||seeguardianservice.com^
 ||seehits.com^
 ||seehuseveeps.com^
+||seeiigebk.com^
 ||seeimmunityswim.com^
 ||seeimo.re^
 ||seein.photos^
@@ -2205364,6 +2205389,7 @@
 ||sgamesboutique.shop^
 ||sgamesdirect.shop^
 ||sgamopteri.cyou^
+||sgamtodtvlcbt.website^
 ||sganalytics.com^
 ||sgangappro.cyou^
 ||sgangfacta.store^
@@ -2298952,6 +2298978,7 @@
 ||spakent.xyz^
 ||spakolibri.ru^
 ||spalaunive.cyou^
+||spaldceded.qpon^
 ||spalderquant.digital^
 ||spaldingbasketball.shop^
 ||spaldingbasketballhq.shop^
@@ -2364104,6 +2364131,7 @@
 ||stribrozhodnovtrade.com^
 ||stricaik.com^
 ||strichard.net^
+||stricheageusiaprevent.qpon^
 ||strichxora.digital^
 ||strickag.com^
 ||strickbetcasinoonline.com^
@@ -2379833,6 +2379861,7 @@
 ||superservicecarreirs.com^
 ||superservicosqueirozd.lat^
 ||superserwisy.pl^
+||superset-qa.sese.cn^
 ||superset.dev.watchmo.icu^
 ||superset.ilgeniodellostreaming.icu^
 ||superset.se8se8.com^
@@ -2457595,6 +2457624,7 @@
 ||tidevalleyen.shop^
 ||tidewatermech.com^
 ||tidewatertradingpost.com^
+||tidewayamounts.com^
 ||tidewehq.shop^
 ||tidewellbank.com^
 ||tideweoutfitters.shop^
@@ -2538938,6 +2538968,7 @@
 ||umbler.net^
 ||umboc.com^
 ||umbonuleflowla.click^
+||umbosfondues.cfd^
 ||umbra-store.shop^
 ||umbra-voting.xyz^
 ||umbra.online^
@@ -2552676,6 +2552707,7 @@
 ||urielxit.online^
 ||urietpdkdeoietopwrfop.site^
 ||urimnugocfr.com^
+||urinatereroute.cyou^
 ||urineart.xyz^
 ||urineassertive.com^
 ||urineassistant.xyz^
@@ -2631001,6 +2631033,7 @@
 ||wamakvti.com^
 ||wamanharipethe.s3.ap-south-1.amazonaws.com^
 ||wamavk.living^
+||wambledrabbits.com^
 ||wamblierova.click^
 ||wambliestlimxxns.info^
 ||wamcalgarycom.com^
@@ -2653352,6 +2653385,7 @@
 ||wgm6nbf.top^
 ||wgmarketingdigital.com^
 ||wgmh.cn^
+||wgmmlpgkhleac.space^
 ||wgmnus.ebizoct.shop^
 ||wgmxvubzck.com^
 ||wgnlbsihmxohr.space^
@@ -2653539,6 +2653573,7 @@
 ||wgy0.com^
 ||wgyapq.stormberg.com^
 ||wgyeya.helalsitesi.com^
+||wgytbefamiqoj.online^
 ||wgyvhpjxk.top^
 ||wgz.cz^
 ||wgza.xyz^
@@ -2653841,6 +2653876,7 @@
 ||whaleromantic.xyz^
 ||whalerwatch.com^
 ||whalesair.xyz^
+||whalesautocar.qpon^
 ||whalesbit.xyz^
 ||whalesbitcoin.xyz^
 ||whalesblock.xyz^
@@ -2698003,12 +2698039,10 @@
 ||www-yy.in6.to^
 ||www-zalo-me.com^
 ||www-zama.xyz^
-||www.admin.kkkshu.net^
-||www.superset-qa.sese.cn^
-||www.www.outlook.tanyajeevankaushiknidhi.com^
-||www.www.www.live2.goodpostman.com^
-||www.www.www.remote.aaa.betb8832.com^
-||www.www.www.www.www.workflow.vo7xvp2.com^
+||www.outlook.tanyajeevankaushiknidhi.com^
+||www.www.live2.goodpostman.com^
+||www.www.remote.aaa.betb8832.com^
+||www.www.www.www.workflow.vo7xvp2.com^
 ||www0-49.net.mydays.de^
 ||www004cpt.com^
 ||www094.vip^
@@ -2699331,6 +2699365,7 @@
 ||wy636login.com^
 ||wy7.casino^
 ||wy7btl038.com^
+||wy7zi79ri3vbkz63zeegr.cfd^
 ||wy88-api.online^
 ||wy88-casino.store^
 ||wy88-contact.com^
@@ -2739405,6 +2739440,7 @@
 ||ypfbth.icu^
 ||ypfckabu.icu^
 ||ypfinvest.net^
+||ypfjdasswhmzt.site^
 ||ypfmv.top^
 ||ypfprogramadeinversion.shop^
 ||ypfqfviyyzwxz.site^
@@ -2752583,6 +2752619,7 @@
 ||zfx.com^
 ||zfx2cs4s.com^
 ||zfxakx.xyz^
+||zfxbbumfngvnd.site^
 ||zfxckpiaypnrm.online^
 ||zfxclqvuwywnb.online^
 ||zfxd.net^

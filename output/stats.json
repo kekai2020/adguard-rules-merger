@@ -1,23 +1,23 @@
 {
   "version": "8.0.1",
-  "content_version": "62843c9884e7",
-  "generated_at": "2026-11-01T10:05:26.192069+00:00",
+  "content_version": "909590b04587",
+  "generated_at": "2026-11-01T10:34:31.050200+00:00",
   "sources": {
     "total": 18,
     "ok": 18,
-    "cached": 0,
+    "cached": 16,
     "failed": []
   },
   "rules": {
-    "before": 3529604,
-    "after": 2766785,
-    "block": 2766485,
+    "before": 3529637,
+    "after": 2766822,
+    "block": 2766522,
     "allow": 300,
     "dedup_rate": 21.6
   },
   "dedup": {
-    "exact_merged": 722670,
-    "normalized_merged": 3800,
+    "exact_merged": 726440,
+    "normalized_merged": 26,
     "regex_merged": 322
   },
   "optimization": {
@@ -39,7 +39,7 @@
     "unrecognized_dropped": 114
   },
   "categories": {
-    "ads": 318026,
+    "ads": 318063,
     "malware": 1867361,
     "tracking": 376,
     "phishing": 60613,
@@ -57,7 +57,7 @@
         "overlap": 170714,
         "rate_a": 92.9,
         "rate_b": 84.5,
-        "jaccard": 79.4
+        "jaccard": 79.3
       },
       {
         "source_a": "HaGeZi's Threat Intelligence Feeds",
@@ -126,7 +126,7 @@
       {
         "source_a": "HaGeZi's Ultimate Blocklist",
         "source_b": "OISD Blocklist Small",
-        "overlap": 57524,
+        "overlap": 57520,
         "rate_a": 20.4,
         "rate_b": 99.8,
         "jaccard": 20.4
@@ -134,7 +134,7 @@
       {
         "source_a": "CHN: AdRules DNS List",
         "source_b": "OISD Blocklist Small",
-        "overlap": 53991,
+        "overlap": 53988,
         "rate_a": 26.7,
         "rate_b": 93.6,
         "jaccard": 26.2
@@ -142,7 +142,7 @@
       {
         "source_a": "AdGuard DNS filter",
         "source_b": "OISD Blocklist Small",
-        "overlap": 53430,
+        "overlap": 53427,
         "rate_a": 29.1,
         "rate_b": 92.7,
         "jaccard": 28.4
@@ -174,7 +174,7 @@
       {
         "source_a": "HaGeZi's Threat Intelligence Feeds",
         "source_b": "OISD Blocklist Small",
-        "overlap": 22088,
+        "overlap": 22087,
         "rate_a": 1.2,
         "rate_b": 38.3,
         "jaccard": 1.2
@@ -905,10 +905,10 @@
       "HaGeZi's Gambling Blocklist": 626703,
       "HaGeZi's Ultimate Blocklist": 281748,
       "CHN: AdRules DNS List": 202128,
-      "AdGuard DNS filter": 183695,
+      "AdGuard DNS filter": 183732,
       "Phishing Army": 130450,
       "CHN: anti-AD": 100220,
-      "OISD Blocklist Small": 57656,
+      "OISD Blocklist Small": 57652,
       "Phishing URL Blocklist (PhishTank and OpenPhish)": 21837,
       "HaGeZi's Encrypted DNS/VPN/TOR/Proxy Bypass": 16295,
       "Malicious URL Blocklist (URLHaus)": 1785,
@@ -946,10 +946,10 @@
         "HaGeZi's Gambling Blocklist": 626703,
         "HaGeZi's Ultimate Blocklist": 281748,
         "CHN: AdRules DNS List": 202128,
-        "AdGuard DNS filter": 183695,
+        "AdGuard DNS filter": 183732,
         "Phishing Army": 130450,
         "CHN: anti-AD": 100220,
-        "OISD Blocklist Small": 57656,
+        "OISD Blocklist Small": 57652,
         "Phishing URL Blocklist (PhishTank and OpenPhish)": 21837,
         "HaGeZi's Encrypted DNS/VPN/TOR/Proxy Bypass": 16295,
         "Malicious URL Blocklist (URLHaus)": 1785,
@@ -965,7 +965,7 @@
         "CHN: AdRules DNS List": {
           "AdGuard DNS filter": {
             "overlap": 170714,
-            "jaccard": 79.4,
+            "jaccard": 79.3,
             "rate_a": 84.5,
             "rate_b": 92.9
           },
@@ -976,7 +976,7 @@
             "rate_b": 86.4
           },
           "OISD Blocklist Small": {
-            "overlap": 53991,
+            "overlap": 53988,
             "jaccard": 26.2,
             "rate_a": 26.7,
             "rate_b": 93.6
@@ -1074,7 +1074,7 @@
             "rate_b": 13.8
           },
           "OISD Blocklist Small": {
-            "overlap": 22088,
+            "overlap": 22087,
             "jaccard": 1.2,
             "rate_a": 1.2,
             "rate_b": 38.3
@@ -1154,7 +1154,7 @@
             "rate_b": 62.5
           },
           "OISD Blocklist Small": {
-            "overlap": 57524,
+            "overlap": 57520,
             "jaccard": 20.4,
             "rate_a": 20.4,
             "rate_b": 99.8
@@ -1228,7 +1228,7 @@
             "rate_b": 76.8
           },
           "OISD Blocklist Small": {
-            "overlap": 53430,
+            "overlap": 53427,
             "jaccard": 28.4,
             "rate_a": 29.1,
             "rate_b": 92.7
@@ -1633,17 +1633,17 @@
     "added": 0,
     "removed": 0
   },
-  "elapsed_seconds": 71.55,
+  "elapsed_seconds": 36.379,
   "stage_timings": {
-    "fetch": 26.430676,
-    "badfilter": 0.094378,
-    "aggregation": 5.689422,
-    "conflict": 1.839383,
-    "sort": 1.560705,
+    "fetch": 17.571694,
+    "badfilter": 0.093288,
+    "aggregation": 5.522499,
+    "conflict": 1.816232,
+    "sort": 1.337919,
     "rejudge": 8e-06,
-    "stats": 8.820521,
-    "audit": 25.727888,
-    "diff": 3e-06,
-    "content_version": 1.277748
+    "stats": 8.402488,
+    "audit": 0.305353,
+    "diff": 1e-06,
+    "content_version": 1.260417
   }
 }
