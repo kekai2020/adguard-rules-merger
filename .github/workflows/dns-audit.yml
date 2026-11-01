@@ -1,0 +1,69 @@
+name: DNS Reachability Audit
+
+# Daily sampled audit (after the merge workflow window). Informational only:
+# never fails the pipeline; artifacts + committed dns_audit.* are the outputs.
+# The report.md/html stay merge-generated — the audit does NOT inject into
+# them in CI, so byte-determinism of committed reports is preserved.
+
+on:
+  schedule:
+    - cron: "30 1 * * *" # daily 01:30 UTC (merge window is 00:00 UTC)
+  workflow_dispatch:
+    inputs:
+      blocks_sample:
+        description: "block-rule sample size (0 = allow-side only; 2770000 = full sweep, may exceed 6h job limit)"
+        default: "20000"
+      min_live:
+        description: "minimum live resolvers required"
+        default: "2"
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Run DNS reachability audit (DoH, self-diagnosed)
+        continue-on-error: true # informational: a dead channel must not fail CI
+        run: |
+          uv run python scripts/dns_coverage_audit.py \
+            --out-dir output --cache-dir cache \
+            --mode doh --concurrency 200 --timeout 4 \
+            --min-live ${{ github.event.inputs.min_live || '2' }} \
+            --blocks-sample ${{ github.event.inputs.blocks_sample || '20000' }} \
+            --checkpoint-every 200000 \
+            --no-append-report
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dns-audit
+          path: |
+            output/dns_audit.json
+            output/dns_audit.md
+          if-no-files-found: ignore
+
+      - name: Commit audit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f output/dns_audit.json output/dns_audit.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No audit changes"
+          else
+            git commit -m "dns-audit: reachability results $(date -u +'%Y-%m-%d')"
+            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }}
+          fi

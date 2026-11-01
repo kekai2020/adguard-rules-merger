@@ -191,7 +191,7 @@ output:
   # clock time and runtime so identical rule sets produce byte-identical
   # artifacts (the CI job only commits when rules genuinely change). Set to
   # true to embed a human-readable generation timestamp and elapsed time.
-  report_timestamp: true
+  report_timestamp: false
 
 # ── Rule sources (18 enabled) ──────────────────────────────────────
 # Categories: ads | tracking | malware | phishing | mining | other

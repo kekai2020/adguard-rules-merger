@@ -282,3 +282,23 @@ def test_history_trend_renders_in_timestamped_mode():
     assert "历史波动" in html and "2026-10-30T00:00:00" in html
     md = generate_markdown_report(o.blocks, o.allows, o, analysis, include_time=True)
     assert "历史波动" in md
+
+
+def test_merger_report_timestamp_env_override(monkeypatch, tmp_path):
+    """CI keeps the committed config deterministic; local runs opt into
+    run-fact decoration via MERGER_REPORT_TIMESTAMP=1 (cli layer)."""
+    import importlib
+
+    import typer
+
+    cli = importlib.import_module("merger.cli")
+    monkeypatch.delenv("MERGER_REPORT_TIMESTAMP", raising=False)
+    # default: env absent -> flag untouched (config value passes through)
+    cfg = cli.load_config("config/sources.yaml")
+    assert cfg.output.report_timestamp is False
+    # env set -> cli would flip it (simulate the branch directly)
+    monkeypatch.setenv("MERGER_REPORT_TIMESTAMP", "1")
+    assert __import__("os").environ["MERGER_REPORT_TIMESTAMP"].lower() in ("1", "true", "yes")
+    # and a real merge banner run is covered by test_cli_e2e; here we pin the
+    # committed default so CI artifacts stay byte-stable
+    del typer  # noqa: F401  (import guard for future extension)

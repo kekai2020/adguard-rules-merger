@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -116,6 +117,11 @@ def merge(
         raise typer.Exit(1)
 
     cfg = resolve_api_keys(cfg)
+    # Env override (SOURCE_DATE_EPOCH convention): committed config stays
+    # CI-safe (deterministic artifacts), local runs opt into run-fact
+    # decoration (stage timings / history trend) via MERGER_REPORT_TIMESTAMP=1.
+    if os.environ.get("MERGER_REPORT_TIMESTAMP", "").lower() in ("1", "true", "yes"):
+        cfg.output.report_timestamp = True
     if no_audit:
         cfg.whitelist_audit.enabled = False
 
