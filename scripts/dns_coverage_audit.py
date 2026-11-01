@@ -443,6 +443,10 @@ async def run(args) -> int:
     #    Query volume: N + F*R instead of N*R — ~60% fewer queries at the
     #    observed 92% reachable rate.
     audit_names = sorted({d.removeprefix("*.") if d.startswith("*.") else d for d in todo})
+    if args.shard_count > 1:
+        # deterministic stride partition: shard i owns names[i::count] —
+        # parallel matrix jobs cover the whole set with zero overlap
+        audit_names = audit_names[args.shard_index :: args.shard_count]
     total_domains = len(audit_names)
     if not audit_names:
         print("nothing new to audit (all domains have cached verdicts)")
