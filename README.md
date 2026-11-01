@@ -4,7 +4,7 @@
 ![Version](https://img.shields.io/badge/Version-8.0.1-blue)
 ![Tests](https://img.shields.io/badge/Tests-736-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![CI](https://github.com/kekai2020/adguard-rules-merger-v8/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/kekai2020/adguard-rules-merger/actions/workflows/ci.yml/badge.svg)
 
 从 18 个上游订阅源自动下载、合并、去重、聚合、消解冲突并输出 AdGuard Home 规则。
 
@@ -49,8 +49,8 @@ V8 是一个**生产就绪（production-ready）**的重构版本：包内 CLI �
 ### 方式一：uv（推荐，可复现）
 
 ```bash
-git clone https://github.com/kekai2020/adguard-rules-merger-v8.git
-cd adguard-rules-merger-v8
+git clone https://github.com/kekai2020/adguard-rules-merger.git
+cd adguard-rules-merger
 uv sync --extra dev        # 安装运行依赖 + 开发/测试/ruff 依赖（锁定版本）
 uv run adguard-rules-merger merge --config config/sources.yaml
 ```
@@ -173,27 +173,27 @@ output:
 GitHub Actions 运行后，将以下 raw URL 填入 AdGuard Home → DNS 设置 → 过滤名单：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/merged_rules.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger/main/output/merged_rules.txt
 ```
 
 白名单：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger/main/output/whitelist.txt
 ```
 
 纯域名（Pi-hole / 其他工具）：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/domains.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger/main/output/domains.txt
 ```
 
 分级白名单：
 
 ```
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist_safe.txt
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist_suspicious.txt
-https://raw.githubusercontent.com/kekai2020/adguard-rules-merger-v8/main/output/whitelist_malicious.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger/main/output/whitelist_safe.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger/main/output/whitelist_suspicious.txt
+https://raw.githubusercontent.com/kekai2020/adguard-rules-merger/main/output/whitelist_malicious.txt
 ```
 
 ---

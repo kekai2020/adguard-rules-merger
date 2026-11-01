@@ -24,7 +24,7 @@ from typing import Literal
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-HOMEPAGE = "https://github.com/kekai2020/adguard-rules-merger-v8"
+HOMEPAGE = "https://github.com/kekai2020/adguard-rules-merger"
 
 
 class _StrictConfig(BaseModel):
