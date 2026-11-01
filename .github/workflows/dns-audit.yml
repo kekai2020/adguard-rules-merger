@@ -5,9 +5,11 @@ name: DNS Reachability Audit
 # The report.md/html stay merge-generated — the audit does NOT inject into
 # them in CI, so byte-determinism of committed reports is preserved.
 
+# NOTE: the daily SAMPLED audit runs inside merge.yml (before commit), so the
+# published report.md/html always carry the latest DNS section. This workflow
+# is for STANDALONE/manual runs only (e.g. a full 2.77M sweep via dispatch
+# input, which exceeds the merge job budget).
 on:
-  schedule:
-    - cron: "30 1 * * *" # daily 01:30 UTC (merge window is 00:00 UTC)
   workflow_dispatch:
     inputs:
       blocks_sample:
@@ -44,7 +46,7 @@ jobs:
             --min-live ${{ github.event.inputs.min_live || '2' }} \
             --blocks-sample ${{ github.event.inputs.blocks_sample || '20000' }} \
             --checkpoint-every 200000 \
-            --no-append-report
+
 
       - name: Upload audit artifacts
         uses: actions/upload-artifact@v4

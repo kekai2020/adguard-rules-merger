@@ -75,10 +75,20 @@ jobs:
         env:
           VIRUSTOTAL_API_KEY: ${{ secrets.VIRUSTOTAL_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # Daily published reports carry run facts (stage timings, history
+          # trend) and the multi-layer whitelist audit verdicts — enabled here
+          # per project owner; the committed config default stays false so
+          # any other consumer keeps byte-stable artifacts.
+          MERGER_REPORT_TIMESTAMP: "1"
         run: |
           echo "::group::Merge Output"
           uv run python -m merger merge --config config/sources.yaml
           echo "::endgroup::"
+
+      - name: DNS reachability audit (sampled, informational)
+        continue-on-error: true
+        run: |
+          uv run python scripts/dns_coverage_audit.py             --out-dir output --cache-dir cache             --mode doh --concurrency 200 --timeout 4             --min-live 2 --blocks-sample 20000             --no-unresolved-retry
 
       - name: Verify output
         run: |
