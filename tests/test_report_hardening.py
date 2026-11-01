@@ -302,3 +302,32 @@ def test_merger_report_timestamp_env_override(monkeypatch, tmp_path):
     # and a real merge banner run is covered by test_cli_e2e; here we pin the
     # committed default so CI artifacts stay byte-stable
     del typer  # noqa: F401  (import guard for future extension)
+
+
+def test_merge_timestamp_gated_by_report_timestamp(tmp_path):
+    """! Generated: appears in rule/whitelist headers + stats.generated_at ONLY
+    in timestamped mode; default mode stays byte-stable without wall clock."""
+    from merger.core.outcome import MergeOutcome
+
+    def _outcome():
+        return MergeOutcome(
+            content_version="v1",
+            sources_total=1,
+            sources_ok=1,
+            raw_count=2,
+        )
+
+    for ts_mode, expect in ((False, False), (True, True)):
+        exp = Exporter(tmp_path / f"o{ts_mode}", formats=["adguard", "whitelist"],
+                       tiered=False, report=False, report_timestamp=ts_mode)
+        exp.export_all(
+            [Rule("||a.com^", "a.com", "block", False)],
+            [Rule("@@||b.com^", "b.com", "allow", False)],
+            _outcome(),
+        )
+        merged = (tmp_path / f"o{ts_mode}" / "merged_rules.txt").read_text(encoding="utf-8")
+        wl = (tmp_path / f"o{ts_mode}" / "whitelist.txt").read_text(encoding="utf-8")
+        stats = json.loads((tmp_path / f"o{ts_mode}" / "stats.json").read_text(encoding="utf-8"))
+        assert ("! Generated:" in merged) is expect, (ts_mode, merged[:200])
+        assert ("! Generated:" in wl) is expect
+        assert ("generated_at" in stats) is expect

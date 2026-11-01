@@ -43,6 +43,7 @@ from .models import (
     TIERED_CATEGORIES,
     Rule,
 )
+from .report.analysis import _generation_label
 from .version import __version_short__
 
 
@@ -142,6 +143,9 @@ class Exporter:
             "! Title: Merged AdGuard Home Filter Rules (V8)",
             f"! Description: Auto-merged from {src_tot} sources (dedup + aggregation + conflict resolution)",
             f"! Version: {content_ver}",
+            # 合并时间戳：仅 report_timestamp 模式输出（默认确定性产物无墙钟）；
+            # 尊重 SOURCE_DATE_EPOCH，CI 与本地手动构建可复现。
+            *([f"! Generated: {_generation_label(True)}"] if self.report_timestamp else []),
             f"! Homepage: {HOMEPAGE}",
             f"! Total block rules: {len(blocks)}",
             f"! Total whitelist rules: {len(allows)}",
@@ -166,6 +170,7 @@ class Exporter:
             "! Title: Whitelist for Merged Rules (V8)",
             "! Description: Allow rules separated from main filter",
             f"! Version: {content_ver}",
+            *([f"! Generated: {_generation_label(True)}"] if self.report_timestamp else []),
             f"! Total allow rules: {len(allows)}",
             "!",
         ]
@@ -293,6 +298,7 @@ class Exporter:
         stats = {
             "version": __version_short__,
             "content_version": content_ver,
+            **({"generated_at": _generation_label(True)} if self.report_timestamp else {}),
             "sources": {
                 "total": outcome.sources_total,
                 "ok": outcome.sources_ok,
