@@ -1,20 +1,26 @@
-"""Multi-DNS concurrent reachability audit (R8, v2 — DoH-first).
+"""Multi-DNS concurrent reachability audit (R8, v3 — pipelined sweep).
 
 Audits (allow-side by semantics, plus an optional block sample):
   whitelist.txt domains ∪ $important block domains ∪ $badfilter target domains
-  ∪ --blocks-sample N plain block domains.
+  ∪ --blocks-sample N stride-sampled block domains.
 
-v2 hardening (after the port-53 blocked-network lesson):
-- DoH (443) JSON APIs are the DEFAULT transport — AliDNS/DNSPod/Cloudflare/
-  Google; raw UDP/53 kept as --mode udp for networks where it works.
-- CHANNEL SELF-DIAGNOSIS: control domains (qq/baidu/cloudflare) are probed
-  first; only resolvers that resolve a control are "live". A DEAD verdict
-  (domain gone) requires NXDOMAIN from >=2 live resolvers — timeouts on a
-  live resolver never kill a domain, they mark it unresolved instead.
-- Wildcard entries (*.x.com) are audited via their PARENT domain and tagged.
-- Per-source attribution: which upstream list(s) each dead domain came from.
-- Writes dns_audit.json + dns_audit.md, and (--append-report, default on when
-  report.md exists) inserts a summary section into the final report.md.
+v3 performance/robustness (after profiling the v2 run at ~4 domains/s):
+- FULLY PIPELINED sweep: every (domain × live resolver) pair is an independent
+  task — no per-domain barrier, the semaphore is the only throttle (v2 waited
+  for a domain's slowest probe before starting the next domain);
+- live progress: running rate + ETA every --progress-every completed queries;
+- bounded memory: per-query answers are aggregated to verdicts on the fly;
+  dns_audit.json stores per-domain verdicts (use --full-json for raw answers);
+- checkpoint: partial verdicts flushed to dns_audit.partial.json at
+  --checkpoint-every (0 = off) so multi-hour full sweeps survive interruption;
+- DoH (443) JSON APIs are the default transport (7 endpoints); channel
+  SELF-DIAGNOSIS on control domains gates the run (ABORT when live <
+  --min-live) so a dead channel can never fabricate verdicts;
+- verdicts: reachable = any live resolver OK; dead = NXDOMAIN-only answers
+  from >= min-live live resolvers; everything else = unresolved (timeouts are
+  NEVER counted as dead); wildcards (*.x) audited via parent + via_parent tag;
+- per-source attribution of dead domains + dead-WHITELIST cleanup suggestions;
+- appends the summary into report.md when present.
 """
 
 from __future__ import annotations
@@ -23,6 +29,7 @@ import argparse
 import asyncio
 import json
 import sys
+import time
 from collections import Counter
 from pathlib import Path
 
@@ -47,35 +54,34 @@ CONTROL_DOMAINS = ["www.qq.com", "www.baidu.com", "www.cloudflare.com"]
 # ── transports ────────────────────────────────────────────────────────
 
 
-async def _doh_query(session, sem, resolver, name, timeout_s=6):
+async def _doh_query(session, resolver, name, timeout_s):
     url = f"{resolver['url']}?name={name}&type=A"
     headers = {"Accept": "application/dns-json"} if resolver.get("json") else {}
-    async with sem:
-        try:
-            async with session.get(
-                url, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout_s)
-            ) as resp:
-                if resp.status != 200:
-                    return ("http_error", str(resp.status))
-                data = await resp.json(content_type=None)
-                status = data.get("Status")
-                if status == 0:
-                    return ("ok", None)
-                if status == 3:
-                    return ("nxdomain", None)
-                if status == 2:
-                    return ("servfail", None)
-                return ("rcode", str(status))
-        except Exception as e:  # noqa: BLE001 — transport failures are data here
-            return ("timeout", type(e).__name__)
+    try:
+        async with session.get(
+            url, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout_s)
+        ) as resp:
+            if resp.status != 200:
+                return ("http_error", str(resp.status))
+            data = await resp.json(content_type=None)
+            status = data.get("Status")
+            if status == 0:
+                return ("ok", None)
+            if status == 3:
+                return ("nxdomain", None)
+            if status == 2:
+                return ("servfail", None)
+            return ("rcode", str(status))
+    except Exception as e:  # noqa: BLE001 — transport failures are audit data
+        return ("timeout", type(e).__name__)
 
 
-def _udp_query(ip, name):
+def _udp_query(ip, name, timeout_s):
     import dns.resolver
 
     res = dns.resolver.Resolver(configure=False)
     res.nameservers = [ip]
-    res.lifetime = res.timeout = 4
+    res.lifetime = res.timeout = timeout_s
     try:
         res.resolve(name, "A")
         return ("ok", None)
@@ -87,33 +93,74 @@ def _udp_query(ip, name):
         return ("timeout", type(e).__name__)
 
 
-async def query_all(names, resolvers, mode, concurrency, timeout_s=6):
-    """Return {name: [(resolver_label, result, detail), ...]}.
+async def query_all(names, resolvers, mode, args, timeout_s):
+    """Fully pipelined sweep over every (name × resolver) pair.
 
-    NOTE: sequential over domains by design — the semaphore bounds total
-    in-flight queries, and per-domain asyncio.gather keeps a domain's five
-    resolver probes together so verdicts complete in submission order.
+    Returns {name: [(label, result, detail), ...]}. The semaphore is the only
+    throttle; a progress task prints rate/ETA and checkpoints partial verdicts
+    independently of the workers.
     """
-    sem = asyncio.Semaphore(concurrency)
-    out: dict[str, list] = {}
-    args_timeout_s = timeout_s
+    sem = asyncio.Semaphore(args.concurrency)
+    out: dict[str, list] = {n: [] for n in names}
     loop = asyncio.get_running_loop()
-    async with aiohttp.ClientSession() as session:
-        for name in names:
+    state = {"done": 0, "total": len(names) * len(resolvers)}
+    started = time.monotonic()
 
-            async def one(resolver, name=name):
+    async def progress():
+        while state["done"] < state["total"]:
+            await asyncio.sleep(max(args.progress_every, 1))
+            rate = state["done"] / max(time.monotonic() - started, 1e-6)
+            eta = (state["total"] - state["done"]) / max(rate, 1e-6)
+            print(
+                f"  progress {state['done']:,}/{state['total']:,} queries "
+                f"({rate:,.0f} q/s, ETA {eta / 60:.0f} min)",
+                flush=True,
+            )
+            if args.checkpoint_every:
+                _checkpoint(out, Path(args.out_dir), mode)
+            # sleep in whole progress ticks; the loop re-checks state each tick
+
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(limit=max(args.concurrency * 2, 100))
+    ) as session:
+
+        async def one(name, resolver):
+            async with sem:
                 if mode == "doh":
-                    r, d = await _doh_query(session, sem, resolver, name, args_timeout_s)
-                    if r == "timeout" and args_timeout_s >= 6:
-                        # single retry on the long timeout; short sweep timeout
-                        # skips retries to keep large samples tractable
-                        r, d = await _doh_query(session, sem, resolver, name, args_timeout_s)
+                    r, d = await _doh_query(session, resolver, name, timeout_s)
+                    if r == "timeout" and timeout_s >= 6:
+                        # single retry on the long timeout; short sweep timeouts
+                        # skip retries to keep large samples tractable
+                        r, d = await _doh_query(session, resolver, name, timeout_s)
                 else:
-                    r, d = await loop.run_in_executor(None, _udp_query, resolver["ip"], name)
-                return resolver["label"], r, d
+                    r, d = await loop.run_in_executor(
+                        None, _udp_query, resolver["ip"], name, timeout_s
+                    )
+                out[name].append((resolver["label"], r, d))
+                state["done"] += 1
 
-            out[name] = await asyncio.gather(*(one(r) for r in resolvers))
+        prog = asyncio.create_task(progress())
+        # pipelined: submit every (domain × resolver) pair in bounded batches;
+        # the semaphore is the only throttle (v2's per-domain barrier was the
+        # dominant slowdown)
+        tasks = [one(n, r) for n in names for r in resolvers]
+        batch = 20_000
+        for i in range(0, len(tasks), batch):
+            await asyncio.gather(*tasks[i : i + batch])
+            print(f"  batch {i // batch + 1}: completed", flush=True)
+            if args.checkpoint_every:
+                _checkpoint(out, Path(args.out_dir), mode)
+        prog.cancel()
     return out
+
+
+def _checkpoint(out: dict, out_dir: Path, mode: str) -> None:
+    """Flush partial per-domain verdicts so long sweeps are crash-safe."""
+    partial = {d: verdict(v, 1) for d, v in out.items() if v}
+    (out_dir / "dns_audit.partial.json").write_text(
+        json.dumps({"mode": mode, "partial_verdicts": partial}, ensure_ascii=False),
+        encoding="utf-8",
+    )
 
 
 # ── domain collection ─────────────────────────────────────────────────
@@ -143,7 +190,7 @@ def collect_domains(out_dir: Path, cache_dir: Path, blocks_sample: int) -> dict[
                         doms.setdefault(d, "badfilter-target")
     if blocks_sample:
         # SYSTEMATIC stride sample (every k-th rule): unbiased coverage across
-        # the whole file — the previous first-N head bias concentrated on
+        # the whole file — a first-N head sample concentrates on
         # alphabetically-early sources.
         cands = []
         for line in (out_dir / "merged_rules.txt").read_text(encoding="utf-8").splitlines():
@@ -213,7 +260,8 @@ async def run(args) -> int:
             CONTROL_DOMAINS[:1],
             [{"label": ip, "ip": ip} for ip in UDP_RESOLVERS],
             "udp",
-            5,
+            args,
+            max(args.timeout, 6),
         )
         if any(r == "ok" for rs in udp_probe.values() for _, r, _ in rs):
             mode, resolvers = "udp", [{"label": ip, "ip": ip} for ip in UDP_RESOLVERS]
@@ -221,9 +269,7 @@ async def run(args) -> int:
             mode, resolvers = "doh", DOH_RESOLVERS
 
     # 1) channel self-diagnosis on control domains
-    control = await query_all(
-        CONTROL_DOMAINS, resolvers, mode, min(args.concurrency, 10), max(args.timeout, 6)
-    )
+    control = await query_all(CONTROL_DOMAINS, resolvers, mode, args, max(args.timeout, 6))
     live: set[str] = set()
     channel_rows = []
     for r in resolvers:
@@ -239,31 +285,38 @@ async def run(args) -> int:
         channel_rows.append((lbl, oks, len(CONTROL_DOMAINS)))
     print(f"channel[{mode}]: live resolvers = {len(live)}/{len(resolvers)}")
     for lbl, oks, total in channel_rows:
-        print(f"  {lbl:<22} controls {oks}/{total}")
+        print(f"  {lbl:<24} controls {oks}/{total}")
     if len(live) < args.min_live:
         print(f"ABORT: {len(live)} live resolver(s) < --min-live {args.min_live}.")
         return 2
     live_resolvers = [r for r in resolvers if r["label"] in live]
 
-    # 2) sweep (wildcards audited via parent domain)
+    # 2) pipelined sweep (wildcards audited via parent domain)
     audit_names = sorted({d.removeprefix("*.") if d.startswith("*.") else d for d in doms})
-    print(f"sweeping {len(audit_names):,} domains x {len(live_resolvers)} live resolvers ...")
-    raw = await query_all(audit_names, live_resolvers, mode, args.concurrency, args.timeout)
+    print(
+        f"sweeping {len(audit_names):,} domains x {len(live_resolvers)} live "
+        f"resolvers (timeout {args.timeout}s, concurrency {args.concurrency}) ..."
+    )
+    t0 = time.monotonic()
+    raw = await query_all(audit_names, live_resolvers, mode, args, args.timeout)
+    print(f"sweep done in {(time.monotonic() - t0) / 60:.1f} min")
 
+    # 3) aggregate to verdicts (answers kept only with --full-json)
     results = []
     for d in sorted(doms):
         qname = d.removeprefix("*.") if d.startswith("*.") else d
-        results.append(
-            {
-                "domain": d,
-                "kind": doms[d],
-                "via_parent": d.startswith("*."),
-                "verdict": verdict(raw[qname], args.min_live),
-                "answers": [
-                    {"resolver": lab, "result": r, "detail": det} for lab, r, det in raw[qname]
-                ],
-            }
-        )
+        answers = raw[qname]
+        row = {
+            "domain": d,
+            "kind": doms[d],
+            "via_parent": d.startswith("*."),
+            "verdict": verdict(answers, args.min_live),
+        }
+        if args.full_json:
+            row["answers"] = [
+                {"resolver": lab, "result": r, "detail": det} for lab, r, det in answers
+            ]
+        results.append(row)
 
     dead = [r for r in results if r["verdict"] == "dead"]
     unresolved = [r for r in results if r["verdict"] == "unresolved"]
@@ -271,14 +324,14 @@ async def run(args) -> int:
     for r in results:
         by_kind.setdefault(r["kind"], Counter())[r["verdict"]] += 1
 
-    # 3) per-source attribution for dead domains
+    # 4) per-source attribution for dead domains
     dom2src = source_attribution(cache_dir, {r["domain"] for r in dead}) if dead else {}
     by_source: Counter = Counter()
     for r in dead:
         for s in dom2src.get(r["domain"], {"?"}):
             by_source[s] += 1
 
-    # 4) outputs
+    # 5) outputs (json stays slim unless --full-json)
     payload = {
         "mode": mode,
         "channel": {
@@ -304,8 +357,10 @@ async def run(args) -> int:
         f"- 通道：{mode.upper()}（自诊断通过，{len(live)}/{len(resolvers)} 解析器存活；"
         f"控制域 {', '.join(CONTROL_DOMAINS)}）",
         f"- 解析器：{', '.join(sorted(live))}",
-        "- 判定口径：任一存活解析器解析成功=可达；≥2 存活解析器均返回 NXDOMAIN=已死亡；"
-        "其余=未判定（超时/混合，不视为不可达）",
+        "- 判定口径：任一存活解析器解析成功=可达；"
+        f"≥{args.min_live} 个存活解析器均返回 NXDOMAIN=已死亡"
+        + ("（单解析器，无交叉验证，置信度降低）" if len(live) == 1 else "（交叉验证）")
+        + "；其余=未判定（超时/混合，不视为不可达）",
         f"- 审计：{len(results):,} 域名 —— 可达 {payload['totals']['reachable']:,} · "
         f"**已死亡 {len(dead):,}** · 未判定 {len(unresolved):,}",
         "",
@@ -338,7 +393,7 @@ async def run(args) -> int:
     md += [
         "",
         "> 通配条目（`*.x`）经父域 `x` 代查并已标注 `via_parent`；",
-        "> 本附录由 scripts/dns_coverage_audit.py 生成。",
+        f"> 本附录由 scripts/dns_coverage_audit.py v3 生成（{time.strftime('%Y-%m-%d %H:%M')}）。",
     ]
     section = "\n".join(md)
     (out_dir / "dns_audit.md").write_text(section + "\n", encoding="utf-8")
@@ -366,11 +421,17 @@ def main() -> None:
     ap.add_argument("--out-dir", default="output-final")
     ap.add_argument("--cache-dir", default="cache")
     ap.add_argument("--mode", choices=["doh", "udp", "auto"], default="doh")
-    ap.add_argument("--concurrency", type=int, default=80)
-    ap.add_argument("--blocks-sample", type=int, default=0)
+    ap.add_argument("--concurrency", type=int, default=150)
+    ap.add_argument("--timeout", type=float, default=4, help="per-query timeout (s)")
     ap.add_argument("--min-live", type=int, default=2)
+    ap.add_argument("--blocks-sample", type=int, default=0)
+    ap.add_argument("--full-json", action="store_true", help="keep raw answers in json")
+    ap.add_argument("--progress-every", type=int, default=5000)
     ap.add_argument(
-        "--timeout", type=float, default=6, help="per-query DoH timeout (s); lower for large sweeps"
+        "--checkpoint-every",
+        type=int,
+        default=0,
+        help="flush partial verdicts at each batch boundary when set",
     )
     ap.add_argument("--no-append-report", action="store_true")
     args = ap.parse_args()
