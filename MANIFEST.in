@@ -5,7 +5,7 @@
 
 include config/sources.yaml
 include requirements.txt uv.lock
-include AGENTS.md SECURITY.md Dockerfile
+include SECURITY.md Dockerfile
 recursive-include tests/fixtures *
 recursive-include docs *
 recursive-include scripts *
