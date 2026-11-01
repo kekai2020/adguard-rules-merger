@@ -23,7 +23,7 @@ def test_version_command_reports_800_and_ua():
     assert result.exit_code == 0, result.output
     assert "8.0.1" in result.output
     # User-Agent advertised on fetches (version.short derived from version.py).
-    assert "AdGuard-Rules-Merger" in result.output
+    assert "adguard-rules-merger/" in result.output
 
 
 # ── validate ───────────────────────────────────────────────────────────

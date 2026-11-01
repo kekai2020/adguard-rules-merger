@@ -1,4 +1,4 @@
-# AdGuard Rules Merger V8
+# AdGuard Rules Merger
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Version](https://img.shields.io/badge/Version-8.0.1-blue)
@@ -334,7 +334,7 @@ output:
 | `.github/workflows/merge.yml` | 每日 UTC 0 点 / 手动 / 配置变更 | 跑测试后执行合并、校验产物、把 `output/` 提交回 `main` |
 | `.github/workflows/release.yml` | 推送 `v*` 标签 | 构建 wheel/sdist 并发布到 GitHub Release |
 
-缓存使用 `actions/cache`（缓存键前缀 `rule-cache-v8-`），可显著减少重复下载。
+缓存使用 `actions/cache`（缓存键前缀 `rule-cache-`），可显著减少重复下载。
 
 发布一个版本：
 

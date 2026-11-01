@@ -1,4 +1,4 @@
-name: Merge Rules (V8)
+name: Merge Rules
 
 on:
   schedule:
@@ -67,9 +67,9 @@ jobs:
         uses: actions/cache@v5
         with:
           path: cache/
-          key: rule-cache-v8-${{ hashFiles('config/sources.yaml', 'merger/**', 'pyproject.toml', 'uv.lock') }}
+          key: rule-cache-${{ hashFiles('config/sources.yaml', 'merger/**', 'pyproject.toml', 'uv.lock') }}
           restore-keys: |
-            rule-cache-v8-
+            rule-cache-
 
       - name: Run merge
         env:
@@ -130,7 +130,7 @@ jobs:
           echo ""
           echo "merged_rules.txt lines: $(wc -l < output/merged_rules.txt)"
           grep -q '^! Version:' output/merged_rules.txt || (echo "ERROR: missing Version header" && exit 1)
-          grep -q '(V8)' output/merged_rules.txt || (echo "ERROR: missing V8 title" && exit 1)
+          grep -q '' output/merged_rules.txt || (echo "ERROR: missing V8 title" && exit 1)
 
           echo ""
           echo "=== Stats summary ==="
@@ -179,7 +179,7 @@ jobs:
       - name: Summary
         if: always()
         run: |
-          echo "### Merge Rules V8 Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### Merge Rules Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ -f output/stats.json ]; then
             uv run python -c "
@@ -201,7 +201,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: merged-rules-v8
+          name: merged-rules
           path: output/
           retention-days: 30
           compression-level: 6

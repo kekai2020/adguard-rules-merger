@@ -23,7 +23,7 @@ from pathlib import Path
 
 import typer
 
-from . import __version__, __version_short__, user_agent
+from . import __version__, user_agent
 from .cache import SourceCache
 from .config import (
     load_config,
@@ -138,7 +138,7 @@ def merge(
     if cfg.cache.enabled:
         Path(cfg.cache.directory).mkdir(parents=True, exist_ok=True)
 
-    typer.secho(f"AdGuard Rules Merger V{__version_short__}", fg=typer.colors.CYAN, bold=True)
+    typer.secho(f"adguard-rules-merger {__version__}", fg=typer.colors.CYAN, bold=True)
     typer.secho(f"User-Agent: {user_agent()}", fg=typer.colors.BRIGHT_BLACK)
     enabled = [s for s in cfg.sources if s.enabled]
     typer.secho(f"Enabled sources: {len(enabled)} / {len(cfg.sources)}", fg=typer.colors.CYAN)

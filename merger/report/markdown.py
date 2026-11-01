@@ -234,7 +234,7 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
     after_agg = after_badfilter - agg_net
 
     lines: list[str] = []
-    lines.append("# AdGuard Rules Merger V8 — 规则分析报告")
+    lines.append("# AdGuard Rules Merger — 规则分析报告")
     lines.append("")
     lines.append(f"> {_meta_stamp} | 源：{outcome.sources_ok}/{outcome.sources_total}{_cache_meta}")
     lines.append("")
@@ -633,6 +633,6 @@ def generate_markdown_report(blocks, allows, outcome, analysis, include_time: bo
             lines.append("")
 
     lines.append("---")
-    lines.append(f"*AdGuard Rules Merger V8 · 自动生成 · {_footer_stamp}*")
+    lines.append(f"*AdGuard Rules Merger · 自动生成 · {_footer_stamp}*")
     lines.append("")
     return "\n".join(lines)

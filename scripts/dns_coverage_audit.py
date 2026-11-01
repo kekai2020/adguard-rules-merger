@@ -626,7 +626,7 @@ async def run(args) -> int:
     report = out_dir / "report.md"
     if args.append_report and report.exists():
         text = report.read_text(encoding="utf-8")
-        footer = "*AdGuard Rules Merger V8 ·"
+        footer = "*AdGuard Rules Merger ·"
         if footer in text:
             text = text.replace(footer, section + "\n\n---\n" + footer, 1)
         else:

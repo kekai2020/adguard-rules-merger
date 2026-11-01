@@ -197,7 +197,7 @@ def test_cli_version():
     result = runner.invoke(app, ["version"])
     assert result.exit_code == 0
     assert "8.0.1" in result.stdout
-    assert "AdGuard-Rules-Merger/8" in result.stdout
+    assert "adguard-rules-merger/" in result.stdout
 
 
 def test_cli_validate_on_real_config():

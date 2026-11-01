@@ -1,4 +1,4 @@
-"""AdGuard Rules Merger V8 — DNS-layer rule compiler.
+"""AdGuard Rules Merger — DNS-layer rule compiler.
 
 Pipeline: multi-source fetch -> parse -> dedup (exact/normalized/regex)
 -> upward aggregation (exact + wildcard children + optional promotion)

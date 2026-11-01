@@ -679,7 +679,7 @@ def generate_html_report(blocks, allows, outcome, analysis, include_time: bool =
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AdGuard Rules Merger V8 - 规则分析报告</title>
+<title>AdGuard Rules Merger - 规则分析报告</title>
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f5f7fa; color:#333; line-height:1.6; }}
@@ -755,7 +755,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
 <body>
 <div class="container">
   <div class="header">
-    <h1>🛡️ AdGuard Rules Merger V8</h1>
+    <h1>🛡️ AdGuard Rules Merger</h1>
     <div class="subtitle">专业规则合并分析报告</div>
     <div class="meta">{_meta_stamp} | 源：{outcome.sources_ok}/{outcome.sources_total}{_cache_meta}</div>
   </div>
@@ -960,7 +960,7 @@ tbody tr:hover {{ background:#f0f5fa; }}
   <!-- 与上次合并对比 -->
   {diff_section}
 
-  <div class="footer">AdGuard Rules Merger V8 · 自动生成 · {_footer_stamp}</div>
+  <div class="footer">AdGuard Rules Merger · 自动生成 · {_footer_stamp}</div>
 </div>
 </body>
 </html>"""

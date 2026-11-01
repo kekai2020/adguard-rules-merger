@@ -23,4 +23,4 @@ AUDIT_CACHE_VERSION = 2
 
 def user_agent() -> str:
     """HTTP User-Agent advertised when fetching remote lists."""
-    return f"AdGuard-Rules-Merger/{__version_short__}"
+    return f"adguard-rules-merger/{__version__}"

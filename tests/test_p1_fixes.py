@@ -64,7 +64,7 @@ def test_shallow_merge_keeps_unmentioned_layers():
 def test_empty_user_agent_falls_back_to_versioned_ua():
     eng = AsyncRuleEngine(cache_dir=None, user_agent="")
     assert eng.user_agent == versioned_ua()
-    assert eng.user_agent.startswith("AdGuard-Rules-Merger/")
+    assert eng.user_agent.startswith("adguard-rules-merger/")
 
 
 def test_explicit_user_agent_is_preserved():

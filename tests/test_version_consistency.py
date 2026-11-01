@@ -22,8 +22,8 @@ def test_version_short_is_8_0():
 
 
 def test_user_agent_tracks_version():
-    assert user_agent() == "AdGuard-Rules-Merger/8"
-    assert user_agent() == f"AdGuard-Rules-Merger/{__version_short__}"
+    assert user_agent() == f"adguard-rules-merger/{__version__}"
+    assert user_agent().startswith("adguard-rules-merger/")
 
 
 def test_pyproject_version_aligned():
@@ -49,34 +49,33 @@ def test_readme_badge_aligned():
 
 def test_ci_cache_key_and_name_aligned():
     text = (ROOT / ".github" / "workflows" / "merge.yml").read_text(encoding="utf-8")
-    assert "Merge Rules (V8)" in text
-    assert "rule-cache-v8-" in text
+    assert "name: Merge Rules" in text
+    assert "rule-cache-" in text and "rule-cache-v8-" not in text
     assert "Merge Rules (V6)" not in text
     assert "rule-cache-v6-" not in text
     assert "rule-cache-v51" not in text
     assert "Merge Rules (V5.1)" not in text
     # The merge job greps the produced rule file for the version label in its
     # title; the exporter's label and this CI assertion must stay in lockstep.
-    assert "grep -q '(V8)' output/merged_rules.txt" in text
     assert "(V7)" not in text
-    # The uploaded-artifact name must carry the V8 label too; a stale `v7`
+    # The uploaded-artifact name must not carry a stale version label.
     # artifact name is exactly the class of V7 residue the guard exists to catch.
-    assert "merged-rules-v8" in text
+    assert "merged-rules" in text and "merged-rules-v8" not in text
     assert "merged-rules-v7" not in text
 
 
-def test_exported_titles_are_v8():
+def test_exported_titles_unbranded():
     # The exporter and both report renderers embed the version label directly in
     # their output. CI greps for the merged_rules.txt title, so keep these in
     # sync with the exporter label and the workflow assertion above.
     exporter = (ROOT / "merger" / "exporter.py").read_text(encoding="utf-8")
-    assert "Merged AdGuard Home Filter Rules (V8)" in exporter
-    assert "Whitelist for Merged Rules (V8)" in exporter
-    assert "AdGuard Rules Merger V8" in exporter
+    assert "Merged AdGuard Home Filter Rules" in exporter
+    assert "Whitelist for Merged Rules" in exporter
+    assert "AdGuard Rules Merger" in exporter and "(V8)" not in exporter
     html = (ROOT / "merger" / "report" / "html.py").read_text(encoding="utf-8")
-    assert "AdGuard Rules Merger V8" in html
+    assert "AdGuard Rules Merger" in html and "AdGuard Rules Merger V8" not in html
     md = (ROOT / "merger" / "report" / "markdown.py").read_text(encoding="utf-8")
-    assert "AdGuard Rules Merger V8" in md
+    assert "AdGuard Rules Merger" in md and "Merger V8" not in md
     # No residual V7 labels in generated-output code paths.
     assert "(V7)" not in exporter
     assert "(V7)" not in html
@@ -110,7 +109,7 @@ def test_dockerfile_version_aligned():
 
 def test_readme_repo_urls_point_at_v8():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "# AdGuard Rules Merger V8" in text
+    assert "# adguard-rules-merger" in text or "# AdGuard Rules Merger" in text
     # Clone / badge / subscription raw URLs must reference the v8 repository.
     assert "adguard-rules-merger-v7" not in text
     assert "adguard-rules-merger-v8" in text

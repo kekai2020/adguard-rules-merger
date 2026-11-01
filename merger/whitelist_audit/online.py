@@ -25,7 +25,7 @@ async def _query_gsb(domain: str, api_key: str, session, timeout: int = 8) -> di
         return result
     try:
         payload = {
-            "client": {"clientId": "adguard-rules-merger", "clientVersion": "6"},
+            "client": {"clientId": "adguard-rules-merger", "clientVersion": "8.0.1"},
             "threatInfo": {
                 "threatTypes": [
                     "MALWARE",

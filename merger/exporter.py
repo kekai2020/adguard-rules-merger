@@ -44,7 +44,7 @@ from .models import (
     Rule,
 )
 from .report.analysis import _generation_label
-from .version import __version_short__
+from .version import __version__
 
 
 def _content_hash(blocks: list[Rule], allows: list[Rule]) -> str:
@@ -140,7 +140,7 @@ class Exporter:
             for k in ("ads", "malware", "tracking", "phishing", "mining", "other")
         )
         lines = [
-            "! Title: Merged AdGuard Home Filter Rules (V8)",
+            "! Title: Merged AdGuard Home Filter Rules",
             f"! Description: Auto-merged from {src_tot} sources (dedup + aggregation + conflict resolution)",
             f"! Version: {content_ver}",
             # 合并时间戳：仅 report_timestamp 模式输出（默认确定性产物无墙钟）；
@@ -167,7 +167,7 @@ class Exporter:
     def _whitelist_header(self, allows: list[Rule]) -> list[str]:
         content_ver = _content_hash([], allows)
         return [
-            "! Title: Whitelist for Merged Rules (V8)",
+            "! Title: Whitelist for Merged Rules",
             "! Description: Allow rules separated from main filter",
             f"! Version: {content_ver}",
             *([f"! Generated: {_generation_label(True)}"] if self.report_timestamp else []),
@@ -220,7 +220,7 @@ class Exporter:
                 yield f"0.0.0.0 {d}"
 
         self._write_lines(
-            self.out / "hosts.txt", ["# Hosts format — AdGuard Rules Merger V8", "#"], body()
+            self.out / "hosts.txt", ["# Hosts format — AdGuard Rules Merger", "#"], body()
         )
 
     def write_domains(self, blocks):
@@ -236,7 +236,7 @@ class Exporter:
 
         self._write_lines(
             self.out / "clash.yaml",
-            ["# Clash rule-set — AdGuard Rules Merger V8", "payload:"],
+            ["# Clash rule-set — AdGuard Rules Merger", "payload:"],
             body(),
         )
 
@@ -247,7 +247,7 @@ class Exporter:
 
         self._write_lines(
             self.out / "surge.list",
-            ["# Surge rule-set — AdGuard Rules Merger V8", "# DOMAIN-SUFFIX,<domain>"],
+            ["# Surge rule-set — AdGuard Rules Merger", "# DOMAIN-SUFFIX,<domain>"],
             body(),
         )
 
@@ -259,7 +259,7 @@ class Exporter:
         self._write_lines(
             self.out / "smartdns.conf",
             [
-                "# SmartDNS blocking config — AdGuard Rules Merger V8",
+                "# SmartDNS blocking config — AdGuard Rules Merger",
                 "# address /domain/#  (blocks domain + subdomains)",
             ],
             body(),
@@ -281,7 +281,7 @@ class Exporter:
         for cat, rules in buckets.items():
             content_ver = f"{parent_ver}-{cat}" if parent_ver else _content_hash(rules, [])
             header = [
-                f"! Title: Merged {cat} filter (V8)",
+                f"! Title: Merged {cat} filter",
                 f"! Category: {cat}",
                 f"! Version: {content_ver}",
                 f"! Rules: {len(rules)}",
@@ -296,7 +296,7 @@ class Exporter:
         total_agg = outcome.aggregated + outcome.wildcard_aggregated + outcome.wildcard_promoted
         content_ver = getattr(outcome, "content_version", None) or _content_hash(blocks, allows)
         stats = {
-            "version": __version_short__,
+            "version": __version__,
             "content_version": content_ver,
             **({"generated_at": _generation_label(True)} if self.report_timestamp else {}),
             "sources": {
