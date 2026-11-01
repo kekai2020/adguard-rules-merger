@@ -181,7 +181,7 @@
       "dataset_hits": 0,
       "api_fallbacks": 0,
       "feed_schema_error": 0,
-      "feed_age_hours": 0.89,
+      "feed_age_hours": 0.0,
       "freshness": "fresh",
       "domains_indexed": 3,
       "urlhaus_loaded": true,
@@ -3465,8 +3465,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "AdGuard DNS filter",
-        "CHN: anti-AD"
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
       ],
       "rule": "@@||app.adjust.com^",
       "disk_cache": true
@@ -6953,8 +6953,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "AdGuard DNS filter",
-        "CHN: anti-AD"
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
       ],
       "rule": "@@||ftp.bmp.ovh^",
       "disk_cache": true
@@ -8846,8 +8846,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "AdGuard DNS filter",
-        "CHN: anti-AD"
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
       ],
       "rule": "@@||log.mmstat.com^",
       "disk_cache": true
