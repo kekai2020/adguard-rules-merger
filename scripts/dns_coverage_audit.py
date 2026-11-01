@@ -35,6 +35,8 @@ DOH_RESOLVERS = [
     {"label": "223.5.5.5 (AliDNS)", "url": "https://223.5.5.5/resolve"},
     {"label": "223.6.6.6 (AliDNS)", "url": "https://223.6.6.6/resolve"},
     {"label": "119.29.29.29 (DNSPod)", "url": "https://doh.pub/resolve"},
+    {"label": "120.53.53.53 (DNSPod-2)", "url": "https://120.53.53.53/resolve"},
+    {"label": "101.226.4.6 (360)", "url": "https://doh.360.cn/resolve"},
     {"label": "1.1.1.1 (Cloudflare)", "url": "https://cloudflare-dns.com/dns-query", "json": True},
     {"label": "8.8.8.8 (Google)", "url": "https://dns.google/resolve"},
 ]
@@ -45,13 +47,13 @@ CONTROL_DOMAINS = ["www.qq.com", "www.baidu.com", "www.cloudflare.com"]
 # ── transports ────────────────────────────────────────────────────────
 
 
-async def _doh_query(session, sem, resolver, name):
+async def _doh_query(session, sem, resolver, name, timeout_s=6):
     url = f"{resolver['url']}?name={name}&type=A"
     headers = {"Accept": "application/dns-json"} if resolver.get("json") else {}
     async with sem:
         try:
             async with session.get(
-                url, headers=headers, timeout=aiohttp.ClientTimeout(total=6)
+                url, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout_s)
             ) as resp:
                 if resp.status != 200:
                     return ("http_error", str(resp.status))
@@ -85,7 +87,7 @@ def _udp_query(ip, name):
         return ("timeout", type(e).__name__)
 
 
-async def query_all(names, resolvers, mode, concurrency):
+async def query_all(names, resolvers, mode, concurrency, timeout_s=6):
     """Return {name: [(resolver_label, result, detail), ...]}.
 
     NOTE: sequential over domains by design — the semaphore bounds total
@@ -94,15 +96,18 @@ async def query_all(names, resolvers, mode, concurrency):
     """
     sem = asyncio.Semaphore(concurrency)
     out: dict[str, list] = {}
+    args_timeout_s = timeout_s
     loop = asyncio.get_running_loop()
     async with aiohttp.ClientSession() as session:
         for name in names:
 
             async def one(resolver, name=name):
                 if mode == "doh":
-                    r, d = await _doh_query(session, sem, resolver, name)
-                    if r == "timeout":  # single retry — transient losses are common
-                        r, d = await _doh_query(session, sem, resolver, name)
+                    r, d = await _doh_query(session, sem, resolver, name, args_timeout_s)
+                    if r == "timeout" and args_timeout_s >= 6:
+                        # single retry on the long timeout; short sweep timeout
+                        # skips retries to keep large samples tractable
+                        r, d = await _doh_query(session, sem, resolver, name, args_timeout_s)
                 else:
                     r, d = await loop.run_in_executor(None, _udp_query, resolver["ip"], name)
                 return resolver["label"], r, d
@@ -137,13 +142,21 @@ def collect_domains(out_dir: Path, cache_dir: Path, blocks_sample: int) -> dict[
                     if d:
                         doms.setdefault(d, "badfilter-target")
     if blocks_sample:
-        n = 0
+        # SYSTEMATIC stride sample (every k-th rule): unbiased coverage across
+        # the whole file — the previous first-N head bias concentrated on
+        # alphabetically-early sources.
+        cands = []
         for line in (out_dir / "merged_rules.txt").read_text(encoding="utf-8").splitlines():
-            if line.startswith("||") and "$" not in line and n < blocks_sample:
+            if line.startswith("||") and "$" not in line:
                 d = line[2:].split("^")[0].lower().rstrip(".")
-                if d and d not in doms and not d.replace(".", "").isdigit():
+                if d and not d.replace(".", "").isdigit():
+                    cands.append(d)
+        total = len(cands)
+        if total:
+            stride = max(1, total // blocks_sample)
+            for d in cands[::stride][:blocks_sample]:
+                if d not in doms:
                     doms[d] = "block-sample"
-                    n += 1
     return doms
 
 
@@ -208,7 +221,9 @@ async def run(args) -> int:
             mode, resolvers = "doh", DOH_RESOLVERS
 
     # 1) channel self-diagnosis on control domains
-    control = await query_all(CONTROL_DOMAINS, resolvers, mode, min(args.concurrency, 10))
+    control = await query_all(
+        CONTROL_DOMAINS, resolvers, mode, min(args.concurrency, 10), max(args.timeout, 6)
+    )
     live: set[str] = set()
     channel_rows = []
     for r in resolvers:
@@ -233,7 +248,7 @@ async def run(args) -> int:
     # 2) sweep (wildcards audited via parent domain)
     audit_names = sorted({d.removeprefix("*.") if d.startswith("*.") else d for d in doms})
     print(f"sweeping {len(audit_names):,} domains x {len(live_resolvers)} live resolvers ...")
-    raw = await query_all(audit_names, live_resolvers, mode, args.concurrency)
+    raw = await query_all(audit_names, live_resolvers, mode, args.concurrency, args.timeout)
 
     results = []
     for d in sorted(doms):
@@ -303,6 +318,16 @@ async def run(args) -> int:
             f"| {k} | {sum(c.values()):,} | {c.get('reachable', 0):,} | "
             f"{c.get('dead', 0):,} | {c.get('unresolved', 0):,} |"
         )
+    wl_dead = [r["domain"] for r in dead if r["kind"] == "whitelist" and not r["via_parent"]]
+    if wl_dead:
+        md += [
+            "",
+            "### 🧹 白名单清理建议",
+            "",
+            f"以下 {len(wl_dead)} 条白名单域名已从 DNS 消失（放行对象不存在，规则无效）：",
+            "",
+        ]
+        md += [f"- `{d}` —— 建议：确认后从白名单源移除" for d in wl_dead]
     if dead:
         md += ["", "### 已死亡域名 · 按来源分布", "", "| 来源列表 | 死亡域名数 |", "|---|---:|"]
         for s, n in by_source.most_common():
@@ -344,6 +369,9 @@ def main() -> None:
     ap.add_argument("--concurrency", type=int, default=80)
     ap.add_argument("--blocks-sample", type=int, default=0)
     ap.add_argument("--min-live", type=int, default=2)
+    ap.add_argument(
+        "--timeout", type=float, default=6, help="per-query DoH timeout (s); lower for large sweeps"
+    )
     ap.add_argument("--no-append-report", action="store_true")
     args = ap.parse_args()
     args.append_report = not args.no_append_report
