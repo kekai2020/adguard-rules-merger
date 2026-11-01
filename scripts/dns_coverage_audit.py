@@ -54,15 +54,23 @@ DOH_RESOLVERS = [
     {"label": "180.76.76.76 (Baidu)", "url": "https://doh.baidu.com/dns-query"},
     {"label": "1.1.1.1 (Cloudflare)", "url": "https://cloudflare-dns.com/dns-query", "json": True},
     {"label": "8.8.8.8 (Google)", "url": "https://dns.google/resolve"},
-    {"label": "9.9.9.10 (Quad9-unfiltered)", "url": "https://dns11.quad9.net/dns-query", "json": True},
-    {"label": "94.140.14.140 (AdGuard-nonfilter)", "url": "https://dns.unfiltered.adguard-dns.org/dns-query", "json": True},
+    {
+        "label": "9.9.9.10 (Quad9-unfiltered)",
+        "url": "https://dns11.quad9.net/dns-query",
+        "json": True,
+    },
+    {
+        "label": "94.140.14.140 (AdGuard-nonfilter)",
+        "url": "https://dns.unfiltered.adguard-dns.org/dns-query",
+        "json": True,
+    },
     {"label": "dns.sb (DNS.SB)", "url": "https://doh.dns.sb/dns-query", "json": True},
 ]
 UDP_RESOLVERS = [
-    "223.6.6.6",           # AliDNS 无过滤
-    "119.29.29.29",        # DNSPod 无过滤
-    "114.114.115.115",     # 114 无过滤通道（114.114.114.114 是过滤版！）
-    "180.76.76.76",        # 百度
+    "223.6.6.6",  # AliDNS 无过滤
+    "119.29.29.29",  # DNSPod 无过滤
+    "114.114.115.115",  # 114 无过滤通道（114.114.114.114 是过滤版！）
+    "180.76.76.76",  # 百度
     "1.1.1.1",
     "8.8.8.8",
 ]
@@ -342,6 +350,104 @@ def verdict(results: list[tuple[str, str, str]], min_live: int) -> str:
     return "unresolved"  # timeouts / mixed — channel or resolver trouble
 
 
+async def sweep_pipeline(names, live_resolvers, mode, args, raw, out_dir):
+    """R8.4: weighted round-1 seeding + failure re-routing to the next-fastest
+    resolver's queue (dynamic balance without phase barriers). reachable on
+    the first OK; dead only after every live resolver answered NXDOMAIN/servfail
+    (>= min_live NXDOMAIN); unresolved get one fresh retry pass."""
+    from collections import deque
+
+    order = sorted(live_resolvers, key=lambda r: r.get("latency", 1.0))
+    lbl_of = [r["label"] for r in order]
+    bit_of = {lbl: 1 << i for i, lbl in enumerate(lbl_of)}
+    full_mask = (1 << len(order)) - 1
+    queues = {lbl: deque() for lbl in lbl_of}
+    untried = {n: full_mask for n in names}
+    finals: set[str] = set()
+    done_evt = asyncio.Event()
+    stats = {"done": 0}
+    t0 = time.monotonic()
+
+    # weighted round-1 seeding
+    seed = {lbl: deque() for lbl in lbl_of}
+    for i2, n in enumerate(names):
+        seed[live_resolvers[i2 % len(live_resolvers)]["label"]].append(n)
+    for lbl, dq in seed.items():
+        queues[lbl].extend(dq)
+
+    session_cm = aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(limit=max(args.concurrency * 2, 100))
+    )
+
+    async def worker(r):
+        lbl = r["label"]
+        myq = queues[lbl]
+        mybit = bit_of[lbl]
+        loop = asyncio.get_running_loop()
+        async with session_cm as session:
+
+            async def probe(name):
+                if mode == "doh":
+                    res, det = await _doh_query(session, r, name, args.r1_timeout)
+                else:
+                    res, det = await loop.run_in_executor(
+                        None, _udp_query, r["ip"], name, args.r1_timeout
+                    )
+                return res, det
+
+            while myq:
+                name = myq.popleft()
+                if name in finals or not untried.get(name, 0) & mybit:
+                    continue  # finalized elsewhere or re-routed
+                async with r["sem"]:
+                    stats["done"] += 1
+                    res, det = await probe(name)
+                raw[name].append((lbl, res, det))
+                untried[name] &= ~mybit
+                if res == "ok":
+                    finals.add(name)
+                elif untried[name] == 0:
+                    finals.add(name)
+                else:
+                    for i2, lb2 in enumerate(lbl_of):
+                        if untried[name] >> i2 & 1:
+                            queues[lb2].append(name)
+                            break
+                if len(finals) >= len(names):
+                    done_evt.set()
+
+    workers = [asyncio.create_task(worker(r)) for r in live_resolvers]
+    prog = asyncio.create_task(progress_task(stats, finals, done_evt, len(names), t0))
+    await done_evt.wait()
+    print(f"pipeline sweep done in {(time.monotonic() - t0) / 60:.1f} min", flush=True)
+
+    unresolved = [n for n in names if n not in finals]
+    if unresolved and args.unresolved_retry:
+        print(f"retry pass: {len(unresolved):,} unresolved, all resolvers ...")
+        done_evt.clear()
+        finals.difference_update(unresolved)
+        for i2, n in enumerate(unresolved):
+            raw[n] = []
+            untried[n] = full_mask
+            queues[lbl_of[i2 % len(lbl_of)]].append(n)
+        await done_evt.wait()
+
+    prog.cancel()
+    for w in workers:
+        w.cancel()
+
+
+async def progress_task(stats, finals, done_evt, total, t0):
+    while not done_evt.is_set():
+        await asyncio.sleep(10)
+        rate = stats["done"] / max(time.monotonic() - t0, 1e-6)
+        print(
+            f"  pipeline {stats['done']:,} probes ({rate:,.0f} q/s, "
+            f"finals {len(finals):,}/{total:,})",
+            flush=True,
+        )
+
+
 async def run(args) -> int:
     out_dir, cache_dir = Path(args.out_dir), Path(args.cache_dir)
     doms = collect_domains(out_dir, cache_dir, args.blocks_sample)
@@ -468,60 +574,66 @@ async def run(args) -> int:
     assign_pool: list = []
     for r in live_resolvers:
         assign_pool += [r] * quotas[r["label"]]
-    print(
-        f"sweeping {total_domains:,} domains, 2-phase sharded across "
-        f"{len(live_resolvers)} live resolvers (timeout {args.timeout}s, "
-        f"concurrency {args.concurrency}) ..."
-    )
-    t0 = time.monotonic()
     raw: dict[str, list] = {}
+    if not getattr(args, 'pipeline', False):
+        print(
+            f"sweeping {total_domains:,} domains across "
+            f"{len(live_resolvers)} live resolvers (timeout {args.timeout}s, "
+            f"concurrency {args.concurrency}) ..."
+        )
+        t0 = time.monotonic()
 
-    # round 1 — one resolver per domain, round-robin sharded
-    r1_fail: list[str] = []
-    for i in range(0, total_domains, args.concurrency * 4):
-        chunk = audit_names[i : i + args.concurrency * 4]
-        part = await query_shard(chunk, live_resolvers, mode, args, args.r1_timeout, raw)
-        r1_fail.extend(part)
+        # round 1 — one resolver per domain, round-robin sharded
+        r1_fail: list[str] = []
+        for i in range(0, total_domains, args.concurrency * 4):
+            chunk = audit_names[i : i + args.concurrency * 4]
+            part = await query_shard(chunk, live_resolvers, mode, args, args.r1_timeout, raw)
+            r1_fail.extend(part)
+            if args.checkpoint_every:
+                _checkpoint(raw, out_dir, mode)
+            print(
+                f"  round1 {min(i + len(chunk), total_domains):,}/{total_domains:,} "
+                f"({len(r1_fail):,} failed -> round 2)",
+                flush=True,
+            )
+        r1_elapsed = time.monotonic() - t0
+        print(
+            f"round 1 done in {r1_elapsed / 60:.1f} min: "
+            f"{total_domains - len(r1_fail):,} reachable on first probe, "
+            f"{len(r1_fail):,} enter round 2"
+        )
         if args.checkpoint_every:
             _checkpoint(raw, out_dir, mode)
-        print(
-            f"  round1 {min(i + len(chunk), total_domains):,}/{total_domains:,} "
-            f"({len(r1_fail):,} failed -> round 2)",
-            flush=True,
-        )
-    r1_elapsed = time.monotonic() - t0
-    print(
-        f"round 1 done in {r1_elapsed / 60:.1f} min: "
-        f"{total_domains - len(r1_fail):,} reachable on first probe, "
-        f"{len(r1_fail):,} enter round 2"
-    )
-    if args.checkpoint_every:
-        _checkpoint(raw, out_dir, mode)
 
-    # round 2 — all resolvers on every round-1 failure
-    t1 = time.monotonic()
-    if r1_fail:
-        for i in range(0, len(r1_fail), args.concurrency * 4):
-            chunk = r1_fail[i : i + args.concurrency * 4]
-            await query_all(chunk, live_resolvers, mode, args, args.timeout, into=raw)
-            print(f"  round2 {min(i + len(chunk), len(r1_fail)):,}/{len(r1_fail):,}", flush=True)
-    print(f"round 2 done in {(time.monotonic() - t1) / 60:.1f} min")
+        # round 2 — all resolvers on every round-1 failure
+        t1 = time.monotonic()
+        if r1_fail:
+            for i in range(0, len(r1_fail), args.concurrency * 4):
+                chunk = r1_fail[i : i + args.concurrency * 4]
+                await query_all(chunk, live_resolvers, mode, args, args.timeout, into=raw)
+                print(
+                    f"  round2 {min(i + len(chunk), len(r1_fail)):,}/{len(r1_fail):,}", flush=True
+                )
+        print(f"round 2 done in {(time.monotonic() - t1) / 60:.1f} min")
 
-    # round 3 — unresolved retry: timeouts are often transient; one fresh
-    # all-resolver pass over the unresolved set, then re-verdict
-    t2 = time.monotonic()
-    still: list[str] = [
-        d for d in audit_names if raw.get(d) and verdict(raw[d], args.min_live) == "unresolved"
-    ]
-    if still and args.unresolved_retry:
-        print(f"round 3: retrying {len(still):,} unresolved with all resolvers ...")
-        for i in range(0, len(still), args.concurrency * 4):
-            chunk = still[i : i + args.concurrency * 4]
-            for name in chunk:
-                raw[name] = []  # clear stale answers; re-probe fresh
-            await query_all(chunk, live_resolvers, mode, args, max(args.timeout, 6), into=raw)
-            print(f"  round3 {min(i + len(chunk), len(still)):,}/{len(still):,}", flush=True)
-        print(f"round 3 done in {(time.monotonic() - t2) / 60:.1f} min")
+        # round 3 — unresolved retry: timeouts are often transient; one fresh
+        # all-resolver pass over the unresolved set, then re-verdict
+        t2 = time.monotonic()
+        still: list[str] = [
+            d for d in audit_names if raw.get(d) and verdict(raw[d], args.min_live) == "unresolved"
+        ]
+        if still and args.unresolved_retry:
+            print(f"round 3: retrying {len(still):,} unresolved with all resolvers ...")
+            for i in range(0, len(still), args.concurrency * 4):
+                chunk = still[i : i + args.concurrency * 4]
+                for name in chunk:
+                    raw[name] = []  # clear stale answers; re-probe fresh
+                await query_all(chunk, live_resolvers, mode, args, max(args.timeout, 6), into=raw)
+                print(f"  round3 {min(i + len(chunk), len(still)):,}/{len(still):,}", flush=True)
+            print(f"round 3 done in {(time.monotonic() - t2) / 60:.1f} min")
+
+    else:
+        await sweep_pipeline(audit_names, live_resolvers, mode, args, raw, out_dir)
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
     shard_set = set(audit_names)
@@ -855,6 +967,9 @@ def main() -> None:
         "--gather", action="store_true", help="merge shard payloads into final artifacts"
     )
     ap.add_argument("--force", action="store_true", help="ignore verdict cache, full re-sweep")
+    ap.add_argument(
+        "--no-pipeline", action="store_true", help="fall back to the two-phase barrier sweep"
+    )
     ap.add_argument(
         "--no-unresolved-retry",
         action="store_true",
