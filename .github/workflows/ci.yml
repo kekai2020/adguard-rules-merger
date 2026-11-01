@@ -83,7 +83,7 @@ jobs:
           grep -q '||example.com^' /tmp/smoke-out/merged_rules.txt
           echo "wheel smoke merge OK"
       - name: Upload distributions
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: distributions
           path: dist/*
