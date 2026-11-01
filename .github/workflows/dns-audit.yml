@@ -13,11 +13,14 @@ on:
   workflow_dispatch:
     inputs:
       blocks_sample:
-        description: "block-rule sample size (0 = allow-side only; 2770000 = full sweep, may exceed 6h job limit)"
+        description: "block-rule domains to audit (0 = allow-side only; 2770000 = full sweep)"
         default: "20000"
       min_live:
         description: "minimum live resolvers required"
         default: "2"
+      shard_count:
+        description: "parallel matrix jobs (full sweep: 4 fits well inside the 6h job limit)"
+        default: "1"
 
 permissions:
   contents: write
@@ -26,7 +29,17 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2, 3]
     steps:
+      - name: Skip unused shards
+        if: ${{ matrix.shard_index >= (github.event.inputs.shard_count || '1') }}
+        run: echo "shard not needed" && exit 0
+      - name: Mark used
+        if: ${{ matrix.shard_index < (github.event.inputs.shard_count || '1') }}
+        run: echo "shard ${{ matrix.shard_index }} active"
       - uses: actions/checkout@v4
 
       - uses: astral-sh/setup-uv@v5
@@ -48,9 +61,31 @@ jobs:
             --checkpoint-every 200000 \
 
 
-      - name: Upload audit artifacts
+      - name: Upload shard artifact
         uses: actions/upload-artifact@v4
         if: always()
+        with:
+          name: dns-audit-shard-${{ matrix.shard_index }}
+          path: output/dns_audit.shard*of*.json
+          if-no-files-found: ignore
+
+  gather:
+    needs: audit
+    runs-on: ubuntu-latest
+    if: ${{ !cancelled() && (github.event.inputs.shard_count || '1') > 1 }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: dns-audit-shard-*
+          path: output/
+          merge-multiple: true
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Gather shards into final artifacts
+        run: uv run python scripts/dns_coverage_audit.py --out-dir output --cache-dir cache --gather
+      - name: Upload merged artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: dns-audit
           path: |

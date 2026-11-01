@@ -360,11 +360,7 @@ async def run(args) -> int:
             print(f"verdict cache: {len(prior):,} prior verdicts loaded")
         except (OSError, json.JSONDecodeError) as e:
             print(f"verdict cache unreadable ({e}); full sweep")
-    todo = {
-        d: k
-        for d, k in doms.items()
-        if d not in prior or (args.retry_unresolved and prior[d]["verdict"] == "dead" and False)
-    }
+    todo = {d: k for d, k in doms.items() if d not in prior}
     print(f"to audit this run: {len(todo):,} (skipped {len(doms) - len(todo):,} cached)")
 
     mode = args.mode
@@ -521,8 +517,23 @@ async def run(args) -> int:
         print(f"round 3 done in {(time.monotonic() - t2) / 60:.1f} min")
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
+    shard_set = set(audit_names)
     results = []
     for d in sorted(doms):
+        if d not in shard_set:
+            continue  # other shards own this domain (sharded runs)
+        if "*" in d and not d.startswith("*."):
+            # mid-domain wildcard whitelist entry (e.g. bcicl.*.evergage.com):
+            # not a literal DNS name — counted separately, never probed
+            results.append(
+                {
+                    "domain": d,
+                    "kind": doms[d],
+                    "via_parent": False,
+                    "verdict": "wildcard-literal",
+                }
+            )
+            continue
         qname = d.removeprefix("*.") if d.startswith("*.") else d
         answers = raw[qname]
         row = {
@@ -559,6 +570,7 @@ async def run(args) -> int:
         "channel": {
             lbl: {"controls_ok": oks, "controls_total": total} for lbl, oks, total in channel_rows
         },
+        "shard": {"index": args.shard_index, "count": args.shard_count},
         "totals": {
             "audited": len(results),
             "reachable": sum(1 for r in results if r["verdict"] == "reachable"),
@@ -569,9 +581,12 @@ async def run(args) -> int:
         "dead_by_source": dict(by_source),
         "results": results,
     }
-    (out_dir / "dns_audit.json").write_text(
-        json.dumps(payload, ensure_ascii=False), encoding="utf-8"
+    out_name = (
+        f"dns_audit.shard{args.shard_index}of{args.shard_count}.json"
+        if args.shard_count > 1
+        else "dns_audit.json"
     )
+    (out_dir / out_name).write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
     md = [
         "## 📡 DNS 可达性审计（多解析器并发）",
@@ -620,11 +635,11 @@ async def run(args) -> int:
     section = "\n".join(md)
     (out_dir / "dns_audit.md").write_text(section + "\n", encoding="utf-8")
 
-    if patch_html_report(out_dir, payload):
+    if args.shard_count == 1 and patch_html_report(out_dir, payload):
         print("injected/updated DNS audit section in report.html")
 
     report = out_dir / "report.md"
-    if args.append_report and report.exists():
+    if args.shard_count == 1 and args.append_report and report.exists():
         text = report.read_text(encoding="utf-8")
         footer = "*AdGuard Rules Merger ·"
         if footer in text:
@@ -733,6 +748,86 @@ def patch_html_report(out_dir: Path, payload: dict) -> bool:
     return True
 
 
+def gather(out_dir: Path, args) -> int:
+    """Merge dns_audit.shard*of*.json payloads into final json/md/html."""
+    shard_files = sorted(out_dir.glob("dns_audit.shard*of*.json"))
+    if not shard_files:
+        print("no shard payloads found")
+        return 1
+    results: list[dict] = []
+    modes: set[str] = set()
+    live: set[str] = set()
+    min_live = args.min_live
+    for f in shard_files:
+        d = json.loads(f.read_text(encoding="utf-8"))
+        results.extend(d.get("results", []))
+        modes.add(d.get("mode", "?"))
+        for lbl, info in (d.get("channel") or {}).items():
+            if info.get("controls_ok"):
+                live.add(lbl)
+        min_live = max(min_live, int(d.get("min_live", 1)))
+    # dedupe by domain (later shards win — partitions are disjoint so this is a safety net)
+    uniq = {r["domain"]: r for r in results}
+    results = sorted(uniq.values(), key=lambda r: r["domain"])
+    payload = _payload_from(
+        results,
+        mode="+".join(sorted(modes)),
+        channel_rows=[(lbl, 1, 1) for lbl in sorted(live)],
+        min_live=min_live,
+        cache_dir=Path(args.cache_dir),
+    )
+    payload["gathered_from"] = [f.name for f in shard_files]
+    (out_dir / "dns_audit.json").write_text(
+        json.dumps(payload, ensure_ascii=False), encoding="utf-8"
+    )
+    md = [
+        "## 📡 DNS 可达性审计（多解析器并发 · 分片汇聚）",
+        "",
+        f"- 通道：{payload['mode']}；存活解析器：{', '.join(sorted(live)) or '?'}",
+        "- 判定口径：任一存活解析器成功=可达；"
+        f"≥{min_live} 个存活解析器 NXDOMAIN=已死亡；其余=未判定",
+        f"- 审计：{len(results):,} 域名 —— 可达 {payload['totals']['reachable']:,} · "
+        f"**已死亡 {payload['totals']['dead']:,}** · 未判定 {payload['totals']['unresolved']:,}",
+        "",
+        "| 类别 | 审计数 | 可达 | 已死亡 | 未判定 |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for k in sorted(payload["by_kind"]):
+        c = payload["by_kind"][k]
+        md.append(
+            f"| {k} | {sum(c.values()):,} | {c.get('reachable', 0):,} | "
+            f"{c.get('dead', 0):,} | {c.get('unresolved', 0):,} |"
+        )
+    wl_dead = [
+        r["domain"]
+        for r in results
+        if r["kind"] == "whitelist" and r["verdict"] == "dead" and not r.get("via_parent")
+    ]
+    if wl_dead:
+        md += [
+            "",
+            "### 🧹 白名单清理建议",
+            "",
+            f"以下 {len(wl_dead)} 条白名单域名已从 DNS 消失：",
+            "",
+        ]
+        md += [f"- `{d}` —— 建议：确认后从白名单源移除" for d in wl_dead]
+    if payload["dead_by_source"]:
+        md += ["", "### 已死亡域名 · 按来源分布", "", "| 来源列表 | 死亡域名数 |", "|---|---:|"]
+        for src, n in sorted(payload["dead_by_source"].items(), key=lambda kv: -kv[1]):
+            md.append(f"| {src} | {n:,} |")
+    md += ["", f"> 汇聚自 {len(shard_files)} 个分片（{', '.join(f.name for f in shard_files)}）。"]
+    (out_dir / "dns_audit.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    patch_html_report(out_dir, payload)
+    for f in shard_files:
+        f.unlink()
+    print(
+        f"GATHERED: {len(results):,} domains, dead={payload['totals']['dead']:,}, "
+        f"unresolved={payload['totals']['unresolved']:,}; json/md/html updated"
+    )
+    return 0
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out-dir", default="output-final")
@@ -747,6 +842,11 @@ def main() -> None:
         help="round-1 fast-fail timeout (s); failures re-probe in round 2",
     )
     ap.add_argument("--min-live", type=int, default=2)
+    ap.add_argument("--shard-index", type=int, default=0)
+    ap.add_argument("--shard-count", type=int, default=1)
+    ap.add_argument(
+        "--gather", action="store_true", help="merge shard payloads into final artifacts"
+    )
     ap.add_argument("--force", action="store_true", help="ignore verdict cache, full re-sweep")
     ap.add_argument(
         "--no-unresolved-retry",
@@ -771,6 +871,8 @@ def main() -> None:
     args = ap.parse_args()
     args.append_report = not args.no_append_report
     args.unresolved_retry = not args.no_unresolved_retry
+    if args.gather:
+        raise SystemExit(gather(Path(args.out_dir), args))
     if args.html_only:
         out_dir = Path(args.out_dir)
         payload = json.loads((out_dir / "dns_audit.json").read_text(encoding="utf-8"))
