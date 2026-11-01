@@ -547,6 +547,9 @@ async def run(args) -> int:
     section = "\n".join(md)
     (out_dir / "dns_audit.md").write_text(section + "\n", encoding="utf-8")
 
+    if patch_html_report(out_dir, payload):
+        print("injected/updated DNS audit section in report.html")
+
     report = out_dir / "report.md"
     if args.append_report and report.exists():
         text = report.read_text(encoding="utf-8")
@@ -563,6 +566,98 @@ async def run(args) -> int:
         f"dead={len(dead):,} unresolved={len(unresolved):,}"
     )
     return 0
+
+
+def build_html_section(payload: dict) -> str:
+    """Render the audit payload as a report.html section (report-styled)."""
+    from html import escape
+
+    t = payload["totals"]
+    rows_kind = ""
+    for k in sorted(payload.get("by_kind", {})):
+        c = payload["by_kind"][k]
+        rows_kind += (
+            f"<tr><td>{escape(k)}</td><td class='num'>{sum(c.values()):,}</td>"
+            f"<td class='num'>{c.get('reachable', 0):,}</td>"
+            f"<td class='num'>{c.get('dead', 0):,}</td>"
+            f"<td class='num'>{c.get('unresolved', 0):,}</td></tr>"
+        )
+    rows_src = "".join(
+        f"<tr><td>{escape(src)}</td><td class='num'>{n:,}</td></tr>"
+        for src, n in sorted(payload.get("dead_by_source", {}).items(), key=lambda kv: -kv[1])
+    )
+    wl_dead = [
+        r["domain"]
+        for r in payload.get("results", [])
+        if r["kind"] == "whitelist" and r["verdict"] == "dead" and not r["via_parent"]
+    ]
+    rows_wl = "".join(
+        f"<tr><td><code>{escape(d)}</code></td>"
+        f"<td><span class='tag tag-yellow'>建议确认后从白名单源移除</span></td></tr>"
+        for d in wl_dead
+    )
+    dead_block = ""
+    if rows_src:
+        dead_block += (
+            '<h3 style="margin:16px 0 8px">已死亡域名 · 按来源分布</h3>'
+            '<div class="table-wrap"><table>'
+            "<thead><tr><th>来源列表</th><th class='num'>死亡域名数</th></tr></thead>"
+            f"<tbody>{rows_src}</tbody></table></div>"
+        )
+    if rows_wl:
+        dead_block += (
+            '<h3 style="margin:16px 0 8px">🧹 白名单清理建议</h3>'
+            '<p class="note">以下白名单域名已从 DNS 消失（放行对象不存在，规则无效）：</p>'
+            '<div class="table-wrap"><table>'
+            "<thead><tr><th>域名</th><th>建议</th></tr></thead>"
+            f"<tbody>{rows_wl}</tbody></table></div>"
+        )
+    return (
+        '<div class="section" id="dns-audit">'
+        '<h2><span class="sec-no">16</span>📡 DNS 可达性审计（多解析器并发）</h2>'
+        '<p class="sec-intro">多解析器并发解析的可达性核验（旁路分析，'
+        f"由 scripts/dns_coverage_audit.py 写入）。通道：{escape(payload['mode'].upper())}；"
+        "判定口径：任一存活解析器成功=可达；"
+        f"≥{payload.get('min_live', 1)} 个存活解析器 NXDOMAIN=已死亡；其余=未判定（超时永不判死）。"
+        "通配条目经父域代查（via_parent）。</p>"
+        '<div class="stats-grid">'
+        f"<div class='stat-card'><div class='value'>{t['audited']:,}</div><div class='label'>审计域名</div></div>"
+        f"<div class='stat-card'><div class='value'>{t['reachable']:,}</div><div class='label'>可达</div></div>"
+        f"<div class='stat-card'><div class='value'>{t['dead']:,}</div><div class='label'>已死亡</div></div>"
+        f"<div class='stat-card'><div class='value'>{t['unresolved']:,}</div><div class='label'>未判定</div></div>"
+        "</div>"
+        '<div class="table-wrap"><table>'
+        "<thead><tr><th>类别</th><th class='num'>审计</th><th class='num'>可达</th>"
+        "<th class='num'>已死亡</th><th class='num'>未判定</th></tr></thead>"
+        f"<tbody>{rows_kind}</tbody></table></div>"
+        + dead_block
+        + '<p class="note">本节为 DNS 旁路审计结果，与合并管线无耦合；'
+        "详细逐域数据见 dns_audit.json / dns_audit.md。</p>"
+        "</div>"
+    )
+
+
+def patch_html_report(out_dir: Path, payload: dict) -> bool:
+    """Inject/replace the audit section in report.html (idempotent)."""
+    html_path = out_dir / "report.html"
+    if not html_path.exists():
+        return False
+    text = html_path.read_text(encoding="utf-8")
+    section = build_html_section(payload)
+    marker = '<div class="section" id="dns-audit">'
+    if marker in text:
+        start = text.index(marker)
+        end = text.find('<div class="footer">', start)
+        end = len(text) if end == -1 else end
+        text = text[:start] + section + "\n\n  " + text[end:]
+    else:
+        anchor = '<div class="footer">'
+        if anchor in text:
+            text = text.replace(anchor, section + "\n\n  " + anchor, 1)
+        else:
+            text += section
+    html_path.write_text(text, encoding="utf-8")
+    return True
 
 
 def main() -> None:
@@ -588,9 +683,21 @@ def main() -> None:
         help="flush partial verdicts at each batch boundary when set",
     )
     ap.add_argument("--no-append-report", action="store_true")
+    ap.add_argument(
+        "--html-only",
+        action="store_true",
+        help="re-apply existing dns_audit.json to report.html and exit",
+    )
     args = ap.parse_args()
     args.append_report = not args.no_append_report
     args.unresolved_retry = not args.no_unresolved_retry
+    if args.html_only:
+        out_dir = Path(args.out_dir)
+        payload = json.loads((out_dir / "dns_audit.json").read_text(encoding="utf-8"))
+        payload["min_live"] = args.min_live
+        ok = patch_html_report(out_dir, payload)
+        print("report.html updated" if ok else "report.html not found")
+        raise SystemExit(0 if ok else 1)
     raise SystemExit(asyncio.run(run(args)))
 
 
