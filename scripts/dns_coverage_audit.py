@@ -323,7 +323,12 @@ def _payload_from(
     return {
         "mode": mode,
         "channel": {
-            lbl: {"controls_ok": oks, "controls_total": total} for lbl, oks, total in channel_rows
+            lbl: {
+                "controls_ok": oks,
+                "controls_total": total,
+                "latency_ms": ms,
+            }
+            for lbl, oks, total, ms in channel_rows
         },
         "min_live": min_live,
         "totals": {
@@ -535,7 +540,7 @@ async def run(args) -> int:
             live.add(lbl)
         channel_rows.append((lbl, oks, len(CONTROL_DOMAINS), round(r.get("latency", 0) * 1000)))
     print(f"channel[{mode}]: live resolvers = {len(live)}/{len(resolvers)}")
-    for lbl, oks, total in channel_rows:
+    for lbl, oks, total, _ms in channel_rows:
         print(f"  {lbl:<34} controls {oks}/{total}")
     if len(live) < args.min_live:
         print(f"ABORT: {len(live)} live resolver(s) < --min-live {args.min_live}.")
@@ -718,7 +723,12 @@ async def run(args) -> int:
     payload = {
         "mode": mode,
         "channel": {
-            lbl: {"controls_ok": oks, "controls_total": total} for lbl, oks, total in channel_rows
+            lbl: {
+                "controls_ok": oks,
+                "controls_total": total,
+                "latency_ms": ms,
+            }
+            for lbl, oks, total, ms in channel_rows
         },
         "shard": {"index": args.shard_index, "count": args.shard_count},
         "totals": {
@@ -970,7 +980,7 @@ def gather(out_dir: Path, args) -> int:
     payload = _payload_from(
         results,
         mode="+".join(sorted(modes)),
-        channel_rows=[(lbl, 1, 1) for lbl in sorted(live)],
+        channel_rows=[(lbl, 1, 1, 0) for lbl in sorted(live)],
         min_live=min_live,
         cache_dir=Path(args.cache_dir),
     )
