@@ -404,7 +404,7 @@ async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
     async def r1_task(domain, r):
         spawn_log["done"] += 1
         res, det = await probe(domain, r, args.r1_timeout)
-        raw[domain].append((r["label"], res, det))
+        raw.setdefault(domain, []).append((r["label"], res, det))
         if res == "ok":
             final(domain)
             return
@@ -415,7 +415,7 @@ async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
 
     async def r2_task(domain, rr):
         res, det = await probe(domain, rr, args.timeout)
-        raw[domain].append((rr["label"], res, det))
+        raw.setdefault(domain, []).append((rr["label"], res, det))
         left = r2_left.get(domain)
         if left is None:
             return
