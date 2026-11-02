@@ -533,7 +533,7 @@ async def run(args) -> int:
         )
         if oks:
             live.add(lbl)
-        channel_rows.append((lbl, oks, len(CONTROL_DOMAINS)))
+        channel_rows.append((lbl, oks, len(CONTROL_DOMAINS), round(r.get("latency", 0) * 1000)))
     print(f"channel[{mode}]: live resolvers = {len(live)}/{len(resolvers)}")
     for lbl, oks, total in channel_rows:
         print(f"  {lbl:<34} controls {oks}/{total}")
@@ -657,7 +657,14 @@ async def run(args) -> int:
             print(f"round 3 done in {(time.monotonic() - t2) / 60:.1f} min")
 
     else:
-        await sweep_pipelined(audit_names, live_resolvers, mode, args, raw, out_dir)
+        retry_stats = await sweep_pipelined(audit_names, live_resolvers, mode, args, raw, out_dir)
+        pipeline_meta = {
+            "mode": "pipelined",
+            "live": len(live_resolvers),
+            "shard": {"index": args.shard_index, "count": args.shard_count},
+            "retry_pass": retry_stats,
+        }
+        payload["pipeline"] = pipeline_meta
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
     shard_set = set(audit_names)
@@ -991,7 +998,11 @@ def main() -> None:
         "--gather", action="store_true", help="merge shard payloads into final artifacts"
     )
     ap.add_argument("--force", action="store_true", help="ignore verdict cache, full re-sweep")
-    ap.add_argument("--two-phase", action="store_true", help="use the barrier two-phase sweep instead of the pipelined default")
+    ap.add_argument(
+        "--two-phase",
+        action="store_true",
+        help="use the barrier two-phase sweep instead of the pipelined default",
+    )
     ap.add_argument(
         "--no-pipeline", action="store_true", help="fall back to the two-phase barrier sweep"
     )
