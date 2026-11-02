@@ -350,102 +350,126 @@ def verdict(results: list[tuple[str, str, str]], min_live: int) -> str:
     return "unresolved"  # timeouts / mixed — channel or resolver trouble
 
 
-async def sweep_pipeline(names, live_resolvers, mode, args, raw, out_dir):
-    """R8.4: weighted round-1 seeding + failure re-routing to the next-fastest
-    resolver's queue (dynamic balance without phase barriers). reachable on
-    the first OK; dead only after every live resolver answered NXDOMAIN/servfail
-    (>= min_live NXDOMAIN); unresolved get one fresh retry pass."""
+async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
+    """R8.5 pipelined sweep — NO phase barrier (user spec):
+
+    round 1 probes are spawned for every domain against its weighted-shard
+    resolver; the moment a probe FAILS, round-2 tasks for that domain are
+    spawned against ALL live resolvers immediately — a resolver group that
+    finishes its own shard instantly starts working on other groups'
+    failures (no idle waiting). reachable on the FIRST ok (one vote);
+    dead only when every live resolver answered NXDOMAIN/servfail;
+    otherwise unresolved. Concurrency bounded by per-resolver weighted
+    semaphores + a bounded spawn window.
+    """
     from collections import deque
 
-    order = sorted(live_resolvers, key=lambda r: r.get("latency", 1.0))
-    lbl_of = [r["label"] for r in order]
-    bit_of = {lbl: 1 << i for i, lbl in enumerate(lbl_of)}
-    full_mask = (1 << len(order)) - 1
-    queues = {lbl: deque() for lbl in lbl_of}
-    untried = {n: full_mask for n in names}
-    finals: set[str] = set()
-    done_evt = asyncio.Event()
-    stats = {"done": 0}
-    t0 = time.monotonic()
-
-    # weighted round-1 seeding
-    seed = {lbl: deque() for lbl in lbl_of}
-    for i2, n in enumerate(names):
-        seed[live_resolvers[i2 % len(live_resolvers)]["label"]].append(n)
-    for lbl, dq in seed.items():
-        queues[lbl].extend(dq)
-
+    loop = asyncio.get_running_loop()
     session_cm = aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(limit=max(args.concurrency * 2, 100))
     )
 
-    async def worker(r):
-        lbl = r["label"]
-        myq = queues[lbl]
-        mybit = bit_of[lbl]
-        loop = asyncio.get_running_loop()
-        async with session_cm as session:
+    async def probe(domain, r, timeout_s):
+        async with r["sem"]:
+            if mode == "doh":
+                return await _doh_query(session_cm, r, domain, timeout_s)
+            return await loop.run_in_executor(None, _udp_query, r["ip"], domain, timeout_s)
 
-            async def probe(name):
-                if mode == "doh":
-                    res, det = await _doh_query(session, r, name, args.r1_timeout)
-                else:
-                    res, det = await loop.run_in_executor(
-                        None, _udp_query, r["ip"], name, args.r1_timeout
-                    )
-                return res, det
+    total = len(names)
+    finals: set[str] = set()
+    r2_left: dict[str, list] = {}
+    spawn_log = {"done": 0}
+    t0 = time.monotonic()
+    done_evt = asyncio.Event()
 
-            while myq:
-                name = myq.popleft()
-                if name in finals or not untried.get(name, 0) & mybit:
-                    continue  # finalized elsewhere or re-routed
-                async with r["sem"]:
-                    stats["done"] += 1
-                    res, det = await probe(name)
-                raw[name].append((lbl, res, det))
-                untried[name] &= ~mybit
-                if res == "ok":
-                    finals.add(name)
-                elif untried[name] == 0:
-                    finals.add(name)
-                else:
-                    for i2, lb2 in enumerate(lbl_of):
-                        if untried[name] >> i2 & 1:
-                            queues[lb2].append(name)
-                            break
-                if len(finals) >= len(names):
-                    done_evt.set()
+    def final(domain):
+        finals.add(domain)
+        r2_left.pop(domain, None)
+        if len(finals) >= total:
+            done_evt.set()
 
-    workers = [asyncio.create_task(worker(r)) for r in live_resolvers]
-    prog = asyncio.create_task(progress_task(stats, finals, done_evt, len(names), t0))
-    await done_evt.wait()
-    print(f"pipeline sweep done in {(time.monotonic() - t0) / 60:.1f} min", flush=True)
+    all_tasks: set[asyncio.Task] = set()
 
+    def spawn(coro):
+        t = asyncio.create_task(coro)
+        all_tasks.add(t)
+        t.add_done_callback(all_tasks.discard)
+        return t
+
+    async def r1_task(domain, r):
+        spawn_log["done"] += 1
+        res, det = await probe(domain, r, args.r1_timeout)
+        raw[domain].append((r["label"], res, det))
+        if res == "ok":
+            final(domain)
+            return
+        # failure -> round 2: fan out to ALL live resolvers immediately
+        r2_left[domain] = list(live_resolvers)
+        for rr in live_resolvers:
+            spawn(r2_task(domain, rr))
+
+    async def r2_task(domain, rr):
+        res, det = await probe(domain, rr, args.timeout)
+        raw[domain].append((rr["label"], res, det))
+        left = r2_left.get(domain)
+        if left is None:
+            return
+        if rr in left:
+            left.remove(rr)
+        if res == "ok":
+            final(domain)
+        elif not left:
+            # every live resolver has answered — dead or unresolved
+            final(domain)
+
+    async def progress():
+        while len(finals) < total:
+            await asyncio.sleep(10)
+            rate = spawn_log["done"] / max(time.monotonic() - t0, 1e-6)
+            print(
+                f"  pipelined {len(finals):,}/{total:,} finals, "
+                f"{len(all_tasks):,} in-flight ({rate:,.0f} spawns/s)",
+                flush=True,
+            )
+
+    # bounded window: keep ~concurrency*6 tasks in flight
+    assignments = deque((n, live_resolvers[i % len(live_resolvers)]) for i, n in enumerate(names))
+    prog = asyncio.create_task(progress())
+    window = max(args.concurrency * 6, 60)
+
+    def spawn_next(count: int) -> None:
+        for _ in range(count):
+            item = next(assignments_iter, None)
+            if item is None:
+                return
+            spawn(r1_task(item[0], item[1]))
+
+    assignments_iter = iter(list(assignments))
+    spawn_next(window)
+    while all_tasks and len(finals) < total:
+        done, _ = await asyncio.wait(all_tasks, return_when=asyncio.FIRST_COMPLETED)
+        for t in done:
+            all_tasks.discard(t)
+        spawn_next(len(done))
+        if args.checkpoint_every and spawn_log["done"] >= args.checkpoint_every:
+            _checkpoint(raw, out_dir, mode)
+    prog.cancel()
+    if all_tasks:
+        await asyncio.gather(*all_tasks, return_exceptions=True)
+    # unresolved retry: one fresh all-resolver pass over unresolved domains
     unresolved = [n for n in names if n not in finals]
     if unresolved and args.unresolved_retry:
         print(f"retry pass: {len(unresolved):,} unresolved, all resolvers ...")
-        done_evt.clear()
-        finals.difference_update(unresolved)
-        for i2, n in enumerate(unresolved):
+        for n in unresolved:
             raw[n] = []
-            untried[n] = full_mask
-            queues[lbl_of[i2 % len(lbl_of)]].append(n)
-        await done_evt.wait()
-
-    prog.cancel()
-    for w in workers:
-        w.cancel()
-
-
-async def progress_task(stats, finals, done_evt, total, t0):
-    while not done_evt.is_set():
-        await asyncio.sleep(10)
-        rate = stats["done"] / max(time.monotonic() - t0, 1e-6)
-        print(
-            f"  pipeline {stats['done']:,} probes ({rate:,.0f} q/s, "
-            f"finals {len(finals):,}/{total:,})",
-            flush=True,
-        )
+            r2_left[n] = list(live_resolvers)
+            t2 = set()
+            for rr in live_resolvers:
+                t = asyncio.create_task(r2_task(n, rr))
+                t2.add(t)
+            if t2:
+                await asyncio.gather(*t2, return_exceptions=True)
+    await session_cm.close()
 
 
 async def run(args) -> int:
@@ -575,7 +599,7 @@ async def run(args) -> int:
     for r in live_resolvers:
         assign_pool += [r] * quotas[r["label"]]
     raw: dict[str, list] = {}
-    if not getattr(args, 'pipeline', False):
+    if args.two_phase:
         print(
             f"sweeping {total_domains:,} domains across "
             f"{len(live_resolvers)} live resolvers (timeout {args.timeout}s, "
@@ -633,7 +657,7 @@ async def run(args) -> int:
             print(f"round 3 done in {(time.monotonic() - t2) / 60:.1f} min")
 
     else:
-        await sweep_pipeline(audit_names, live_resolvers, mode, args, raw, out_dir)
+        await sweep_pipelined(audit_names, live_resolvers, mode, args, raw, out_dir)
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
     shard_set = set(audit_names)
@@ -967,6 +991,7 @@ def main() -> None:
         "--gather", action="store_true", help="merge shard payloads into final artifacts"
     )
     ap.add_argument("--force", action="store_true", help="ignore verdict cache, full re-sweep")
+    ap.add_argument("--two-phase", action="store_true", help="use the barrier two-phase sweep instead of the pipelined default")
     ap.add_argument(
         "--no-pipeline", action="store_true", help="fall back to the two-phase barrier sweep"
     )
