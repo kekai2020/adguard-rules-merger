@@ -669,7 +669,6 @@ async def run(args) -> int:
             "shard": {"index": args.shard_index, "count": args.shard_count},
             "retry_pass": retry_stats,
         }
-        payload["pipeline"] = pipeline_meta
 
     # 3) aggregate to verdicts (answers kept only with --full-json)
     shard_set = set(audit_names)
@@ -741,6 +740,7 @@ async def run(args) -> int:
         "dead_by_source": dict(by_source),
         "results": results,
     }
+    payload["pipeline"] = pipeline_meta
     out_name = (
         f"dns_audit.shard{args.shard_index}of{args.shard_count}.json"
         if args.shard_count > 1
