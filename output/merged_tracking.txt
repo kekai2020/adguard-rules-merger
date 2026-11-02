@@ -1,6 +1,6 @@
 ! Title: Merged tracking filter
 ! Category: tracking
-! Version: 8a7268d92a69-tracking
+! Version: 15b6732f4a6a-tracking
 ! Rules: 376
 !
 ||a-ring-fallback.msedge.net^
