@@ -834,6 +834,53 @@ def build_html_section(payload: dict) -> str:
         f"<td><span class='tag tag-yellow'>建议确认后从白名单源移除</span></td></tr>"
         for d in wl_dead
     )
+    # 通道自诊断表：实测延时 + 存活状态（R8.6）
+    chan_rows = ""
+    for lbl, info in sorted((payload.get("channel") or {}).items()):
+        ok = info.get("controls_ok", 0)
+        tt = info.get("controls_total", 0)
+        ms = info.get("latency_ms") or 0
+        status = (
+            '<span class="tag tag-green">存活</span>'
+            if ok
+            else '<span class="tag tag-red">剔除</span>'
+        )
+        lat = f"{ms} ms" if ms else "—"
+        chan_rows += (
+            f"<tr><td>{escape(lbl)}</td><td class='num'>{ok}/{tt}</td>"
+            f"<td>{status}</td><td class='num'>{lat}</td></tr>"
+        )
+    chan_block = (
+        (
+            '<h3 style="margin:16px 0 8px">通道自诊断（控制域实测）</h3>'
+            '<div class="table-wrap"><table>'
+            "<thead><tr><th>解析器</th><th class='num'>控制域通过</th>"
+            "<th>状态</th><th class='num'>实测延时</th></tr></thead>"
+            f"<tbody>{chan_rows}</tbody></table></div>"
+        )
+        if chan_rows
+        else ""
+    )
+    rp = (payload.get("pipeline") or {}).get("retry_pass") or {}
+    retry_cards = (
+        (
+            f"<div class='stat-card'><div class='value'>{rp.get('retried', 0):,}</div>"
+            "<div class='label'>未判定重试</div></div>"
+            f"<div class='stat-card'><div class='value'>{rp.get('recovered', 0):,}</div>"
+            "<div class='label'>重试收回</div></div>"
+        )
+        if rp.get("retried")
+        else ""
+    )
+    wl_lit = sum(1 for r in payload.get("results", []) if r.get("verdict") == "wildcard-literal")
+    lit_note = (
+        (
+            f"<div class='stat-card'><div class='value'>{wl_lit}</div>"
+            "<div class='label'>通配字面(未探测)</div></div>"
+        )
+        if wl_lit
+        else ""
+    )
     dead_block = ""
     if rows_src:
         dead_block += (
@@ -852,22 +899,23 @@ def build_html_section(payload: dict) -> str:
         )
     return (
         '<div class="section" id="dns-audit">'
-        '<h2><span class="sec-no">16</span>📡 DNS 可达性审计（多解析器并发）</h2>'
+        '<h2><span class="sec-no">16</span>📡 DNS 可达性审计（多解析器并发 · 流水线动态抢占）</h2>'
         '<p class="sec-intro">多解析器并发解析的可达性核验（旁路分析，'
-        f"由 scripts/dns_coverage_audit.py 写入）。通道：{escape(payload['mode'].upper())}；"
+        "由 scripts/dns_coverage_audit.py 写入）。通道："
+        f"{escape(payload['mode'].upper())}；"
         "判定口径：任一存活解析器成功=可达；"
-        f"≥{payload.get('min_live', 1)} 个存活解析器 NXDOMAIN=已死亡；其余=未判定（超时永不判死）。"
-        "通配条目经父域代查（via_parent）。</p>"
-        '<div class="stats-grid">'
-        f"<div class='stat-card'><div class='value'>{t['audited']:,}</div><div class='label'>审计域名</div></div>"
-        f"<div class='stat-card'><div class='value'>{t['reachable']:,}</div><div class='label'>可达</div></div>"
-        f"<div class='stat-card'><div class='value'>{t['dead']:,}</div><div class='label'>已死亡</div></div>"
-        f"<div class='stat-card'><div class='value'>{t['unresolved']:,}</div><div class='label'>未判定</div></div>"
-        "</div>"
-        '<div class="table-wrap"><table>'
-        "<thead><tr><th>类别</th><th class='num'>审计</th><th class='num'>可达</th>"
-        "<th class='num'>已死亡</th><th class='num'>未判定</th></tr></thead>"
-        f"<tbody>{rows_kind}</tbody></table></div>"
+        f"≥{payload.get('min_live', 1)} 个存活解析器 NXDOMAIN=已死亡（全解析器应答后才判死）；"
+        "其余=未判定（超时永不判死）。通配条目经父域代查（via_parent）；"
+        "中缀通配白名单（bcicl.*.x 类）非字面域名，单列为 wildcard-literal。</p>"
+        + chan_block
+        + '<div class="stats-grid">'
+        + f"<div class='stat-card'><div class='value'>{t['audited']:,}</div><div class='label'>审计域名</div></div>"
+        + f"<div class='stat-card'><div class='value'>{t['reachable']:,}</div><div class='label'>可达</div></div>"
+        + f"<div class='stat-card'><div class='value'>{t['dead']:,}</div><div class='label'>已死亡</div></div>"
+        + f"<div class='stat-card'><div class='value'>{t['unresolved']:,}</div><div class='label'>未判定</div></div>"
+        + lit_note
+        + retry_cards
+        + "</div>"
         + dead_block
         + '<p class="note">本节为 DNS 旁路审计结果，与合并管线无耦合；'
         "详细逐域数据见 dns_audit.json / dns_audit.md。</p>"
