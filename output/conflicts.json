@@ -1,24 +1,5 @@
 [
   {
-    "domain": "googleadservices.com",
-    "blocked_rule": "||googleadservices.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "AWAvenue Ads Rule",
-      "AdGuard DNS filter",
-      "OISD Blocklist Small",
-      "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
-    ],
-    "whitelist_rule": "@@||googleadservices.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
     "domain": "js.monitor.azure.com",
     "blocked_rule": "||js.monitor.azure.com^",
     "blocked_category": "tracking",
@@ -63,6 +44,25 @@
     "action": "kept_block"
   },
   {
+    "domain": "googleadservices.com",
+    "blocked_rule": "||googleadservices.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "AWAvenue Ads Rule",
+      "OISD Blocklist Small",
+      "CHN: anti-AD",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
+    ],
+    "whitelist_rule": "@@||googleadservices.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
     "domain": "app.appsflyer.com",
     "blocked_rule": "||app.appsflyer.com^",
     "blocked_category": "ads",
@@ -84,8 +84,8 @@
     "blocked_sources": [
       "AdGuard DNS filter",
       "OISD Blocklist Small",
-      "HaGeZi's Ultimate Blocklist",
       "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist",
       "HaGeZi's Threat Intelligence Feeds"
     ],
     "whitelist_rule": "@@||ezodn.com^",
@@ -102,8 +102,8 @@
     "blocked_sources": [
       "AdGuard DNS filter",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||awin1.com^",
     "whitelist_sources": [
@@ -151,7 +151,6 @@
     "blocked_sources": [
       "AdGuard DNS filter",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
       "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||omsc.kpn.com^",
@@ -214,7 +213,6 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "AdGuard DNS filter",
-      "HaGeZi's Ultimate Blocklist",
       "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||data.orders.costco.ca^",
@@ -263,8 +261,8 @@
     "blocked_sources": [
       "AdGuard DNS filter",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||sedge.nfl.com^",
     "whitelist_sources": [
@@ -295,7 +293,6 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "AdGuard DNS filter",
-      "HaGeZi's Ultimate Blocklist",
       "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||omniture.walmart.com^",
@@ -311,7 +308,6 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "AdGuard DNS filter",
-      "HaGeZi's Ultimate Blocklist",
       "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||swasc.homedepot.com^",
@@ -343,8 +339,8 @@
       "AdGuard DNS filter",
       "OISD Blocklist Small",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||daraz.com^",
     "whitelist_sources": [
@@ -391,7 +387,8 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "AdGuard DNS filter",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||belgium.wolterskluwer.com^",
     "whitelist_sources": [
@@ -407,8 +404,8 @@
     "blocked_sources": [
       "AdGuard DNS filter",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||adsterra.com^",
     "whitelist_sources": [
@@ -425,8 +422,8 @@
       "AdGuard DNS filter",
       "OISD Blocklist Small",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||proto2ad.durasite.net^",
     "whitelist_sources": [
@@ -458,8 +455,8 @@
       "AdGuard DNS filter",
       "OISD Blocklist Small",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||statcounter.com^",
     "whitelist_sources": [
@@ -475,8 +472,8 @@
     "blocked_sources": [
       "AdGuard DNS filter",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||datadoghq-browser-agent.com^",
     "whitelist_sources": [
@@ -522,8 +519,8 @@
       "AWAvenue Ads Rule",
       "OISD Blocklist Small",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||ad.10010.com^",
     "whitelist_sources": [
@@ -537,8 +534,8 @@
     "blocked_rule": "||ad.ourgame.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||ad.ourgame.com^",
     "whitelist_sources": [
@@ -555,8 +552,8 @@
       "AdGuard DNS filter",
       "OISD Blocklist Small",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "CHN: AdRules DNS List"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||sax.sina.com.cn^",
     "whitelist_sources": [
@@ -605,6 +602,20 @@
       "AdGuard DNS filter"
     ],
     "conflict_type": "cascade",
+    "action": "kept_block"
+  },
+  {
+    "domain": "ad.cityu.edu.hk",
+    "blocked_rule": "||ad.cityu.edu.hk^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "HaGeZi's Ultimate Blocklist"
+    ],
+    "whitelist_rule": "@@||ad.cityu.edu.hk^",
+    "whitelist_sources": [
+      "CHN: anti-AD"
+    ],
+    "conflict_type": "exact",
     "action": "kept_block"
   },
   {

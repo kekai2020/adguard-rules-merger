@@ -1,7 +1,7 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: 7f5a5694c77c-mining
-! Rules: 166
+! Version: 651c6aef7118-mining
+! Rules: 165
 !
 ||1q2w3.fun^
 ||aeros01.tk^
@@ -35,7 +35,6 @@
 ||bmnr.pw^
 ||bmst.pw^
 ||brominer.com^
-||browsermine.com^
 ||cfcdist.loan^
 ||clgserv.pro^
 ||cloud-miner.de^
