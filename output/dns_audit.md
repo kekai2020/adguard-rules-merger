@@ -3,61 +3,64 @@
 - 通道：DOH（自诊断通过，6/11 解析器存活；控制域 www.qq.com, www.baidu.com, www.cloudflare.com）
 - 解析器（全部为无过滤/非家庭变体）：1.1.1.1 (Cloudflare), 101.226.4.6 (360), 119.29.29.29 (DNSPod), 120.53.53.53 (DNSPod-2), 8.8.8.8 (Google), dns.sb (DNS.SB)
 - 判定口径：任一存活解析器解析成功=可达；≥2 个存活解析器均返回 NXDOMAIN=已死亡（交叉验证）；其余=未判定（超时/混合，不视为不可达）
-- 审计：115,715 域名 —— 可达 108,858 · **已死亡 855** · 未判定 646
+- 审计：134,279 域名 —— 可达 126,602 · **已死亡 967** · 未判定 499
 
 | 类别 | 审计数 | 可达 | 已死亡 | 未判定 |
 |---|---:|---:|---:|---:|
-| block-sample | 19,342 | 17,839 | 855 | 644 |
+| block-sample | 19,211 | 17,743 | 967 | 497 |
 | important-block | 1 | 0 | 0 | 1 |
-| whitelist | 2 | 0 | 0 | 1 |
+| whitelist | 3 | 1 | 0 | 1 |
 
 ### 已死亡域名 · 按来源分布
 
 | 来源列表 | 死亡域名数 |
 |---|---:|
-| HaGeZi's Threat Intelligence Feeds | 399 |
-| Phishing Army | 284 |
-| CHN: AdRules DNS List | 101 |
-| CHN: anti-AD | 74 |
-| AdGuard DNS filter | 64 |
-| HaGeZi's Ultimate Blocklist | 54 |
-| HaGeZi's Gambling Blocklist | 25 |
-| Phishing URL Blocklist (PhishTank and OpenPhish) | 22 |
-| OISD Blocklist Small | 2 |
-| Malicious URL Blocklist (URLHaus) | 2 |
+| HaGeZi's Threat Intelligence Feeds | 419 |
+| Phishing Army | 317 |
+| CHN: AdRules DNS List | 132 |
+| CHN: anti-AD | 94 |
+| AdGuard DNS filter | 79 |
+| HaGeZi's Ultimate Blocklist | 51 |
+| HaGeZi's Gambling Blocklist | 32 |
+| Phishing URL Blocklist (PhishTank and OpenPhish) | 19 |
+| OISD Blocklist Small | 5 |
+| HaGeZi's Encrypted DNS/VPN/TOR/Proxy Bypass | 2 |
+| AWAvenue Ads Rule | 1 |
+| NoCoin Filter List | 1 |
+| Malicious URL Blocklist (URLHaus) | 1 |
 
 ### 已死亡域名样例（前 30，完整见 dns_audit.json）
 
-- `092-informacja.cfd`（block-sample）
-- `0quhuw.lat`（block-sample）
-- `1iuh5l.com`（block-sample）
-- `24enterpriseprime.digital`（block-sample）
-- `2gc26yhw.skin`（block-sample）
-- `3i8je3.skin`（block-sample）
-- `41grk.icu`（block-sample）
-- `47382952.lat`（block-sample）
-- `53d434kdfgkdfgkf.site`（block-sample）
-- `5wtg35w.skin`（block-sample）
-- `632454rd.top`（block-sample）
-- `6q8m4xp.lol`（block-sample）
-- `7301066.com`（block-sample）
-- `737d62f0c1.com`（block-sample）
-- `7k-473.casino`（block-sample）
-- `83510.lat`（block-sample）
-- `9239h9459.shop`（block-sample）
-- `a3investments.net`（block-sample）
-- `a8cv.picksitter.com`（block-sample）
-- `abe-and-sons.com`（block-sample）
-- `achietransport.cyou`（block-sample）
-- `acv.aun-air-wifi.com`（block-sample）
-- `adhecbyydvfly.website`（block-sample）
-- `admins.mzzrj.com`（block-sample）
-- `ado.delfi.ee`（block-sample）
-- `adwidgets.ru`（block-sample）
-- `affliacata.store`（block-sample）
-- `afresh.media`（block-sample）
-- `agootictaticol.com`（block-sample）
-- `ai.kaishabaikyaku.com`（block-sample）
+- `1jc5t.xyz`（block-sample）
+- `1tf2tg.hair`（block-sample）
+- `1xbet-casino-online.com`（block-sample）
+- `2cloudgroup.digital`（block-sample）
+- `2n3uju.skin`（block-sample）
+- `365hyperfund.sbs`（block-sample）
+- `4e4fe673239a16aa82fedd10de4646b2.xyz`（block-sample）
+- `4fizjopl.store`（block-sample）
+- `4z7n3kx.pics`（block-sample）
+- `5569w.com`（block-sample）
+- `56ggt.top`（block-sample）
+- `6a3a727872.com`（block-sample）
+- `6se76we.skin`（block-sample）
+- `7rjru44.hair`（block-sample）
+- `88nu.info`（block-sample）
+- `890.xbestfiles.pro`（block-sample）
+- `8tb11bh7ig8wpufwrt6zb8torymq1b1xp.cfd`（block-sample）
+- `97216.cn`（block-sample）
+- `9835412.cfd`（block-sample）
+- `9anime.world`（block-sample）
+- `a8cv.mi-vision.co.jp`（block-sample）
+- `aaaneniisyq.cn`（block-sample）
+- `aafns.xyz`（block-sample）
+- `aakrwlikc.com`（block-sample）
+- `abc.phantomchatmatrix1986.com`（block-sample）
+- `accesspoint.vpce-022d9a693ed2f5855-2stz3d0z-eu-south-1a.s3.eu-south-1.vpce.amazonaws.com`（block-sample）
+- `adebis.harutaka.jp`（block-sample）
+- `adinfo.tango.me`（block-sample）
+- `admin.academyforconsciousleadership.net`（block-sample）
+- `adriftperfunctoryfrost.com`（block-sample）
 
 > 通配条目（`*.x`）经父域 `x` 代查并已标注 `via_parent`；
-> 本附录由 scripts/dns_coverage_audit.py v3 生成（2026-11-05 06:03）。
+> 本附录由 scripts/dns_coverage_audit.py v3 生成（2026-11-06 05:58）。

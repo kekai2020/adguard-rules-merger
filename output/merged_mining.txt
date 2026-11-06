@@ -1,9 +1,10 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: 651c6aef7118-mining
-! Rules: 165
+! Version: a91f3da9d19b-mining
+! Rules: 161
 !
 ||1q2w3.fun^
+||2miners.com^
 ||aeros01.tk^
 ||aeros02.tk^
 ||aeros11.tk^
@@ -44,7 +45,6 @@
 ||coin-have.com^
 ||coinimp.net^
 ||coinminingonline.com^
-||coinnebula.com^
 ||coinpirate.cf^
 ||coinpot.co^
 ||coinrail.io^
@@ -83,7 +83,6 @@
 ||hostingcloud.racing^
 ||hostingcloud.trade^
 ||hostingcloud.win^
-||icemining.ca^
 ||ijfcm7bu6ocerxsfq56ka3dtdanunyp4ytwk745b54agtravj2wr2qqd.onion.pet^
 ||infura-ipfs.io^
 ||ininmacerad.pro^
@@ -95,7 +94,6 @@
 ||jqcdn2.herokuapp.com^
 ||jquery-cdn.download^
 ||jqwww.download^
-||jscdndel.com^
 ||jshosting.party^
 ||jshosting.win^
 ||laserveradedomaina.com^
@@ -140,10 +138,8 @@
 ||rand.com.ru^
 ||renhertfo.com^
 ||roastedvolt.net^
-||rocks.io^
 ||scaleway.ovh^
 ||service4refresh.info^
-||sparechange.io^
 ||staticsfs.host^
 ||statistic.date^
 ||stonecalcom.com^

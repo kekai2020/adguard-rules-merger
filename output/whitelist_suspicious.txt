@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (suspicious)
-! Count: 26
-! Version: e2cd342034e5
+! Count: 27
+! Version: cbf62be9de9a
 @@||a.adwolf.ru^
 @@||ad.cityu.edu.hk^
 @@||ads.tdbank.com^
@@ -8,6 +8,7 @@
 @@||avts.mcafee.com^
 @@||cloud.notification-naviextras.com^
 @@||counter-strike.net^
+@@||data.email.premierleague.com^
 @@||dishy.starlink.com^
 @@||edge-enterprise.activity.windows.com^
 @@||edge.activity.windows.com^

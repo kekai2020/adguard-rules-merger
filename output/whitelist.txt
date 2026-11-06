@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: 81c1fecee487
-! Generated: 2026-11-05T05:39:02.645818+00:00
-! Total allow rules: 300
+! Version: 7995ae63c3a4
+! Generated: 2026-11-06T05:35:32.798393+00:00
+! Total allow rules: 301
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -116,6 +116,7 @@
 @@||daraz.pk^
 @@||data.digital.costco.ca^
 @@||data.digital.costco.com^
+@@||data.email.premierleague.com^
 @@||data.notify.macys.com^
 @@||data.orders.costco.ca^
 @@||data.orders.costco.com^

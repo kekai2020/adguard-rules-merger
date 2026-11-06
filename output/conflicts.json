@@ -1,12 +1,17 @@
 [
   {
-    "domain": "js.monitor.azure.com",
-    "blocked_rule": "||js.monitor.azure.com^",
-    "blocked_category": "tracking",
+    "domain": "googleadservices.com",
+    "blocked_rule": "||googleadservices.com^",
+    "blocked_category": "ads",
     "blocked_sources": [
-      "HaGeZi's Windows/Office Tracker Blocklist"
+      "AWAvenue Ads Rule",
+      "AdGuard DNS filter",
+      "OISD Blocklist Small",
+      "CHN: anti-AD",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
-    "whitelist_rule": "@@||js.monitor.azure.com^",
+    "whitelist_rule": "@@||googleadservices.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -37,25 +42,6 @@
       "AdGuard DNS filter"
     ],
     "whitelist_rule": "@@||hb.afl.rakuten.co.jp^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "googleadservices.com",
-    "blocked_rule": "||googleadservices.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "AdGuard DNS filter",
-      "AWAvenue Ads Rule",
-      "OISD Blocklist Small",
-      "CHN: anti-AD",
-      "CHN: AdRules DNS List",
-      "HaGeZi's Ultimate Blocklist"
-    ],
-    "whitelist_rule": "@@||googleadservices.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -186,6 +172,21 @@
       "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||data.digital.costco.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "data.email.premierleague.com",
+    "blocked_rule": "||data.email.premierleague.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||data.email.premierleague.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -476,6 +477,20 @@
       "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||datadoghq-browser-agent.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "js.monitor.azure.com",
+    "blocked_rule": "||js.monitor.azure.com^",
+    "blocked_category": "tracking",
+    "blocked_sources": [
+      "HaGeZi's Windows/Office Tracker Blocklist"
+    ],
+    "whitelist_rule": "@@||js.monitor.azure.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
