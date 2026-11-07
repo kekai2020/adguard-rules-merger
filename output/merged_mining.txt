@@ -1,6 +1,6 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: a91f3da9d19b-mining
+! Version: bb8aae86157d-mining
 ! Rules: 161
 !
 ||1q2w3.fun^
@@ -13,7 +13,6 @@
 ||animeteatr.ru^
 ||anybest.pw^
 ||ashgrrwt.click^
-||authcaptcha.com^
 ||authedmine.com^
 ||autologica.ga^
 ||axoncoho.tk^
@@ -40,11 +39,11 @@
 ||clgserv.pro^
 ||cloud-miner.de^
 ||cloudcdn.gdn^
-||cloudcoins.co^
 ||cnhv.co^
 ||coin-have.com^
 ||coinimp.net^
 ||coinminingonline.com^
+||coinnebula.com^
 ||coinpirate.cf^
 ||coinpot.co^
 ||coinrail.io^
@@ -77,6 +76,7 @@
 ||g1thub.com^
 ||gasolina.ml^
 ||gay-hotvideo.net^
+||goldoffer.online^
 ||gxbrowser.net^
 ||hhb123.tk^
 ||hide.ovh^
@@ -87,13 +87,12 @@
 ||infura-ipfs.io^
 ||ininmacerad.pro^
 ||intelserviceupdate.com^
-||inwemo.com^
 ||istlandoll.com^
 ||jqcdn01.herokuapp.com^
 ||jqcdn03.herokuapp.com^
 ||jqcdn2.herokuapp.com^
 ||jquery-cdn.download^
-||jqwww.download^
+||jscdndel.com^
 ||jshosting.party^
 ||jshosting.win^
 ||laserveradedomaina.com^
@@ -138,6 +137,7 @@
 ||rand.com.ru^
 ||renhertfo.com^
 ||roastedvolt.net^
+||rocks.io^
 ||scaleway.ovh^
 ||service4refresh.info^
 ||staticsfs.host^
