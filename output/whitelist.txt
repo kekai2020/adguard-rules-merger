@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: 7995ae63c3a4
-! Generated: 2026-11-07T05:03:59.484496+00:00
-! Total allow rules: 301
+! Version: f4cdabd506ba
+! Generated: 2026-11-08T04:58:12.777952+00:00
+! Total allow rules: 302
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -297,6 +297,7 @@
 @@||tube.e.kuaishou.com^
 @@||uceprotect.net^
 @@||uland.taobao.com^
+@@||unsubscribe.email.premierleague.com^
 @@||unsubscribe.lhinsights.com^
 @@||uribl.com^
 @@||used.ca^
