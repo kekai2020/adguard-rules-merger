@@ -273,5 +273,30 @@
       "diff": 2e-06,
       "content_version": 1.071008
     }
+  },
+  {
+    "timestamp": "2026-11-09T05:07:28.585954+00:00",
+    "raw_count": 3092951,
+    "block_count": 2453769,
+    "allow_count": 302,
+    "total_count": 2454071,
+    "compression_pct": 20.7,
+    "elapsed_seconds": 62.713,
+    "sources_ok": 18,
+    "sources_total": 18,
+    "added": 0,
+    "removed": 0,
+    "stage_timings": {
+      "fetch": 17.816621,
+      "badfilter": 0.072339,
+      "aggregation": 4.107018,
+      "conflict": 1.218236,
+      "sort": 1.28447,
+      "rejudge": 8e-06,
+      "stats": 5.674233,
+      "audit": 31.590303,
+      "diff": 2e-06,
+      "content_version": 0.860365
+    }
   }
 ]

@@ -2,45 +2,45 @@
   {
     "name": "HaGeZi's Threat Intelligence Feeds",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt",
-    "raw_rules": 1472404,
-    "unique_rules": 1322050,
-    "shared_rules": 149708,
-    "effective_rules": 1471758,
+    "raw_rules": 1441292,
+    "unique_rules": 1291444,
+    "shared_rules": 149200,
+    "effective_rules": 1440644,
     "coverage_rate": 100.0,
-    "unique_rate": 89.8,
+    "unique_rate": 89.6,
     "rule_categories": {
-      "malware": 1471758
+      "malware": 1440644
     }
   },
   {
     "name": "HaGeZi's Gambling Blocklist",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_47.txt",
-    "raw_rules": 633332,
-    "unique_rules": 622403,
-    "shared_rules": 10818,
-    "effective_rules": 633221,
+    "raw_rules": 634928,
+    "unique_rules": 623705,
+    "shared_rules": 11112,
+    "effective_rules": 634817,
     "coverage_rate": 100.0,
-    "unique_rate": 98.3,
+    "unique_rate": 98.2,
     "rule_categories": {
-      "other": 622405,
-      "malware": 9560,
-      "ads": 1226,
+      "other": 623707,
+      "malware": 9855,
+      "ads": 1225,
       "phishing": 30
     }
   },
   {
     "name": "HaGeZi's Ultimate Blocklist",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_49.txt",
-    "raw_rules": 266281,
-    "unique_rules": 106137,
-    "shared_rules": 157606,
-    "effective_rules": 263743,
-    "coverage_rate": 99.0,
+    "raw_rules": 266255,
+    "unique_rules": 106100,
+    "shared_rules": 157648,
+    "effective_rules": 263748,
+    "coverage_rate": 99.1,
     "unique_rate": 40.2,
     "rule_categories": {
-      "ads": 177659,
-      "malware": 83710,
-      "phishing": 1989,
+      "ads": 177785,
+      "malware": 83607,
+      "phishing": 1971,
       "tracking": 353,
       "mining": 32
     }
@@ -48,30 +48,30 @@
   {
     "name": "Phishing Army",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt",
-    "raw_rules": 145078,
-    "unique_rules": 41700,
-    "shared_rules": 81637,
-    "effective_rules": 123337,
+    "raw_rules": 144184,
+    "unique_rules": 41808,
+    "shared_rules": 80684,
+    "effective_rules": 122492,
     "coverage_rate": 85.0,
-    "unique_rate": 33.8,
+    "unique_rate": 34.1,
     "rule_categories": {
-      "phishing": 55203,
-      "malware": 68134
+      "phishing": 55157,
+      "malware": 67335
     }
   },
   {
     "name": "HaGeZi's Encrypted DNS/VPN/TOR/Proxy Bypass",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_52.txt",
-    "raw_rules": 16348,
-    "unique_rules": 14652,
+    "raw_rules": 16355,
+    "unique_rules": 14658,
     "shared_rules": 1422,
-    "effective_rules": 16074,
+    "effective_rules": 16080,
     "coverage_rate": 98.3,
     "unique_rate": 91.2,
     "rule_categories": {
-      "other": 14654,
-      "ads": 1243,
-      "malware": 174,
+      "other": 14660,
+      "ads": 1244,
+      "malware": 173,
       "phishing": 2,
       "mining": 1
     }
@@ -79,16 +79,16 @@
   {
     "name": "CHN: AdRules DNS List",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_29.txt",
-    "raw_rules": 210593,
-    "unique_rules": 9209,
-    "shared_rules": 197464,
-    "effective_rules": 206673,
+    "raw_rules": 211018,
+    "unique_rules": 9776,
+    "shared_rules": 197320,
+    "effective_rules": 207096,
     "coverage_rate": 98.1,
-    "unique_rate": 4.5,
+    "unique_rate": 4.7,
     "rule_categories": {
-      "ads": 183930,
-      "malware": 22497,
-      "phishing": 97,
+      "ads": 184436,
+      "malware": 22410,
+      "phishing": 101,
       "tracking": 111,
       "mining": 38
     }
@@ -103,9 +103,9 @@
     "coverage_rate": 99.3,
     "unique_rate": 7.4,
     "rule_categories": {
-      "ads": 81955,
-      "malware": 19619,
-      "mining": 152,
+      "ads": 82042,
+      "malware": 19531,
+      "mining": 153,
       "phishing": 12,
       "tracking": 63
     }
@@ -113,15 +113,15 @@
   {
     "name": "AdGuard DNS filter",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
-    "raw_rules": 190497,
-    "unique_rules": 5063,
-    "shared_rules": 183061,
-    "effective_rules": 188124,
-    "coverage_rate": 98.8,
+    "raw_rules": 187842,
+    "unique_rules": 5058,
+    "shared_rules": 180411,
+    "effective_rules": 185469,
+    "coverage_rate": 98.7,
     "unique_rate": 2.7,
     "rule_categories": {
-      "ads": 166502,
-      "malware": 21563,
+      "ads": 164364,
+      "malware": 21046,
       "phishing": 15,
       "tracking": 25,
       "mining": 19
@@ -130,15 +130,15 @@
   {
     "name": "Phishing URL Blocklist (PhishTank and OpenPhish)",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt",
-    "raw_rules": 20594,
-    "unique_rules": 2183,
-    "shared_rules": 17132,
-    "effective_rules": 19315,
-    "coverage_rate": 93.8,
-    "unique_rate": 11.3,
+    "raw_rules": 20329,
+    "unique_rules": 2195,
+    "shared_rules": 16890,
+    "effective_rules": 19085,
+    "coverage_rate": 93.9,
+    "unique_rate": 11.5,
     "rule_categories": {
-      "phishing": 15155,
-      "malware": 4160
+      "phishing": 15017,
+      "malware": 4068
     }
   },
   {
@@ -159,14 +159,14 @@
   {
     "name": "Malicious URL Blocklist (URLHaus)",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
-    "raw_rules": 1927,
-    "unique_rules": 531,
-    "shared_rules": 1312,
-    "effective_rules": 1843,
+    "raw_rules": 1919,
+    "unique_rules": 540,
+    "shared_rules": 1295,
+    "effective_rules": 1835,
     "coverage_rate": 95.6,
-    "unique_rate": 28.8,
+    "unique_rate": 29.4,
     "rule_categories": {
-      "malware": 1843
+      "malware": 1835
     }
   },
   {
@@ -198,29 +198,29 @@
   {
     "name": "Scam Blocklist by DurableNapkin",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_10.txt",
-    "raw_rules": 929,
+    "raw_rules": 934,
     "unique_rules": 7,
-    "shared_rules": 919,
-    "effective_rules": 926,
+    "shared_rules": 924,
+    "effective_rules": 931,
     "coverage_rate": 99.7,
     "unique_rate": 0.8,
     "rule_categories": {
-      "phishing": 90,
-      "malware": 836
+      "phishing": 94,
+      "malware": 837
     }
   },
   {
     "name": "OISD Blocklist Small",
     "url": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_5.txt",
-    "raw_rules": 61156,
+    "raw_rules": 61434,
     "unique_rules": 3,
-    "shared_rules": 59635,
-    "effective_rules": 59638,
+    "shared_rules": 59912,
+    "effective_rules": 59915,
     "coverage_rate": 97.5,
     "unique_rate": 0.0,
     "rule_categories": {
-      "ads": 39395,
-      "malware": 20198,
+      "ads": 39700,
+      "malware": 20170,
       "tracking": 27,
       "phishing": 7,
       "mining": 11
@@ -236,8 +236,8 @@
     "coverage_rate": 86.2,
     "unique_rate": 1.1,
     "rule_categories": {
-      "mining": 161,
-      "malware": 107,
+      "mining": 162,
+      "malware": 106,
       "phishing": 1
     }
   },

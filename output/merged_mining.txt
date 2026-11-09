@@ -1,7 +1,7 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: a155a5e118c9-mining
-! Rules: 161
+! Version: 358078dfddb0-mining
+! Rules: 162
 !
 ||1q2w3.fun^
 ||2miners.com^
@@ -150,6 +150,7 @@
 ||sxcdn4.now.sh^
 ||sxcdn5.herokuapp.com^
 ||sxcdn6.now.sh^
+||terorie.com^
 ||thewhizmarketing.com^
 ||to-support.me^
 ||uoldid.ru^
