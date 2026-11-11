@@ -1,24 +1,5 @@
 [
   {
-    "domain": "googleadservices.com",
-    "blocked_rule": "||googleadservices.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "AWAvenue Ads Rule",
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
-      "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||googleadservices.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
     "domain": "js.monitor.azure.com",
     "blocked_rule": "||js.monitor.azure.com^",
     "blocked_category": "tracking",
@@ -33,17 +14,18 @@
     "action": "kept_block"
   },
   {
-    "domain": "proto2ad.durasite.net",
-    "blocked_rule": "||proto2ad.durasite.net^",
+    "domain": "googleadservices.com",
+    "blocked_rule": "||googleadservices.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
+      "AWAvenue Ads Rule",
       "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
       "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "OISD Blocklist Small"
     ],
-    "whitelist_rule": "@@||proto2ad.durasite.net^",
+    "whitelist_rule": "@@||googleadservices.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -55,10 +37,10 @@
     "blocked_rule": "||adsterra.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||adsterra.com^",
     "whitelist_sources": [
@@ -73,8 +55,8 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||afi-b.com^",
     "whitelist_sources": [
@@ -88,10 +70,10 @@
     "blocked_rule": "||awin1.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||awin1.com^",
     "whitelist_sources": [
@@ -105,9 +87,9 @@
     "blocked_rule": "||om-ssl.consorsbank.de^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||om-ssl.consorsbank.de^",
     "whitelist_sources": [
@@ -121,9 +103,9 @@
     "blocked_rule": "||data.digital.costco.ca^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||data.digital.costco.ca^",
     "whitelist_sources": [
@@ -137,9 +119,9 @@
     "blocked_rule": "||data.digital.costco.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||data.digital.costco.com^",
     "whitelist_sources": [
@@ -153,9 +135,9 @@
     "blocked_rule": "||data.orders.costco.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||data.orders.costco.com^",
     "whitelist_sources": [
@@ -169,11 +151,11 @@
     "blocked_rule": "||daraz.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
       "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "OISD Blocklist Small"
     ],
     "whitelist_rule": "@@||daraz.com^",
     "whitelist_sources": [
@@ -187,12 +169,30 @@
     "blocked_rule": "||datadoghq-browser-agent.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||datadoghq-browser-agent.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "proto2ad.durasite.net",
+    "blocked_rule": "||proto2ad.durasite.net^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist",
+      "OISD Blocklist Small"
+    ],
+    "whitelist_rule": "@@||proto2ad.durasite.net^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -204,9 +204,9 @@
     "blocked_rule": "||marketing.net.idealo-partner.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||marketing.net.idealo-partner.com^",
     "whitelist_sources": [
@@ -220,9 +220,9 @@
     "blocked_rule": "||jdoqocy.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||jdoqocy.com^",
     "whitelist_sources": [
@@ -236,9 +236,9 @@
     "blocked_rule": "||omsc.kpn.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||omsc.kpn.com^",
     "whitelist_sources": [
@@ -267,8 +267,8 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "HaGeZi's Ultimate Blocklist"
     ],
     "whitelist_rule": "@@||logentries.com^",
     "whitelist_sources": [
@@ -282,9 +282,9 @@
     "blocked_rule": "||sedge.nfl.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "AdGuard DNS filter"
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||sedge.nfl.com^",
     "whitelist_sources": [
@@ -298,8 +298,8 @@
     "blocked_rule": "||cmp.osano.com^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "CHN: anti-AD"
+      "CHN: anti-AD",
+      "CHN: AdRules DNS List"
     ],
     "whitelist_rule": "@@||cmp.osano.com^",
     "whitelist_sources": [
@@ -313,11 +313,227 @@
     "blocked_rule": "||data.promo.timhortons.ca^",
     "blocked_category": "ads",
     "blocked_sources": [
+      "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||data.promo.timhortons.ca^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "hb.afl.rakuten.co.jp",
+    "blocked_rule": "||hb.afl.rakuten.co.jp^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter"
+    ],
+    "whitelist_rule": "@@||hb.afl.rakuten.co.jp^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "app.appsflyer.com",
+    "blocked_rule": "||app.appsflyer.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "HaGeZi's Ultimate Blocklist"
+    ],
+    "whitelist_rule": "@@||app.appsflyer.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "ezodn.com",
+    "blocked_rule": "||ezodn.com^",
+    "blocked_category": "malware",
+    "blocked_sources": [
+      "AdGuard DNS filter",
       "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist",
+      "OISD Blocklist Small",
+      "HaGeZi's Threat Intelligence Feeds"
+    ],
+    "whitelist_rule": "@@||ezodn.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "data.email.premierleague.com",
+    "blocked_rule": "||data.email.premierleague.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||data.email.premierleague.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "data.notify.macys.com",
+    "blocked_rule": "||data.notify.macys.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||data.notify.macys.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "data.orders.costco.ca",
+    "blocked_rule": "||data.orders.costco.ca^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||data.orders.costco.ca^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "unsubscribe.email.premierleague.com",
+    "blocked_rule": "||unsubscribe.email.premierleague.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||unsubscribe.email.premierleague.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "omniture.walmart.com",
+    "blocked_rule": "||omniture.walmart.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||omniture.walmart.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "swasc.homedepot.com",
+    "blocked_rule": "||swasc.homedepot.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||swasc.homedepot.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "tms.capitalone.com",
+    "blocked_rule": "||tms.capitalone.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter"
+    ],
+    "whitelist_rule": "@@||tms.capitalone.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "net.daraz.pk",
+    "blocked_rule": "||net.daraz.pk^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List"
+    ],
+    "whitelist_rule": "@@||daraz.pk^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "cascade",
+    "action": "kept_block"
+  },
+  {
+    "domain": "belgium.wolterskluwer.com",
+    "blocked_rule": "||belgium.wolterskluwer.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist"
+    ],
+    "whitelist_rule": "@@||belgium.wolterskluwer.com^",
+    "whitelist_sources": [
+      "AdGuard DNS filter"
+    ],
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "app.adjust.com",
+    "blocked_rule": "||app.adjust.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "AdGuard DNS filter"
+    ],
+    "whitelist_rule": "@@||app.adjust.com^",
+    "whitelist_sources": [
       "CHN: anti-AD",
       "AdGuard DNS filter"
     ],
-    "whitelist_rule": "@@||data.promo.timhortons.ca^",
+    "conflict_type": "exact",
+    "action": "kept_block"
+  },
+  {
+    "domain": "statcounter.com",
+    "blocked_rule": "||statcounter.com^",
+    "blocked_category": "ads",
+    "blocked_sources": [
+      "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist",
+      "OISD Blocklist Small"
+    ],
+    "whitelist_rule": "@@||statcounter.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -330,10 +546,10 @@
     "blocked_category": "ads",
     "blocked_sources": [
       "AWAvenue Ads Rule",
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist"
+      "CHN: AdRules DNS List",
+      "HaGeZi's Ultimate Blocklist",
+      "OISD Blocklist Small"
     ],
     "whitelist_rule": "@@||ad.10010.com^",
     "whitelist_sources": [
@@ -358,190 +574,17 @@
     "action": "kept_block"
   },
   {
-    "domain": "belgium.wolterskluwer.com",
-    "blocked_rule": "||belgium.wolterskluwer.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||belgium.wolterskluwer.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "data.email.premierleague.com",
-    "blocked_rule": "||data.email.premierleague.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||data.email.premierleague.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "data.notify.macys.com",
-    "blocked_rule": "||data.notify.macys.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||data.notify.macys.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "data.orders.costco.ca",
-    "blocked_rule": "||data.orders.costco.ca^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||data.orders.costco.ca^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "ezodn.com",
-    "blocked_rule": "||ezodn.com^",
-    "blocked_category": "malware",
-    "blocked_sources": [
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter",
-      "HaGeZi's Threat Intelligence Feeds"
-    ],
-    "whitelist_rule": "@@||ezodn.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "net.daraz.pk",
-    "blocked_rule": "||net.daraz.pk^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "CHN: anti-AD",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||daraz.pk^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "cascade",
-    "action": "kept_block"
-  },
-  {
-    "domain": "omniture.walmart.com",
-    "blocked_rule": "||omniture.walmart.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||omniture.walmart.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
     "domain": "sax.sina.com.cn",
     "blocked_rule": "||sax.sina.com.cn^",
     "blocked_category": "ads",
     "blocked_sources": [
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
       "CHN: anti-AD",
+      "AdGuard DNS filter",
+      "CHN: AdRules DNS List",
       "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
+      "OISD Blocklist Small"
     ],
     "whitelist_rule": "@@||sax.sina.com.cn^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "statcounter.com",
-    "blocked_rule": "||statcounter.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "OISD Blocklist Small",
-      "CHN: AdRules DNS List",
-      "CHN: anti-AD",
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||statcounter.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "swasc.homedepot.com",
-    "blocked_rule": "||swasc.homedepot.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||swasc.homedepot.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "unsubscribe.email.premierleague.com",
-    "blocked_rule": "||unsubscribe.email.premierleague.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "CHN: AdRules DNS List",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||unsubscribe.email.premierleague.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "app.appsflyer.com",
-    "blocked_rule": "||app.appsflyer.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "HaGeZi's Ultimate Blocklist",
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||app.appsflyer.com^",
     "whitelist_sources": [
       "AdGuard DNS filter"
     ],
@@ -633,20 +676,6 @@
     "action": "kept_block"
   },
   {
-    "domain": "global.api.huangye.miui.com",
-    "blocked_rule": "||global.api.huangye.miui.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "HaGeZi's Ultimate Blocklist"
-    ],
-    "whitelist_rule": "@@||api.huangye.miui.com^",
-    "whitelist_sources": [
-      "CHN: anti-AD"
-    ],
-    "conflict_type": "cascade",
-    "action": "kept_block"
-  },
-  {
     "domain": "ads.privacy.qq.com",
     "blocked_rule": "||ads.privacy.qq.com^",
     "blocked_category": "ads",
@@ -656,49 +685,6 @@
     "whitelist_rule": "@@||ads.privacy.qq.com^",
     "whitelist_sources": [
       "CHN: anti-AD"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "hb.afl.rakuten.co.jp",
-    "blocked_rule": "||hb.afl.rakuten.co.jp^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||hb.afl.rakuten.co.jp^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "tms.capitalone.com",
-    "blocked_rule": "||tms.capitalone.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||tms.capitalone.com^",
-    "whitelist_sources": [
-      "AdGuard DNS filter"
-    ],
-    "conflict_type": "exact",
-    "action": "kept_block"
-  },
-  {
-    "domain": "app.adjust.com",
-    "blocked_rule": "||app.adjust.com^",
-    "blocked_category": "ads",
-    "blocked_sources": [
-      "AdGuard DNS filter"
-    ],
-    "whitelist_rule": "@@||app.adjust.com^",
-    "whitelist_sources": [
-      "CHN: anti-AD",
-      "AdGuard DNS filter"
     ],
     "conflict_type": "exact",
     "action": "kept_block"

@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe)
-! Count: 261
-! Version: d6c1a60ac1db
+! Count: 262
+! Version: e1e42b5468b5
 @@||3gppnetwork.org^
 @@||5471782.fls.doubleclick.net^
 @@||79423.analytics.edgekey.net^
@@ -40,6 +40,7 @@
 @@||api.docodoco.jp^
 @@||api.huangye.miui.com^
 @@||api.karte.io^
+@@||api.taboola.com^
 @@||app-advertise.zhihuishu.com^
 @@||app.adjust.com^
 @@||app.appsflyer.com^

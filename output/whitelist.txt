@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: f4cdabd506ba
-! Generated: 2026-11-09T05:07:27.620048+00:00
-! Total allow rules: 302
+! Version: f701019ea41c
+! Generated: 2026-11-11T05:09:15.863246+00:00
+! Total allow rules: 303
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -58,6 +58,7 @@
 @@||api.docodoco.jp^
 @@||api.huangye.miui.com^
 @@||api.karte.io^
+@@||api.taboola.com^
 @@||app-advertise.zhihuishu.com^
 @@||app.adjust.com^
 @@||app.appsflyer.com^

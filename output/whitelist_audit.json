@@ -1,12 +1,12 @@
 {
   "summary": {
-    "total": 290,
-    "safe": 261,
+    "total": 291,
+    "safe": 262,
     "suspicious": 28,
     "malicious": 0,
     "unknown": 1,
     "category_counts": {
-      "advertising": 25,
+      "advertising": 26,
       "analytics": 12,
       "cdn": 7,
       "microsoft_telemetry": 12,
@@ -18,7 +18,7 @@
     },
     "by_rating": {
       "safe": {
-        "advertising": 22,
+        "advertising": 23,
         "analytics": 12,
         "cdn": 7,
         "microsoft_telemetry": 10,
@@ -63,7 +63,7 @@
       }
     },
     "category_confidence": {
-      "high(>=0.9)": 68,
+      "high(>=0.9)": 69,
       "medium(0.6-0.89)": 25,
       "low(<0.6)": 197
     },
@@ -71,7 +71,7 @@
       "high(>=50)": 0,
       "medium(20-49)": 7,
       "low(1-19)": 21,
-      "none(0)": 262
+      "none(0)": 263
     },
     "top_risky": [
       {
@@ -90,7 +90,7 @@
         "domain": "ad.cityu.edu.hk",
         "rating": "suspicious",
         "risk_score": 20,
-        "reason": "解析到私有/回环 IP: ['172.26.255.12', '172.26.255.11', '172.26.255.1', '172.26.255.2']"
+        "reason": "解析到私有/回环 IP: ['172.26.255.2', '172.26.255.12', '172.26.255.11', '172.26.255.1']"
       },
       {
         "domain": "dishy.starlink.com",
@@ -138,7 +138,7 @@
     "disk_cache": {
       "enabled": true,
       "hits": 0,
-      "stored": 290,
+      "stored": 291,
       "path": "cache/whitelist_audit_cache.json"
     },
     "layer_hits": {
@@ -178,7 +178,7 @@
     },
     "execution_mode": "parallel",
     "threat_feeds": {
-      "dataset_hits": 290,
+      "dataset_hits": 291,
       "api_fallbacks": 0,
       "feed_schema_error": 0,
       "feed_age_hours": 0.0,
@@ -244,12 +244,12 @@
       "category": "other",
       "category_confidence": 0.0,
       "category_reason": "no match",
-      "reason": "解析到私有/回环 IP: ['172.26.255.12', '172.26.255.11', '172.26.255.1', '172.26.255.2']",
+      "reason": "解析到私有/回环 IP: ['172.26.255.2', '172.26.255.12', '172.26.255.11', '172.26.255.1']",
       "dns_ips": [
+        "172.26.255.2",
         "172.26.255.12",
         "172.26.255.11",
-        "172.26.255.1",
-        "172.26.255.2"
+        "172.26.255.1"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -300,8 +300,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 11534,
+      "rdap_registrar": "CSC Corporate Domains, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -478,7 +478,7 @@
       "category_reason": "no match",
       "reason": "拼写劫持仿冒品牌 stripe（编辑距离 1）",
       "dns_ips": [
-        "23.36.208.39"
+        "23.59.109.20"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -717,11 +717,11 @@
       "category_reason": "no match",
       "reason": "拼写劫持仿冒品牌 gmail（编辑距离 1）",
       "dns_ips": [
-        "104.17.73.206",
+        "104.17.72.206",
         "104.17.71.206",
-        "104.17.70.206",
         "104.17.74.206",
-        "104.17.72.206"
+        "104.17.73.206",
+        "104.17.70.206"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -770,10 +770,10 @@
       "category_reason": "no match",
       "reason": "拼写劫持仿冒品牌 gmail（编辑距离 1）",
       "dns_ips": [
-        "108.138.85.37",
-        "108.138.85.71",
-        "108.138.85.120",
-        "108.138.85.79"
+        "18.154.110.116",
+        "18.154.110.7",
+        "18.154.110.76",
+        "18.154.110.64"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -1562,7 +1562,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 8943,
+      "rdap_domain_age_days": 8945,
       "rdap_registrar": "Network Solutions, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -1603,14 +1603,14 @@
       "category_reason": "registered domain match: doubleclick.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "142.251.16.148",
-        "142.251.16.149"
+        "192.179.16.148",
+        "192.179.16.149"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 11255,
+      "rdap_domain_age_days": 11257,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -1651,13 +1651,13 @@
       "category_reason": "registered domain match: edgekey.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.103.78.237"
+        "23.59.110.139"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 9167,
+      "rdap_domain_age_days": 9169,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -1698,13 +1698,13 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.248.150.114"
+        "199.232.74.114"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 7881,
+      "rdap_domain_age_days": 7883,
       "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -1745,10 +1745,10 @@
       "category_reason": "registered domain match: amazon.co.jp",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.3.121",
-        "3.170.3.6",
-        "3.170.3.77",
-        "3.170.3.10"
+        "18.160.249.98",
+        "18.160.249.77",
+        "18.160.249.111",
+        "18.160.249.16"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -1796,7 +1796,7 @@
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
         "54.65.215.108",
-        "18.178.119.249"
+        "13.159.91.6"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -1890,7 +1890,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "47.246.174.212"
+        "47.246.167.71"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -1943,7 +1943,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 8587,
+      "rdap_domain_age_days": 8589,
       "rdap_registrar": "OVH sas",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -1990,7 +1990,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 8363,
+      "rdap_domain_age_days": 8365,
       "rdap_registrar": "101domain GRS Limited",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2037,7 +2037,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 3322,
+      "rdap_domain_age_days": 3324,
       "rdap_registrar": "DNSPod, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2084,7 +2084,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 7248,
+      "rdap_domain_age_days": 7250,
       "rdap_registrar": "Bizcn.com, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2129,7 +2129,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 8199,
+      "rdap_domain_age_days": 8201,
       "rdap_registrar": "Xin Net Technology Corporation",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2176,7 +2176,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 11024,
+      "rdap_domain_age_days": 11026,
       "rdap_registrar": "Beijing Guokeyun Computing Technology Co., Ltd",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2221,7 +2221,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 11703,
+      "rdap_domain_age_days": 11705,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2262,14 +2262,14 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.67.146.148",
-        "104.21.79.160"
+        "104.21.79.160",
+        "172.67.146.148"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 10104,
+      "rdap_domain_age_days": 10106,
       "rdap_registrar": "HOSTINGER operations, UAB",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2310,15 +2310,14 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "157.185.179.12",
-        "138.113.128.90",
-        "138.113.128.20"
+        "157.185.163.158",
+        "66.114.53.37"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 9806,
+      "rdap_domain_age_days": 9808,
       "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -2410,8 +2409,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 10823,
+      "rdap_registrar": "Beijing Brandma International Networking Technology Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2451,8 +2450,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.39.153.180",
-        "54.116.200.193"
+        "15.165.167.234",
+        "3.39.131.183"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -2499,21 +2498,21 @@
       "category_reason": "registered domain match: adsterra.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.240.127.243",
-        "172.240.108.84",
-        "172.240.127.234",
-        "172.240.127.242",
+        "172.240.127.244",
         "172.240.108.68",
+        "172.240.127.234",
         "172.240.108.76",
         "172.240.253.132",
-        "172.240.127.244"
+        "172.240.108.84",
+        "172.240.127.242",
+        "172.240.127.243"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2532,7 +2531,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2559,8 +2558,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 2303,
+      "rdap_registrar": "Squarespace Domains II LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2579,7 +2578,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2606,8 +2605,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 11514,
+      "rdap_registrar": "MarkMonitor Information Technology (Shanghai) Co., Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2626,7 +2625,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2647,14 +2646,14 @@
       "category_reason": "registered domain match: taboola.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.248.149.44"
+        "199.232.73.44"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 7200,
+      "rdap_registrar": "Ascio Technologies, Inc. Danmark - Filial af Ascio technologies, Inc. USA",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2673,7 +2672,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2701,8 +2700,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2721,7 +2720,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2749,8 +2748,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 7738,
+      "rdap_registrar": "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2769,7 +2768,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2790,14 +2789,14 @@
       "category_reason": "registered domain match: taobao.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "203.119.169.80"
+        "59.82.31.244"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 8605,
+      "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2816,7 +2815,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2885,15 +2884,15 @@
       "category_reason": "registered domain match: adsterra.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.18.3.227",
-        "104.18.2.227"
+        "104.18.2.227",
+        "104.18.3.227"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2912,7 +2911,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2941,8 +2940,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 3583,
+      "rdap_registrar": "GMO Internet Group, Inc. d/b/a Onamae.com",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -2961,7 +2960,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -2983,17 +2982,17 @@
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
         "104.18.141.67",
+        "104.18.139.67",
         "104.18.137.67",
-        "104.18.140.67",
         "104.18.138.67",
-        "104.18.139.67"
+        "104.18.140.67"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 11780,
+      "rdap_registrar": "GoDaddy.com, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -3012,7 +3011,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -3078,15 +3077,15 @@
       "category_reason": "registered domain match: amplitude.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "13.248.219.127",
-        "76.223.69.48"
+        "76.223.69.48",
+        "13.248.219.127"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 11143,
+      "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -3105,7 +3104,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -3268,8 +3267,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "35.78.35.121",
-        "43.206.74.200"
+        "54.199.20.239",
+        "54.65.36.247"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3316,9 +3315,6 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "8.219.118.138",
-        "8.219.161.228",
-        "8.219.191.228",
         "8.222.151.96",
         "8.222.153.76",
         "8.222.156.7",
@@ -3326,7 +3322,10 @@
         "47.245.87.137",
         "8.219.15.208",
         "8.219.73.87",
-        "8.219.110.19"
+        "8.219.110.19",
+        "8.219.118.138",
+        "8.219.161.228",
+        "8.219.191.228"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3409,6 +3408,53 @@
       "ai_classified": false
     },
     {
+      "domain": "api.taboola.com",
+      "rule": "@@||api.taboola.com^",
+      "sources": [
+        "AdGuard DNS filter"
+      ],
+      "rating": "safe",
+      "category": "advertising",
+      "category_confidence": 0.9,
+      "category_reason": "registered domain match: taboola.com",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "199.232.73.44"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 7200,
+      "rdap_registrar": "Ascio Technologies, Inc. Danmark - Filial af Ascio technologies, Inc. USA",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
+    },
+    {
       "domain": "app-advertise.zhihuishu.com",
       "rule": "@@||app-advertise.zhihuishu.com^",
       "sources": [
@@ -3468,10 +3514,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "185.151.204.9",
         "185.151.204.7",
-        "185.151.204.13",
-        "185.151.204.11"
+        "185.151.204.10",
+        "185.151.204.14",
+        "185.151.204.8"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3518,10 +3564,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "18.67.65.45",
-        "18.67.65.126",
-        "18.67.65.93",
-        "18.67.65.67"
+        "13.225.47.95",
+        "13.225.47.55",
+        "13.225.47.111",
+        "13.225.47.34"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3568,8 +3614,8 @@
       "category_reason": "registered domain match: crazyegg.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.19.147.8",
-        "104.19.148.8"
+        "104.19.148.8",
+        "104.19.147.8"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3616,7 +3662,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "20.41.4.104"
+        "20.37.156.201"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3755,10 +3801,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.42.2",
-        "3.170.42.29",
-        "3.170.42.97",
-        "3.170.42.6"
+        "3.168.51.81",
+        "3.168.51.25",
+        "3.168.51.98",
+        "3.168.51.93"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3805,10 +3851,10 @@
       "category_reason": "registered domain match: awin1.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "13.35.78.83",
-        "13.35.78.88",
-        "13.35.78.104",
-        "13.35.78.50"
+        "3.170.185.89",
+        "3.170.185.64",
+        "3.170.185.2",
+        "3.170.185.52"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -3902,8 +3948,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.67.203.192",
-        "104.21.14.153"
+        "104.21.14.153",
+        "172.67.203.192"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4051,8 +4097,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -4071,7 +4117,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -4099,8 +4145,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -4119,7 +4165,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -4140,15 +4186,15 @@
       "category_reason": "registered domain match: adsterra.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.18.2.227",
-        "104.18.3.227"
+        "104.18.3.227",
+        "104.18.2.227"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -4167,7 +4213,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -4325,7 +4371,7 @@
       "category_reason": "registered domain match: office.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "150.171.109.119"
+        "150.171.110.194"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4466,7 +4512,7 @@
       "category_reason": "subdomain prefix: cdn",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "38.104.169.186"
+        "38.142.94.218"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4607,14 +4653,14 @@
       "category_reason": "registered domain match: taboola.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.248.149.44"
+        "199.232.73.44"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 7200,
+      "rdap_registrar": "Ascio Technologies, Inc. Danmark - Filial af Ascio technologies, Inc. USA",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -4633,7 +4679,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -4660,8 +4706,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 8605,
+      "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -4680,7 +4726,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -4701,15 +4747,15 @@
       "category_reason": "registered domain match: newrelic.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
+        "3.140.6.109",
         "18.188.220.94",
         "3.20.30.113",
-        "3.22.141.214",
-        "18.220.230.11",
-        "18.225.1.82",
         "3.130.130.93",
-        "3.140.6.109",
-        "3.135.157.0",
-        "3.21.88.73"
+        "18.220.230.11",
+        "3.21.88.73",
+        "18.225.1.82",
+        "3.22.141.214",
+        "3.135.157.0"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4756,8 +4802,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.18.5.234",
-        "104.18.4.234"
+        "104.18.4.234",
+        "104.18.5.234"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4851,10 +4897,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.19.11",
-        "3.170.19.65",
-        "3.170.19.123",
-        "3.170.19.22"
+        "159.127.43.10"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4901,8 +4944,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "52.193.21.196",
-        "54.64.168.143"
+        "13.196.147.49",
+        "18.180.108.103"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -4997,8 +5040,8 @@
       "category_reason": "subdomain prefix: click",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "23.53.35.39",
-        "23.53.35.36"
+        "23.55.236.130",
+        "23.55.236.139"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5139,14 +5182,14 @@
       "category_reason": "registered domain match: taobao.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "203.119.238.249"
+        "59.82.120.187"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 8605,
+      "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -5165,7 +5208,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -5280,10 +5323,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "44.242.39.240",
-        "44.230.149.159",
         "54.185.196.20",
-        "184.34.74.203"
+        "44.238.85.93",
+        "184.34.74.203",
+        "32.184.111.38"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5330,7 +5373,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "203.114.55.144"
+        "203.114.55.143"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5377,7 +5420,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "203.114.55.134"
+        "203.114.55.135"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5424,10 +5467,10 @@
       "category_reason": "registered domain match: inmobi.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.19.53",
-        "3.170.19.122",
-        "3.170.19.48",
-        "3.170.19.77"
+        "13.249.141.12",
+        "13.249.141.105",
+        "13.249.141.75",
+        "13.249.141.79"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5474,10 +5517,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "108.138.85.19",
-        "108.138.85.55",
-        "108.138.85.15",
-        "108.138.85.31"
+        "13.32.164.98",
+        "13.32.164.72",
+        "13.32.164.106",
+        "13.32.164.87"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5667,7 +5710,7 @@
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
         "184.195.68.34",
-        "3.214.67.208"
+        "54.145.111.9"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5761,8 +5804,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "18.178.119.249",
-        "54.65.215.108"
+        "54.65.215.108",
+        "13.159.91.6"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -5856,10 +5899,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "47.246.167.168",
         "47.246.174.148",
         "47.246.167.152",
-        "47.246.174.23"
+        "47.246.174.23",
+        "47.246.167.168"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -6419,10 +6462,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "13.226.238.127",
-        "13.226.238.96",
-        "13.226.238.110",
-        "13.226.238.124"
+        "13.227.47.36",
+        "13.227.47.14",
+        "13.227.47.65",
+        "13.227.47.74"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -6794,8 +6837,8 @@
       "category_reason": "subdomain prefix: feed",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.67.169.6",
-        "104.21.27.59"
+        "104.21.27.59",
+        "172.67.169.6"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -6985,8 +7028,8 @@
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
         "35.181.127.99",
-        "13.36.231.9",
-        "15.224.76.104"
+        "15.224.76.104",
+        "13.36.231.9"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -7033,8 +7076,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.64.153.235",
-        "104.18.34.21"
+        "104.18.34.21",
+        "172.64.153.235"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -7175,8 +7218,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "67.199.248.13",
-        "67.199.248.12"
+        "67.199.248.12",
+        "67.199.248.13"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -7223,8 +7266,10 @@
       "category_reason": "registered domain match: googleadservices.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.253.122.155",
-        "172.253.122.156"
+        "64.233.181.154",
+        "64.233.181.156",
+        "64.233.181.157",
+        "64.233.181.155"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -7277,8 +7322,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 10905,
+      "rdap_registrar": "GoDaddy Corporate Domains, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7297,7 +7342,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7365,7 +7410,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.248.150.63"
+        "199.232.74.63"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -7412,15 +7457,15 @@
       "category_reason": "registered domain match: statcounter.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.20.23.96",
-        "172.66.169.241"
+        "172.66.169.241",
+        "104.20.23.96"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 9806,
+      "rdap_registrar": "pair Networks, Inc. d/b/a pair Domains",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7439,7 +7484,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7467,8 +7512,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 11954,
+      "rdap_registrar": "NameCheap, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7487,7 +7532,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7508,7 +7553,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "146.75.38.63"
+        "199.232.74.63"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -7561,8 +7606,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5509,
+      "rdap_registrar": "GoDaddy.com, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7581,7 +7626,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7609,8 +7654,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7629,7 +7674,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7650,17 +7695,17 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.19.86",
-        "3.170.19.39",
-        "3.170.19.96",
-        "3.170.19.93"
+        "13.32.205.71",
+        "13.32.205.102",
+        "13.32.205.124",
+        "13.32.205.79"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 10005,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7679,7 +7724,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7753,8 +7798,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 7976,
+      "rdap_registrar": "NameSilo, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -7773,7 +7818,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -7794,8 +7839,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "192.0.78.26",
-        "192.0.78.27"
+        "192.0.78.27",
+        "192.0.78.26"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8037,8 +8082,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 12977,
+      "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -8057,7 +8102,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -8078,8 +8123,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.64.153.116",
-        "104.18.34.140"
+        "104.18.34.140",
+        "172.64.153.116"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8126,8 +8171,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "192.0.0.171",
-        "192.0.0.170"
+        "192.0.0.170",
+        "192.0.0.171"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8266,13 +8311,13 @@
       "category_reason": "registered domain match: azure.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "150.171.109.116"
+        "150.171.110.195"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 11703,
+      "rdap_domain_age_days": 11705,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -8313,7 +8358,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.248.149.42"
+        "199.232.73.42"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8405,10 +8450,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.167.99.88",
-        "3.167.99.53",
-        "3.167.99.10",
-        "3.167.99.127"
+        "108.156.91.63",
+        "108.156.91.108",
+        "108.156.91.55",
+        "108.156.91.89"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8455,9 +8500,9 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
+        "107.20.71.201",
         "3.226.166.212",
-        "3.222.82.214",
-        "107.20.71.201"
+        "3.222.82.214"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8504,10 +8549,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.167.99.127",
-        "3.167.99.10",
-        "3.167.99.53",
-        "3.167.99.88"
+        "108.156.91.108",
+        "108.156.91.89",
+        "108.156.91.63",
+        "108.156.91.55"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8649,7 +8694,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.248.150.133"
+        "199.232.74.133"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8696,8 +8741,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.16.192.184",
-        "104.17.63.144"
+        "104.17.63.144",
+        "104.16.192.184"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8745,7 +8790,7 @@
       "category_reason": "registered domain match: mmstat.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "140.205.151.4"
+        "140.205.151.7"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8792,8 +8837,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "54.90.82.70",
-        "184.194.228.203"
+        "184.194.228.203",
+        "54.90.82.70"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -8887,13 +8932,13 @@
       "category_reason": "registered domain match: edgekey.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.103.78.237"
+        "23.59.110.139"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 9167,
+      "rdap_domain_age_days": 9169,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -9211,15 +9256,15 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "13.36.49.164",
-        "13.39.154.116"
+        "13.37.170.107",
+        "13.37.118.125"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 4759,
+      "rdap_registrar": "OVH sas",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -9240,7 +9285,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -9261,14 +9306,16 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "74.6.143.22"
+        "44.224.241.37",
+        "44.254.33.215",
+        "44.252.140.241"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 11620,
+      "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -9287,7 +9334,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -9315,8 +9362,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 10879,
+      "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -9335,7 +9382,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -9356,15 +9403,15 @@
       "category_reason": "registered domain match: openx.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "34.98.64.218",
-        "35.244.159.8"
+        "35.244.159.8",
+        "34.98.64.218"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 10959,
+      "rdap_registrar": "Tucows Domains Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -9383,7 +9430,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -9499,8 +9546,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "162.159.143.37",
-        "172.66.3.33"
+        "172.66.3.33",
+        "162.159.143.37"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -9547,8 +9594,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.66.3.33",
-        "162.159.143.37"
+        "162.159.143.37",
+        "172.66.3.33"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -9698,8 +9745,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 4319,
+      "rdap_registrar": "GoDaddy.com, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -9718,7 +9765,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -9880,15 +9927,17 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "109.61.91.195",
-        "109.61.91.198"
+        "109.61.92.56",
+        "109.61.92.51",
+        "109.61.92.54",
+        "109.61.92.48"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 4026,
+      "rdap_registrar": "Key-Systems, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -9907,7 +9956,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -9928,14 +9977,16 @@
       "category_reason": "registered domain match: doubleclick.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "172.253.62.154",
-        "172.253.62.157"
+        "74.125.69.157",
+        "74.125.69.154",
+        "74.125.69.155",
+        "74.125.69.156"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 11255,
+      "rdap_domain_age_days": 11257,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -10070,15 +10121,15 @@
       "category_reason": "registered domain match: adsterra.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.18.2.227",
-        "104.18.3.227"
+        "104.18.3.227",
+        "104.18.2.227"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -10097,7 +10148,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -10353,7 +10404,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "146.75.30.63"
+        "199.232.74.63"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -10447,15 +10498,15 @@
       "category_reason": "registered domain match: adsterra.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.18.2.227",
-        "104.18.3.227"
+        "104.18.3.227",
+        "104.18.2.227"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 5318,
+      "rdap_registrar": "Amazon Registrar, Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -10474,7 +10525,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -10543,8 +10594,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "52.192.64.97",
-        "35.73.47.191"
+        "35.73.47.191",
+        "35.73.193.46"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -10685,9 +10736,9 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "32.187.156.74",
-        "32.186.147.13",
-        "54.218.32.237"
+        "32.188.232.241",
+        "54.218.32.237",
+        "32.186.147.13"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -10734,9 +10785,9 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
+        "34.250.32.146",
         "34.252.6.98",
-        "108.133.15.32",
-        "34.250.32.146"
+        "3.248.123.46"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -10875,7 +10926,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "38.111.114.114"
+        "148.113.221.72"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -11016,10 +11067,10 @@
       "category_reason": "subdomain prefix: ads",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "18.67.76.10",
-        "18.67.76.97",
-        "18.67.76.16",
-        "18.67.76.49"
+        "13.32.205.111",
+        "13.32.205.95",
+        "13.32.205.60",
+        "13.32.205.89"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -11306,14 +11357,14 @@
       "category_reason": "registered domain match: demdex.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "44.193.115.4",
-        "54.164.130.232",
-        "3.226.2.36",
-        "34.232.94.249",
-        "54.198.65.95",
-        "3.221.96.52",
-        "18.211.72.138",
-        "34.195.231.103"
+        "54.218.167.112",
+        "52.35.153.112",
+        "34.211.59.242",
+        "52.89.59.29",
+        "184.34.38.192",
+        "35.164.15.254",
+        "184.35.136.124",
+        "184.32.13.91"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -11407,8 +11458,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "184.25.51.51",
-        "184.25.51.80"
+        "23.55.236.133",
+        "23.55.236.135"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -11502,14 +11553,14 @@
       "category_reason": "registered domain match: microsoft.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "85.210.196.11"
+        "40.84.97.4"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 12977,
+      "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -11528,7 +11579,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -11877,8 +11928,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "129.213.77.43",
-        "129.213.199.43"
+        "129.213.199.43",
+        "129.213.77.43"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12019,8 +12070,8 @@
       "category_reason": "subdomain prefix: stat",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "59.63.226.13",
-        "27.155.113.144"
+        "27.155.113.144",
+        "36.158.231.244"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12067,15 +12118,15 @@
       "category_reason": "registered domain match: statcounter.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "104.20.23.96",
-        "172.66.169.241"
+        "172.66.169.241",
+        "104.20.23.96"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 9806,
+      "rdap_registrar": "pair Networks, Inc. d/b/a pair Domains",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -12094,7 +12145,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -12207,7 +12258,7 @@
       "category_reason": "registered domain match: live.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "52.225.51.39"
+        "168.62.216.242"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12255,10 +12306,10 @@
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
         "178.33.196.208",
-        "37.59.195.0",
-        "92.222.252.172",
+        "188.165.145.88",
         "5.135.121.144",
-        "188.165.145.88"
+        "92.222.252.172",
+        "37.59.195.0"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12399,8 +12450,8 @@
       "category_reason": "registered domain match: surbl.org",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "5.161.67.209",
         "5.161.243.38",
+        "5.161.67.209",
         "167.235.149.163"
       ],
       "dns_nxdomain": false,
@@ -12448,10 +12499,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "13.226.238.93",
-        "13.226.238.32",
-        "13.226.238.76",
-        "13.226.238.91"
+        "99.86.77.69",
+        "99.86.77.111",
+        "99.86.77.120",
+        "99.86.77.92"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12545,10 +12596,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.167.69.97",
-        "3.167.69.51",
-        "3.167.69.118",
-        "3.167.69.77"
+        "108.156.91.19",
+        "108.156.91.5",
+        "108.156.91.83",
+        "108.156.91.60"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12595,8 +12646,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "52.206.84.182",
-        "34.239.204.135"
+        "34.239.204.135",
+        "52.206.84.182"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12737,10 +12788,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.3.8",
-        "3.170.3.111",
-        "3.170.3.127",
-        "3.170.3.124"
+        "108.156.107.30",
+        "108.156.107.38",
+        "108.156.107.23",
+        "108.156.107.69"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -12787,7 +12838,7 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.234.31.129"
+        "3.133.218.120"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -13205,8 +13256,8 @@
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
         "52.200.93.45",
-        "52.5.55.107",
-        "52.44.104.161"
+        "52.44.104.161",
+        "52.5.55.107"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -13309,10 +13360,10 @@
       "category_reason": "registered domain match: webgains.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.170.19.114",
-        "3.170.19.109",
-        "3.170.19.10",
-        "3.170.19.121"
+        "108.156.107.87",
+        "108.156.107.22",
+        "108.156.107.116",
+        "108.156.107.10"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -13507,8 +13558,8 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 8581,
+      "rdap_registrar": "InterNetX GmbH",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -13548,14 +13599,14 @@
       "category_reason": "registered domain match: taobao.com",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "47.246.136.224"
+        "47.246.136.221"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": null,
-      "rdap_registrar": null,
+      "rdap_domain_age_days": 8605,
+      "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
       "scam_suspicious": false,
       "scam_decision": null,
       "scam_risk_score": 0,
@@ -13574,7 +13625,7 @@
       "mxspf_has_mx": null,
       "mxspf_has_spf": null,
       "mxspf_missing": false,
-      "mxspf_recycled_clue": true,
+      "mxspf_recycled_clue": false,
       "gsb_malicious": false,
       "phishtank_malicious": false,
       "urlscan_malicious": false,
@@ -13601,7 +13652,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 4186,
+      "rdap_domain_age_days": 4188,
       "rdap_registrar": "GoDaddy.com, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -13648,7 +13699,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 7886,
+      "rdap_domain_age_days": 7888,
       "rdap_registrar": "GoDaddy.com, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -13689,14 +13740,14 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "3.33.198.33",
-        "15.197.161.169"
+        "15.197.161.169",
+        "3.33.198.33"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 9496,
+      "rdap_domain_age_days": 9498,
       "rdap_registrar": "Go Daddy Domains Canada, Inc",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -13743,7 +13794,7 @@
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 4444,
+      "rdap_domain_age_days": 4446,
       "rdap_registrar": "GoDaddy.com, LLC",
       "scam_suspicious": false,
       "scam_decision": null,
@@ -13784,8 +13835,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "52.68.238.216",
         "13.197.31.184",
+        "52.68.238.216",
         "54.199.125.106"
       ],
       "dns_nxdomain": false,
@@ -13833,8 +13884,8 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "13.197.31.184",
         "52.68.238.216",
+        "13.197.31.184",
         "54.199.125.106"
       ],
       "dns_nxdomain": false,
@@ -13882,10 +13933,10 @@
       "category_reason": "no match",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "108.138.64.56",
-        "108.138.64.83",
-        "108.138.64.17",
-        "108.138.64.81"
+        "13.32.164.66",
+        "13.32.164.84",
+        "13.32.164.118",
+        "13.32.164.79"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
@@ -13932,18 +13983,18 @@
       "category_reason": "registered domain match: doubleclick.net",
       "reason": "DNS 正常解析，无威胁情报标记",
       "dns_ips": [
-        "142.251.163.101",
-        "142.251.163.113",
-        "142.251.163.100",
-        "142.251.163.102",
-        "142.251.163.138",
-        "142.251.163.139"
+        "74.125.132.100",
+        "74.125.132.101",
+        "74.125.132.113",
+        "74.125.132.139",
+        "74.125.132.138",
+        "74.125.132.102"
       ],
       "dns_nxdomain": false,
       "urlhaus_malicious": false,
       "threatfox_malicious": false,
       "rdap_new_domain": false,
-      "rdap_domain_age_days": 11255,
+      "rdap_domain_age_days": 11257,
       "rdap_registrar": "MarkMonitor Inc.",
       "scam_suspicious": false,
       "scam_decision": null,
