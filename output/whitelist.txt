@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: f701019ea41c
-! Generated: 2026-11-11T05:09:15.863246+00:00
-! Total allow rules: 303
+! Version: e7dd9155fc18
+! Generated: 2026-11-16T05:20:36.045961+00:00
+! Total allow rules: 304
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -52,6 +52,7 @@
 @@||analysis.chess.com^
 @@||analysis.windows.net^
 @@||analytics.amplitude.com^
+@@||analytics.cibc.com^
 @@||anwb.webpower.eu^
 @@||ap01.records.in.treasuredata.com^
 @@||api.ads.tvb.com^

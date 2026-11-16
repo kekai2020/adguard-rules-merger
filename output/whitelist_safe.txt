@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe)
-! Count: 262
-! Version: e1e42b5468b5
+! Count: 263
+! Version: 01f6ef04f45e
 @@||3gppnetwork.org^
 @@||5471782.fls.doubleclick.net^
 @@||79423.analytics.edgekey.net^
@@ -34,6 +34,7 @@
 @@||analysis.chess.com^
 @@||analysis.windows.net^
 @@||analytics.amplitude.com^
+@@||analytics.cibc.com^
 @@||anwb.webpower.eu^
 @@||ap01.records.in.treasuredata.com^
 @@||api.ads.tvb.com^
