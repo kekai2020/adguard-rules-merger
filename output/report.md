@@ -1,6 +1,6 @@
 # AdGuard Rules Merger — 规则分析报告
 
-> 合并时间 2026-11-22 13:54:21 | 源：18/18 | 缓存命中：8
+> 合并时间 2026-11-22 14:11:44 | 源：18/18 | 缓存命中：18
 
 ## 一、概览
 
@@ -10,27 +10,27 @@
 | Allow 白名单 | 310 |
 | 纯去重率（去重阶段） | 22.8% |
 | 最终压缩（原始→输出） | 3,688,583 → 2,780,508（-25%） |
-| 聚合精简（净） | 67,312 |
+| 聚合精简（净） | 67,309 |
 | 冲突消解 | 0 |
 | 带 $ 修饰符规则数 | 5 |
-| 合并时间 | 2026-11-22 13:54:21 |
-| 总耗时 | 58.0s |
+| 合并时间 | 2026-11-22 14:11:44 |
+| 总耗时 | 29.8s |
 
 ### ⏱️ 各阶段执行耗时
 
 | 流水线阶段 | 耗时 | 占比 |
 |---|---:|---:|
-| 抓取/解析 | 20090.8 ms | 34.7% |
-| badfilter 取消 | 63.2 ms | 0.1% |
-| 聚合 | 4533.0 ms | 7.8% |
-| 冲突解析 | 1256.0 ms | 2.2% |
-| 排序 | 1313.6 ms | 2.3% |
-| 分类重判 | 8 µs | 0.0% |
-| 统计/贡献 | 7044.6 ms | 12.2% |
-| 白名单审计 | 22808.8 ms | 39.4% |
+| 抓取/解析 | 14440.8 ms | 48.6% |
+| badfilter 取消 | 76.6 ms | 0.3% |
+| 聚合 | 4515.6 ms | 15.2% |
+| 冲突解析 | 1326.8 ms | 4.5% |
+| 排序 | 1235.1 ms | 4.2% |
+| 分类重判 | 7 µs | 0.0% |
+| 统计/贡献 | 6540.2 ms | 22.0% |
+| 白名单审计 | 680.7 ms | 2.3% |
 | 差异对比 | 2 µs | 0.0% |
-| 内容哈希 | 839.1 ms | 1.4% |
-| **合计** | **57949.2 ms** | **100.0%** |
+| 内容哈希 | 925.0 ms | 3.1% |
+| **合计** | **29740.9 ms** | **100.0%** |
 
 ### 执行摘要
 
@@ -42,9 +42,9 @@
 | 阶段 | 规则数 | 本阶段减少 |
 |------|--------|-----------|
 | 原始规则（Raw） | 3,688,583 | - |
-| 去重后（精确 838,315 / 规范化 2,121 / 正则 321） | 2,847,826 | -840,757 |
-| badfilter 取消后（被 $badfilter 取消） | 2,847,820 | -6 |
-| 聚合后（净：折叠 67,312） | 2,780,508 | -67,312 |
+| 去重后（精确 840,439 / 规范化 0 / 正则 321） | 2,847,823 | -840,760 |
+| badfilter 取消后（被 $badfilter 取消） | 2,847,817 | -6 |
+| 聚合后（净：折叠 67,309） | 2,780,508 | -67,309 |
 | 冲突消解后（最终输出） | 2,780,508 | -0 |
 
 ## 三、规则类型与类别分布
@@ -199,44 +199,44 @@
 
 | 域名 | 被拦规则 | 被拦来源 | 白名单规则 | 白名单来源 | 类型 |
 |------|---------|---------|-----------|-----------|------|
-| `js.monitor.azure.com` | `\|\|js.monitor.azure.com^` | HaGeZi's Windows/Office Tracker Blocklist | `@@\|\|js.monitor.azure.com^` | AdGuard DNS filter | 精确 |
-| `googleadservices.com` | `\|\|googleadservices.com^` | AWAvenue Ads Rule, OISD Blocklist Small, CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|googleadservices.com^` | AdGuard DNS filter | 精确 |
-| `adsterra.com` | `\|\|adsterra.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|adsterra.com^` | AdGuard DNS filter | 精确 |
-| `afi-b.com` | `\|\|afi-b.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|afi-b.com^` | AdGuard DNS filter | 精确 |
-| `awin1.com` | `\|\|awin1.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|awin1.com^` | AdGuard DNS filter | 精确 |
-| `analytics.cibc.com` | `\|\|analytics.cibc.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|analytics.cibc.com^` | AdGuard DNS filter | 精确 |
-| `om-ssl.consorsbank.de` | `\|\|om-ssl.consorsbank.de^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|om-ssl.consorsbank.de^` | AdGuard DNS filter | 精确 |
-| `data.digital.costco.ca` | `\|\|data.digital.costco.ca^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.digital.costco.ca^` | AdGuard DNS filter | 精确 |
-| `data.digital.costco.com` | `\|\|data.digital.costco.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.digital.costco.com^` | AdGuard DNS filter | 精确 |
-| `data.orders.costco.com` | `\|\|data.orders.costco.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.orders.costco.com^` | AdGuard DNS filter | 精确 |
-| `daraz.com` | `\|\|daraz.com^` | OISD Blocklist Small, CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|daraz.com^` | AdGuard DNS filter | 精确 |
-| `datadoghq-browser-agent.com` | `\|\|datadoghq-browser-agent.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|datadoghq-browser-agent.com^` | AdGuard DNS filter | 精确 |
-| `proto2ad.durasite.net` | `\|\|proto2ad.durasite.net^` | OISD Blocklist Small, CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|proto2ad.durasite.net^` | AdGuard DNS filter | 精确 |
-| `marketing.net.idealo-partner.com` | `\|\|marketing.net.idealo-partner.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|marketing.net.idealo-partner.com^` | AdGuard DNS filter | 精确 |
-| `jdoqocy.com` | `\|\|jdoqocy.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|jdoqocy.com^` | AdGuard DNS filter | 精确 |
-| `omsc.kpn.com` | `\|\|omsc.kpn.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|omsc.kpn.com^` | AdGuard DNS filter | 精确 |
-| `torimochi.line-apps.com` | `\|\|torimochi.line-apps.com^` | CHN: anti-AD | `@@\|\|torimochi.line-apps.com^` | AdGuard DNS filter | 精确 |
-| `logentries.com` | `\|\|logentries.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|logentries.com^` | AdGuard DNS filter | 精确 |
-| `sedge.nfl.com` | `\|\|sedge.nfl.com^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|sedge.nfl.com^` | AdGuard DNS filter | 精确 |
-| `cmp.osano.com` | `\|\|cmp.osano.com^` | CHN: anti-AD, CHN: AdRules DNS List | `@@\|\|cmp.osano.com^` | AdGuard DNS filter | 精确 |
-| `data.promo.timhortons.ca` | `\|\|data.promo.timhortons.ca^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.promo.timhortons.ca^` | AdGuard DNS filter | 精确 |
-| `ad.10010.com` | `\|\|ad.10010.com^` | AWAvenue Ads Rule, OISD Blocklist Small, CHN: anti-AD, CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist | `@@\|\|ad.10010.com^` | AdGuard DNS filter | 精确 |
-| `ad.ourgame.com` | `\|\|ad.ourgame.com^` | CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist | `@@\|\|ad.ourgame.com^` | AdGuard DNS filter | 精确 |
-| `belgium.wolterskluwer.com` | `\|\|belgium.wolterskluwer.com^` | CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter | 精确 |
-| `data.email.premierleague.com` | `\|\|data.email.premierleague.com^` | CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.email.premierleague.com^` | AdGuard DNS filter | 精确 |
-| `data.notify.macys.com` | `\|\|data.notify.macys.com^` | CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.notify.macys.com^` | AdGuard DNS filter | 精确 |
-| `data.orders.costco.ca` | `\|\|data.orders.costco.ca^` | CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|data.orders.costco.ca^` | AdGuard DNS filter | 精确 |
-| `ezodn.com` | `\|\|ezodn.com^` | OISD Blocklist Small, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, HaGeZi's Threat Intelligence Feeds | `@@\|\|ezodn.com^` | AdGuard DNS filter | 精确 |
-| `net.daraz.pk` | `\|\|net.daraz.pk^` | CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|daraz.pk^` | AdGuard DNS filter | 级联 |
-| `omniture.walmart.com` | `\|\|omniture.walmart.com^` | CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|omniture.walmart.com^` | AdGuard DNS filter | 精确 |
-| `sax.sina.com.cn` | `\|\|sax.sina.com.cn^` | OISD Blocklist Small, CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|sax.sina.com.cn^` | AdGuard DNS filter | 精确 |
-| `statcounter.com` | `\|\|statcounter.com^` | OISD Blocklist Small, CHN: anti-AD, CHN: AdRules DNS List, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|statcounter.com^` | AdGuard DNS filter | 精确 |
-| `swasc.homedepot.com` | `\|\|swasc.homedepot.com^` | CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|swasc.homedepot.com^` | AdGuard DNS filter | 精确 |
-| `unsubscribe.email.premierleague.com` | `\|\|unsubscribe.email.premierleague.com^` | CHN: AdRules DNS List, AdGuard DNS filter | `@@\|\|unsubscribe.email.premierleague.com^` | AdGuard DNS filter | 精确 |
+| `afi-b.com` | `\|\|afi-b.com^` | AdGuard DNS filter, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|afi-b.com^` | AdGuard DNS filter | 精确 |
 | `hb.afl.rakuten.co.jp` | `\|\|hb.afl.rakuten.co.jp^` | AdGuard DNS filter | `@@\|\|hb.afl.rakuten.co.jp^` | AdGuard DNS filter | 精确 |
+| `googleadservices.com` | `\|\|googleadservices.com^` | AdGuard DNS filter, AWAvenue Ads Rule, CHN: AdRules DNS List, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist | `@@\|\|googleadservices.com^` | AdGuard DNS filter | 精确 |
 | `app.appsflyer.com` | `\|\|app.appsflyer.com^` | AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|app.appsflyer.com^` | AdGuard DNS filter | 精确 |
+| `ezodn.com` | `\|\|ezodn.com^` | AdGuard DNS filter, CHN: AdRules DNS List, OISD Blocklist Small, HaGeZi's Ultimate Blocklist, HaGeZi's Threat Intelligence Feeds | `@@\|\|ezodn.com^` | AdGuard DNS filter | 精确 |
+| `awin1.com` | `\|\|awin1.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|awin1.com^` | AdGuard DNS filter | 精确 |
+| `jdoqocy.com` | `\|\|jdoqocy.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|jdoqocy.com^` | AdGuard DNS filter | 精确 |
+| `logentries.com` | `\|\|logentries.com^` | AdGuard DNS filter, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|logentries.com^` | AdGuard DNS filter | 精确 |
+| `omsc.kpn.com` | `\|\|omsc.kpn.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|omsc.kpn.com^` | AdGuard DNS filter | 精确 |
+| `data.digital.costco.ca` | `\|\|data.digital.costco.ca^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.digital.costco.ca^` | AdGuard DNS filter | 精确 |
+| `data.digital.costco.com` | `\|\|data.digital.costco.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.digital.costco.com^` | AdGuard DNS filter | 精确 |
+| `data.email.premierleague.com` | `\|\|data.email.premierleague.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.email.premierleague.com^` | AdGuard DNS filter | 精确 |
+| `data.notify.macys.com` | `\|\|data.notify.macys.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.notify.macys.com^` | AdGuard DNS filter | 精确 |
+| `data.orders.costco.ca` | `\|\|data.orders.costco.ca^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.orders.costco.ca^` | AdGuard DNS filter | 精确 |
+| `data.orders.costco.com` | `\|\|data.orders.costco.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.orders.costco.com^` | AdGuard DNS filter | 精确 |
+| `data.promo.timhortons.ca` | `\|\|data.promo.timhortons.ca^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.promo.timhortons.ca^` | AdGuard DNS filter | 精确 |
+| `sedge.nfl.com` | `\|\|sedge.nfl.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|sedge.nfl.com^` | AdGuard DNS filter | 精确 |
+| `unsubscribe.email.premierleague.com` | `\|\|unsubscribe.email.premierleague.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|unsubscribe.email.premierleague.com^` | AdGuard DNS filter | 精确 |
+| `analytics.cibc.com` | `\|\|analytics.cibc.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|analytics.cibc.com^` | AdGuard DNS filter | 精确 |
+| `om-ssl.consorsbank.de` | `\|\|om-ssl.consorsbank.de^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|om-ssl.consorsbank.de^` | AdGuard DNS filter | 精确 |
+| `omniture.walmart.com` | `\|\|omniture.walmart.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|omniture.walmart.com^` | AdGuard DNS filter | 精确 |
+| `swasc.homedepot.com` | `\|\|swasc.homedepot.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|swasc.homedepot.com^` | AdGuard DNS filter | 精确 |
 | `tms.capitalone.com` | `\|\|tms.capitalone.com^` | AdGuard DNS filter | `@@\|\|tms.capitalone.com^` | AdGuard DNS filter | 精确 |
-| `app.adjust.com` | `\|\|app.adjust.com^` | AdGuard DNS filter | `@@\|\|app.adjust.com^` | CHN: anti-AD, AdGuard DNS filter | 精确 |
+| `daraz.com` | `\|\|daraz.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist | `@@\|\|daraz.com^` | AdGuard DNS filter | 精确 |
+| `marketing.net.idealo-partner.com` | `\|\|marketing.net.idealo-partner.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|marketing.net.idealo-partner.com^` | AdGuard DNS filter | 精确 |
+| `net.daraz.pk` | `\|\|net.daraz.pk^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|daraz.pk^` | AdGuard DNS filter | 级联 |
+| `belgium.wolterskluwer.com` | `\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter, CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist | `@@\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter | 精确 |
+| `adsterra.com` | `\|\|adsterra.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|adsterra.com^` | AdGuard DNS filter | 精确 |
+| `proto2ad.durasite.net` | `\|\|proto2ad.durasite.net^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist | `@@\|\|proto2ad.durasite.net^` | AdGuard DNS filter | 精确 |
+| `app.adjust.com` | `\|\|app.adjust.com^` | AdGuard DNS filter | `@@\|\|app.adjust.com^` | AdGuard DNS filter, CHN: anti-AD | 精确 |
+| `statcounter.com` | `\|\|statcounter.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist | `@@\|\|statcounter.com^` | AdGuard DNS filter | 精确 |
+| `datadoghq-browser-agent.com` | `\|\|datadoghq-browser-agent.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|datadoghq-browser-agent.com^` | AdGuard DNS filter | 精确 |
+| `js.monitor.azure.com` | `\|\|js.monitor.azure.com^` | HaGeZi's Windows/Office Tracker Blocklist | `@@\|\|js.monitor.azure.com^` | AdGuard DNS filter | 精确 |
+| `ad.10010.com` | `\|\|ad.10010.com^` | AWAvenue Ads Rule, CHN: AdRules DNS List, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist | `@@\|\|ad.10010.com^` | AdGuard DNS filter | 精确 |
+| `ad.ourgame.com` | `\|\|ad.ourgame.com^` | CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist | `@@\|\|ad.ourgame.com^` | AdGuard DNS filter | 精确 |
+| `cmp.osano.com` | `\|\|cmp.osano.com^` | CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|cmp.osano.com^` | AdGuard DNS filter | 精确 |
+| `sax.sina.com.cn` | `\|\|sax.sina.com.cn^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist | `@@\|\|sax.sina.com.cn^` | AdGuard DNS filter | 精确 |
+| `torimochi.line-apps.com` | `\|\|torimochi.line-apps.com^` | CHN: anti-AD | `@@\|\|torimochi.line-apps.com^` | AdGuard DNS filter | 精确 |
 | `autocomplete.clearbit.com` | `\|\|autocomplete.clearbit.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|autocomplete.clearbit.com^` | CHN: anti-AD | 精确 |
 | `aax-fe.amazon.co.jp` | `\|\|aax-fe.amazon.co.jp^` | HaGeZi's Ultimate Blocklist | `@@\|\|aax-fe.amazon.co.jp^` | AdGuard DNS filter | 精确 |
 | `ad.dogpile.com` | `\|\|ad.dogpile.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|dogpile.com^` | AdGuard DNS filter | 级联 |
@@ -406,7 +406,7 @@
 | `api.karte.io` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `api.taboola.com` | 🟢 安全 | 广告/营销 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `app-advertise.zhihuishu.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
-| `app.adjust.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD, AdGuard DNS filter |
+| `app.adjust.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter, CHN: anti-AD |
 | `app.appsflyer.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `app.crazyegg.com` | 🟢 安全 | 分析/追踪 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `app.powerbi.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD |
@@ -478,7 +478,7 @@
 | `f-gear.ec-optimizer.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `feed.adrelayer.com` | 🟢 安全 | 社交/分享 | 0 | 建议保留 | 0.60 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `forum.notebookreview.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
-| `ftp.bmp.ovh` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD, AdGuard DNS filter |
+| `ftp.bmp.ovh` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter, CHN: anti-AD |
 | `future.biz.weibo.com` | 🟢 安全 | 社交/分享 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD |
 | `gate.first-id.fr` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `get.neofinancial.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
@@ -518,7 +518,7 @@
 | `linka.page` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `links.e.theatlantic.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `links.getblueshift.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
-| `log.mmstat.com` | 🟢 安全 | CDN/基础设施 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD, AdGuard DNS filter |
+| `log.mmstat.com` | 🟢 安全 | CDN/基础设施 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter, CHN: anti-AD |
 | `logentries.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `login.sendpulse.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `ma135-r.analytics.edgekey.net` | 🟢 安全 | CDN/基础设施 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
@@ -674,11 +674,11 @@
 
 | 指标 | 数值 |
 |------|------|
-| 总耗时 | 58.0s |
+| 总耗时 | 29.8s |
 | 源成功率 | 18/18 |
-| 缓存命中 | 8 |
-| 精确去重 | 838,315 |
-| 规范化去重 | 2,121 |
+| 缓存命中 | 18 |
+| 精确去重 | 840,439 |
+| 规范化去重 | 0 |
 | 正则去重 | 321 |
 | 质量过滤丢弃 | 39 |
 | 模式丢弃 | 0 |

@@ -397,10 +397,10 @@ async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
     # ---- shared scan pool + coordination ----------------------------------
     pending: deque[str] = deque(names)
     seen: dict[str, set[str]] = {n: set() for n in names}  # resolver labels that probed a domain
-    finals: set[str] = set()                               # domains with a final verdict
-    inflight = 0                                           # probes currently running
+    finals: set[str] = set()  # domains with a final verdict
+    inflight = 0  # probes currently running
     stats = {"probes": 0, "retried": 0}
-    pool_changed = asyncio.Event()                         # signalled on every re-queue
+    pool_changed = asyncio.Event()  # signalled on every re-queue
     job_done = asyncio.Event()
 
     def claim(rlabel):
@@ -452,9 +452,7 @@ async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
                 # completion, or a bounded tick to re-check job_done.
                 pool_changed.clear()
                 try:
-                    await asyncio.wait_for(
-                        asyncio.shield(pool_changed.wait()), timeout=0.25
-                    )
+                    await asyncio.wait_for(asyncio.shield(pool_changed.wait()), timeout=0.25)
                 except (asyncio.TimeoutError, asyncio.CancelledError):
                     pass
                 continue
@@ -481,9 +479,7 @@ async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
     # Drain: wait for every domain to reach a final verdict, checkpointing on a
     # fixed wall-clock interval when --checkpoint-every is set (crash-safety).
     while not job_done.is_set():
-        await asyncio.wait(
-            {asyncio.create_task(job_done.wait())}, timeout=30
-        )
+        await asyncio.wait({asyncio.create_task(job_done.wait())}, timeout=30)
         if args.checkpoint_every:
             _checkpoint(raw, out_dir, mode)
     job_done.set()  # release any worker still waiting on a requeue that never came

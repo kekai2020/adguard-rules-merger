@@ -137,8 +137,8 @@
     ],
     "disk_cache": {
       "enabled": true,
-      "hits": 292,
-      "stored": 6,
+      "hits": 298,
+      "stored": 0,
       "path": "cache/whitelist_audit_cache.json"
     },
     "layer_hits": {
@@ -178,10 +178,10 @@
     },
     "execution_mode": "parallel",
     "threat_feeds": {
-      "dataset_hits": 6,
+      "dataset_hits": 0,
       "api_fallbacks": 0,
       "feed_schema_error": 0,
-      "feed_age_hours": 0.0,
+      "feed_age_hours": 0.3,
       "freshness": "fresh",
       "domains_indexed": 3,
       "urlhaus_loaded": true,
@@ -1531,10 +1531,6 @@
     },
     {
       "domain": "mwlogin.net",
-      "rule": "@@||mwlogin.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "unknown",
       "category": "other",
       "category_confidence": 0.0,
@@ -1572,14 +1568,15 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
-    },
-    {
-      "domain": "tplinkdeco.net",
-      "rule": "@@||tplinkdeco.net^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||mwlogin.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tplinkdeco.net",
       "rating": "unknown",
       "category": "other",
       "category_confidence": 0.0,
@@ -1617,7 +1614,12 @@
       "crtsh_entries": [],
       "recommendation": "review",
       "recommendation_label": "建议复核",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||tplinkdeco.net^",
+      "disk_cache": true
     },
     {
       "domain": "tplinklogin.net",
@@ -3752,8 +3754,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "CHN: anti-AD",
-        "AdGuard DNS filter"
+        "AdGuard DNS filter",
+        "CHN: anti-AD"
       ],
       "rule": "@@||app.adjust.com^",
       "disk_cache": true
@@ -7240,8 +7242,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "CHN: anti-AD",
-        "AdGuard DNS filter"
+        "AdGuard DNS filter",
+        "CHN: anti-AD"
       ],
       "rule": "@@||ftp.bmp.ovh^",
       "disk_cache": true
@@ -8074,10 +8076,6 @@
     },
     {
       "domain": "homeylocal.com",
-      "rule": "@@||homeylocal.com^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -8117,7 +8115,12 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||homeylocal.com^",
+      "disk_cache": true
     },
     {
       "domain": "hostkarma.junkemailfilter.com",
@@ -9180,8 +9183,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "CHN: anti-AD",
-        "AdGuard DNS filter"
+        "AdGuard DNS filter",
+        "CHN: anti-AD"
       ],
       "rule": "@@||log.mmstat.com^",
       "disk_cache": true
@@ -9475,10 +9478,6 @@
     },
     {
       "domain": "mijnmodem.kpn",
-      "rule": "@@||mijnmodem.kpn^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -9516,7 +9515,12 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||mijnmodem.kpn^",
+      "disk_cache": true
     },
     {
       "domain": "msftconnecttest.com",
@@ -13642,10 +13646,6 @@
     },
     {
       "domain": "tplinkmodem.net",
-      "rule": "@@||tplinkmodem.net^",
-      "sources": [
-        "HaGeZi's DNS Rebind Protection"
-      ],
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13685,14 +13685,15 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
-    },
-    {
-      "domain": "tplinkplc.net",
-      "rule": "@@||tplinkplc.net^",
+      "ai_classified": false,
       "sources": [
         "HaGeZi's DNS Rebind Protection"
       ],
+      "rule": "@@||tplinkmodem.net^",
+      "disk_cache": true
+    },
+    {
+      "domain": "tplinkplc.net",
       "rating": "safe",
       "category": "other",
       "category_confidence": 0.0,
@@ -13732,7 +13733,12 @@
       "crtsh_entries": [],
       "recommendation": "keep",
       "recommendation_label": "建议保留",
-      "ai_classified": false
+      "ai_classified": false,
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rule": "@@||tplinkplc.net^",
+      "disk_cache": true
     },
     {
       "domain": "tplinkrepeater.net",

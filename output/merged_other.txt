@@ -1,6 +1,6 @@
 ! Title: Merged other filter
 ! Category: other
-! Version: e5e88d457179-other
+! Version: 90d6d93c949b-other
 ! Rules: 546334
 !
 ||0-10-7.casino^

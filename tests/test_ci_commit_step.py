@@ -160,9 +160,7 @@ def test_default_message_summarises_stats(tmp_path: Path):
     import json
 
     stats = tmp_path / "stats.json"
-    stats.write_text(
-        json.dumps({"rules": {"block": 2552093, "allow": 304}}), encoding="utf-8"
-    )
+    stats.write_text(json.dumps({"rules": {"block": 2552093, "allow": 304}}), encoding="utf-8")
     msg = commit_output_mod._default_message(tmp_path)
     assert "block=2,552,093" in msg
     assert "allow=304" in msg
@@ -177,9 +175,7 @@ def test_workflow_commit_step_never_rebases():
     nxt = text.find("\n      - name:", start + 1)
     step = text[start : nxt if nxt != -1 else len(text)]
     # Comments may mention the old approach; executable lines must not rebase.
-    code = "\n".join(
-        ln for ln in step.splitlines() if not ln.strip().startswith("#")
-    )
+    code = "\n".join(ln for ln in step.splitlines() if not ln.strip().startswith("#"))
     assert "pull --rebase" not in code, (
         "commit step regressed to git pull --rebase — this raced two merge runs "
         "and failed the job; keep the soft-reset-onto-origin/main approach"

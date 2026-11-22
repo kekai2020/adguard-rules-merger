@@ -400,28 +400,28 @@
     }
   },
   {
-    "timestamp": "2026-11-22T13:54:23.349528+00:00",
+    "timestamp": "2026-11-22T14:11:46.180688+00:00",
     "raw_count": 3688583,
     "block_count": 2780198,
     "allow_count": 310,
     "total_count": 2780508,
     "compression_pct": 24.6,
-    "elapsed_seconds": 58.042,
+    "elapsed_seconds": 29.8,
     "sources_ok": 18,
     "sources_total": 18,
     "added": 0,
     "removed": 0,
     "stage_timings": {
-      "fetch": 20.090831,
-      "badfilter": 0.063215,
-      "aggregation": 4.533039,
-      "conflict": 1.255951,
-      "sort": 1.313589,
-      "rejudge": 8e-06,
-      "stats": 7.044648,
-      "audit": 22.808845,
+      "fetch": 14.440796,
+      "badfilter": 0.076635,
+      "aggregation": 4.515626,
+      "conflict": 1.326846,
+      "sort": 1.235117,
+      "rejudge": 7e-06,
+      "stats": 6.540181,
+      "audit": 0.680707,
       "diff": 2e-06,
-      "content_version": 0.839056
+      "content_version": 0.92503
     }
   }
 ]

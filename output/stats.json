@@ -1,11 +1,11 @@
 {
   "version": "8.0.1",
-  "content_version": "e5e88d457179",
-  "generated_at": "2026-11-22T13:54:23.348682+00:00",
+  "content_version": "90d6d93c949b",
+  "generated_at": "2026-11-22T14:11:46.179671+00:00",
   "sources": {
     "total": 18,
     "ok": 18,
-    "cached": 8,
+    "cached": 18,
     "failed": []
   },
   "rules": {
@@ -16,15 +16,15 @@
     "dedup_rate": 24.6
   },
   "dedup": {
-    "exact_merged": 838315,
-    "normalized_merged": 2121,
+    "exact_merged": 840439,
+    "normalized_merged": 0,
     "regex_merged": 321
   },
   "optimization": {
-    "exact_aggregated": 67310,
+    "exact_aggregated": 67307,
     "wildcard_aggregated": 2,
     "wildcard_promoted": 0,
-    "total_aggregated": 67312,
+    "total_aggregated": 67309,
     "conflict_resolved": 0,
     "whitelist_blocked": 0
   },
@@ -1647,17 +1647,17 @@
     "added": 0,
     "removed": 0
   },
-  "elapsed_seconds": 58.042,
+  "elapsed_seconds": 29.8,
   "stage_timings": {
-    "fetch": 20.090831,
-    "badfilter": 0.063215,
-    "aggregation": 4.533039,
-    "conflict": 1.255951,
-    "sort": 1.313589,
-    "rejudge": 8e-06,
-    "stats": 7.044648,
-    "audit": 22.808845,
+    "fetch": 14.440796,
+    "badfilter": 0.076635,
+    "aggregation": 4.515626,
+    "conflict": 1.326846,
+    "sort": 1.235117,
+    "rejudge": 7e-06,
+    "stats": 6.540181,
+    "audit": 0.680707,
     "diff": 2e-06,
-    "content_version": 0.839056
+    "content_version": 0.92503
   }
 }
