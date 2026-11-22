@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: e7dd9155fc18
-! Generated: 2026-11-22T09:14:03.804148+00:00
-! Total allow rules: 304
+! Version: 720d608212ab
+! Generated: 2026-11-22T13:54:22.613626+00:00
+! Total allow rules: 310
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -168,6 +168,7 @@
 @@||help-advertisers.adsterra.com^
 @@||hidive.com^
 @@||home.focusatwill.com^
+@@||homeylocal.com^
 @@||hostkarma.junkemailfilter.com^
 @@||href.li^
 @@||ia.hit.interia.pl^
@@ -198,7 +199,9 @@
 @@||marketing.net.idealo-partner.com^
 @@||media-consumer365.desigual.com^
 @@||meizu.coapi.moji.com^
+@@||mijnmodem.kpn^
 @@||msftconnecttest.com^
+@@||mwlogin.net^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
 @@||netatmo.commander1.com^
@@ -288,7 +291,10 @@
 @@||torexit.dan.me.uk^
 @@||torimochi.line-apps.com^
 @@||tplinkap.net^
+@@||tplinkdeco.net^
 @@||tplinklogin.net^
+@@||tplinkmodem.net^
+@@||tplinkplc.net^
 @@||tplinkrepeater.net^
 @@||tplinkwifi.net^
 @@||tr.rdrtr.com^

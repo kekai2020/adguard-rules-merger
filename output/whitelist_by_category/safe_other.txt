@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe / 其他)
-! Count: 175
-! Version: 1203f16ff366
+! Count: 179
+! Version: f6cc7159a0e9
 @@||3gppnetwork.org^
 @@||a.sellpoint.net^
 @@||ac.ebis.ne.jp^
@@ -79,6 +79,7 @@
 @@||health.halodoc.com^
 @@||hidive.com^
 @@||home.focusatwill.com^
+@@||homeylocal.com^
 @@||hostkarma.junkemailfilter.com^
 @@||href.li^
 @@||ia.hit.interia.pl^
@@ -101,6 +102,7 @@
 @@||mailspike.net^
 @@||marketing.net.idealo-partner.com^
 @@||media-consumer365.desigual.com^
+@@||mijnmodem.kpn^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
 @@||netatmo.commander1.com^
@@ -165,6 +167,8 @@
 @@||torexit.dan.me.uk^
 @@||torimochi.line-apps.com^
 @@||tplinkap.net^
+@@||tplinkmodem.net^
+@@||tplinkplc.net^
 @@||tplinkrepeater.net^
 @@||tplinkwifi.net^
 @@||tr.rdrtr.com^

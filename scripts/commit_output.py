@@ -164,8 +164,7 @@ def _default_message(out_dir: Path) -> str:
         summary = ""
     import datetime
 
-    # datetime.UTC is 3.11+; timezone.utc is the 3.10-compatible equivalent.
-    stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    stamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M UTC")
     return f"Auto-merge: update rules {summary} {stamp}".replace("  ", " ").strip()
 
 
