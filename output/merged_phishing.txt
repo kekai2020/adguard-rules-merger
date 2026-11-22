@@ -1,6 +1,6 @@
 ! Title: Merged phishing filter
 ! Category: phishing
-! Version: 1fc249eab17d-phishing
+! Version: 71b134c1ead5-phishing
 ! Rules: 51868
 !
 ||booking.com-id*^
@@ -47980,6 +47980,7 @@
 ||ufo21.com^
 ||ufugyytyyty.w3spaces.com^
 ||ufyidtusryjdtkfugklufyidy-d8e57o68rfigulufo7ifyvhk.teemill.com^
+||ug.edu.gh.onlineweb.nexus^
 ||ugarielzanoc.xyz^
 ||ugcbul.com^
 ||ugdeals.com^
@@ -50567,7 +50568,6 @@
 ||www-info-lng.com^
 ||www-pay.mobile-tiantianyingqiu.com^
 ||www-robinhood.angkapoltar.com^
-||www.ug.edu.gh.onlineweb.nexus^
 ||www10.kapitall.life^
 ||www4.kapitall.my^
 ||www44.presteietodafamilia.com^

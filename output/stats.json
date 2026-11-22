@@ -1,11 +1,11 @@
 {
   "version": "8.0.1",
-  "content_version": "1fc249eab17d",
-  "generated_at": "2026-11-22T08:27:52.912243+00:00",
+  "content_version": "71b134c1ead5",
+  "generated_at": "2026-11-22T09:14:04.447622+00:00",
   "sources": {
     "total": 18,
     "ok": 18,
-    "cached": 0,
+    "cached": 18,
     "failed": []
   },
   "rules": {
@@ -16,15 +16,15 @@
     "dedup_rate": 24.9
   },
   "dedup": {
-    "exact_merged": 796189,
-    "normalized_merged": 4064,
+    "exact_merged": 800256,
+    "normalized_merged": 0,
     "regex_merged": 321
   },
   "optimization": {
-    "exact_aggregated": 46108,
+    "exact_aggregated": 46105,
     "wildcard_aggregated": 2,
     "wildcard_promoted": 0,
-    "total_aggregated": 46110,
+    "total_aggregated": 46107,
     "conflict_resolved": 0,
     "whitelist_blocked": 0
   },
@@ -1647,17 +1647,17 @@
     "added": 0,
     "removed": 0
   },
-  "elapsed_seconds": 35.568,
+  "elapsed_seconds": 52.194,
   "stage_timings": {
-    "fetch": 20.943227,
-    "badfilter": 0.079109,
-    "aggregation": 4.589724,
-    "conflict": 1.303142,
-    "sort": 1.494557,
+    "fetch": 12.628436,
+    "badfilter": 0.056029,
+    "aggregation": 3.745864,
+    "conflict": 1.112179,
+    "sort": 1.076096,
     "rejudge": 7e-06,
-    "stats": 6.18494,
-    "audit": 2e-06,
-    "diff": 1e-06,
-    "content_version": 0.873602
+    "stats": 5.681151,
+    "audit": 27.045966,
+    "diff": 2e-06,
+    "content_version": 0.803292
   }
 }

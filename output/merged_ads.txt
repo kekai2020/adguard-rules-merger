@@ -1,6 +1,6 @@
 ! Title: Merged ads filter
 ! Category: ads
-! Version: 1fc249eab17d-ads
+! Version: 71b134c1ead5-ads
 ! Rules: 309298
 !
 /(https?:\/\/)213\.32\.115\..{100,}/
@@ -264283,6 +264283,7 @@
 ||superpointlesshamsters.com^
 ||superpromo24.de^
 ||superscale.com^
+||superset-qa.sese.cn^
 ||superset.traff-bull.com^
 ||supership.jp^
 ||supersonic.com^
@@ -301909,7 +301910,6 @@
 ||www-stats.thm.de^
 ||www-stats.unipi.it^
 ||www-x-videos.com^
-||www.superset-qa.sese.cn^
 ||www0-49.net.mydays.de^
 ||www1-6-1.net.mydays.de^
 ||www1-van-city-signon.com^

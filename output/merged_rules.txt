@@ -1,14 +1,14 @@
 ! Title: Merged AdGuard Home Filter Rules
 ! Description: Auto-merged from 18 sources (dedup + aggregation + conflict resolution)
-! Version: 1fc249eab17d
-! Generated: 2026-11-22T08:27:51.225337+00:00
+! Version: 71b134c1ead5
+! Generated: 2026-11-22T09:14:03.429582+00:00
 ! Homepage: https://github.com/kekai2020/adguard-rules-merger
 ! Total block rules: 2552093
 ! Total whitelist rules: 304
-! Sources: 18/18 (0 cached)
+! Sources: 18/18 (18 cached)
 ! Dedup rate: 24.9%
-! Exact dedup: 796189 | Normalized dedup: 4064 | Regex dedup: 321
-! Aggregated: exact=46108 wildcard=2 promoted=0
+! Exact dedup: 800256 | Normalized dedup: 0 | Regex dedup: 321
+! Aggregated: exact=46105 wildcard=2 promoted=0
 ! Conflicts recorded (block rules kept): 45
 ! Dropped: pattern=0 quality=39 css=0 badfilter=6 comments=162
 ! Categories: ads=309298 malware=1648101 tracking=384 phishing=51868 mining=146 other=542296
@@ -266021,6 +266021,7 @@
 ||admin.jupiter-nova.online^
 ||admin.jupiterpod.com^
 ||admin.kalitorental.de^
+||admin.kkkshu.net^
 ||admin.klico.co^
 ||admin.kolaycrm.net^
 ||admin.kraken-ni.vip^
@@ -344664,6 +344665,7 @@
 ||anysend.info^
 ||anysend.org^
 ||anyservers.com^
+||anysex.rea.ma^
 ||anysex.top^
 ||anyshare.icu^
 ||anysnames.com^
@@ -740168,6 +740170,7 @@
 ||cpconsulting.pt^
 ||cpcontacts.alva-rc.com^
 ||cpcontacts.arshypermedia.net^
+||cpcontacts.boxed.ma^
 ||cpcontacts.d-tv.tv^
 ||cpcontacts.drwax.as^
 ||cpcontacts.exoduscom.com^
@@ -1214621,6 +1214624,7 @@
 ||inj-delegate.com^
 ||inj-epoch.com^
 ||inj-stakingdesk.com^
+||inj.rea.ma^
 ||injakala.com^
 ||injarch.com^
 ||injazindustry.net^
@@ -1450711,6 +1450715,7 @@
 ||majidthabit.com^
 ||majidwrites.com^
 ||majifoumindustries.click^
+||majik102502.appspot.com^
 ||majikuteroonpartners.digital^
 ||majimaya.org^
 ||majimekun.dynipv6.de^
@@ -1778301,6 +1778306,7 @@
 ||play.patola.vip^
 ||play.pgjoker69e.net^
 ||play.pincoca.ca^
+||play.plinko-casino-au.com^
 ||play.pokerok12.com^
 ||play.pors888.com^
 ||play.qs01.cn^
@@ -2160909,6 +2160915,7 @@
 ||superservicegroup.online^
 ||superservicetowingav.com^
 ||superserwisy.pl^
+||superset-qa.sese.cn^
 ||superset.impactconnect.ma^
 ||superset.se8se8.com^
 ||superset.subscape.com.au^
@@ -2309645,6 +2309652,7 @@
 ||ug.baidu.com^
 ||ug.casino^
 ||ug.cm^
+||ug.edu.gh.onlineweb.nexus^
 ||ug.evaspy.com^
 ||ug.gbwhat.pro^
 ||ug.paysoko.com^
@@ -2466444,18 +2466452,10 @@
 ||www-zalo-me.com^
 ||www-zh-safew.com.cn^
 ||www-zhipin.com.cn^
-||www.admin.kkkshu.net^
-||www.anysex.rea.ma^
-||www.cpcontacts.boxed.ma^
-||www.inj.rea.ma^
-||www.majik102502.appspot.com^
-||www.play.plinko-casino-au.com^
-||www.superset-qa.sese.cn^
-||www.ug.edu.gh.onlineweb.nexus^
-||www.www.outlook.tanyajeevankaushiknidhi.com^
-||www.www.www.remote.aaa.betb8832.com^
-||www.www.www.www.www.mo.521play.com.cn^
-||www.www.www.www.www.workflow.vo7xvp2.com^
+||www.outlook.tanyajeevankaushiknidhi.com^
+||www.www.remote.aaa.betb8832.com^
+||www.www.www.www.mo.521play.com.cn^
+||www.www.www.www.workflow.vo7xvp2.com^
 ||www0-49.net.mydays.de^
 ||www000034.com^
 ||www000051.com^
