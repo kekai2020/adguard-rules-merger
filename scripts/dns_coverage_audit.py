@@ -1,18 +1,22 @@
-"""Multi-DNS concurrent reachability audit (R8, v3 — pipelined sweep).
+"""Multi-DNS concurrent reachability audit (R9, v4 — dynamic scan pool).
 
 Audits (allow-side by semantics, plus an optional block sample):
   whitelist.txt domains ∪ $important block domains ∪ $badfilter target domains
   ∪ --blocks-sample N stride-sampled block domains.
 
-v3 performance/robustness (after profiling the v2 run at ~4 domains/s):
-- FULLY PIPELINED sweep: every (domain × live resolver) pair is an independent
-  task — no per-domain barrier, the semaphore is the only throttle (v2 waited
-  for a domain's slowest probe before starting the next domain);
-- live progress: running rate + ETA every --progress-every completed queries;
-- bounded memory: per-query answers are aggregated to verdicts on the fly;
-  dns_audit.json stores per-domain verdicts (use --full-json for raw answers);
-- checkpoint: partial verdicts flushed to dns_audit.partial.json at
-  --checkpoint-every (0 = off) so multi-hour full sweeps survive interruption;
+v4 sweep model (dynamic scan pool, replaces the static-shard pipelined sweep):
+- ONE shared pool holds every domain still to audit; each live resolver runs a
+  persistent worker that PULLS the next domain it has not yet tried whenever it
+  is idle — a faster resolver naturally claims more work (its measured latency
+  only sizes the per-resolver concurrency semaphore; there is NO static shard);
+- ok removes a domain from the pool (reachable, one vote); a failure re-queues
+  it for a resolver that has NOT tried it (cross-checks resolver-specific
+  timeouts/blips); once --max-fails distinct resolvers have failed it (default:
+  every live resolver) it leaves the pool as dead/unresolved;
+- pool_changed / job_done events coordinate workers with no busy polling and no
+  round barrier; domains are loaded lazily and the pool drains as workers finish;
+- live progress: rate + ETA every --progress-every; checkpoint flushes partial
+  verdicts to dns_audit.partial.json at --checkpoint-every (0 = off);
 - DoH (443) JSON APIs are the default transport (7 endpoints); channel
   SELF-DIAGNOSIS on control domains gates the run (ABORT when live <
   --min-live) so a dead channel can never fabricate verdicts;
@@ -356,16 +360,23 @@ def verdict(results: list[tuple[str, str, str]], min_live: int) -> str:
 
 
 async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
-    """R8.5 pipelined sweep — NO phase barrier (user spec):
+    """R9 dynamic scan pool (user spec).
 
-    round 1 probes are spawned for every domain against its weighted-shard
-    resolver; the moment a probe FAILS, round-2 tasks for that domain are
-    spawned against ALL live resolvers immediately — a resolver group that
-    finishes its own shard instantly starts working on other groups'
-    failures (no idle waiting). reachable on the FIRST ok (one vote);
-    dead only when every live resolver answered NXDOMAIN/servfail;
-    otherwise unresolved. Concurrency bounded by per-resolver weighted
-    semaphores + a bounded spawn window.
+    A shared pool holds every domain still to audit. Each live resolver runs ONE
+    persistent worker that PULLS the next domain it has not yet tried whenever
+    it is idle — a faster resolver naturally claims more work (its measured
+    latency only sizes the per-resolver concurrency semaphore; there is NO static
+    shard and no round barrier). Outcomes fold back into the pool:
+      ok            -> the domain leaves the pool for good (reachable, one vote);
+      failure       -> the domain is re-queued so a resolver that has NOT yet
+                       tried it can cross-check (a resolver-specific timeout or
+                       blip gets a second opinion from the others);
+      budget spent  -> once a domain has been failed by --max-fails distinct
+                       resolvers (default: every live resolver) it leaves the
+                       pool and is verdict-ed dead/unresolved as usual.
+    Domains are loaded lazily and the pool drains as workers finish; a
+    pool_changed event wakes idle workers on every re-queue (no busy polling),
+    and job_done fires when every domain has a final verdict.
     """
     from collections import deque
 
@@ -381,100 +392,117 @@ async def sweep_pipelined(names, live_resolvers, mode, args, raw, out_dir):
             return await loop.run_in_executor(None, _udp_query, r["ip"], domain, timeout_s)
 
     total = len(names)
-    finals: set[str] = set()
-    r2_left: dict[str, list] = {}
-    spawn_log = {"done": 0}
-    t0 = time.monotonic()
-    done_evt = asyncio.Event()
+    max_fails = getattr(args, "max_fails", 0) or len(live_resolvers)
 
-    def final(domain):
-        finals.add(domain)
-        r2_left.pop(domain, None)
+    # ---- shared scan pool + coordination ----------------------------------
+    pending: deque[str] = deque(names)
+    seen: dict[str, set[str]] = {n: set() for n in names}  # resolver labels that probed a domain
+    finals: set[str] = set()                               # domains with a final verdict
+    inflight = 0                                           # probes currently running
+    stats = {"probes": 0, "retried": 0}
+    pool_changed = asyncio.Event()                         # signalled on every re-queue
+    job_done = asyncio.Event()
+
+    def claim(rlabel):
+        """Pop the next domain this resolver can still try, else None.
+
+        A domain the resolver has already probed is rotated to the BACK (not
+        dropped) so a resolver that has not tried it can still claim it; a
+        domain already final is dropped. One pass over the queue is enough —
+        anything rotated lands behind us.
+        """
+        for _ in range(len(pending)):
+            n = pending.popleft()
+            if n in finals:
+                continue  # resolved elsewhere — gone for good
+            if rlabel in seen[n]:
+                pending.append(n)  # not mine — leave for a resolver that hasn't tried it
+                continue
+            return n
+        return None
+
+    def record(domain, rlabel, res, det):
+        """Fold one probe result back into the pool (no await -> atomic)."""
+        raw.setdefault(domain, []).append((rlabel, res, det))
+        stats["probes"] += 1
+        seen[domain].add(rlabel)
+        nonlocal inflight
+        inflight -= 1
+        if res == "ok":
+            finals.add(domain)
+        elif len(seen[domain]) >= max_fails:
+            finals.add(domain)  # failure budget exhausted — dead/unresolved
+        elif any(r["label"] not in seen[domain] for r in live_resolvers):
+            stats["retried"] += 1
+            pending.append(domain)  # leave for a resolver that has not tried it
+            pool_changed.set()
+        else:
+            finals.add(domain)  # every resolver had a shot — dead/unresolved
         if len(finals) >= total:
-            done_evt.set()
+            job_done.set()
 
-    all_tasks: set[asyncio.Task] = set()
-
-    def spawn(coro):
-        t = asyncio.create_task(coro)
-        all_tasks.add(t)
-        t.add_done_callback(all_tasks.discard)
-        return t
-
-    async def r1_task(domain, r):
-        spawn_log["done"] += 1
-        res, det = await probe(domain, r, args.r1_timeout)
-        raw.setdefault(domain, []).append((r["label"], res, det))
-        if res == "ok":
-            final(domain)
-            return
-        # failure -> round 2: fan out to ALL live resolvers immediately
-        r2_left[domain] = list(live_resolvers)
-        for rr in live_resolvers:
-            spawn(r2_task(domain, rr))
-
-    async def r2_task(domain, rr):
-        res, det = await probe(domain, rr, args.timeout)
-        raw.setdefault(domain, []).append((rr["label"], res, det))
-        left = r2_left.get(domain)
-        if left is None:
-            return
-        if rr in left:
-            left.remove(rr)
-        if res == "ok":
-            final(domain)
-        elif not left:
-            # every live resolver has answered — dead or unresolved
-            final(domain)
+    async def worker(r):
+        nonlocal inflight
+        while not job_done.is_set():
+            dom = claim(r["label"])
+            if dom is None:
+                # Nothing this resolver can claim right now: either another
+                # resolver holds the remaining domains in flight (they may be
+                # re-queued) or everything is final. Wait for a re-queue, a
+                # completion, or a bounded tick to re-check job_done.
+                pool_changed.clear()
+                try:
+                    await asyncio.wait_for(
+                        asyncio.shield(pool_changed.wait()), timeout=0.25
+                    )
+                except (asyncio.TimeoutError, asyncio.CancelledError):
+                    pass
+                continue
+            inflight += 1
+            try:
+                res, det = await probe(dom, r, args.timeout)
+            except Exception:
+                res, det = "error", "exception"
+            record(dom, r["label"], res, det)
 
     async def progress():
-        while len(finals) < total:
+        while not job_done.is_set():
             await asyncio.sleep(10)
-            rate = spawn_log["done"] / max(time.monotonic() - t0, 1e-6)
+            el = max(time.monotonic() - t0, 1e-6)
             print(
-                f"  pipelined {len(finals):,}/{total:,} finals, "
-                f"{len(all_tasks):,} in-flight ({rate:,.0f} spawns/s)",
+                f"  pool {len(finals):,}/{total:,} final, {inflight} in-flight, "
+                f"{len(pending)} queued ({stats['probes'] / el:,.0f} probes/s)",
                 flush=True,
             )
 
-    # bounded window: keep ~concurrency*6 tasks in flight
-    assignments = deque((n, live_resolvers[i % len(live_resolvers)]) for i, n in enumerate(names))
+    t0 = time.monotonic()
     prog = asyncio.create_task(progress())
-    window = max(args.concurrency * 6, 60)
-
-    def spawn_next(count: int) -> None:
-        for _ in range(count):
-            item = next(assignments_iter, None)
-            if item is None:
-                return
-            spawn(r1_task(item[0], item[1]))
-
-    assignments_iter = iter(list(assignments))
-    spawn_next(window)
-    while all_tasks and len(finals) < total:
-        done, _ = await asyncio.wait(all_tasks, return_when=asyncio.FIRST_COMPLETED)
-        for t in done:
-            all_tasks.discard(t)
-        spawn_next(len(done))
-        if args.checkpoint_every and spawn_log["done"] >= args.checkpoint_every:
+    workers = [asyncio.create_task(worker(r)) for r in live_resolvers]
+    # Drain: wait for every domain to reach a final verdict, checkpointing on a
+    # fixed wall-clock interval when --checkpoint-every is set (crash-safety).
+    while not job_done.is_set():
+        await asyncio.wait(
+            {asyncio.create_task(job_done.wait())}, timeout=30
+        )
+        if args.checkpoint_every:
             _checkpoint(raw, out_dir, mode)
-    prog.cancel()
-    if all_tasks:
-        await asyncio.gather(*all_tasks, return_exceptions=True)
-    # unresolved retry: one fresh all-resolver pass over unresolved domains
-    unresolved = [n for n in names if n not in finals]
-    if unresolved and args.unresolved_retry:
-        print(f"retry pass: {len(unresolved):,} unresolved, all resolvers ...")
-        for n in unresolved:
-            raw[n] = []
-            r2_left[n] = list(live_resolvers)
-            t2 = set()
-            for rr in live_resolvers:
-                t = asyncio.create_task(r2_task(n, rr))
-                t2.add(t)
-            if t2:
-                await asyncio.gather(*t2, return_exceptions=True)
+    job_done.set()  # release any worker still waiting on a requeue that never came
+    for w in workers:
+        w.cancel()
+    await asyncio.gather(prog, *workers, return_exceptions=True)
     await session_cm.close()
+    # The pool itself re-queues every failed domain against the resolvers that
+    # have not tried it, so no separate unresolved pass is needed — transient
+    # timeouts are already cross-checked before a domain leaves the pool.
+    return {
+        "retried": stats["retried"],
+        "recovered": sum(
+            1
+            for n in names
+            if raw.get(n) and len(raw[n]) > 1 and any(r == "ok" for _, r, _ in raw[n])
+        ),
+        "max_fails": max_fails,
+    }
 
 
 async def run(args) -> int:
@@ -1050,6 +1078,13 @@ def main() -> None:
         help="round-1 fast-fail timeout (s); failures re-probe in round 2",
     )
     ap.add_argument("--min-live", type=int, default=2)
+    ap.add_argument(
+        "--max-fails",
+        type=int,
+        default=0,
+        help="scan pool: drop a domain after this many DISTINCT resolvers failed "
+        "it (0 = every live resolver must fail it before dead/unresolved)",
+    )
     ap.add_argument("--shard-index", type=int, default=0)
     ap.add_argument("--shard-count", type=int, default=1)
     ap.add_argument(
