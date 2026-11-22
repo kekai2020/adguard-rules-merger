@@ -1,22 +1,19 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: 7e514e464731-mining
-! Rules: 166
+! Version: 1fc249eab17d-mining
+! Rules: 146
 !
 ||1q2w3.fun^
 ||2miners.com^
 ||aeros01.tk^
 ||aeros02.tk^
 ||aeros11.tk^
-||analytics.blue^
 ||andlache.com^
 ||animeteatr.ru^
 ||anybest.pw^
 ||ashgrrwt.click^
-||authedmine.com^
 ||autologica.ga^
 ||axoncoho.tk^
-||bablace.com^
 ||baiduccdn1.com^
 ||beeppool.org^
 ||berateveng.ru^
@@ -39,17 +36,10 @@
 ||clgserv.pro^
 ||cloud-miner.de^
 ||cloudcdn.gdn^
-||cnhv.co^
-||coin-have.com^
 ||coinhiveproxy.com^
-||coinimp.net^
 ||coinminingonline.com^
-||coinnebula.com^
 ||coinpirate.cf^
-||coinpot.co^
-||coinrail.io^
-||cpufan.club^
-||crypto-loot.com^
+||cryptobara.com^
 ||dark-utilities.me^
 ||dark-utilities.pw^
 ||dark-utilities.xyz^
@@ -77,7 +67,6 @@
 ||g1thub.com^
 ||gasolina.ml^
 ||gay-hotvideo.net^
-||goldoffer.online^
 ||gxbrowser.net^
 ||hashing.win^
 ||hhb123.tk^
@@ -94,23 +83,19 @@
 ||jqcdn03.herokuapp.com^
 ||jqcdn2.herokuapp.com^
 ||jquery-cdn.download^
-||jscdndel.com^
 ||jshosting.party^
 ||jshosting.win^
 ||laserveradedomaina.com^
 ||ledhenone.com^
-||lolopool.com^
 ||losital.ru^
 ||machieved.com^
 ||mebablo.com^
 ||megabanners.cf^
 ||mi-de-ner-nis3.info^
-||minemytraffic.com^
 ||minero-proxy-01.now.sh^
 ||minero-proxy-02.now.sh^
 ||minero-proxy-03.now.sh^
 ||minero.pw^
-||minescripts.info^
 ||minexmr.stream^
 ||minr.pw^
 ||monero-miner.com^
@@ -132,7 +117,6 @@
 ||okeyletsgo.ml^
 ||panelsave.com^
 ||panger-top.click^
-||papoto.com^
 ||party-vqgdyvoycc.now.sh^
 ||pema.cl^
 ||pr0gram.org^
@@ -140,7 +124,6 @@
 ||rand.com.ru^
 ||renhertfo.com^
 ||roastedvolt.net^
-||rocks.io^
 ||scaleway.ovh^
 ||service4refresh.info^
 ||staticsfs.host^
@@ -154,17 +137,14 @@
 ||sxcdn5.herokuapp.com^
 ||sxcdn6.now.sh^
 ||terorie.com^
-||thewhizmarketing.com^
 ||to-support.me^
 ||uoldid.ru^
 ||vceilinichego.ru^
 ||videoplayer2.xyz^
-||vkcdnservice.com^
 ||vuryua.ru^
 ||webassembly.stream^
 ||webmine.cz^
 ||webmine.pro^
-||webminepool.com^
 ||wordc.ga^
 ||wp-monero-miner.de^
 ||wpcdn1.herokuapp.com^
