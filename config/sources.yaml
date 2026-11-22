@@ -72,10 +72,9 @@ classification:
 # Disabled by default: the network layers add latency and hit third-party APIs.
 # Enable locally or via VIRUSTOTAL_API_KEY / OPENAI_API_KEY env vars.
 whitelist_audit:
-  # Disabled by default (matches the pydantic default). Flip to true locally to
-  # run the networked multi-layer audit; the switches/keys below are honoured
-  # only when this is enabled.
-  enabled: false
+  # Multi-layer audit (DNS, threat-intel, RDAP, scam-check, DNSBL, heuristics).
+  # Enabled in CI; the switches/keys below are honoured only when this is true.
+  enabled: true
   concurrency: 20
   # Layer 1: DNS resolution (free, keyless)
   use_dns: true
