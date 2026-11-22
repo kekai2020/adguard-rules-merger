@@ -87,8 +87,9 @@ jobs:
 
       - name: DNS reachability audit (sampled, informational)
         continue-on-error: true
+        timeout-minutes: 15
         run: |
-          uv run python scripts/dns_coverage_audit.py             --out-dir output --cache-dir cache             --mode doh --concurrency 200 --timeout 4             --min-live 2 --blocks-sample 20000             --no-unresolved-retry
+          uv run python scripts/dns_coverage_audit.py             --out-dir output --cache-dir cache             --mode doh --concurrency 200 --timeout 3             --min-live 2 --blocks-sample 5000             --no-unresolved-retry
 
       - name: Verify output
         run: |
