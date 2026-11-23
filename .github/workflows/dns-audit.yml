@@ -75,7 +75,7 @@ jobs:
     if: ${{ !cancelled() && (github.event.inputs.shard_count || '1') > 1 }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: dns-audit-shard-*
           path: output/
