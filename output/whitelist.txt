@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: 720d608212ab
-! Generated: 2026-11-22T14:11:45.199365+00:00
-! Total allow rules: 310
+! Version: 7b3734a3a75a
+! Generated: 2026-11-23T06:18:58.753578+00:00
+! Total allow rules: 317
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -23,6 +23,7 @@
 @@||a.sellpoint.net^
 @@||aax-fe.amazon.co.jp^
 @@||ac.ebis.ne.jp^
+@@||acer-connect.com^
 @@||acs-m.daraz.com.bd^
 @@||acs-m.daraz.pk^
 @@||action.metaffiliation.com^
@@ -112,6 +113,7 @@
 @@||counter-strike.net^
 @@||crm-cdn.peek-cloppenburg.com^
 @@||cs.silverpop.com^
+@@||cudy.net^
 @@||cutcaptcha.com^
 @@||daikoku.ebis.ne.jp^
 @@||daraz.com^
@@ -200,7 +202,9 @@
 @@||media-consumer365.desigual.com^
 @@||meizu.coapi.moji.com^
 @@||mijnmodem.kpn^
+@@||miwifi.com^
 @@||msftconnecttest.com^
+@@||msirouter.login^
 @@||mwlogin.net^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
@@ -219,6 +223,8 @@
 @@||omniture.walmart.com^
 @@||omsc.kpn.com^
 @@||oneline.nextday.media^
+@@||orbilogin.com^
+@@||orbilogin.net^
 @@||pagead.l.doubleclick.net^
 @@||partner.everydays.de^
 @@||partner.o2online.de^
@@ -280,6 +286,7 @@
 @@||swasc.homedepot.com^
 @@||tags.crwdcntrl.net^
 @@||taiga.maven.io^
+@@||tendawifi.com^
 @@||thumbnail.thench.net^
 @@||tj.gov.cn^
 @@||tlaol.com^

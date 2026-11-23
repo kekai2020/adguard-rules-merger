@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total": 298,
-    "safe": 267,
-    "suspicious": 28,
+    "total": 305,
+    "safe": 273,
+    "suspicious": 29,
     "malicious": 0,
     "unknown": 3,
     "category_counts": {
@@ -14,7 +14,7 @@
       "social": 4,
       "ecommerce_payment": 11,
       "privacy_security": 7,
-      "other": 203
+      "other": 210
     },
     "by_rating": {
       "safe": {
@@ -26,7 +26,7 @@
         "social": 4,
         "ecommerce_payment": 11,
         "privacy_security": 5,
-        "other": 179
+        "other": 185
       },
       "suspicious": {
         "advertising": 3,
@@ -37,7 +37,7 @@
         "social": 0,
         "ecommerce_payment": 0,
         "privacy_security": 2,
-        "other": 21
+        "other": 22
       },
       "malicious": {
         "advertising": 0,
@@ -65,13 +65,13 @@
     "category_confidence": {
       "high(>=0.9)": 69,
       "medium(0.6-0.89)": 26,
-      "low(<0.6)": 203
+      "low(<0.6)": 210
     },
     "risk_score_buckets": {
       "high(>=50)": 0,
       "medium(20-49)": 7,
-      "low(1-19)": 21,
-      "none(0)": 270
+      "low(1-19)": 22,
+      "none(0)": 276
     },
     "top_risky": [
       {
@@ -138,11 +138,11 @@
     "disk_cache": {
       "enabled": true,
       "hits": 298,
-      "stored": 0,
+      "stored": 7,
       "path": "cache/whitelist_audit_cache.json"
     },
     "layer_hits": {
-      "dns_nxdomain": 0,
+      "dns_nxdomain": 1,
       "dns_private_ip": 0,
       "urlhaus": 0,
       "threatfox": 0,
@@ -178,10 +178,10 @@
     },
     "execution_mode": "parallel",
     "threat_feeds": {
-      "dataset_hits": 0,
+      "dataset_hits": 7,
       "api_fallbacks": 0,
       "feed_schema_error": 0,
-      "feed_age_hours": 0.3,
+      "feed_age_hours": 0.0,
       "freshness": "fresh",
       "domains_indexed": 3,
       "urlhaus_loaded": true,
@@ -1248,6 +1248,51 @@
       "disk_cache": true
     },
     {
+      "domain": "msirouter.login",
+      "rule": "@@||msirouter.login^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "suspicious",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS NXDOMAIN（域名已过期，白名单可能无效）",
+      "dns_ips": [],
+      "dns_nxdomain": true,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": null,
+      "rdap_registrar": null,
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 15,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "review",
+      "recommendation_label": "建议复核",
+      "ai_classified": false
+    },
+    {
       "domain": "plex.direct",
       "rating": "suspicious",
       "category": "other",
@@ -1956,6 +2001,54 @@
       ],
       "rule": "@@||ac.ebis.ne.jp^",
       "disk_cache": true
+    },
+    {
+      "domain": "acer-connect.com",
+      "rule": "@@||acer-connect.com^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "18.141.6.47",
+        "13.228.237.84"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 1280,
+      "rdap_registrar": "GoDaddy.com, LLC",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
     },
     {
       "domain": "acs-m.daraz.com.bd",
@@ -3754,8 +3847,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "AdGuard DNS filter",
-        "CHN: anti-AD"
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
       ],
       "rule": "@@||app.adjust.com^",
       "disk_cache": true
@@ -6000,6 +6093,53 @@
       "disk_cache": true
     },
     {
+      "domain": "cudy.net",
+      "rule": "@@||cudy.net^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "104.168.190.224"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 3116,
+      "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
+    },
+    {
       "domain": "cutcaptcha.com",
       "rating": "safe",
       "category": "other",
@@ -7242,8 +7382,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "AdGuard DNS filter",
-        "CHN: anti-AD"
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
       ],
       "rule": "@@||ftp.bmp.ovh^",
       "disk_cache": true
@@ -9183,8 +9323,8 @@
       "recommendation_label": "建议保留",
       "ai_classified": false,
       "sources": [
-        "AdGuard DNS filter",
-        "CHN: anti-AD"
+        "CHN: anti-AD",
+        "AdGuard DNS filter"
       ],
       "rule": "@@||log.mmstat.com^",
       "disk_cache": true
@@ -9521,6 +9661,54 @@
       ],
       "rule": "@@||mijnmodem.kpn^",
       "disk_cache": true
+    },
+    {
+      "domain": "miwifi.com",
+      "rule": "@@||miwifi.com^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "120.133.85.203",
+        "39.102.218.99"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 8310,
+      "rdap_registrar": "Internet Domain Name System Beijing Engineering Research Center LLC (ZDNS)",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
     },
     {
       "domain": "msftconnecttest.com",
@@ -10393,6 +10581,102 @@
       ],
       "rule": "@@||oneline.nextday.media^",
       "disk_cache": true
+    },
+    {
+      "domain": "orbilogin.com",
+      "rule": "@@||orbilogin.com^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "99.83.191.32",
+        "75.2.84.193"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 3840,
+      "rdap_registrar": "GoDaddy.com, LLC",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
+    },
+    {
+      "domain": "orbilogin.net",
+      "rule": "@@||orbilogin.net^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [
+        "99.83.191.32",
+        "75.2.84.193"
+      ],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 3840,
+      "rdap_registrar": "GoDaddy.com, LLC",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
     },
     {
       "domain": "pagead.l.doubleclick.net",
@@ -13168,6 +13452,51 @@
       ],
       "rule": "@@||taiga.maven.io^",
       "disk_cache": true
+    },
+    {
+      "domain": "tendawifi.com",
+      "rule": "@@||tendawifi.com^",
+      "sources": [
+        "HaGeZi's DNS Rebind Protection"
+      ],
+      "rating": "safe",
+      "category": "other",
+      "category_confidence": 0.0,
+      "category_reason": "no match",
+      "reason": "DNS 正常解析，无威胁情报标记",
+      "dns_ips": [],
+      "dns_nxdomain": false,
+      "urlhaus_malicious": false,
+      "threatfox_malicious": false,
+      "rdap_new_domain": false,
+      "rdap_domain_age_days": 4715,
+      "rdap_registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
+      "scam_suspicious": false,
+      "scam_decision": null,
+      "scam_risk_score": 0,
+      "virustotal_malicious": false,
+      "virustotal_reputation": 0.0,
+      "dnsbl_listed": false,
+      "dnsbl_malicious": false,
+      "dnsbl_hits": [],
+      "risk_score": 0,
+      "heuristics_score": 0,
+      "heuristics_flags": [],
+      "homograph_is_typosquat": false,
+      "homograph_brand": null,
+      "homograph_distance": null,
+      "homograph_reasons": [],
+      "mxspf_has_mx": null,
+      "mxspf_has_spf": null,
+      "mxspf_missing": false,
+      "mxspf_recycled_clue": false,
+      "gsb_malicious": false,
+      "phishtank_malicious": false,
+      "urlscan_malicious": false,
+      "crtsh_entries": [],
+      "recommendation": "keep",
+      "recommendation_label": "建议保留",
+      "ai_classified": false
     },
     {
       "domain": "tj.gov.cn",

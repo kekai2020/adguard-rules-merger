@@ -1,9 +1,10 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe / 其他)
-! Count: 179
-! Version: f6cc7159a0e9
+! Count: 185
+! Version: c47254bcb850
 @@||3gppnetwork.org^
 @@||a.sellpoint.net^
 @@||ac.ebis.ne.jp^
+@@||acer-connect.com^
 @@||acs-m.daraz.com.bd^
 @@||acs-m.daraz.pk^
 @@||action.metaffiliation.com^
@@ -49,6 +50,7 @@
 @@||cmp.osano.com^
 @@||crm-cdn.peek-cloppenburg.com^
 @@||cs.silverpop.com^
+@@||cudy.net^
 @@||cutcaptcha.com^
 @@||daikoku.ebis.ne.jp^
 @@||daraz.com^
@@ -103,6 +105,7 @@
 @@||marketing.net.idealo-partner.com^
 @@||media-consumer365.desigual.com^
 @@||mijnmodem.kpn^
+@@||miwifi.com^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
 @@||netatmo.commander1.com^
@@ -118,6 +121,8 @@
 @@||om-ssl.consorsbank.de^
 @@||omsc.kpn.com^
 @@||oneline.nextday.media^
+@@||orbilogin.com^
+@@||orbilogin.net^
 @@||passport.bobo.com^
 @@||prod.impartner.live^
 @@||promo.gramedia.com^
@@ -157,6 +162,7 @@
 @@||swasc.homedepot.com^
 @@||tags.crwdcntrl.net^
 @@||taiga.maven.io^
+@@||tendawifi.com^
 @@||tj.gov.cn^
 @@||tlaol.com^
 @@||tlh.gedidigital.it^

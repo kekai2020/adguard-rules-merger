@@ -1,7 +1,7 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: 90d6d93c949b-mining
-! Rules: 146
+! Version: b09880483357-mining
+! Rules: 153
 !
 ||1q2w3.fun^
 ||2miners.com^
@@ -14,12 +14,13 @@
 ||ashgrrwt.click^
 ||autologica.ga^
 ||axoncoho.tk^
+||bablace.com^
 ||baiduccdn1.com^
 ||beeppool.org^
 ||berateveng.ru^
+||bestcoinsignals.com^
 ||besti.ga^
 ||bestmobiworld.com^
-||bestsrv.de^
 ||bewaslac.com^
 ||biberukalap.com^
 ||bitcoin-cashcard.de^
@@ -36,7 +37,9 @@
 ||clgserv.pro^
 ||cloud-miner.de^
 ||cloudcdn.gdn^
+||cnhv.co^
 ||coinhiveproxy.com^
+||coinimp.net^
 ||coinminingonline.com^
 ||coinpirate.cf^
 ||cryptobara.com^
@@ -67,6 +70,7 @@
 ||g1thub.com^
 ||gasolina.ml^
 ||gay-hotvideo.net^
+||goldoffer.online^
 ||gxbrowser.net^
 ||hashing.win^
 ||hhb123.tk^
@@ -92,10 +96,12 @@
 ||mebablo.com^
 ||megabanners.cf^
 ||mi-de-ner-nis3.info^
+||minemytraffic.com^
 ||minero-proxy-01.now.sh^
 ||minero-proxy-02.now.sh^
 ||minero-proxy-03.now.sh^
 ||minero.pw^
+||minescripts.info^
 ||minexmr.stream^
 ||minr.pw^
 ||monero-miner.com^
@@ -148,4 +154,5 @@
 ||wordc.ga^
 ||wp-monero-miner.de^
 ||wpcdn1.herokuapp.com^
+||xmr.cool^
 ||zymerget.win^

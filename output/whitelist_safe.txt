@@ -1,12 +1,13 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe)
-! Count: 267
-! Version: 5798e8fb05a3
+! Count: 273
+! Version: cd8f30869892
 @@||3gppnetwork.org^
 @@||5471782.fls.doubleclick.net^
 @@||79423.analytics.edgekey.net^
 @@||a.sellpoint.net^
 @@||aax-fe.amazon.co.jp^
 @@||ac.ebis.ne.jp^
+@@||acer-connect.com^
 @@||acs-m.daraz.com.bd^
 @@||acs-m.daraz.pk^
 @@||action.metaffiliation.com^
@@ -90,6 +91,7 @@
 @@||core.crazyegg.com^
 @@||crm-cdn.peek-cloppenburg.com^
 @@||cs.silverpop.com^
+@@||cudy.net^
 @@||cutcaptcha.com^
 @@||daikoku.ebis.ne.jp^
 @@||daraz.com^
@@ -163,6 +165,7 @@
 @@||marketing.net.idealo-partner.com^
 @@||media-consumer365.desigual.com^
 @@||mijnmodem.kpn^
+@@||miwifi.com^
 @@||msftconnecttest.com^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
@@ -181,6 +184,8 @@
 @@||omniture.walmart.com^
 @@||omsc.kpn.com^
 @@||oneline.nextday.media^
+@@||orbilogin.com^
+@@||orbilogin.net^
 @@||pagead.l.doubleclick.net^
 @@||partner.everydays.de^
 @@||partner.o2online.de^
@@ -238,6 +243,7 @@
 @@||swasc.homedepot.com^
 @@||tags.crwdcntrl.net^
 @@||taiga.maven.io^
+@@||tendawifi.com^
 @@||tj.gov.cn^
 @@||tlaol.com^
 @@||tlh.gedidigital.it^

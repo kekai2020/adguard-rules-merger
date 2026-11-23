@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (suspicious)
-! Count: 28
-! Version: e2a31b48cb29
+! Count: 29
+! Version: 50b4695a7d94
 @@||a.adwolf.ru^
 @@||ad.cityu.edu.hk^
 @@||ads.tdbank.com^
@@ -23,6 +23,7 @@
 @@||guce.advertising.com^
 @@||mail.abusix.zone^
 @@||meizu.coapi.moji.com^
+@@||msirouter.login^
 @@||plex.direct^
 @@||router.asus.com^
 @@||speedport.ip^
