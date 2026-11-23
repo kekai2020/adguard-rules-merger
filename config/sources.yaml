@@ -267,7 +267,7 @@ sources:
     category: malware
     id: 11
 
-  - enabled: true
+  - enabled: false
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_52.txt
     name: HaGeZi's Encrypted DNS/VPN/TOR/Proxy Bypass
     category: other
