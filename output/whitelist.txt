@@ -1,8 +1,8 @@
 ! Title: Whitelist for Merged Rules
 ! Description: Allow rules separated from main filter
-! Version: 7b3734a3a75a
-! Generated: 2026-11-23T06:18:58.753578+00:00
-! Total allow rules: 317
+! Version: 4e4c1e00ba6d
+! Generated: 2026-11-23T12:35:42.163326+00:00
+! Total allow rules: 321
 !
 @@/\.(gif|jpe?g|png|webp)#(\/?.+)?(\/(ad)s?\/|\/ad-)/
 @@||api-v*.trbo.com^
@@ -206,12 +206,14 @@
 @@||msftconnecttest.com^
 @@||msirouter.login^
 @@||mwlogin.net^
+@@||my.meraki.com^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
 @@||netatmo.commander1.com^
 @@||news-app.abumedia.yql.yahoo.com^
 @@||news.warhammer.com^
 @@||nineto5mac-d.openx.net^
+@@||nokiawifi.com^
 @@||nordspam.com^
 @@||oa.tr.line.me^
 @@||obituaries.startribune.com^
@@ -304,6 +306,7 @@
 @@||tplinkplc.net^
 @@||tplinkrepeater.net^
 @@||tplinkwifi.net^
+@@||tplogin.cn^
 @@||tr.rdrtr.com^
 @@||track.rutarget.ru^
 @@||track.webgains.com^
@@ -321,3 +324,4 @@
 @@||vcentry3.valuecommerce.ne.jp^
 @@||widget.intercom.io^
 @@||www3.doubleclick.net^
+@@||zyxel.box^

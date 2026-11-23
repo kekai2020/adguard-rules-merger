@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe / 其他)
-! Count: 185
-! Version: c47254bcb850
+! Count: 188
+! Version: a98258201ecd
 @@||3gppnetwork.org^
 @@||a.sellpoint.net^
 @@||ac.ebis.ne.jp^
@@ -106,11 +106,13 @@
 @@||media-consumer365.desigual.com^
 @@||mijnmodem.kpn^
 @@||miwifi.com^
+@@||my.meraki.com^
 @@||my.tealiumiq.com^
 @@||myunraid.net^
 @@||netatmo.commander1.com^
 @@||news-app.abumedia.yql.yahoo.com^
 @@||news.warhammer.com^
+@@||nokiawifi.com^
 @@||nordspam.com^
 @@||oa.tr.line.me^
 @@||obituaries.startribune.com^
@@ -177,6 +179,7 @@
 @@||tplinkplc.net^
 @@||tplinkrepeater.net^
 @@||tplinkwifi.net^
+@@||tplogin.cn^
 @@||tr.rdrtr.com^
 @@||trk.ecomm.lenovo.com^
 @@||uceprotect.net^
