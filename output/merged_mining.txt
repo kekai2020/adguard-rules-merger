@@ -1,9 +1,10 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: bc811561d7dd-mining
-! Rules: 152
+! Version: 1dfdf387527a-mining
+! Rules: 153
 !
 ||1q2w3.fun^
+||2miners.com^
 ||aeros01.tk^
 ||aeros02.tk^
 ||aeros11.tk^
