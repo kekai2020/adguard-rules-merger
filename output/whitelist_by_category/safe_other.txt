@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (safe / 其他)
-! Count: 188
-! Version: a98258201ecd
+! Count: 187
+! Version: 8aad2e8c270d
 @@||3gppnetwork.org^
 @@||a.sellpoint.net^
 @@||ac.ebis.ne.jp^
@@ -94,7 +94,6 @@
 @@||leechers-paradise.org^
 @@||link.meet5.net^
 @@||link.morningbrew.com^
-@@||link.nzz.ch^
 @@||link.sylikes.com^
 @@||linka.page^
 @@||links.e.theatlantic.com^

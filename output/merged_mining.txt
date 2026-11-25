@@ -1,17 +1,19 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: 1dfdf387527a-mining
-! Rules: 153
+! Version: 334cd108d357-mining
+! Rules: 172
 !
 ||1q2w3.fun^
 ||2miners.com^
 ||aeros01.tk^
 ||aeros02.tk^
 ||aeros11.tk^
+||analytics.blue^
 ||andlache.com^
 ||animeteatr.ru^
 ||anybest.pw^
 ||ashgrrwt.click^
+||authedmine.com^
 ||autologica.ga^
 ||axoncoho.tk^
 ||bablace.com^
@@ -21,6 +23,7 @@
 ||bestcoinsignals.com^
 ||besti.ga^
 ||bestmobiworld.com^
+||bestsrv.de^
 ||bewaslac.com^
 ||biberukalap.com^
 ||bitcoin-cashcard.de^
@@ -38,11 +41,16 @@
 ||cloud-miner.de^
 ||cloudcdn.gdn^
 ||cnhv.co^
+||coin-have.com^
 ||coinhiveproxy.com^
 ||coinimp.net^
 ||coinminingonline.com^
+||coinnebula.com^
 ||coinpirate.cf^
+||coinpot.co^
+||coinrail.io^
 ||cryptobara.com^
+||csgocpu.com^
 ||dark-utilities.me^
 ||dark-utilities.pw^
 ||dark-utilities.xyz^
@@ -52,6 +60,7 @@
 ||depttake.ga^
 ||devphp.org.ua^
 ||dronml.ml^
+||estream.to^
 ||eth-pocket.com^
 ||eth-pocket.de^
 ||eth-pocket.eu^
@@ -87,10 +96,12 @@
 ||jqcdn03.herokuapp.com^
 ||jqcdn2.herokuapp.com^
 ||jquery-cdn.download^
+||jscdndel.com^
 ||jshosting.party^
 ||jshosting.win^
 ||laserveradedomaina.com^
 ||ledhenone.com^
+||lolopool.com^
 ||losital.ru^
 ||machieved.com^
 ||mebablo.com^
@@ -106,6 +117,7 @@
 ||minr.pw^
 ||monero-miner.com^
 ||money-maker-default.info^
+||monitoringservice.co^
 ||mxcdn1.now.sh^
 ||mxcdn2.now.sh^
 ||my.domain^
@@ -123,6 +135,7 @@
 ||okeyletsgo.ml^
 ||panelsave.com^
 ||panger-top.click^
+||papoto.com^
 ||party-vqgdyvoycc.now.sh^
 ||pema.cl^
 ||pr0gram.org^
@@ -130,8 +143,10 @@
 ||rand.com.ru^
 ||renhertfo.com^
 ||roastedvolt.net^
+||rocks.io^
 ||scaleway.ovh^
 ||service4refresh.info^
+||sparechange.io^
 ||staticsfs.host^
 ||statistic.date^
 ||stonecalcom.com^
@@ -143,14 +158,18 @@
 ||sxcdn5.herokuapp.com^
 ||sxcdn6.now.sh^
 ||terorie.com^
+||thewhizmarketing.com^
 ||to-support.me^
+||torrent.pw^
 ||uoldid.ru^
 ||vceilinichego.ru^
 ||videoplayer2.xyz^
+||vkcdnservice.com^
 ||vuryua.ru^
 ||webassembly.stream^
 ||webmine.cz^
 ||webmine.pro^
+||webminepool.com^
 ||wordc.ga^
 ||wp-monero-miner.de^
 ||wpcdn1.herokuapp.com^
