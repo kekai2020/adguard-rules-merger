@@ -1,10 +1,9 @@
 ! Title: Merged mining filter
 ! Category: mining
-! Version: 334cd108d357-mining
-! Rules: 172
+! Version: ac0baac628e7-mining
+! Rules: 165
 !
 ||1q2w3.fun^
-||2miners.com^
 ||aeros01.tk^
 ||aeros02.tk^
 ||aeros11.tk^
@@ -23,7 +22,6 @@
 ||bestcoinsignals.com^
 ||besti.ga^
 ||bestmobiworld.com^
-||bestsrv.de^
 ||bewaslac.com^
 ||biberukalap.com^
 ||bitcoin-cashcard.de^
@@ -50,7 +48,6 @@
 ||coinpot.co^
 ||coinrail.io^
 ||cryptobara.com^
-||csgocpu.com^
 ||dark-utilities.me^
 ||dark-utilities.pw^
 ||dark-utilities.xyz^
@@ -60,7 +57,6 @@
 ||depttake.ga^
 ||devphp.org.ua^
 ||dronml.ml^
-||estream.to^
 ||eth-pocket.com^
 ||eth-pocket.de^
 ||eth-pocket.eu^
@@ -101,7 +97,6 @@
 ||jshosting.win^
 ||laserveradedomaina.com^
 ||ledhenone.com^
-||lolopool.com^
 ||losital.ru^
 ||machieved.com^
 ||mebablo.com^
@@ -117,7 +112,6 @@
 ||minr.pw^
 ||monero-miner.com^
 ||money-maker-default.info^
-||monitoringservice.co^
 ||mxcdn1.now.sh^
 ||mxcdn2.now.sh^
 ||my.domain^
@@ -160,7 +154,6 @@
 ||terorie.com^
 ||thewhizmarketing.com^
 ||to-support.me^
-||torrent.pw^
 ||uoldid.ru^
 ||vceilinichego.ru^
 ||videoplayer2.xyz^
