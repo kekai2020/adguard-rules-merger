@@ -1,6 +1,6 @@
 ! Title: AdGuard Rules Merger — Whitelist (suspicious)
-! Count: 30
-! Version: e57c64eb5338
+! Count: 31
+! Version: 8d16e4f3c95d
 @@||a.adwolf.ru^
 @@||ad.cityu.edu.hk^
 @@||ads.tdbank.com^
@@ -29,5 +29,6 @@
 @@||speedport.ip^
 @@||sponsor.nitropay.com^
 @@||thumbnail.thench.net^
+@@||tlaol.com^
 @@||unsubscribe.email.premierleague.com^
 @@||zyxel.box^
