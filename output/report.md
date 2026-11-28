@@ -1,51 +1,51 @@
 # AdGuard Rules Merger — 规则分析报告
 
-> 合并时间 2026-11-27 07:15:08 | 源：17/17 | 缓存命中：7
+> 合并时间 2026-11-28 06:47:33 | 源：17/17 | 缓存命中：7
 
 ## 一、概览
 
 | 指标 | 数值 |
 |------|------|
-| Block 规则 | 2,183,775 |
+| Block 规则 | 2,121,256 |
 | Allow 白名单 | 320 |
-| 纯去重率（去重阶段） | 22.4% |
-| 最终压缩（原始→输出） | 2,864,875 → 2,184,095（-24%） |
-| 聚合精简（净） | 38,907 |
+| 纯去重率（去重阶段） | 23.5% |
+| 最终压缩（原始→输出） | 2,864,796 → 2,121,576（-26%） |
+| 聚合精简（净） | 68,781 |
 | 冲突消解 | 0 |
 | 带 $ 修饰符规则数 | 5 |
-| 合并时间 | 2026-11-27 07:15:08 |
-| 总耗时 | 65.7s |
+| 合并时间 | 2026-11-28 06:47:33 |
+| 总耗时 | 57.1s |
 
 ### ⏱️ 各阶段执行耗时
 
 | 流水线阶段 | 耗时 | 占比 |
 |---|---:|---:|
-| 抓取/解析 | 16308.4 ms | 24.8% |
-| badfilter 取消 | 45.6 ms | 0.1% |
-| 聚合 | 3264.6 ms | 5.0% |
-| 冲突解析 | 947.6 ms | 1.4% |
-| 排序 | 1021.7 ms | 1.6% |
-| 分类重判 | 7 µs | 0.0% |
-| 统计/贡献 | 5006.1 ms | 7.6% |
-| 白名单审计 | 38379.8 ms | 58.5% |
+| 抓取/解析 | 20614.7 ms | 36.1% |
+| badfilter 取消 | 75.4 ms | 0.1% |
+| 聚合 | 4745.7 ms | 8.3% |
+| 冲突解析 | 1490.5 ms | 2.6% |
+| 排序 | 1237.7 ms | 2.2% |
+| 分类重判 | 5 µs | 0.0% |
+| 统计/贡献 | 6621.9 ms | 11.6% |
+| 白名单审计 | 21156.8 ms | 37.1% |
 | 差异对比 | 2 µs | 0.0% |
-| 内容哈希 | 662.3 ms | 1.0% |
-| **合计** | **65636.1 ms** | **100.0%** |
+| 内容哈希 | 1121.3 ms | 2.0% |
+| **合计** | **57064.1 ms** | **100.0%** |
 
 ### 执行摘要
 
-- 最终输出 **2,183,775** 条 Block + **320** 条 Allow（原始 2,864,875，压缩 **-24%**）
+- 最终输出 **2,121,256** 条 Block + **320** 条 Allow（原始 2,864,796，压缩 **-26%**）
 - 🔁 相对 diff：新增 0 / 移除 0 域名
 
 ## 二、优化流水线
 
 | 阶段 | 规则数 | 本阶段减少 |
 |------|--------|-----------|
-| 原始规则（Raw） | 2,864,875 | - |
-| 去重后（精确 635,171 / 规范化 6,375 / 正则 321） | 2,223,008 | -641,867 |
-| badfilter 取消后（被 $badfilter 取消） | 2,223,002 | -6 |
-| 聚合后（净：折叠 38,907） | 2,184,095 | -38,907 |
-| 冲突消解后（最终输出） | 2,184,095 | -0 |
+| 原始规则（Raw） | 2,864,796 | - |
+| 去重后（精确 670,667 / 规范化 3,442 / 正则 324） | 2,190,363 | -674,433 |
+| badfilter 取消后（被 $badfilter 取消） | 2,190,357 | -6 |
+| 聚合后（净：折叠 68,781） | 2,121,576 | -68,781 |
+| 冲突消解后（最终输出） | 2,121,576 | -0 |
 
 ## 三、规则类型与类别分布
 
@@ -53,20 +53,20 @@
 
 | 类型 | 数量 |
 |------|------|
-| 普通域名 | 2,183,416 |
-| 正则 | 605 |
+| 普通域名 | 2,120,894 |
+| 正则 | 608 |
 | IP 地址 | 74 |
 
 ### 类别分布（Block）
 
 | 类别 | 数量 |
 |------|------|
-| 恶意 | 1,106,535 |
-| 其他 | 660,707 |
-| 广告 | 349,856 |
-| 钓鱼 | 66,125 |
-| 追踪 | 387 |
-| 挖矿 | 165 |
+| 恶意 | 1,085,939 |
+| 其他 | 627,482 |
+| 广告 | 342,339 |
+| 钓鱼 | 64,927 |
+| 追踪 | 403 |
+| 挖矿 | 166 |
 
 ## 四、按源贡献分析（独占 vs 共享）
 
@@ -74,22 +74,22 @@
 
 | 源 | 原始规则 | 输出覆盖 | 覆盖率 | 独占规则 | 与他源共享 | 独占率 |
 |------|---------|---------|--------|---------|-----------|--------|
-| HaGeZi's Threat Intelligence Feeds | 1,107,176 | 1,105,376 | 99.8% | 924,897 | 180,479 | 83.7% |
-| HaGeZi's Gambling Blocklist | 718,997 | 718,710 | 100.0% | 659,370 | 59,340 | 91.7% |
-| HaGeZi's Ultimate Blocklist | 291,817 | 289,170 | 99.1% | 135,879 | 153,291 | 47.0% |
-| Phishing Army | 146,810 | 123,898 | 84.4% | 52,380 | 71,518 | 42.3% |
-| CHN: AdRules DNS List | 216,042 | 211,977 | 98.1% | 9,496 | 202,481 | 4.5% |
-| CHN: anti-AD | 102,034 | 101,346 | 99.3% | 7,442 | 93,904 | 7.3% |
-| AdGuard DNS filter | 195,341 | 192,752 | 98.7% | 5,129 | 187,623 | 2.7% |
-| Phishing URL Blocklist (PhishTank and OpenPhish) | 16,216 | 15,338 | 94.6% | 2,034 | 13,304 | 13.3% |
+| HaGeZi's Threat Intelligence Feeds | 1,116,347 | 1,084,679 | 97.2% | 870,729 | 213,950 | 80.3% |
+| HaGeZi's Gambling Blocklist | 718,478 | 718,366 | 100.0% | 626,145 | 92,221 | 87.2% |
+| HaGeZi's Ultimate Blocklist | 282,142 | 279,505 | 99.1% | 128,095 | 151,410 | 45.8% |
+| Phishing Army | 146,583 | 123,491 | 84.2% | 52,740 | 70,751 | 42.7% |
+| CHN: AdRules DNS List | 216,446 | 212,379 | 98.1% | 9,644 | 202,735 | 4.5% |
+| CHN: anti-AD | 102,034 | 101,344 | 99.3% | 7,446 | 93,898 | 7.3% |
+| AdGuard DNS filter | 195,738 | 193,147 | 98.7% | 5,127 | 188,020 | 2.7% |
+| Phishing URL Blocklist (PhishTank and OpenPhish) | 16,192 | 15,302 | 94.5% | 2,209 | 13,093 | 14.4% |
 | ShadowWhisperer's Dating List | 1,438 | 1,438 | 100.0% | 1,337 | 101 | 93.0% |
-| Malicious URL Blocklist (URLHaus) | 2,146 | 2,122 | 98.9% | 709 | 1,413 | 33.4% |
+| Malicious URL Blocklist (URLHaus) | 2,242 | 2,225 | 99.2% | 812 | 1,413 | 36.5% |
 | Stalkerware Indicators List | 929 | 503 | 54.1% | 202 | 301 | 40.2% |
-| HaGeZi's DNS Rebind Protection | 74 | 74 | 100.0% | 74 | 0 | 100.0% |
-| OISD Blocklist Small | 63,317 | 61,582 | 97.3% | 57 | 61,525 | 0.1% |
-| Scam Blocklist by DurableNapkin | 913 | 909 | 99.6% | 12 | 897 | 1.3% |
+| HaGeZi's DNS Rebind Protection | 74 | 74 | 100.0% | 73 | 1 | 98.6% |
+| OISD Blocklist Small | 63,599 | 61,864 | 97.3% | 61 | 61,803 | 0.1% |
+| Scam Blocklist by DurableNapkin | 913 | 909 | 99.6% | 7 | 902 | 0.8% |
 | NoCoin Filter List | 312 | 269 | 86.2% | 3 | 266 | 1.1% |
-| HaGeZi's Windows/Office Tracker Blocklist | 395 | 387 | 98.0% | 2 | 385 | 0.5% |
+| HaGeZi's Windows/Office Tracker Blocklist | 411 | 403 | 98.1% | 1 | 402 | 0.2% |
 | AWAvenue Ads Rule | 918 | 749 | 81.6% | 0 | 749 | 0.0% |
 
 ## 五、源间重复矩阵（两两重复规则数 + 重复率）
@@ -98,43 +98,43 @@
 
 | # | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **1** | **1,105,376** | 🟩 57,941 (3.3%) | 🟩 73,480 (5.6%) | 🟩 20,789 (1.6%) | 🟩 19,139 (1.5%) | 🟩 60,032 (5.1%) | 🟩 17,898 (1.5%) | 🟩 19,365 (1.7%) | 🟩 3,564 (0.3%) | 🟩 1,189 (0.1%) | 🟩 18 (0.0%) | 🟩 834 (0.1%) | 🟩 16 (0.0%) | 🟩 288 (0.0%) | · | 🟩 103 (0.0%) | · |
-| **2** | 🟩 57,941 (3.3%) | **718,710** | 🟩 2,391 (0.2%) | 🟩 503 (0.1%) | 🟩 464 (0.1%) | 🟩 135 (0.0%) | 🟩 239 (0.0%) | 🟩 165 (0.0%) | 🟩 25 (0.0%) | 🟩 6 (0.0%) | · | 🟩 4 (0.0%) | · | 🟩 2 (0.0%) | · | 🟩 2 (0.0%) | · |
-| **3** | 🟩 73,480 (5.6%) | 🟩 2,391 (0.2%) | **289,170** | 🟨 86,051 (20.7%) | 🟩 79,993 (19.9%) | 🟩 14,743 (3.7%) | 🟩 64,893 (19.9%) | 🟩 56,554 (19.2%) | 🟩 1,803 (0.6%) | 🟩 737 (0.3%) | 🟩 86 (0.0%) | 🟩 374 (0.1%) | 🟩 729 (0.3%) | 🟩 76 (0.0%) | 🟩 382 (0.1%) | 🟩 137 (0.0%) | · |
-| **4** | 🟩 20,789 (1.6%) | 🟩 503 (0.1%) | 🟨 86,051 (20.7%) | **211,977** | 🟧 179,716 (79.9%) | 🟩 41 (0.0%) | 🟨 87,649 (38.8%) | 🟨 57,940 (26.9%) | 🟩 28 (0.0%) | 🟩 6 (0.0%) | 🟩 37 (0.0%) | 🟩 897 (0.4%) | 🟩 556 (0.3%) | 🟩 3 (0.0%) | 🟩 117 (0.1%) | 🟩 80 (0.0%) | · |
-| **5** | 🟩 19,139 (1.5%) | 🟩 464 (0.1%) | 🟩 79,993 (19.9%) | 🟧 179,716 (79.9%) | **192,752** | 🟩 21 (0.0%) | 🟨 78,091 (36.2%) | 🟨 57,412 (29.2%) | 🟩 24 (0.0%) | 🟩 3 (0.0%) | 🟩 32 (0.0%) | 🟩 23 (0.0%) | 🟩 247 (0.1%) | 🟩 2 (0.0%) | 🟩 26 (0.0%) | 🟩 42 (0.0%) | · |
-| **6** | 🟩 60,032 (5.1%) | 🟩 135 (0.0%) | 🟩 14,743 (3.7%) | 🟩 41 (0.0%) | 🟩 21 (0.0%) | **123,898** | 🟩 9 (0.0%) | 🟩 9 (0.0%) | 🟩 12,587 (9.9%) | 🟩 7 (0.0%) | · | 🟩 5 (0.0%) | · | · | · | · | · |
-| **7** | 🟩 17,898 (1.5%) | 🟩 239 (0.0%) | 🟩 64,893 (19.9%) | 🟨 87,649 (38.8%) | 🟨 78,091 (36.2%) | 🟩 9 (0.0%) | **101,346** | 🟨 43,051 (35.9%) | 🟩 23 (0.0%) | 🟩 516 (0.5%) | 🟩 25 (0.0%) | 🟩 9 (0.0%) | 🟩 715 (0.7%) | 🟩 5 (0.0%) | 🟩 69 (0.1%) | 🟩 258 (0.3%) | · |
-| **8** | 🟩 19,365 (1.7%) | 🟩 165 (0.0%) | 🟩 56,554 (19.2%) | 🟨 57,940 (26.9%) | 🟨 57,412 (29.2%) | 🟩 9 (0.0%) | 🟨 43,051 (35.9%) | **61,582** | 🟩 11 (0.0%) | 🟩 4 (0.0%) | 🟩 23 (0.0%) | 🟩 13 (0.0%) | 🟩 696 (1.1%) | 🟩 1 (0.0%) | 🟩 26 (0.0%) | 🟩 49 (0.1%) | · |
-| **9** | 🟩 3,564 (0.3%) | 🟩 25 (0.0%) | 🟩 1,803 (0.6%) | 🟩 28 (0.0%) | 🟩 24 (0.0%) | 🟩 12,587 (9.9%) | 🟩 23 (0.0%) | 🟩 11 (0.0%) | **15,338** | 🟩 8 (0.0%) | · | 🟩 3 (0.0%) | 🟩 1 (0.0%) | 🟩 1 (0.0%) | · | 🟩 2 (0.0%) | · |
-| **10** | 🟩 1,189 (0.1%) | 🟩 6 (0.0%) | 🟩 737 (0.3%) | 🟩 6 (0.0%) | 🟩 3 (0.0%) | 🟩 7 (0.0%) | 🟩 516 (0.5%) | 🟩 4 (0.0%) | 🟩 8 (0.0%) | **2,122** | · | 🟩 1 (0.0%) | · | 🟩 1 (0.0%) | · | · | · |
+| **1** | **1,084,679** | 🟩 90,825 (5.3%) | 🟩 73,286 (5.7%) | 🟩 20,913 (1.6%) | 🟩 19,278 (1.5%) | 🟩 60,995 (5.3%) | 🟩 17,931 (1.5%) | 🟩 19,382 (1.7%) | 🟩 3,647 (0.3%) | 🟩 1,191 (0.1%) | 🟩 18 (0.0%) | 🟩 833 (0.1%) | 🟩 13 (0.0%) | 🟩 288 (0.0%) | · | 🟩 102 (0.0%) | · |
+| **2** | 🟩 90,825 (5.3%) | **718,366** | 🟩 2,391 (0.2%) | 🟩 503 (0.1%) | 🟩 464 (0.1%) | 🟩 131 (0.0%) | 🟩 239 (0.0%) | 🟩 165 (0.0%) | 🟩 25 (0.0%) | 🟩 6 (0.0%) | · | 🟩 4 (0.0%) | · | 🟩 2 (0.0%) | · | 🟩 2 (0.0%) | · |
+| **3** | 🟩 73,286 (5.7%) | 🟩 2,391 (0.2%) | **279,505** | 🟨 86,037 (21.2%) | 🟨 80,094 (20.4%) | 🟩 13,438 (3.4%) | 🟨 64,700 (20.5%) | 🟩 56,670 (19.9%) | 🟩 1,779 (0.6%) | 🟩 734 (0.3%) | 🟩 86 (0.0%) | 🟩 374 (0.1%) | 🟩 729 (0.3%) | 🟩 75 (0.0%) | 🟩 399 (0.1%) | 🟩 137 (0.0%) | · |
+| **4** | 🟩 20,913 (1.6%) | 🟩 503 (0.1%) | 🟨 86,037 (21.2%) | **212,379** | 🟧 180,112 (79.9%) | 🟩 40 (0.0%) | 🟨 87,648 (38.8%) | 🟨 58,194 (26.9%) | 🟩 28 (0.0%) | 🟩 6 (0.0%) | 🟩 37 (0.0%) | 🟩 902 (0.4%) | 🟩 556 (0.3%) | 🟩 3 (0.0%) | 🟩 117 (0.1%) | 🟩 80 (0.0%) | · |
+| **5** | 🟩 19,278 (1.5%) | 🟩 464 (0.1%) | 🟨 80,094 (20.4%) | 🟧 180,112 (79.9%) | **193,147** | 🟩 20 (0.0%) | 🟨 78,091 (36.1%) | 🟨 57,695 (29.2%) | 🟩 24 (0.0%) | 🟩 3 (0.0%) | 🟩 32 (0.0%) | 🟩 23 (0.0%) | 🟩 247 (0.1%) | 🟩 2 (0.0%) | 🟩 26 (0.0%) | 🟩 42 (0.0%) | · |
+| **6** | 🟩 60,995 (5.3%) | 🟩 131 (0.0%) | 🟩 13,438 (3.4%) | 🟩 40 (0.0%) | 🟩 20 (0.0%) | **123,491** | 🟩 8 (0.0%) | 🟩 8 (0.0%) | 🟩 12,346 (9.8%) | 🟩 7 (0.0%) | · | 🟩 5 (0.0%) | · | · | · | · | · |
+| **7** | 🟩 17,931 (1.5%) | 🟩 239 (0.0%) | 🟨 64,700 (20.5%) | 🟨 87,648 (38.8%) | 🟨 78,091 (36.1%) | 🟩 8 (0.0%) | **101,344** | 🟨 43,051 (35.8%) | 🟩 23 (0.0%) | 🟩 514 (0.5%) | 🟩 25 (0.0%) | 🟩 9 (0.0%) | 🟩 715 (0.7%) | 🟩 5 (0.0%) | 🟩 69 (0.1%) | 🟩 258 (0.3%) | · |
+| **8** | 🟩 19,382 (1.7%) | 🟩 165 (0.0%) | 🟩 56,670 (19.9%) | 🟨 58,194 (26.9%) | 🟨 57,695 (29.2%) | 🟩 8 (0.0%) | 🟨 43,051 (35.8%) | **61,864** | 🟩 11 (0.0%) | 🟩 4 (0.0%) | 🟩 23 (0.0%) | 🟩 13 (0.0%) | 🟩 696 (1.1%) | 🟩 1 (0.0%) | 🟩 26 (0.0%) | 🟩 49 (0.1%) | · |
+| **9** | 🟩 3,647 (0.3%) | 🟩 25 (0.0%) | 🟩 1,779 (0.6%) | 🟩 28 (0.0%) | 🟩 24 (0.0%) | 🟩 12,346 (9.8%) | 🟩 23 (0.0%) | 🟩 11 (0.0%) | **15,302** | 🟩 8 (0.0%) | · | 🟩 3 (0.0%) | 🟩 1 (0.0%) | 🟩 1 (0.0%) | · | 🟩 2 (0.0%) | · |
+| **10** | 🟩 1,191 (0.1%) | 🟩 6 (0.0%) | 🟩 734 (0.3%) | 🟩 6 (0.0%) | 🟩 3 (0.0%) | 🟩 7 (0.0%) | 🟩 514 (0.5%) | 🟩 4 (0.0%) | 🟩 8 (0.0%) | **2,225** | · | 🟩 1 (0.0%) | · | 🟩 1 (0.0%) | · | · | · |
 | **11** | 🟩 18 (0.0%) | · | 🟩 86 (0.0%) | 🟩 37 (0.0%) | 🟩 32 (0.0%) | · | 🟩 25 (0.0%) | 🟩 23 (0.0%) | · | · | **1,438** | 🟩 2 (0.1%) | · | · | · | · | · |
-| **12** | 🟩 834 (0.1%) | 🟩 4 (0.0%) | 🟩 374 (0.1%) | 🟩 897 (0.4%) | 🟩 23 (0.0%) | 🟩 5 (0.0%) | 🟩 9 (0.0%) | 🟩 13 (0.0%) | 🟩 3 (0.0%) | 🟩 1 (0.0%) | 🟩 2 (0.1%) | **909** | · | · | · | 🟩 1 (0.1%) | · |
-| **13** | 🟩 16 (0.0%) | · | 🟩 729 (0.3%) | 🟩 556 (0.3%) | 🟩 247 (0.1%) | · | 🟩 715 (0.7%) | 🟩 696 (1.1%) | 🟩 1 (0.0%) | · | · | · | **749** | 🟩 1 (0.1%) | 🟩 6 (0.5%) | · | · |
-| **14** | 🟩 288 (0.0%) | 🟩 2 (0.0%) | 🟩 76 (0.0%) | 🟩 3 (0.0%) | 🟩 2 (0.0%) | · | 🟩 5 (0.0%) | 🟩 1 (0.0%) | 🟩 1 (0.0%) | 🟩 1 (0.0%) | · | · | 🟩 1 (0.1%) | **503** | · | · | · |
-| **15** | · | · | 🟩 382 (0.1%) | 🟩 117 (0.1%) | 🟩 26 (0.0%) | · | 🟩 69 (0.1%) | 🟩 26 (0.0%) | · | · | · | · | 🟩 6 (0.5%) | · | **387** | · | · |
-| **16** | 🟩 103 (0.0%) | 🟩 2 (0.0%) | 🟩 137 (0.0%) | 🟩 80 (0.0%) | 🟩 42 (0.0%) | · | 🟩 258 (0.3%) | 🟩 49 (0.1%) | 🟩 2 (0.0%) | · | · | 🟩 1 (0.1%) | · | · | · | **269** | · |
+| **12** | 🟩 833 (0.1%) | 🟩 4 (0.0%) | 🟩 374 (0.1%) | 🟩 902 (0.4%) | 🟩 23 (0.0%) | 🟩 5 (0.0%) | 🟩 9 (0.0%) | 🟩 13 (0.0%) | 🟩 3 (0.0%) | 🟩 1 (0.0%) | 🟩 2 (0.1%) | **909** | · | · | · | 🟩 1 (0.1%) | · |
+| **13** | 🟩 13 (0.0%) | · | 🟩 729 (0.3%) | 🟩 556 (0.3%) | 🟩 247 (0.1%) | · | 🟩 715 (0.7%) | 🟩 696 (1.1%) | 🟩 1 (0.0%) | · | · | · | **749** | 🟩 1 (0.1%) | 🟩 6 (0.5%) | · | · |
+| **14** | 🟩 288 (0.0%) | 🟩 2 (0.0%) | 🟩 75 (0.0%) | 🟩 3 (0.0%) | 🟩 2 (0.0%) | · | 🟩 5 (0.0%) | 🟩 1 (0.0%) | 🟩 1 (0.0%) | 🟩 1 (0.0%) | · | · | 🟩 1 (0.1%) | **503** | · | · | · |
+| **15** | · | · | 🟩 399 (0.1%) | 🟩 117 (0.1%) | 🟩 26 (0.0%) | · | 🟩 69 (0.1%) | 🟩 26 (0.0%) | · | · | · | · | 🟩 6 (0.5%) | · | **403** | · | · |
+| **16** | 🟩 102 (0.0%) | 🟩 2 (0.0%) | 🟩 137 (0.0%) | 🟩 80 (0.0%) | 🟩 42 (0.0%) | · | 🟩 258 (0.3%) | 🟩 49 (0.1%) | 🟩 2 (0.0%) | · | · | 🟩 1 (0.1%) | · | · | · | **269** | · |
 | **17** | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | **74** |
 
 **源编号对照**（按输出覆盖降序）
 
 | # | 源 | 输出覆盖 |
 |---|---|----------|
-| 1 | HaGeZi's Threat Intelligence Feeds | 1,105,376 |
-| 2 | HaGeZi's Gambling Blocklist | 718,710 |
-| 3 | HaGeZi's Ultimate Blocklist | 289,170 |
-| 4 | CHN: AdRules DNS List | 211,977 |
-| 5 | AdGuard DNS filter | 192,752 |
-| 6 | Phishing Army | 123,898 |
-| 7 | CHN: anti-AD | 101,346 |
-| 8 | OISD Blocklist Small | 61,582 |
-| 9 | Phishing URL Blocklist (PhishTank and OpenPhish) | 15,338 |
-| 10 | Malicious URL Blocklist (URLHaus) | 2,122 |
+| 1 | HaGeZi's Threat Intelligence Feeds | 1,084,679 |
+| 2 | HaGeZi's Gambling Blocklist | 718,366 |
+| 3 | HaGeZi's Ultimate Blocklist | 279,505 |
+| 4 | CHN: AdRules DNS List | 212,379 |
+| 5 | AdGuard DNS filter | 193,147 |
+| 6 | Phishing Army | 123,491 |
+| 7 | CHN: anti-AD | 101,344 |
+| 8 | OISD Blocklist Small | 61,864 |
+| 9 | Phishing URL Blocklist (PhishTank and OpenPhish) | 15,302 |
+| 10 | Malicious URL Blocklist (URLHaus) | 2,225 |
 | 11 | ShadowWhisperer's Dating List | 1,438 |
 | 12 | Scam Blocklist by DurableNapkin | 909 |
 | 13 | AWAvenue Ads Rule | 749 |
 | 14 | Stalkerware Indicators List | 503 |
-| 15 | HaGeZi's Windows/Office Tracker Blocklist | 387 |
+| 15 | HaGeZi's Windows/Office Tracker Blocklist | 403 |
 | 16 | NoCoin Filter List | 269 |
 | 17 | HaGeZi's DNS Rebind Protection | 74 |
 
@@ -144,26 +144,26 @@
 
 | 源 A | 源 B | 共同规则数 | 重复率 | A 覆盖率 | B 覆盖率 |
 |------|------|-----------|--------|---------|---------|
-| AdGuard DNS filter | CHN: AdRules DNS List | 179,716 | 🟧 79.9% | 93.2% | 84.8% |
-| CHN: anti-AD | CHN: AdRules DNS List | 87,649 | 🟨 38.8% | 86.5% | 41.3% |
-| CHN: AdRules DNS List | HaGeZi's Ultimate Blocklist | 86,051 | 🟨 20.7% | 40.6% | 29.8% |
-| AdGuard DNS filter | HaGeZi's Ultimate Blocklist | 79,993 | 🟩 19.9% | 41.5% | 27.7% |
-| AdGuard DNS filter | CHN: anti-AD | 78,091 | 🟨 36.2% | 40.5% | 77.1% |
-| HaGeZi's Threat Intelligence Feeds | HaGeZi's Ultimate Blocklist | 73,480 | 🟩 5.6% | 6.6% | 25.4% |
-| CHN: anti-AD | HaGeZi's Ultimate Blocklist | 64,893 | 🟩 19.9% | 64.0% | 22.4% |
-| Phishing Army | HaGeZi's Threat Intelligence Feeds | 60,032 | 🟩 5.1% | 48.5% | 5.4% |
-| HaGeZi's Threat Intelligence Feeds | HaGeZi's Gambling Blocklist | 57,941 | 🟩 3.3% | 5.2% | 8.1% |
-| CHN: AdRules DNS List | OISD Blocklist Small | 57,940 | 🟨 26.9% | 27.3% | 94.1% |
-| AdGuard DNS filter | OISD Blocklist Small | 57,412 | 🟨 29.2% | 29.8% | 93.2% |
-| HaGeZi's Ultimate Blocklist | OISD Blocklist Small | 56,554 | 🟩 19.2% | 19.6% | 91.8% |
-| CHN: anti-AD | OISD Blocklist Small | 43,051 | 🟨 35.9% | 42.5% | 69.9% |
-| CHN: AdRules DNS List | HaGeZi's Threat Intelligence Feeds | 20,789 | 🟩 1.6% | 9.8% | 1.9% |
-| HaGeZi's Threat Intelligence Feeds | OISD Blocklist Small | 19,365 | 🟩 1.7% | 1.8% | 31.4% |
-| AdGuard DNS filter | HaGeZi's Threat Intelligence Feeds | 19,139 | 🟩 1.5% | 9.9% | 1.7% |
-| CHN: anti-AD | HaGeZi's Threat Intelligence Feeds | 17,898 | 🟩 1.5% | 17.7% | 1.6% |
-| Phishing Army | HaGeZi's Ultimate Blocklist | 14,743 | 🟩 3.7% | 11.9% | 5.1% |
-| Phishing Army | Phishing URL Blocklist (PhishTank and OpenPhish) | 12,587 | 🟩 9.9% | 10.2% | 82.1% |
-| Phishing URL Blocklist (PhishTank and OpenPhish) | HaGeZi's Threat Intelligence Feeds | 3,564 | 🟩 0.3% | 23.2% | 0.3% |
+| AdGuard DNS filter | CHN: AdRules DNS List | 180,112 | 🟧 79.9% | 93.3% | 84.8% |
+| HaGeZi's Threat Intelligence Feeds | HaGeZi's Gambling Blocklist | 90,825 | 🟩 5.3% | 8.4% | 12.6% |
+| CHN: anti-AD | CHN: AdRules DNS List | 87,648 | 🟨 38.8% | 86.5% | 41.3% |
+| CHN: AdRules DNS List | HaGeZi's Ultimate Blocklist | 86,037 | 🟨 21.2% | 40.5% | 30.8% |
+| AdGuard DNS filter | HaGeZi's Ultimate Blocklist | 80,094 | 🟨 20.4% | 41.5% | 28.7% |
+| AdGuard DNS filter | CHN: anti-AD | 78,091 | 🟨 36.1% | 40.4% | 77.1% |
+| HaGeZi's Threat Intelligence Feeds | HaGeZi's Ultimate Blocklist | 73,286 | 🟩 5.7% | 6.8% | 26.2% |
+| CHN: anti-AD | HaGeZi's Ultimate Blocklist | 64,700 | 🟨 20.5% | 63.8% | 23.1% |
+| Phishing Army | HaGeZi's Threat Intelligence Feeds | 60,995 | 🟩 5.3% | 49.4% | 5.6% |
+| CHN: AdRules DNS List | OISD Blocklist Small | 58,194 | 🟨 26.9% | 27.4% | 94.1% |
+| AdGuard DNS filter | OISD Blocklist Small | 57,695 | 🟨 29.2% | 29.9% | 93.3% |
+| HaGeZi's Ultimate Blocklist | OISD Blocklist Small | 56,670 | 🟩 19.9% | 20.3% | 91.6% |
+| CHN: anti-AD | OISD Blocklist Small | 43,051 | 🟨 35.8% | 42.5% | 69.6% |
+| CHN: AdRules DNS List | HaGeZi's Threat Intelligence Feeds | 20,913 | 🟩 1.6% | 9.8% | 1.9% |
+| HaGeZi's Threat Intelligence Feeds | OISD Blocklist Small | 19,382 | 🟩 1.7% | 1.8% | 31.3% |
+| AdGuard DNS filter | HaGeZi's Threat Intelligence Feeds | 19,278 | 🟩 1.5% | 10.0% | 1.8% |
+| CHN: anti-AD | HaGeZi's Threat Intelligence Feeds | 17,931 | 🟩 1.5% | 17.7% | 1.7% |
+| Phishing Army | HaGeZi's Ultimate Blocklist | 13,438 | 🟩 3.4% | 10.9% | 4.8% |
+| Phishing Army | Phishing URL Blocklist (PhishTank and OpenPhish) | 12,346 | 🟩 9.8% | 10.0% | 80.7% |
+| Phishing URL Blocklist (PhishTank and OpenPhish) | HaGeZi's Threat Intelligence Feeds | 3,647 | 🟩 0.3% | 23.8% | 0.3% |
 
 ## 六、各源自去重率
 
@@ -171,21 +171,21 @@
 
 | 源 | 原始规则 | 去重后有效 | 自去重率 |
 |------|---------|-----------|---------|
-| HaGeZi's Threat Intelligence Feeds | 1,107,176 | 1,105,376 | 0.2% |
-| HaGeZi's Gambling Blocklist | 718,997 | 718,710 | 0.0% |
-| HaGeZi's Ultimate Blocklist | 291,817 | 289,170 | 0.9% |
-| CHN: AdRules DNS List | 216,042 | 211,977 | 1.9% |
-| AdGuard DNS filter | 195,341 | 192,752 | 1.3% |
-| Phishing Army | 146,810 | 123,898 | 15.6% |
-| CHN: anti-AD | 102,034 | 101,346 | 0.7% |
-| OISD Blocklist Small | 63,317 | 61,582 | 2.7% |
-| Phishing URL Blocklist (PhishTank and OpenPhish) | 16,216 | 15,338 | 5.4% |
-| Malicious URL Blocklist (URLHaus) | 2,146 | 2,122 | 1.1% |
+| HaGeZi's Threat Intelligence Feeds | 1,116,347 | 1,084,679 | 2.8% |
+| HaGeZi's Gambling Blocklist | 718,478 | 718,366 | 0.0% |
+| HaGeZi's Ultimate Blocklist | 282,142 | 279,505 | 0.9% |
+| CHN: AdRules DNS List | 216,446 | 212,379 | 1.9% |
+| AdGuard DNS filter | 195,738 | 193,147 | 1.3% |
+| Phishing Army | 146,583 | 123,491 | 15.8% |
+| CHN: anti-AD | 102,034 | 101,344 | 0.7% |
+| OISD Blocklist Small | 63,599 | 61,864 | 2.7% |
+| Phishing URL Blocklist (PhishTank and OpenPhish) | 16,192 | 15,302 | 5.5% |
+| Malicious URL Blocklist (URLHaus) | 2,242 | 2,225 | 0.8% |
 | ShadowWhisperer's Dating List | 1,438 | 1,438 | 0.0% |
 | Scam Blocklist by DurableNapkin | 913 | 909 | 0.4% |
 | AWAvenue Ads Rule | 918 | 749 | 18.4% |
 | Stalkerware Indicators List | 929 | 503 | 45.9% |
-| HaGeZi's Windows/Office Tracker Blocklist | 395 | 387 | 2.0% |
+| HaGeZi's Windows/Office Tracker Blocklist | 411 | 403 | 1.9% |
 | NoCoin Filter List | 312 | 269 | 13.8% |
 | HaGeZi's DNS Rebind Protection | 74 | 74 | 0.0% |
 
@@ -196,29 +196,29 @@
 | 域名 | 被拦规则 | 被拦来源 | 白名单规则 | 白名单来源 | 类型 |
 |------|---------|---------|-----------|-----------|------|
 | `js.monitor.azure.com` | `\|\|js.monitor.azure.com^` | HaGeZi's Windows/Office Tracker Blocklist | `@@\|\|js.monitor.azure.com^` | AdGuard DNS filter | 精确 |
-| `googleadservices.com` | `\|\|googleadservices.com^` | AWAvenue Ads Rule, OISD Blocklist Small, AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|googleadservices.com^` | AdGuard DNS filter | 精确 |
-| `proto2ad.durasite.net` | `\|\|proto2ad.durasite.net^` | OISD Blocklist Small, AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|proto2ad.durasite.net^` | AdGuard DNS filter | 精确 |
-| `adsterra.com` | `\|\|adsterra.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|adsterra.com^` | AdGuard DNS filter | 精确 |
-| `afi-b.com` | `\|\|afi-b.com^` | AdGuard DNS filter, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|afi-b.com^` | AdGuard DNS filter | 精确 |
-| `awin1.com` | `\|\|awin1.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|awin1.com^` | AdGuard DNS filter | 精确 |
-| `analytics.cibc.com` | `\|\|analytics.cibc.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|analytics.cibc.com^` | AdGuard DNS filter | 精确 |
-| `om-ssl.consorsbank.de` | `\|\|om-ssl.consorsbank.de^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|om-ssl.consorsbank.de^` | AdGuard DNS filter | 精确 |
-| `data.digital.costco.ca` | `\|\|data.digital.costco.ca^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.digital.costco.ca^` | AdGuard DNS filter | 精确 |
-| `data.digital.costco.com` | `\|\|data.digital.costco.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.digital.costco.com^` | AdGuard DNS filter | 精确 |
-| `data.orders.costco.com` | `\|\|data.orders.costco.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.orders.costco.com^` | AdGuard DNS filter | 精确 |
-| `daraz.com` | `\|\|daraz.com^` | OISD Blocklist Small, AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|daraz.com^` | AdGuard DNS filter | 精确 |
-| `datadoghq-browser-agent.com` | `\|\|datadoghq-browser-agent.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|datadoghq-browser-agent.com^` | AdGuard DNS filter | 精确 |
-| `marketing.net.idealo-partner.com` | `\|\|marketing.net.idealo-partner.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|marketing.net.idealo-partner.com^` | AdGuard DNS filter | 精确 |
-| `jdoqocy.com` | `\|\|jdoqocy.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|jdoqocy.com^` | AdGuard DNS filter | 精确 |
-| `omsc.kpn.com` | `\|\|omsc.kpn.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|omsc.kpn.com^` | AdGuard DNS filter | 精确 |
+| `googleadservices.com` | `\|\|googleadservices.com^` | AWAvenue Ads Rule, CHN: anti-AD, OISD Blocklist Small, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|googleadservices.com^` | AdGuard DNS filter | 精确 |
+| `adsterra.com` | `\|\|adsterra.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|adsterra.com^` | AdGuard DNS filter | 精确 |
+| `afi-b.com` | `\|\|afi-b.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|afi-b.com^` | AdGuard DNS filter | 精确 |
+| `awin1.com` | `\|\|awin1.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|awin1.com^` | AdGuard DNS filter | 精确 |
+| `analytics.cibc.com` | `\|\|analytics.cibc.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|analytics.cibc.com^` | AdGuard DNS filter | 精确 |
+| `om-ssl.consorsbank.de` | `\|\|om-ssl.consorsbank.de^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|om-ssl.consorsbank.de^` | AdGuard DNS filter | 精确 |
+| `data.digital.costco.ca` | `\|\|data.digital.costco.ca^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.digital.costco.ca^` | AdGuard DNS filter | 精确 |
+| `data.digital.costco.com` | `\|\|data.digital.costco.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.digital.costco.com^` | AdGuard DNS filter | 精确 |
+| `data.orders.costco.com` | `\|\|data.orders.costco.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.orders.costco.com^` | AdGuard DNS filter | 精确 |
+| `daraz.com` | `\|\|daraz.com^` | CHN: anti-AD, OISD Blocklist Small, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|daraz.com^` | AdGuard DNS filter | 精确 |
+| `datadoghq-browser-agent.com` | `\|\|datadoghq-browser-agent.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|datadoghq-browser-agent.com^` | AdGuard DNS filter | 精确 |
+| `proto2ad.durasite.net` | `\|\|proto2ad.durasite.net^` | CHN: anti-AD, OISD Blocklist Small, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|proto2ad.durasite.net^` | AdGuard DNS filter | 精确 |
+| `marketing.net.idealo-partner.com` | `\|\|marketing.net.idealo-partner.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|marketing.net.idealo-partner.com^` | AdGuard DNS filter | 精确 |
+| `jdoqocy.com` | `\|\|jdoqocy.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|jdoqocy.com^` | AdGuard DNS filter | 精确 |
+| `omsc.kpn.com` | `\|\|omsc.kpn.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|omsc.kpn.com^` | AdGuard DNS filter | 精确 |
 | `torimochi.line-apps.com` | `\|\|torimochi.line-apps.com^` | CHN: anti-AD | `@@\|\|torimochi.line-apps.com^` | AdGuard DNS filter | 精确 |
-| `logentries.com` | `\|\|logentries.com^` | AdGuard DNS filter, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|logentries.com^` | AdGuard DNS filter | 精确 |
-| `sedge.nfl.com` | `\|\|sedge.nfl.com^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|sedge.nfl.com^` | AdGuard DNS filter | 精确 |
-| `cmp.osano.com` | `\|\|cmp.osano.com^` | CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|cmp.osano.com^` | AdGuard DNS filter | 精确 |
-| `data.promo.timhortons.ca` | `\|\|data.promo.timhortons.ca^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|data.promo.timhortons.ca^` | AdGuard DNS filter | 精确 |
+| `logentries.com` | `\|\|logentries.com^` | CHN: anti-AD, AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|logentries.com^` | AdGuard DNS filter | 精确 |
+| `sedge.nfl.com` | `\|\|sedge.nfl.com^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|sedge.nfl.com^` | AdGuard DNS filter | 精确 |
+| `cmp.osano.com` | `\|\|cmp.osano.com^` | CHN: anti-AD, CHN: AdRules DNS List | `@@\|\|cmp.osano.com^` | AdGuard DNS filter | 精确 |
+| `data.promo.timhortons.ca` | `\|\|data.promo.timhortons.ca^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.promo.timhortons.ca^` | AdGuard DNS filter | 精确 |
 | `hb.afl.rakuten.co.jp` | `\|\|hb.afl.rakuten.co.jp^` | AdGuard DNS filter | `@@\|\|hb.afl.rakuten.co.jp^` | AdGuard DNS filter | 精确 |
 | `app.appsflyer.com` | `\|\|app.appsflyer.com^` | AdGuard DNS filter, HaGeZi's Ultimate Blocklist | `@@\|\|app.appsflyer.com^` | AdGuard DNS filter | 精确 |
-| `ezodn.com` | `\|\|ezodn.com^` | OISD Blocklist Small, AdGuard DNS filter, CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist, HaGeZi's Threat Intelligence Feeds | `@@\|\|ezodn.com^` | AdGuard DNS filter | 精确 |
+| `ezodn.com` | `\|\|ezodn.com^` | OISD Blocklist Small, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List, HaGeZi's Threat Intelligence Feeds | `@@\|\|ezodn.com^` | AdGuard DNS filter | 精确 |
 | `data.email.premierleague.com` | `\|\|data.email.premierleague.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.email.premierleague.com^` | AdGuard DNS filter | 精确 |
 | `data.notify.macys.com` | `\|\|data.notify.macys.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.notify.macys.com^` | AdGuard DNS filter | 精确 |
 | `data.orders.costco.ca` | `\|\|data.orders.costco.ca^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|data.orders.costco.ca^` | AdGuard DNS filter | 精确 |
@@ -226,22 +226,24 @@
 | `omniture.walmart.com` | `\|\|omniture.walmart.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|omniture.walmart.com^` | AdGuard DNS filter | 精确 |
 | `swasc.homedepot.com` | `\|\|swasc.homedepot.com^` | AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|swasc.homedepot.com^` | AdGuard DNS filter | 精确 |
 | `tms.capitalone.com` | `\|\|tms.capitalone.com^` | AdGuard DNS filter | `@@\|\|tms.capitalone.com^` | AdGuard DNS filter | 精确 |
-| `net.daraz.pk` | `\|\|net.daraz.pk^` | AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD | `@@\|\|daraz.pk^` | AdGuard DNS filter | 级联 |
-| `belgium.wolterskluwer.com` | `\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter, CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist | `@@\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter | 精确 |
-| `app.adjust.com` | `\|\|app.adjust.com^` | AdGuard DNS filter | `@@\|\|app.adjust.com^` | AdGuard DNS filter, CHN: anti-AD | 精确 |
-| `statcounter.com` | `\|\|statcounter.com^` | OISD Blocklist Small, AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|statcounter.com^` | AdGuard DNS filter | 精确 |
-| `ad.10010.com` | `\|\|ad.10010.com^` | AWAvenue Ads Rule, OISD Blocklist Small, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|ad.10010.com^` | AdGuard DNS filter | 精确 |
-| `ad.ourgame.com` | `\|\|ad.ourgame.com^` | CHN: AdRules DNS List, HaGeZi's Ultimate Blocklist | `@@\|\|ad.ourgame.com^` | AdGuard DNS filter | 精确 |
-| `sax.sina.com.cn` | `\|\|sax.sina.com.cn^` | OISD Blocklist Small, AdGuard DNS filter, CHN: AdRules DNS List, CHN: anti-AD, HaGeZi's Ultimate Blocklist | `@@\|\|sax.sina.com.cn^` | AdGuard DNS filter | 精确 |
-| `wpad.www.tendawifi.com` | `\|\|wpad.www.tendawifi.com^` | CHN: AdRules DNS List | `@@\|\|tendawifi.com^` | HaGeZi's DNS Rebind Protection | 级联 |
+| `net.daraz.pk` | `\|\|net.daraz.pk^` | CHN: anti-AD, AdGuard DNS filter, CHN: AdRules DNS List | `@@\|\|daraz.pk^` | AdGuard DNS filter | 级联 |
+| `belgium.wolterskluwer.com` | `\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|belgium.wolterskluwer.com^` | AdGuard DNS filter | 精确 |
+| `app.adjust.com` | `\|\|app.adjust.com^` | AdGuard DNS filter | `@@\|\|app.adjust.com^` | CHN: anti-AD, AdGuard DNS filter | 精确 |
+| `statcounter.com` | `\|\|statcounter.com^` | CHN: anti-AD, OISD Blocklist Small, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|statcounter.com^` | AdGuard DNS filter | 精确 |
 | `autocomplete.clearbit.com` | `\|\|autocomplete.clearbit.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|autocomplete.clearbit.com^` | CHN: anti-AD | 精确 |
 | `aax-fe.amazon.co.jp` | `\|\|aax-fe.amazon.co.jp^` | HaGeZi's Ultimate Blocklist | `@@\|\|aax-fe.amazon.co.jp^` | AdGuard DNS filter | 精确 |
+| `sax.sina.com.cn` | `\|\|sax.sina.com.cn^` | CHN: anti-AD, OISD Blocklist Small, AdGuard DNS filter, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|sax.sina.com.cn^` | AdGuard DNS filter | 精确 |
 | `ad.dogpile.com` | `\|\|ad.dogpile.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|dogpile.com^` | AdGuard DNS filter | 级联 |
+| `ad.cityu.edu.hk` | `\|\|ad.cityu.edu.hk^` | HaGeZi's Ultimate Blocklist | `@@\|\|ad.cityu.edu.hk^` | CHN: anti-AD | 精确 |
 | `str.hit.gemius.pl` | `\|\|str.hit.gemius.pl^` | HaGeZi's Ultimate Blocklist | `@@\|\|str.hit.gemius.pl^` | AdGuard DNS filter | 精确 |
 | `api.karte.io` | `\|\|api.karte.io^` | HaGeZi's Ultimate Blocklist | `@@\|\|api.karte.io^` | AdGuard DNS filter | 精确 |
 | `settings-win.data.microsoft.com` | `\|\|settings-win.data.microsoft.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|settings-win.data.microsoft.com^` | CHN: anti-AD | 精确 |
 | `log.miwifi.com` | `\|\|log.miwifi.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|miwifi.com^` | HaGeZi's DNS Rebind Protection | 级联 |
+| `ad.ourgame.com` | `\|\|ad.ourgame.com^` | HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|ad.ourgame.com^` | AdGuard DNS filter | 精确 |
 | `ads.privacy.qq.com` | `\|\|ads.privacy.qq.com^` | HaGeZi's Ultimate Blocklist | `@@\|\|ads.privacy.qq.com^` | CHN: anti-AD | 精确 |
+| `ad.10010.com` | `\|\|ad.10010.com^` | AWAvenue Ads Rule, CHN: anti-AD, OISD Blocklist Small, HaGeZi's Ultimate Blocklist, CHN: AdRules DNS List | `@@\|\|ad.10010.com^` | AdGuard DNS filter | 精确 |
+| `wpad.www.tendawifi.com` | `\|\|wpad.www.tendawifi.com^` | CHN: AdRules DNS List | `@@\|\|tendawifi.com^` | HaGeZi's DNS Rebind Protection | 级联 |
+| `mailspike.net` | `\|\|mailspike.net^` | HaGeZi's Threat Intelligence Feeds | `@@\|\|mailspike.net^` | HaGeZi's DNS Rebind Protection | 精确 |
 
 ## 八、$ 修饰符分布
 
@@ -288,7 +290,7 @@
 
 | 层级 | 检测内容 | 状态 | 成本 | 命中数 |
 |------|---------|------|------|--------|
-| DNS 解析 | NXDOMAIN/私有IP检测 | ✅ 启用 | 免费 | 22 |
+| DNS 解析 | NXDOMAIN/私有IP检测 | ✅ 启用 | 免费 | 1 |
 | DoH 加密解析 | NextDNS 加密传输，失败回退系统DNS | ✅ 启用 | 免费 | — |
 | URLhaus | 恶意软件分发域名 | ✅ 启用 | 免费 | 0 |
 | ThreatFox | C2 命令控制域名 | ✅ 启用 | 免费 | 0 |
@@ -298,7 +300,7 @@
 | VirusTotal | 多引擎厂商信誉 | ⬜ 未启用 | 需API Key | - |
 | AI/LLM 分类 | 低置信语义分类 | ⬜ 未启用 | 需API Key | - |
 | 内置离线启发式 | 滥用TLD/连字符等（常驻，无开关键） | ✅ 启用 | 免费 | 0 |
-| 同形字/拼写劫持 | Cyrillic/Greek 折叠+编辑距离 | ✅ 启用 | 免费·默认开 | 10 |
+| 同形字/拼写劫持 | Cyrillic/Greek 折叠+编辑距离 | ✅ 启用 | 免费·默认开 | 0 |
 | MX/SPF 缺失线索 | 需 DNS，默认关 | ⬜ 未启用 | 可选 | - |
 | Google Safe Browsing | 在线情报 | ⬜ 未启用 | 需API Key | - |
 | PhishTank | 钓鱼库 | ⬜ 未启用 | 需API Key | - |
@@ -408,7 +410,7 @@
 | `api.karte.io` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `api.taboola.com` | 🟢 安全 | 广告/营销 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `app-advertise.zhihuishu.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
-| `app.adjust.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter, CHN: anti-AD |
+| `app.adjust.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD, AdGuard DNS filter |
 | `app.appsflyer.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `app.crazyegg.com` | 🟢 安全 | 分析/追踪 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `app.powerbi.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD |
@@ -481,7 +483,7 @@
 | `f-gear.ec-optimizer.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `feed.adrelayer.com` | 🟢 安全 | 社交/分享 | 0 | 建议保留 | 0.60 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `forum.notebookreview.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
-| `ftp.bmp.ovh` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter, CHN: anti-AD |
+| `ftp.bmp.ovh` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD, AdGuard DNS filter |
 | `future.biz.weibo.com` | 🟢 安全 | 社交/分享 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD |
 | `gate.first-id.fr` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `get.neofinancial.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
@@ -520,7 +522,7 @@
 | `linka.page` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `links.e.theatlantic.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `links.getblueshift.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
-| `log.mmstat.com` | 🟢 安全 | CDN/基础设施 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter, CHN: anti-AD |
+| `log.mmstat.com` | 🟢 安全 | CDN/基础设施 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | CHN: anti-AD, AdGuard DNS filter |
 | `logentries.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `login.sendpulse.com` | 🟢 安全 | 其他 | 0 | 建议保留 | 0.00 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
 | `ma135-r.analytics.edgekey.net` | 🟢 安全 | CDN/基础设施 | 0 | 建议保留 | 0.90 | DNS 正常解析，无威胁情报标记 | AdGuard DNS filter |
@@ -644,10 +646,10 @@
 
 | 规则类型 | 语法示例 | 状态 | 处理方式 | 数量 |
 |---------|---------|------|---------|------|
-| Block 域名 | `||example.com^` | ✅ 支持 | 核心输出 | 2,183,416 |
+| Block 域名 | `||example.com^` | ✅ 支持 | 核心输出 | 2,120,894 |
 | 通配符 | `||*.example.com^` | ✅ 支持 | 聚合覆盖子域 | 0 |
 | Allow 白名单 | `@@||example.com^` | ✅ 支持 | 分离到 whitelist.txt | 320 |
-| 正则 | `/ads.*/` | ✅ 保留 | 原样保留 | 605 |
+| 正则 | `/ads.*/` | ✅ 保留 | 原样保留 | 608 |
 | IP 规则 | `||8.8.8.8^` | ✅ 支持 | 按域名字符串处理 | 74 |
 | Hosts | `0.0.0.0 example.com` | ✅ 支持 | 转换为 `||domain^` | - |
 | $ 修饰符 | `||x.com^$important` | ✅ 保留 | 保留修饰符，纳入去重键，跳过聚合，$important 抗白名单 | 5 |
@@ -657,45 +659,45 @@
 
 | 后缀 | 规则数 |
 |------|--------|
-| fbcdn.net | 9,219 |
-| whatsapp.net | 5,609 |
-| cloudfront.net | 3,114 |
-| eu.cc | 2,807 |
-| hl.cn | 2,034 |
-| pages.dev | 2,006 |
-| wixstudio.com | 1,981 |
-| web.app | 1,970 |
-| firebaseapp.com | 1,895 |
-| amazonaws.com | 1,688 |
-| run.app | 1,262 |
-| weebly.com | 1,183 |
-| r2.dev | 1,097 |
-| vercel.app | 1,076 |
+| eu.cc | 41,299 |
+| fbcdn.net | 9,208 |
+| whatsapp.net | 5,603 |
+| hl.cn | 2,779 |
+| cloudfront.net | 2,591 |
+| pages.dev | 2,170 |
+| wixstudio.com | 1,971 |
+| web.app | 1,967 |
+| firebaseapp.com | 1,894 |
+| amazonaws.com | 1,575 |
+| run.app | 1,264 |
+| weebly.com | 1,179 |
+| r2.dev | 1,096 |
+| vercel.app | 1,063 |
+| opik.net | 767 |
 | lovable.app | 759 |
-| co.com | 717 |
-| aliyuncs.com | 663 |
-| edgeone.dev | 649 |
-| workers.dev | 568 |
-| googleapis.com | 553 |
+| co.com | 740 |
+| workers.dev | 583 |
+| sa.com | 577 |
+| edgeone.dev | 557 |
 
 ## 十二、性能与诊断
 
 | 指标 | 数值 |
 |------|------|
-| 总耗时 | 65.7s |
+| 总耗时 | 57.1s |
 | 源成功率 | 17/17 |
 | 缓存命中 | 7 |
-| 精确去重 | 635,171 |
-| 规范化去重 | 6,375 |
-| 正则去重 | 321 |
+| 精确去重 | 670,667 |
+| 规范化去重 | 3,442 |
+| 正则去重 | 324 |
 | 质量过滤丢弃 | 39 |
 | 模式丢弃 | 0 |
 | CSS 丢弃 | 0 |
 | 未识别行丢弃 | 113 |
 | 本次新增域名 | 0 |
 | 本次移除域名 | 0 |
-| 平均域名长度 | 17.4 字符 |
+| 平均域名长度 | 17.5 字符 |
 | 最短/最长域名 | 2 / 221 字符 |
 
 ---
-*AdGuard Rules Merger · 自动生成 · 2026-11-27*
+*AdGuard Rules Merger · 自动生成 · 2026-11-28*
